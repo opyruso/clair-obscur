@@ -1,7 +1,7 @@
     body {
       background: #191c23;
-      color: #eee;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #ffffff;
+      font-family: 'Cinzel', serif;
       margin: 0;
       padding: 0;
     }
@@ -80,10 +80,51 @@
       margin-bottom: 5px;
     }
     .name {
-      font-size: 1.28em;
+      font-size: 1.4em;
       font-weight: 700;
-      color: #fff;
+      color: #CDB48E;
+      margin-bottom: 8px;
+    }
+    .bonus-list {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .bonus {
+      text-align: center;
+      flex: 1;
+    }
+    .bonus-name {
+      font-size: 0.9em;
       margin-bottom: 2px;
+    }
+    .bonus-value {
+      font-size: 1.1em;
+    }
+    .separator {
+      border: none;
+      height: 1px;
+      background: #555;
+      margin: 10px 0;
+    }
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .level {
+      font-size: 1.4em;
+      font-weight: 700;
+      color: #FFEACC;
+    }
+    .region-block {
+      flex: 1;
+    }
+    .region-title {
+      font-size: 0.95em;
+      margin-bottom: 4px;
+      color: #b6e4ff;
     }
     .badges {
       margin: 7px 0 8px 0;
@@ -112,11 +153,10 @@
     .bonus-lumina, .description {
       font-size: 0.98em;
       margin: 4px 0 2px 0;
-      color: #d4e4ef;
+      color: #ffffff;
       white-space: pre-line;
     }
     .description {
-      color: #c9bfff;
       margin-top: 7px;
     }
     /* Tableau sombre + owned */
