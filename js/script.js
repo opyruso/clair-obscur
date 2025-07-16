@@ -1,5 +1,4 @@
     const jsonUrl = "data/picto-dictionnary.json";
-    const myPictosUrl = "data/myPictos.json";
 let pictos = [];
 let pictosFiltered = [];
 let myPictosSet = new Set();
@@ -237,25 +236,16 @@ function notify(msg, delay = 3000) {
 
     async function loadData() {
       if(dataLoaded) return;
-      const [data, myData] = await Promise.all([
-        fetch(jsonUrl).then(r => r.json()),
-        fetch(myPictosUrl).then(r => r.json())
-      ]);
+      const data = await fetch(jsonUrl).then(r => r.json());
       pictos = data;
       pictosFiltered = pictos.slice();
-      myPictosSet = new Set((myData || []).filter(x => x.ref).map(x => x.ref));
-      ownedCount = myPictosSet.size;
+      myPictosSet = new Set();
+      ownedCount = 0;
       totalCount = pictos.length;
       dataLoaded = true;
       updateIconStates();
       applyFilters();
     }
-
-    document.getElementById('loadPictosBtn').addEventListener('click', async () => {
-      await loadData();
-      notify('Pictos loaded');
-      document.getElementById('loadPictosBtn').style.display = 'none';
-    });
 
     document.getElementById('downloadBtn').addEventListener('click', downloadJson);
     document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
@@ -453,3 +443,6 @@ function notify(msg, delay = 3000) {
     window.addEventListener('resize', () => {
       if(currentView === 'table') renderTable();
     });
+
+    // Load pictos immediately on startup
+    loadData();
