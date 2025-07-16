@@ -1,30 +1,45 @@
     const jsonUrl = "data/picto-dictionnary.json";
     const myPictosUrl = "data/myPictos.json";
-    let pictos = [];
-    let pictosFiltered = [];
-    let myPictosSet = new Set();
-    let currentView = "cards";
-    let sortCol = null, sortDir = 1; // 1 asc, -1 desc
-    let ownedCount = 0;
-    let totalCount = 0;
-    let hideOwned = false;
-    let hideMissing = false;
-    let modified = false;
+let pictos = [];
+let pictosFiltered = [];
+let myPictosSet = new Set();
+let currentView = localStorage.getItem('viewMode') || "cards";
+let sortCol = null, sortDir = 1; // 1 asc, -1 desc
+let ownedCount = 0;
+let totalCount = 0;
+let hideOwned = false;
+let hideMissing = false;
+let modified = false;
+let hiddenCount = 0;
+let dataLoaded = false;
 
     function togglePicto(id) {
       if(myPictosSet.has(id)) myPictosSet.delete(id); else myPictosSet.add(id);
       ownedCount = myPictosSet.size;
       modified = true;
-      updateTitle();
       applyFilters();
     }
 
-    function showModal(text) {
-      const modal = document.getElementById('modal');
-      if(!modal) return;
-      modal.querySelector('.modal-content').textContent = text;
-      modal.style.display = 'flex';
-    }
+function showModal(text) {
+  const modal = document.getElementById('modal');
+  if(!modal) return;
+  modal.querySelector('.modal-content').textContent = text;
+  modal.style.display = 'flex';
+}
+
+function notify(msg, delay = 3000) {
+  const container = document.getElementById('notificationContainer');
+  if(!container) return;
+  const div = document.createElement('div');
+  div.className = 'notification';
+  div.textContent = msg;
+  container.appendChild(div);
+  requestAnimationFrame(() => div.classList.add('show'));
+  setTimeout(() => {
+    div.classList.remove('show');
+    setTimeout(() => div.remove(), 300);
+  }, delay);
+}
 
     document.addEventListener('click', () => {
       const modal = document.getElementById('modal');
@@ -32,7 +47,11 @@
     });
 
     function updateTitle() {
-      const suffix = ` - ${ownedCount}/${totalCount}`;
+      const visible = pictosFiltered.length;
+      const hidden = hiddenCount;
+      const suffix = hidden > 0
+        ? ` - ${visible} (+${hidden} masqués) / ${totalCount}`
+        : ` - ${visible} / ${totalCount}`;
       const h1 = document.querySelector("h1");
       if (h1) h1.textContent = `Clair Obscur - Pictos${suffix}`;
       document.title = `Clair Obscur - Pictos${suffix}`;
@@ -40,15 +59,18 @@
 
     function applyFilters() {
       const term = document.getElementById("search").value.trim().toLowerCase();
-      pictosFiltered = pictos.filter(p => {
-        const match = Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
+      const searchFiltered = pictos.filter(p => {
+        return Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
           || (p.bonus_picto && Object.entries(p.bonus_picto).some(([k,v]) => String(v).toLowerCase().includes(term)));
-        if(!match) return false;
+      });
+      pictosFiltered = searchFiltered.filter(p => {
         if(hideOwned && myPictosSet.has(p.id)) return false;
         if(hideMissing && !myPictosSet.has(p.id)) return false;
         return true;
       });
+      hiddenCount = searchFiltered.length - pictosFiltered.length;
       updateIconStates();
+      updateTitle();
       render();
     }
 
@@ -131,11 +153,10 @@
           });
           ownedCount = myPictosSet.size;
           modified = true;
-          updateTitle();
           applyFilters();
-          alert(`${added} pictos added.`);
+          notify(`${added} pictos added.`);
         } catch(err) {
-          alert('Invalid JSON file');
+          notify('Invalid JSON file');
         }
       };
       reader.readAsText(file);
@@ -166,7 +187,6 @@
       pictosFiltered.forEach(p => myPictosSet.add(p.id));
       ownedCount = myPictosSet.size;
       modified = true;
-      updateTitle();
       applyFilters();
     }
 
@@ -180,7 +200,6 @@
       pictosFiltered.forEach(p => myPictosSet.delete(p.id));
       ownedCount = myPictosSet.size;
       modified = true;
-      updateTitle();
       applyFilters();
     }
 
@@ -216,40 +235,49 @@
       if(tableViewBtn) tableViewBtn.classList.toggle('disabled', currentView === 'table');
     }
 
-    // On charge les deux fichiers JSON puis on lance le rendu
-    Promise.all([
-      fetch(jsonUrl).then(r => r.json()),
-      fetch(myPictosUrl).then(r => r.json())
-    ]).then(([data, myData]) => {
+    async function loadData() {
+      if(dataLoaded) return;
+      const [data, myData] = await Promise.all([
+        fetch(jsonUrl).then(r => r.json()),
+        fetch(myPictosUrl).then(r => r.json())
+      ]);
       pictos = data;
       pictosFiltered = pictos.slice();
       myPictosSet = new Set((myData || []).filter(x => x.ref).map(x => x.ref));
       ownedCount = myPictosSet.size;
       totalCount = pictos.length;
-      updateTitle();
-      applyFilters();
-      document.getElementById('downloadBtn').addEventListener('click', downloadJson);
-      document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
-      document.getElementById('fileInput').addEventListener('change', e => {
-        if (e.target.files && e.target.files[0]) {
-          handleUpload(e.target.files[0]);
-          e.target.value = '';
-        }
-      });
-      document.getElementById('hideOwnedBtn').addEventListener('click', () => {
-        hideOwned = !hideOwned;
-        if(hideOwned) hideMissing = false;
-        applyFilters();
-      });
-      document.getElementById('hideMissingBtn').addEventListener('click', () => {
-        hideMissing = !hideMissing;
-        if(hideMissing) hideOwned = false;
-        applyFilters();
-      });
-      document.getElementById('selectAllBtn').addEventListener('click', selectAll);
-      document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+      dataLoaded = true;
       updateIconStates();
+      applyFilters();
+    }
+
+    document.getElementById('loadPictosBtn').addEventListener('click', async () => {
+      await loadData();
+      notify('Pictos loaded');
+      document.getElementById('loadPictosBtn').style.display = 'none';
     });
+
+    document.getElementById('downloadBtn').addEventListener('click', downloadJson);
+    document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
+    document.getElementById('fileInput').addEventListener('change', e => {
+      if (e.target.files && e.target.files[0]) {
+        handleUpload(e.target.files[0]);
+        e.target.value = '';
+      }
+    });
+    document.getElementById('hideOwnedBtn').addEventListener('click', () => {
+      hideOwned = !hideOwned;
+      if(hideOwned) hideMissing = false;
+      applyFilters();
+    });
+    document.getElementById('hideMissingBtn').addEventListener('click', () => {
+      hideMissing = !hideMissing;
+      if(hideMissing) hideOwned = false;
+      applyFilters();
+    });
+    document.getElementById('selectAllBtn').addEventListener('click', selectAll);
+    document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+    updateIconStates();
 
     // Recherche/filter
     document.getElementById("search").addEventListener("input", applyFilters);
@@ -257,6 +285,7 @@
     document.getElementById("gridViewBtn").addEventListener("click", () => {
       if(currentView !== 'cards') {
         currentView = 'cards';
+        localStorage.setItem('viewMode', currentView);
         updateIconStates();
         render();
       }
@@ -264,6 +293,7 @@
     document.getElementById("tableViewBtn").addEventListener("click", () => {
       if(currentView !== 'table') {
         currentView = 'table';
+        localStorage.setItem('viewMode', currentView);
         updateIconStates();
         render();
       }
