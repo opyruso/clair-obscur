@@ -72,9 +72,9 @@
       border: 1px solid #2c3142;
     }
     .card.owned {
-      background: linear-gradient(120deg, #254B2F 60%, #23263a 100%);
-      border-color: #2c6b48;
-      box-shadow: 0 4px 20px #214b2f88;
+      background: linear-gradient(120deg, #1b3d24 60%, #23263a 100%);
+      border-color: #1f5034;
+      box-shadow: 0 4px 20px #1a382088;
     }
     .card:hover {
       box-shadow: 0 6px 16px #000a;
@@ -193,7 +193,7 @@
     th.sorted-asc:after { content: " ⬆️"; font-size: 0.85em; }
     th.sorted-desc:after { content: " ⬇️"; font-size: 0.85em; }
     tr.owned td, tr.owned th {
-      background: #214b2f !important;
+      background: #1a3820 !important;
     }
     .checkbox-cell {
       text-align: center;
