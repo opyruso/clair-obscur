@@ -54,10 +54,10 @@
       grid-template-columns: 1fr;
       gap: 30px;
     }
-    @media (min-width: 900px) {
+    @media (min-width: 1280px) {
       .cards { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (min-width: 1500px) {
+    @media (min-width: 1920px) {
       .cards { grid-template-columns: repeat(3, 1fr); }
     }
     .card {
@@ -72,13 +72,13 @@
       border: 1px solid #2c3142;
     }
     .card.owned {
-      background: linear-gradient(120deg, #1b3d24 60%, #23263a 100%);
-      border-color: #1f5034;
-      box-shadow: 0 4px 20px #1a382088;
+      background: linear-gradient(120deg, #254B2F 60%, #23263a 100%);
+      border-color: #2c6b48;
+      box-shadow: 0 4px 20px #214b2f88;
     }
     .card:hover {
-      transform: translateY(2px);
-      box-shadow: 0 3px 8px #0009;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px #000a;
     }
     .region {
       color: #7cc9ff;
