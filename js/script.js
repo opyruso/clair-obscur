@@ -8,6 +8,25 @@
     let ownedCount = 0;
     let totalCount = 0;
 
+    function togglePicto(id) {
+      if(myPictosSet.has(id)) myPictosSet.delete(id); else myPictosSet.add(id);
+      ownedCount = myPictosSet.size;
+      updateTitle();
+      render();
+    }
+
+    function showModal(text) {
+      const modal = document.getElementById('modal');
+      if(!modal) return;
+      modal.querySelector('.modal-content').textContent = text;
+      modal.style.display = 'flex';
+    }
+
+    document.addEventListener('click', e => {
+      const modal = document.getElementById('modal');
+      if(modal && e.target === modal) modal.style.display = 'none';
+    });
+
     function updateTitle() {
       const suffix = ` - ${ownedCount}/${totalCount}`;
       const h1 = document.querySelector("h1");
@@ -192,6 +211,7 @@
           html += `<div class="description">${p.unlock_description}</div>`;
         html += `</div></div>`;
         card.innerHTML = html;
+        card.addEventListener('click', () => togglePicto(p.id));
         container.appendChild(card);
       });
     }
@@ -199,20 +219,24 @@
     // Vue Tableau
     function renderTable() {
       const div = document.getElementById("table");
+      const hideUnlock = window.innerWidth < 1920;
       let html = `<table><thead><tr>`;
       tableCols.forEach((col, i) => {
-        if(col.key==="checkbox")
-          html += `<th></th>`;
-        else
-          html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
+        if(col.key==="checkbox") html += `<th></th>`;
+        else if(col.key==="unlock_description" && hideUnlock) html += `<th>ℹ️</th>`;
+        else html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
       });
       html += `</tr></thead><tbody>`;
       pictosFiltered.forEach(p => {
         const owned = myPictosSet.has(p.id);
         html += `<tr${owned ? ' class="owned"' : ''}>`;
-        // Checkbox en première colonne
-        html += `<td class="checkbox-cell"><input type="checkbox"${owned ? " checked" : ""} disabled></td>`;
+        html += `<td class="checkbox-cell"><input type="checkbox" class="picto-checkbox" data-id="${p.id}"${owned ? " checked" : ""}></td>`;
         tableCols.slice(1).forEach(col => {
+          if(col.key==="unlock_description" && hideUnlock) {
+            const val = p[col.key] || "";
+            html += `<td class="info-cell"><span class="info-icon" data-info="${(val || '').replace(/"/g,'&quot;')}">ℹ️</span></td>`;
+            return;
+          }
           let val = "";
           if (["defence","speed","critical-luck","health"].includes(col.key)) {
             val = (p.bonus_picto && typeof p.bonus_picto[col.key] !== "undefined") ? p.bonus_picto[col.key] : "";
@@ -222,12 +246,21 @@
           } else {
             val = p[col.key] || "";
           }
-          html += `<td class="${["defence","speed","critical-luck","health"].includes(col.key) ? 'nowrap' : ''}">${val}</td>`;
+          let cls = ["defence","speed","critical-luck","health"].includes(col.key) ? 'nowrap' : '';
+          if(col.key==='name') cls += ' name-cell';
+          if(col.key==='level') cls += ' level-cell';
+          html += `<td class="${cls.trim()}">${val}</td>`;
         });
         html += `</tr>`;
       });
       html += `</tbody></table>`;
       div.innerHTML = html;
+      div.querySelectorAll('.picto-checkbox').forEach(cb => {
+        cb.addEventListener('change', e => togglePicto(e.target.dataset.id));
+      });
+      div.querySelectorAll('.info-icon').forEach(ic => {
+        ic.addEventListener('click', e => showModal(e.currentTarget.dataset.info));
+      });
     }
 
     // Tri tableau (accessible depuis onClick HTML, pour compatibilité file://)
