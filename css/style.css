@@ -194,7 +194,7 @@
     th.sorted-asc:after { content: " ⬆️"; font-size: 0.85em; }
     th.sorted-desc:after { content: " ⬇️"; font-size: 0.85em; }
     tr.owned td, tr.owned th {
-      background: #214b2f !important;
+      background: #1a3820 !important;
     }
     .checkbox-cell {
       text-align: center;

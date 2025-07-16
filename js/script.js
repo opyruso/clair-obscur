@@ -22,9 +22,9 @@
       modal.style.display = 'flex';
     }
 
-    document.addEventListener('click', e => {
+    document.addEventListener('click', () => {
       const modal = document.getElementById('modal');
-      if(modal && e.target === modal) modal.style.display = 'none';
+      if(modal && modal.style.display !== 'none') modal.style.display = 'none';
     });
 
     function updateTitle() {
@@ -259,7 +259,10 @@
         cb.addEventListener('change', e => togglePicto(e.target.dataset.id));
       });
       div.querySelectorAll('.info-icon').forEach(ic => {
-        ic.addEventListener('click', e => showModal(e.currentTarget.dataset.info));
+        ic.addEventListener('click', e => {
+          e.stopPropagation();
+          showModal(e.currentTarget.dataset.info);
+        });
       });
     }
 
@@ -299,3 +302,8 @@
         if(i===sortCol) th.classList.add(sortDir===1 ? "sorted-asc":"sorted-desc");
       });
     }
+
+    // Re-render table on window resize so Unlock column visibility updates
+    window.addEventListener('resize', () => {
+      if(currentView === 'table') renderTable();
+    });
