@@ -6,8 +6,7 @@
       padding: 0;
     }
     .container {
-      max-width: 1050px;
-      margin: 40px auto;
+      margin: 20px;
       padding: 24px;
     }
     h1 {
@@ -52,8 +51,14 @@
     }
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 18px;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 1280px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1920px) {
+      .cards { grid-template-columns: repeat(3, 1fr); }
     }
     .card {
       background: #23263a;
@@ -68,7 +73,7 @@
     }
     .card.owned {
       background: linear-gradient(120deg, #254B2F 60%, #23263a 100%);
-      border-color: #3da878;
+      border-color: #2c6b48;
       box-shadow: 0 4px 20px #214b2f88;
     }
     .card:hover {
@@ -94,7 +99,6 @@
     }
     .bonus {
       text-align: center;
-      flex: 1;
     }
     .bonus-name {
       font-size: 0.9em;
@@ -189,7 +193,7 @@
     th.sorted-asc:after { content: " ⬆️"; font-size: 0.85em; }
     th.sorted-desc:after { content: " ⬇️"; font-size: 0.85em; }
     tr.owned td, tr.owned th {
-      background: linear-gradient(90deg, #214b2f 70%, #23263a 100%) !important;
+      background: #214b2f !important;
     }
     .checkbox-cell {
       text-align: center;
@@ -197,12 +201,38 @@
       padding-right: 0;
       width: 44px;
     }
+    td.name-cell {
+      color: #CDB48E;
+      font-weight: 700;
+    }
+    td.level-cell {
+      color: #FFEACC;
+      font-weight: 700;
+    }
     .nowrap {
       white-space: nowrap;
     }
     ::selection {
       background: #387ad0;
       color: #fff;
+    }
+    .info-icon {
+      cursor: pointer;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #23263a;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 80%;
     }
     @media (max-width: 700px) {
       .container { padding: 5px; }
