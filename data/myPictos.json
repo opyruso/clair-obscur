@@ -1,0 +1,368 @@
+[
+  {
+    "type": "soutien",
+    "nom": "Charges sur brûlure",
+    "niveau": 31,
+    "ref": "829c4c79db"
+  },
+  {
+    "type": "soutien",
+    "nom": "Charges sur critiques",
+    "niveau": 31,
+    "ref": "cd536de180"
+  },
+  {
+    "type": "attaque",
+    "nom": "Contre amélioré I",
+    "niveau": 31,
+    "ref": "cc9aae9cd3"
+  },
+  {
+    "type": "autre",
+    "nom": "Fracture accélérante",
+    "niveau": 31,
+    "ref": "e0782c5a33"
+  },
+  {
+    "type": "attaque",
+    "nom": "Initiative améliorée",
+    "niveau": 31,
+    "ref": "94942438e0"
+  },
+  {
+    "type": "autre",
+    "nom": "Loup solitaire",
+    "niveau": 31,
+    "ref": "9dd5de93d4"
+  },
+  {
+    "type": "autre",
+    "nom": "Plus qu’un",
+    "niveau": 31,
+    "ref": "1c6a6b710a"
+  },
+  {
+    "type": "soutien",
+    "nom": "Raccourci",
+    "niveau": 31,
+    "ref": "6c1bf8cc76"
+  },
+  {
+    "type": "soutien",
+    "nom": "Renaissance protégée",
+    "niveau": 31,
+    "ref": "ddedfef566"
+  },
+  {
+    "type": "soutien",
+    "nom": "Seconde chance",
+    "niveau": 31,
+    "ref": "6b97d7edba"
+  },
+  {
+    "type": "soutien",
+    "nom": "Élimination revigorante",
+    "niveau": 31,
+    "ref": "e3f9e2d743"
+  },
+  {
+    "type": "soutien",
+    "nom": "Énergie - Attaque I",
+    "niveau": 31,
+    "ref": "95c3b3c3bc"
+  },
+  {
+    "type": "soutien",
+    "nom": "Énergie - Parade",
+    "niveau": 31,
+    "ref": "3b20d22658"
+  },
+  {
+    "type": "autre",
+    "nom": "Énergie - Tour",
+    "niveau": 31,
+    "ref": "106633a073"
+  },
+  {
+    "type": "soutien",
+    "nom": "Affaiblissement amélioré",
+    "niveau": 30,
+    "ref": "3ebbc3b3e6"
+  },
+  {
+    "type": "attaque",
+    "nom": "Au seuil de la mort",
+    "niveau": 30,
+    "ref": "fb72362c07"
+  },
+  {
+    "type": "soutien",
+    "nom": "Vitalité de Cléa",
+    "niveau": 30,
+    "ref": "bcf89acd76"
+  },
+  {
+    "type": "soutien",
+    "nom": "Énergie maîtrisée",
+    "niveau": 30,
+    "ref": "58fa39fb41"
+  },
+  {
+    "type": "défense",
+    "nom": "Anti-brûlure",
+    "niveau": 29,
+    "ref": "baf4e39270"
+  },
+  {
+    "type": "défense",
+    "nom": "Carapace prolongée",
+    "niveau": 29,
+    "ref": "1b78ede4b2"
+  },
+  {
+    "type": "soutien",
+    "nom": "Parade périlleuse",
+    "niveau": 29,
+    "ref": "7949775005"
+  },
+  {
+    "type": "soutien",
+    "nom": "Assurance",
+    "niveau": 28,
+    "ref": "8819c28a94"
+  },
+  {
+    "type": "soutien",
+    "nom": "Brûlures prolongées",
+    "niveau": 28,
+    "ref": "7afa5dee6b"
+  },
+  {
+    "type": "défense",
+    "nom": "Fracture ralentissante",
+    "niveau": 28,
+    "ref": "a37e54ab97"
+  },
+  {
+    "type": "soutien",
+    "nom": "Guérison énergisante",
+    "niveau": 28,
+    "ref": null
+  },
+  {
+    "type": "soutien",
+    "nom": "Marque surpuissante",
+    "niveau": 28,
+    "ref": "50a7ae2d23"
+  },
+  {
+    "type": "attaque",
+    "nom": "Parade renforçante",
+    "niveau": 28,
+    "ref": "bc218aa07e"
+  },
+  {
+    "type": "autre",
+    "nom": "Spécialiste des Fractures",
+    "niveau": 28,
+    "ref": "9c9a23ba07"
+  },
+  {
+    "type": "soutien",
+    "nom": "Tirs accélérants",
+    "niveau": 28,
+    "ref": "c058de58b2"
+  },
+  {
+    "type": "soutien",
+    "nom": "Énergie douloureuse",
+    "niveau": 28,
+    "ref": "25d4f43bdc"
+  },
+  {
+    "type": "attaque",
+    "nom": "Critiques sur faiblesse",
+    "niveau": 26,
+    "ref": "dcc02515f9"
+  },
+  {
+    "type": "défense",
+    "nom": "Attaque protectrice",
+    "niveau": 25,
+    "ref": "3a60af46ca"
+  },
+  {
+    "type": "attaque",
+    "nom": "Brûlures critiques",
+    "niveau": 25,
+    "ref": "f6d3c7fdc9"
+  },
+  {
+    "type": "soutien",
+    "nom": "Fracture Gradient",
+    "niveau": 25,
+    "ref": "bc59c7e019"
+  },
+  {
+    "type": "autre",
+    "nom": "Polyvalence",
+    "niveau": 25,
+    "ref": "16b96eb672"
+  },
+  {
+    "type": "soutien",
+    "nom": "Rapidité protectrice",
+    "niveau": 25,
+    "ref": "15e7d9f01a"
+  },
+  {
+    "type": "soutien",
+    "nom": "Soins surpuissants",
+    "niveau": 25,
+    "ref": "1097126d6a"
+  },
+  {
+    "type": "soutien",
+    "nom": "Teinte accélérante",
+    "niveau": 25,
+    "ref": "5ca7a70d97"
+  },
+  {
+    "type": "soutien",
+    "nom": "Teinte temporelle",
+    "niveau": 24,
+    "ref": "8c6e85a112"
+  },
+  {
+    "type": "autre",
+    "nom": "Tricheur",
+    "niveau": 24,
+    "ref": "7fc61fefe7"
+  },
+  {
+    "type": "autre",
+    "nom": "Au cœur de l’action",
+    "niveau": 23,
+    "ref": "6d20859ed5"
+  },
+  {
+    "type": "défense",
+    "nom": "Carapace surpuissante",
+    "niveau": 23,
+    "ref": "82783ddf87"
+  },
+  {
+    "type": "soutien",
+    "nom": "Brûlure énergisante",
+    "niveau": 22,
+    "ref": "69a39ecb48"
+  },
+  {
+    "type": "soutien",
+    "nom": "Mort préservante",
+    "niveau": 22,
+    "ref": "8b729f35a8"
+  },
+  {
+    "type": "soutien",
+    "nom": "Énergie - Rapidité",
+    "niveau": 22,
+    "ref": "55f8341328"
+  },
+  {
+    "type": "attaque",
+    "nom": "Affinité Brûlante",
+    "niveau": 21,
+    "ref": "88b07c7620"
+  },
+  {
+    "type": "défense",
+    "nom": "Anti-gel",
+    "niveau": 21,
+    "ref": "0427d5b781"
+  },
+  {
+    "type": "attaque",
+    "nom": "Fracture brûlante",
+    "niveau": 21,
+    "ref": "2ef9ff6872"
+  },
+  {
+    "type": "soutien",
+    "nom": "Mort énergisante",
+    "niveau": 21,
+    "ref": "6afd8a59c2"
+  },
+  {
+    "type": "soutien",
+    "nom": "Rapidité améliorée",
+    "niveau": 21,
+    "ref": "c3a1f79256"
+  },
+  {
+    "type": "défense",
+    "nom": "Survivant",
+    "niveau": 21,
+    "ref": "3a02ad2bd3"
+  },
+  {
+    "type": "soutien",
+    "nom": "Tirs brûlants",
+    "niveau": 21,
+    "ref": "1e79e1ae21"
+  },
+  {
+    "type": "soutien",
+    "nom": "Vulnérabilité améliorée",
+    "niveau": 21,
+    "ref": "3215cee30d"
+  },
+  {
+    "type": "autre",
+    "nom": "Altéré",
+    "niveau": 20,
+    "ref": "53017d61e3"
+  },
+  {
+    "type": "défense",
+    "nom": "Anti-corruption",
+    "niveau": 20,
+    "ref": "a49f68fb8c"
+  },
+  {
+    "type": "soutien",
+    "nom": "Attaque renforçante",
+    "niveau": 20,
+    "ref": "98e8944c48"
+  },
+  {
+    "type": "défense",
+    "nom": "Bouclier Basique",
+    "niveau": 20,
+    "ref": "4694ff7f1b"
+  },
+  {
+    "type": "autre",
+    "nom": "Boucliers Affinés",
+    "niveau": 20,
+    "ref": "8e4bd9afd9"
+  },
+  {
+    "type": "attaque",
+    "nom": "Canon de verre",
+    "niveau": 20,
+    "ref": "4090213d3e"
+  },
+  {
+    "type": "soutien",
+    "nom": "Charges sur faiblesse",
+    "niveau": 20,
+    "ref": "ef2753650b"
+  },
+  {
+    "type": "défense",
+    "nom": "Double brûlure",
+    "niveau": 20,
+    "ref": "0ac368f3cd"
+  }
+]
