@@ -264,8 +264,30 @@
       border-radius: 10px;
       max-width: 80%;
     }
-    @media (max-width: 700px) {
-      .container { padding: 5px; }
-      .cards { grid-template-columns: 1fr; }
-      th, td { font-size: 0.93em; }
-    }
+@media (max-width: 700px) {
+  .container { padding: 5px; }
+  .cards { grid-template-columns: 1fr; }
+  th, td { font-size: 0.93em; }
+}
+
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+}
+.notification {
+  background: #323846;
+  color: #fff;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px #0008;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
