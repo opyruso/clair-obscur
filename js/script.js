@@ -46,11 +46,17 @@ function notify(msg, delay = 3000) {
     });
 
     function updateTitle() {
-      const visible = pictosFiltered.length;
-      const hidden = hiddenCount;
-      const suffix = hidden > 0
-        ? ` - ${visible} (+${hidden} masqués) / ${totalCount}`
-        : ` - ${visible} / ${totalCount}`;
+      const visibleOwned = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
+      const hiddenOwned = ownedCount - visibleOwned;
+      const visibleTotal = pictosFiltered.length;
+      const hiddenTotal = totalCount - visibleTotal;
+      const ownedPart = hiddenOwned > 0
+        ? `${visibleOwned} (+${hiddenOwned} masqués)`
+        : `${visibleOwned}`;
+      const totalPart = hiddenTotal > 0
+        ? `${visibleTotal} (+${hiddenTotal} masqués)`
+        : `${visibleTotal}`;
+      const suffix = ` - ${ownedPart} / ${totalPart}`;
       const h1 = document.querySelector("h1");
       if (h1) h1.textContent = `Clair Obscur - Pictos${suffix}`;
       document.title = `Clair Obscur - Pictos${suffix}`;
