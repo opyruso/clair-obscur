@@ -71,23 +71,27 @@
         const owned = myPictosSet.has(p.id);
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
-        if (p.region)
-          card.innerHTML += `<div class="region">${p.region}</div>`;
-        card.innerHTML += `<div class="name">${p.name}</div>`;
-        if (p.level)
-          card.innerHTML += `<div class="section-title">Level</div><div class="badges"><span class="badge">Lv. ${p.level}</span></div>`;
+        let html = `<div class="name">${p.name}</div>`;
         if (p.bonus_picto && Object.keys(p.bonus_picto).length > 0) {
-          card.innerHTML += `<div class="section-title">Picto Bonus</div>`;
-          let badges = '';
+          html += `<div class="bonus-list">`;
           for (const k in p.bonus_picto) {
-            badges += `<span class="badge">${pictoLabels[k] || k}: ${p.bonus_picto[k]}${k==="critical-luck"?"%":""}</span>`;
+            html += `<div class="bonus"><div class="bonus-name">${pictoLabels[k] || k}</div><div class="bonus-value">${p.bonus_picto[k]}${k==="critical-luck"?"%":""}</div></div>`;
           }
-          card.innerHTML += `<div class="badges">${badges}</div>`;
+          html += `</div>`;
         }
+        html += `<hr class="separator">`;
         if (p.bonus_lumina)
-          card.innerHTML += `<div class="section-title">Lumina Bonus</div><div class="bonus-lumina">${p.bonus_lumina}</div>`;
+          html += `<div class="bonus-lumina">${p.bonus_lumina}</div>`;
+        html += `<hr class="separator">`;
+        html += `<div class="bottom">`;
+        html += `<div class="level">Lv. ${p.level || ''}</div>`;
+        html += `<div class="region-block">`;
+        if (p.region)
+          html += `<div class="region-title">${p.region}</div>`;
         if (p.unlock_description)
-          card.innerHTML += `<div class="section-title">Unlock</div><div class="description">${p.unlock_description}</div>`;
+          html += `<div class="description">${p.unlock_description}</div>`;
+        html += `</div></div>`;
+        card.innerHTML = html;
         container.appendChild(card);
       });
     }
