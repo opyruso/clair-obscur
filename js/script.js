@@ -176,7 +176,7 @@
     });
 
     function render() {
-      document.getElementById("cards").style.display = currentView === "cards" ? "block" : "none";
+      document.getElementById("cards").style.display = currentView === "cards" ? "grid" : "none";
       document.getElementById("table").style.display = currentView === "table" ? "block" : "none";
       if(currentView === "cards") renderCards();
       else renderTable();
