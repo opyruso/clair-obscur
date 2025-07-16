@@ -36,6 +36,86 @@
       {key: "unlock_description", label: "Unlock"}
     ];
 
+    function levenshtein(a, b) {
+      const al = a.length, bl = b.length;
+      if (al === 0) return bl;
+      if (bl === 0) return al;
+      const matrix = Array.from({length: bl + 1}, (_, i) => [i]);
+      for (let j = 0; j <= al; j++) matrix[0][j] = j;
+      for (let i = 1; i <= bl; i++) {
+        for (let j = 1; j <= al; j++) {
+          if (b.charAt(i - 1) === a.charAt(j - 1)) matrix[i][j] = matrix[i - 1][j - 1];
+          else matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+        }
+      }
+      return matrix[bl][al];
+    }
+
+    function similarity(a, b) {
+      a = a.toLowerCase();
+      b = b.toLowerCase();
+      const dist = levenshtein(a, b);
+      return 1 - dist / Math.max(a.length, b.length);
+    }
+
+    function bestMatch(name) {
+      let best = null;
+      let score = 0;
+      pictos.forEach(p => {
+        const s = similarity(name, p.name);
+        if (s > score) { score = s; best = p; }
+      });
+      return {picto: best, score};
+    }
+
+    function handleUpload(file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const arr = JSON.parse(e.target.result);
+          if (!Array.isArray(arr)) throw new Error('Invalid format');
+          let added = 0;
+          arr.forEach(entry => {
+            if (typeof entry !== 'string') return;
+            let p = pictos.find(x => x.id === entry);
+            if (!p) p = pictos.find(x => x.name.toLowerCase() === entry.toLowerCase());
+            if (!p) {
+              const {picto, score} = bestMatch(entry);
+              if (picto && score >= 0.75) {
+                if (confirm(`No exact match for "${entry}". Use "${picto.name}"?`)) p = picto;
+              }
+            }
+            if (p) {
+              if (!myPictosSet.has(p.id)) {
+                myPictosSet.add(p.id);
+                added++;
+              }
+            }
+          });
+          ownedCount = myPictosSet.size;
+          updateTitle();
+          render();
+          alert(`${added} pictos added.`);
+        } catch(err) {
+          alert('Invalid JSON file');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function downloadJson() {
+      const data = JSON.stringify(Array.from(myPictosSet), null, 2);
+      const blob = new Blob([data], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'myPictos.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
     // On charge les deux fichiers JSON puis on lance le rendu
     Promise.all([
       fetch(jsonUrl).then(r => r.json()),
@@ -48,6 +128,14 @@
       totalCount = pictos.length;
       updateTitle();
       render();
+      document.getElementById('downloadBtn').addEventListener('click', downloadJson);
+      document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
+      document.getElementById('fileInput').addEventListener('change', e => {
+        if (e.target.files && e.target.files[0]) {
+          handleUpload(e.target.files[0]);
+          e.target.value = '';
+        }
+      });
     });
 
     // Recherche/filter
