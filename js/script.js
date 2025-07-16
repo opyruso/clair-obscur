@@ -48,9 +48,15 @@ function notify(msg, delay = 3000) {
     function updateTitle() {
       const visibleOwned = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
       const hiddenOwned = ownedCount - visibleOwned;
-      const suffix = hiddenOwned > 0
-        ? ` - ${visibleOwned} (+${hiddenOwned} masqués) / ${totalCount}`
-        : ` - ${visibleOwned} / ${totalCount}`;
+      const visibleTotal = pictosFiltered.length;
+      const hiddenTotal = totalCount - visibleTotal;
+      const ownedPart = hiddenOwned > 0
+        ? `${visibleOwned} (+${hiddenOwned} masqués)`
+        : `${visibleOwned}`;
+      const totalPart = hiddenTotal > 0
+        ? `${visibleTotal} (+${hiddenTotal} masqués)`
+        : `${visibleTotal}`;
+      const suffix = ` - ${ownedPart} / ${totalPart}`;
       const h1 = document.querySelector("h1");
       if (h1) h1.textContent = `Clair Obscur - Pictos${suffix}`;
       document.title = `Clair Obscur - Pictos${suffix}`;
