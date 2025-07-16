@@ -5,6 +5,15 @@
     let myPictosSet = new Set();
     let currentView = "cards";
     let sortCol = null, sortDir = 1; // 1 asc, -1 desc
+    let ownedCount = 0;
+    let totalCount = 0;
+
+    function updateTitle() {
+      const suffix = ` - ${ownedCount}/${totalCount}`;
+      const h1 = document.querySelector("h1");
+      if (h1) h1.textContent = `Clair Obscur - Pictos${suffix}`;
+      document.title = `Clair Obscur - Pictos${suffix}`;
+    }
 
     // Traduction pour badges
     const pictoLabels = {
@@ -35,6 +44,9 @@
       pictos = data;
       pictosFiltered = pictos.slice();
       myPictosSet = new Set((myData || []).filter(x => x.ref).map(x => x.ref));
+      ownedCount = myPictosSet.size;
+      totalCount = pictos.length;
+      updateTitle();
       render();
     });
 
