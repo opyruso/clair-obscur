@@ -7,12 +7,16 @@
     let sortCol = null, sortDir = 1; // 1 asc, -1 desc
     let ownedCount = 0;
     let totalCount = 0;
+    let hideOwned = false;
+    let hideMissing = false;
+    let modified = false;
 
     function togglePicto(id) {
       if(myPictosSet.has(id)) myPictosSet.delete(id); else myPictosSet.add(id);
       ownedCount = myPictosSet.size;
+      modified = true;
       updateTitle();
-      render();
+      applyFilters();
     }
 
     function showModal(text) {
@@ -32,6 +36,20 @@
       const h1 = document.querySelector("h1");
       if (h1) h1.textContent = `Clair Obscur - Pictos${suffix}`;
       document.title = `Clair Obscur - Pictos${suffix}`;
+    }
+
+    function applyFilters() {
+      const term = document.getElementById("search").value.trim().toLowerCase();
+      pictosFiltered = pictos.filter(p => {
+        const match = Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
+          || (p.bonus_picto && Object.entries(p.bonus_picto).some(([k,v]) => String(v).toLowerCase().includes(term)));
+        if(!match) return false;
+        if(hideOwned && myPictosSet.has(p.id)) return false;
+        if(hideMissing && !myPictosSet.has(p.id)) return false;
+        return true;
+      });
+      updateIconStates();
+      render();
     }
 
     // Traduction pour badges
@@ -112,8 +130,9 @@
             }
           });
           ownedCount = myPictosSet.size;
+          modified = true;
           updateTitle();
-          render();
+          applyFilters();
           alert(`${added} pictos added.`);
         } catch(err) {
           alert('Invalid JSON file');
@@ -133,6 +152,68 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      modified = false;
+      updateIconStates();
+    }
+
+    function selectAll() {
+      const total = pictosFiltered.length;
+      const selected = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
+      if(total === selected) return;
+      if(selected > 0 && selected < total) {
+        if(!confirm('Select all visible pictos?')) return;
+      }
+      pictosFiltered.forEach(p => myPictosSet.add(p.id));
+      ownedCount = myPictosSet.size;
+      modified = true;
+      updateTitle();
+      applyFilters();
+    }
+
+    function clearAll() {
+      const total = pictosFiltered.length;
+      const selected = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
+      if(selected === 0) return;
+      if(selected > 0 && selected < total) {
+        if(!confirm('Clear selection of visible pictos?')) return;
+      }
+      pictosFiltered.forEach(p => myPictosSet.delete(p.id));
+      ownedCount = myPictosSet.size;
+      modified = true;
+      updateTitle();
+      applyFilters();
+    }
+
+    function updateIconStates() {
+      const downloadBtn = document.getElementById('downloadBtn');
+      if(downloadBtn) downloadBtn.classList.toggle('disabled', !modified);
+      const baseFiltered = pictos.filter(p => {
+        const term = document.getElementById('search').value.trim().toLowerCase();
+        return Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
+          || (p.bonus_picto && Object.entries(p.bonus_picto).some(([k,v]) => String(v).toLowerCase().includes(term)));
+      });
+      const ownedVisible = baseFiltered.filter(p => myPictosSet.has(p.id)).length;
+      const missingVisible = baseFiltered.filter(p => !myPictosSet.has(p.id)).length;
+      const hideOwnedBtn = document.getElementById('hideOwnedBtn');
+      const hideMissingBtn = document.getElementById('hideMissingBtn');
+      if(hideOwnedBtn) {
+        hideOwnedBtn.classList.toggle('disabled', ownedVisible === 0);
+        hideOwnedBtn.classList.toggle('toggled', hideOwned);
+      }
+      if(hideMissingBtn) {
+        hideMissingBtn.classList.toggle('disabled', missingVisible === 0);
+        hideMissingBtn.classList.toggle('toggled', hideMissing);
+      }
+      const anyUnselected = pictosFiltered.some(p => !myPictosSet.has(p.id));
+      const anySelected = pictosFiltered.some(p => myPictosSet.has(p.id));
+      const selectAllBtn = document.getElementById('selectAllBtn');
+      const clearAllBtn = document.getElementById('clearAllBtn');
+      if(selectAllBtn) selectAllBtn.classList.toggle('disabled', !anyUnselected);
+      if(clearAllBtn) clearAllBtn.classList.toggle('disabled', !anySelected);
+      const gridViewBtn = document.getElementById('gridViewBtn');
+      const tableViewBtn = document.getElementById('tableViewBtn');
+      if(gridViewBtn) gridViewBtn.classList.toggle('disabled', currentView === 'cards');
+      if(tableViewBtn) tableViewBtn.classList.toggle('disabled', currentView === 'table');
     }
 
     // On charge les deux fichiers JSON puis on lance le rendu
@@ -146,7 +227,7 @@
       ownedCount = myPictosSet.size;
       totalCount = pictos.length;
       updateTitle();
-      render();
+      applyFilters();
       document.getElementById('downloadBtn').addEventListener('click', downloadJson);
       document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
       document.getElementById('fileInput').addEventListener('change', e => {
@@ -155,24 +236,37 @@
           e.target.value = '';
         }
       });
+      document.getElementById('hideOwnedBtn').addEventListener('click', () => {
+        hideOwned = !hideOwned;
+        if(hideOwned) hideMissing = false;
+        applyFilters();
+      });
+      document.getElementById('hideMissingBtn').addEventListener('click', () => {
+        hideMissing = !hideMissing;
+        if(hideMissing) hideOwned = false;
+        applyFilters();
+      });
+      document.getElementById('selectAllBtn').addEventListener('click', selectAll);
+      document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+      updateIconStates();
     });
 
     // Recherche/filter
-    document.getElementById("search").addEventListener("input", e => {
-      const term = e.target.value.trim().toLowerCase();
-      pictosFiltered = pictos.filter(p => {
-        return Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
-          || (p.bonus_picto && Object.entries(p.bonus_picto).some(([k,v]) => String(v).toLowerCase().includes(term)));
-      });
-      render();
-    });
+    document.getElementById("search").addEventListener("input", applyFilters);
 
-    // Toggle Vue
-    document.getElementById("toggleViewBtn").addEventListener("click", () => {
-      currentView = currentView === "cards" ? "table" : "cards";
-      document.getElementById("toggleViewBtn").textContent =
-        currentView === "cards" ? "🗂️ Switch to Table" : "🃏 Switch to Cards";
-      render();
+    document.getElementById("gridViewBtn").addEventListener("click", () => {
+      if(currentView !== 'cards') {
+        currentView = 'cards';
+        updateIconStates();
+        render();
+      }
+    });
+    document.getElementById("tableViewBtn").addEventListener("click", () => {
+      if(currentView !== 'table') {
+        currentView = 'table';
+        updateIconStates();
+        render();
+      }
     });
 
     function render() {
