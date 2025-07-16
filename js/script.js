@@ -302,3 +302,8 @@
         if(i===sortCol) th.classList.add(sortDir===1 ? "sorted-asc":"sorted-desc");
       });
     }
+
+    // Re-render table on window resize so Unlock column visibility updates
+    window.addEventListener('resize', () => {
+      if(currentView === 'table') renderTable();
+    });
