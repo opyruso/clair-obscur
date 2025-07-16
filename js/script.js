@@ -220,11 +220,20 @@
     function renderTable() {
       const div = document.getElementById("table");
       const hideUnlock = window.innerWidth < 1920;
+      const hideInfo = window.innerWidth < 1280;
+      const showInfoCol = hideUnlock || hideInfo;
       let html = `<table><thead><tr>`;
       tableCols.forEach((col, i) => {
-        if(col.key==="checkbox") html += `<th></th>`;
-        else if(col.key==="unlock_description" && hideUnlock) html += `<th>ℹ️</th>`;
-        else html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
+        if(col.key === "checkbox") {
+          html += `<th></th>`;
+        } else if(col.key === "unlock_description") {
+          if(showInfoCol) html += `<th>ℹ️</th>`;
+          else html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
+        } else if((col.key === "region" || col.key === "level") && hideInfo) {
+          /* skip */
+        } else {
+          html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
+        }
       });
       html += `</tr></thead><tbody>`;
       pictosFiltered.forEach(p => {
@@ -232,10 +241,23 @@
         html += `<tr${owned ? ' class="owned"' : ''}>`;
         html += `<td class="checkbox-cell"><input type="checkbox" class="picto-checkbox" data-id="${p.id}"${owned ? " checked" : ""}></td>`;
         tableCols.slice(1).forEach(col => {
-          if(col.key==="unlock_description" && hideUnlock) {
-            const val = p[col.key] || "";
-            html += `<td class="info-cell"><span class="info-icon" data-info="${(val || '').replace(/"/g,'&quot;')}">ℹ️</span></td>`;
+          if(col.key === "unlock_description") {
+            if(showInfoCol) {
+              const infoParts = [];
+              if(hideInfo) {
+                if(p.region) infoParts.push(`Region: ${p.region}`);
+                if(p.level) infoParts.push(`Level: ${p.level}`);
+              }
+              if(hideUnlock && p.unlock_description) infoParts.push(p.unlock_description);
+              const info = infoParts.join('\n');
+              html += `<td class="info-cell"><span class="info-icon" data-info="${info.replace(/"/g,'&quot;')}">ℹ️</span></td>`;
+            } else {
+              html += `<td>${p.unlock_description || ''}</td>`;
+            }
             return;
+          }
+          if((col.key === "region" || col.key === "level") && hideInfo) {
+            return; // skip column
           }
           let val = "";
           if (["defence","speed","critical-luck","health"].includes(col.key)) {
