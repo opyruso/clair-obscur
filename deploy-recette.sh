@@ -1,17 +1,15 @@
 #!/bin/bash
-
 set -e
 
 echo "📦 Installation des dépendances..."
 npm install
 
-echo "🏗️  Build du site..."
-npm run build
+echo "🏗️  (Pas de build nécessaire pour ce projet statique)"
 
 echo "🧹 Nettoyage du dossier cible..."
 rm -rf /opt/clairobscur/pictos-rec/*
 
-echo "📁 Copie du site dans /opt/clairobscur/pictos-rec..."
-cp -r ./dist/* /opt/clairobscur/pictos-rec/
+echo "📁 Copie des fichiers du site dans /opt/clairobscur/pictos-rec..."
+cp -r index.html css/ js/ data/ /opt/clairobscur/pictos-rec/
 
 echo "✅ Déploiement terminé !"
