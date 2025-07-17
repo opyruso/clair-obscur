@@ -92,21 +92,28 @@
     }
     .card {
       position: relative;
-      background: url('../resources/images/background_tile.png') no-repeat center/cover;
+      box-sizing: border-box;
+      aspect-ratio: 1088 / 481;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-image: url('../resources/images/background_tile.png') 0 20 fill stretch;
+      background: url('../resources/images/background_tile.png') no-repeat;
+      background-position: -20px 0;
+      background-size: calc(100% + 40px) 100%;
       border-radius: 14px;
       box-shadow: 0 2px 8px #0006;
       padding: 22px 20px 18px 20px;
       display: flex;
       flex-direction: column;
-      min-height: 210px;
       transition: box-shadow .2s, background 0.18s, transform 0.1s;
-      border: none;
       z-index: 0;
     }
     .card.owned {
-      background: url('../resources/images/background_tile.png') no-repeat center/cover;
+      border-image-source: url('../resources/images/background_tile_selected.png');
+      background: url('../resources/images/background_tile_selected.png') no-repeat;
+      background-position: -20px 0;
+      background-size: calc(100% + 40px) 100%;
       box-shadow: 0 4px 20px #214b2f88;
-      border: none;
     }
     .card:hover {
       transform: translateY(-2px);
