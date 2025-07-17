@@ -1,0 +1,36 @@
+name: Déploiement Dev
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  deploy-dev:
+    runs-on: self-hosted
+
+    steps:
+      - name: 🔄 Récupération du code
+        uses: actions/checkout@v4
+
+      - name: 🚀 Déploiement sur pictos-dev
+        run: |
+          echo "📦 Installation des dépendances..."
+          npm install
+
+          echo "🏗️  Build du site..."
+          npm run build
+
+          echo "🔍 Vérification du dossier dist/"
+          if [ ! -d "dist" ]; then
+            echo "❌ Le dossier 'dist/' n'a pas été généré. Abandon."
+            exit 1
+          fi
+
+          echo "🧹 Nettoyage du dossier de test..."
+          rm -rf /opt/clairobscur/pictos-dev/*
+
+          echo "📁 Copie des fichiers dans pictos-dev..."
+          cp -r dist/* /opt/clairobscur/pictos-dev/
+
+          echo "✅ Déploiement DEV terminé !"
