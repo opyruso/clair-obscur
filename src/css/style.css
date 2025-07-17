@@ -361,6 +361,7 @@
     width: 100%;
     overflow: hidden;
     background: url('../resources/images/background_site_header_footer.png') repeat;
+    z-index: 3000;
   }
 
   footer::before {
@@ -382,6 +383,7 @@
     overflow: hidden;
     min-height: 120px;
     background: url('../resources/images/background_site_header_footer.png') repeat;
+    z-index: 3000;
   }
 
   .navbar::after {
