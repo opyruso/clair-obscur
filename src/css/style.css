@@ -27,7 +27,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
     }
     .icon-btn {
       background: none;
@@ -86,11 +86,14 @@
       gap: 30px;
       perspective: 1000px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 800px) {
       .cards { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (min-width: 1920px) {
+    @media (min-width: 1400px) {
       .cards { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 2000px) {
+      .cards { grid-template-columns: repeat(4, 1fr); }
     }
     .card {
       position: relative;
@@ -104,15 +107,13 @@
       position: absolute;
       inset: 0;
       box-sizing: border-box;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-image: url('../resources/images/background_tile.png') 0 20 fill stretch;
+      background: url('../resources/images/background_tile.png') center/cover no-repeat;
       border-radius: 14px;
       transform-style: preserve-3d;
       transition: transform 0.6s, background 0.18s;
     }
     .card.owned .card-inner {
-      border-image-source: url('../resources/images/background_tile_selected.png');
+      background-image: url('../resources/images/background_tile_selected.png');
     }
     .card:hover {
       transform: translateY(-2px);
@@ -172,7 +173,7 @@
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      padding: 22px 60px 18px 20px;
+      padding: 22px 20px 18px 20px;
     }
     .card-back {
       transform: rotateY(180deg);
@@ -328,7 +329,7 @@
 .modal-description {
   white-space: pre-line;
 }
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .content-wrapper { padding: 5px; }
   .cards { grid-template-columns: 1fr; }
   th, td { font-size: 0.93em; }
@@ -364,6 +365,7 @@
     overflow: hidden;
     background: url('../resources/images/background_site_header_footer.png') repeat;
     z-index: 3000;
+    padding: 18px 0;
   }
 
   footer::before {
