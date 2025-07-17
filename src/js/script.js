@@ -19,10 +19,30 @@ let dataLoaded = false;
       applyFilters();
     }
 
-function showModal(text) {
+function showModal(region, level, description) {
   const modal = document.getElementById('modal');
   if(!modal) return;
-  modal.querySelector('.modal-content').textContent = text;
+  const content = modal.querySelector('.modal-content');
+  if(!content) return;
+  content.innerHTML = '';
+  if(region) {
+    const r = document.createElement('div');
+    r.className = 'modal-region';
+    r.textContent = region;
+    content.appendChild(r);
+  }
+  if(level) {
+    const l = document.createElement('div');
+    l.className = 'modal-level';
+    l.textContent = `Level ${level}`;
+    content.appendChild(l);
+  }
+  if(description) {
+    const d = document.createElement('div');
+    d.className = 'modal-description';
+    d.textContent = description;
+    content.appendChild(d);
+  }
   modal.style.display = 'flex';
 }
 
@@ -393,14 +413,13 @@ function notify(msg, delay = 3000) {
         tableCols.slice(1).forEach(col => {
           if(col.key === "unlock_description") {
             if(showInfoCol) {
-              const infoParts = [];
-              if(hideInfo) {
-                if(p.region) infoParts.push(`Region: ${p.region}`);
-                if(p.level) infoParts.push(`Level: ${p.level}`);
-              }
-              if(hideUnlock && p.unlock_description) infoParts.push(p.unlock_description);
-              const info = infoParts.join('\n');
-              html += `<td class="info-cell"><span class="info-icon" data-info="${info.replace(/"/g,'&quot;')}"><i class="fa-solid fa-circle-info"></i></span></td>`;
+              const region = hideInfo ? (p.region || '') : '';
+              const level = hideInfo ? (p.level || '') : '';
+              const desc = hideUnlock ? (p.unlock_description || '') : '';
+              const r = region.replace(/"/g,'&quot;');
+              const l = String(level).replace(/"/g,'&quot;');
+              const d = desc.replace(/"/g,'&quot;');
+              html += `<td class="info-cell"><span class="info-icon" data-region="${r}" data-level="${l}" data-desc="${d}"><i class="fa-solid fa-circle-info"></i></span></td>`;
             } else {
               html += `<td>${p.unlock_description || ''}</td>`;
             }
@@ -433,7 +452,8 @@ function notify(msg, delay = 3000) {
       div.querySelectorAll('.info-icon').forEach(ic => {
         ic.addEventListener('click', e => {
           e.stopPropagation();
-          showModal(e.currentTarget.dataset.info);
+          const el = e.currentTarget;
+          showModal(el.dataset.region, el.dataset.level, el.dataset.desc);
         });
       });
     }

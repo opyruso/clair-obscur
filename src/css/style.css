@@ -310,12 +310,27 @@
       justify-content: center;
       z-index: 1000;
     }
-    .modal-content {
-      background: #23263a;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 80%;
-    }
+.modal-content {
+  background: #23263a;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+.modal-region {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #b6e4ff;
+  margin-bottom: 4px;
+}
+.modal-level {
+  font-size: 1.1em;
+  color: #FFEACC;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.modal-description {
+  white-space: pre-line;
+}
 @media (max-width: 700px) {
   .content-wrapper { padding: 5px; }
   .cards { grid-template-columns: 1fr; }
