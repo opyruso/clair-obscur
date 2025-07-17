@@ -1,0 +1,36 @@
+name: Déploiement Production
+
+on:
+  push:
+    tags:
+      - '**'  # Tous les tags, ex: v1.0.0, release-xx, etc.
+
+jobs:
+  deploy-prod:
+    runs-on: self-hosted
+
+    steps:
+      - name: 🔄 Checkout du code
+        uses: actions/checkout@v4
+
+      - name: 🚀 Déploiement production
+        run: |
+          echo "📦 Installation des dépendances..."
+          npm install
+
+          echo "🏗️  Build du site..."
+          npm run build
+
+          echo "🔍 Vérification du dossier dist/"
+          if [ ! -d "dist" ]; then
+            echo "❌ Le dossier 'dist/' n'a pas été généré. Abandon."
+            exit 1
+          fi
+
+          echo "🧹 Nettoyage du dossier production..."
+          rm -rf /opt/clairobscur/pictos/*
+
+          echo "📁 Copie des fichiers dans pictos/..."
+          cp -r dist/* /opt/clairobscur/pictos/
+
+          echo "✅ Déploiement PRODUCTION terminé !"
