@@ -386,6 +386,7 @@ footer::before {
 .navbar {
   position: relative;
   min-height: 120px;
+  background: none;
 }
 
 .navbar::before {
