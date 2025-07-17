@@ -89,7 +89,7 @@
     @media (min-width: 1920px) {
       .cards { grid-template-columns: repeat(3, 1fr); }
     }
-    .card {
+.card {
       position: relative;
       background: #23263a;
       border-radius: 14px;
@@ -100,6 +100,7 @@
       min-height: 210px;
       transition: box-shadow .2s, background 0.18s, transform 0.1s;
       border: 1px solid #2c3142;
+      z-index: 0;
     }
     .card.owned {
       background: linear-gradient(120deg, #254B2F 60%, #23263a 100%);
@@ -172,11 +173,15 @@
       gap: 12px;
       margin-top: 8px;
     }
-    .card.show-info .info-panel,
-    .card.pinned .info-panel {
+.card.show-info .info-panel,
+.card.pinned .info-panel {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+    }
+.card.show-info,
+.card.pinned {
+      z-index: 10;
     }
     .level {
       font-size: 1.4em;
