@@ -91,9 +91,9 @@
     @media (min-width: 1920px) {
       .cards { grid-template-columns: repeat(3, 1fr); }
     }
-.card {
+    .card {
       position: relative;
-      background: #23263a url('../resources/images/background_tile.png') no-repeat center / cover;
+      background: #23263a url('../resources/images/background_tile.png') repeat;
       border-radius: 14px;
       box-shadow: 0 2px 8px #0006;
       padding: 22px 20px 18px 20px;
@@ -105,8 +105,7 @@
       z-index: 0;
     }
     .card.owned {
-      background: url('../resources/images/background_tile.png') no-repeat center / cover, linear-gradient(120deg, #254B2F 60%, #23263a 100%);
-      border-color: #2c6b48;
+      background: url('../resources/images/background_tile.png') repeat, linear-gradient(120deg, #254B2F 60%, #23263a 100%);
       box-shadow: 0 4px 20px #214b2f88;
     }
     .card:hover {
@@ -138,6 +137,7 @@
       font-size: 1.4em;
       font-weight: 700;
       color: #CDB48E;
+      word-wrap: break-word;
     }
     .bonus-list {
       display: flex;
@@ -232,6 +232,7 @@
       margin: 4px 0 2px 0;
       color: #ffffff;
       white-space: pre-line;
+      word-wrap: break-word;
     }
     .description {
       margin-top: 7px;
@@ -376,7 +377,6 @@ footer::before {
   right: 0;
   bottom: 0;
   background: url('../resources/images/background_header.png') repeat-x top;
-  background-size: auto 100%;
   transform: scaleY(-1);
   transform-origin: top;
   z-index: -1;
@@ -395,7 +395,6 @@ footer::before {
   right: 0;
   bottom: 0;
   background: url('../resources/images/background_header.png') repeat-x bottom;
-  background-size: auto 100%;
   z-index: -1;
 }
 
