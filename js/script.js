@@ -310,7 +310,7 @@ function notify(msg, delay = 3000) {
         const owned = myPictosSet.has(p.id);
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
-        let html = `<div class="name">${p.name}</div>`;
+        let html = `<div class="card-header"><span class="pin-btn" data-id="${p.id}">📌</span><span class="name">${p.name}</span></div>`;
         if (p.bonus_picto && Object.keys(p.bonus_picto).length > 0) {
           html += `<div class="bonus-list">`;
           for (const k in p.bonus_picto) {
@@ -322,7 +322,7 @@ function notify(msg, delay = 3000) {
         if (p.bonus_lumina)
           html += `<div class="bonus-lumina">${p.bonus_lumina}</div>`;
         html += `<hr class="separator">`;
-        html += `<div class="bottom">`;
+        html += `<div class="info-panel">`;
         html += `<div class="level">Lv. ${p.level || ''}</div>`;
         html += `<div class="region-block">`;
         if (p.region)
@@ -331,7 +331,19 @@ function notify(msg, delay = 3000) {
           html += `<div class="description">${p.unlock_description}</div>`;
         html += `</div></div>`;
         card.innerHTML = html;
-        card.addEventListener('click', () => togglePicto(p.id));
+        card.addEventListener('mouseenter', () => card.classList.add('show-info'));
+        card.addEventListener('mouseleave', () => {
+          if(!card.classList.contains('pinned')) card.classList.remove('show-info');
+        });
+        card.addEventListener('click', e => {
+          if(e.target.classList.contains('pin-btn')) {
+            e.stopPropagation();
+            togglePicto(e.target.dataset.id);
+          } else {
+            card.classList.toggle('pinned');
+            card.classList.toggle('show-info', card.classList.contains('pinned'));
+          }
+        });
         container.appendChild(card);
       });
     }
