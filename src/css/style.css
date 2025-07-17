@@ -382,7 +382,11 @@
   }
 
   .navbar {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
     min-height: 120px;
     background: url('../resources/images/background_site_header_footer.png') repeat;
   }
@@ -395,9 +399,10 @@
     bottom: 0;
     height: 25px;
     background: url('../resources/images/background_border.png') repeat-x bottom;
-    z-index: -1;
+    z-index: 1;
   }
 
 body {
+  padding-top: 145px;
   padding-bottom: 60px;
 }
