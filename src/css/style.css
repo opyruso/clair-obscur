@@ -1,6 +1,5 @@
     body {
-      background: #191c23 url('../resources/images/background_site_1.png') no-repeat center top;
-      background-size: cover;
+      background: #191c23 url(../resources/images/background_site_1.png) repeat left top;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
