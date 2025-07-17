@@ -16,5 +16,5 @@ jobs:
 
       - name: 🚀 Exécution du script de déploiement
         run: |
-          chmod +x ./deploy-recette.sh
-          ./deploy-recette.sh
+          chmod +x ./.github/deploy-recette.sh
+          ./.github/deploy-recette.sh
