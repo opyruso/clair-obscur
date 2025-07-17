@@ -17,6 +17,6 @@ jobs:
       - name: 🚀 Exécution du script de déploiement
         run: |
           pwd
-          tree -L 2
+          tree -L 2 ../
           chmod +x ./deploy-recette.sh
           ./deploy-recette.sh
