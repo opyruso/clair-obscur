@@ -95,15 +95,22 @@
       position: relative;
       box-sizing: border-box;
       aspect-ratio: 1088 / 481;
+      perspective: 1000px;
+      transition: transform 0.1s;
+      z-index: 0;
+    }
+    .card-inner {
+      position: absolute;
+      inset: 0;
+      box-sizing: border-box;
       border-left: 20px solid transparent;
       border-right: 20px solid transparent;
       border-image: url('../resources/images/background_tile.png') 0 20 fill stretch;
       border-radius: 14px;
-      perspective: 1000px;
-      transition: background 0.18s, transform 0.1s;
-      z-index: 0;
+      transform-style: preserve-3d;
+      transition: transform 0.6s, background 0.18s;
     }
-    .card.owned {
+    .card.owned .card-inner {
       border-image-source: url('../resources/images/background_tile_selected.png');
     }
     .card:hover {
@@ -156,12 +163,6 @@
       height: 1px;
       background: #555;
       margin: 10px 0;
-    }
-    .card-inner {
-      position: absolute;
-      inset: 0;
-      transform-style: preserve-3d;
-      transition: transform 0.6s;
     }
     .card-face {
       position: absolute;
