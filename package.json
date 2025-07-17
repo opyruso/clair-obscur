@@ -1,0 +1,15 @@
+{
+  "name": "clair-obscur",
+  "version": "1.0.0",
+  "description": "Clair Obscur pictos inventory",
+  "scripts": {
+    "start": "lite-server",
+    "build": "echo \"Static project - nothing to build\""
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  },
+  "devDependencies": {
+    "lite-server": "^2.7.2"
+  }
+}
