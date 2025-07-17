@@ -89,7 +89,8 @@
     @media (min-width: 1920px) {
       .cards { grid-template-columns: repeat(3, 1fr); }
     }
-    .card {
+.card {
+      position: relative;
       background: #23263a;
       border-radius: 14px;
       box-shadow: 0 2px 8px #0006;
@@ -99,6 +100,7 @@
       min-height: 210px;
       transition: box-shadow .2s, background 0.18s, transform 0.1s;
       border: 1px solid #2c3142;
+      z-index: 0;
     }
     .card.owned {
       background: linear-gradient(120deg, #254B2F 60%, #23263a 100%);
@@ -116,11 +118,19 @@
       letter-spacing: 1px;
       margin-bottom: 5px;
     }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .pin-btn {
+      cursor: pointer;
+    }
     .name {
       font-size: 1.4em;
       font-weight: 700;
       color: #CDB48E;
-      margin-bottom: 8px;
     }
     .bonus-list {
       display: flex;
@@ -143,11 +153,35 @@
       background: #555;
       margin: 10px 0;
     }
-    .bottom {
+    .info-panel {
+      position: absolute;
+      top: 100%;
+      right: 8px;
+      width: 75%;
+      background: #23263a;
+      border: 1px solid #2c3142;
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 10px;
+      box-shadow: 0 4px 12px #0008;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
       display: flex;
       justify-content: space-between;
       gap: 12px;
       margin-top: 8px;
+    }
+.card.show-info .info-panel,
+.card.pinned .info-panel {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+.card.show-info,
+.card.pinned {
+      z-index: 10;
     }
     .level {
       font-size: 1.4em;
