@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Clair Obscur pictos inventory",
   "scripts": {
-    "start": "lite-server",
-    "build": "echo \"Static project - nothing to build\""
+    "start": "lite-server src",
+    "build": "node build.js"
   },
   "dependencies": {
     "bootstrap": "^5.3.3"
