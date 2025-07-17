@@ -60,6 +60,20 @@ function notify(msg, delay = 3000) {
   }, delay);
 }
 
+function handleCardPressMove(e) {
+  const card = e.currentTarget;
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const rx = ((y - rect.height / 2) / rect.height) * 6;
+  const ry = -((x - rect.width / 2) / rect.width) * 6;
+  card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+}
+
+function handleCardPressLeave(e) {
+  e.currentTarget.style.transform = '';
+}
+
     document.addEventListener('click', () => {
       const modal = document.getElementById('modal');
       if(modal && modal.style.display !== 'none') modal.style.display = 'none';
@@ -347,6 +361,8 @@ function notify(msg, delay = 3000) {
         const owned = myPictosSet.has(p.id);
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
+        card.setAttribute('data-aos','fade-up');
+        card.setAttribute('data-aos-duration','500');
 
         let front = `<div class="card-face card-front">`;
         front += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
@@ -374,10 +390,8 @@ function notify(msg, delay = 3000) {
 
         card.innerHTML = `<div class="card-inner">${front}${back}</div>`;
 
-        card.addEventListener('mouseenter', () => card.classList.add('flipped'));
-        card.addEventListener('mouseleave', () => {
-          if(!card.classList.contains('pinned')) card.classList.remove('flipped');
-        });
+        card.addEventListener('mousemove', handleCardPressMove);
+        card.addEventListener('mouseleave', handleCardPressLeave);
         card.addEventListener('click', e => {
           const pin = e.target.closest('.pin-btn');
           if(pin) {
@@ -386,10 +400,12 @@ function notify(msg, delay = 3000) {
           } else {
             card.classList.toggle('pinned');
             card.classList.toggle('flipped', card.classList.contains('pinned'));
+            handleCardPressLeave({currentTarget: card});
           }
         });
         container.appendChild(card);
       });
+      if(window.AOS) AOS.refresh();
     }
 
     // Vue Tableau

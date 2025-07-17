@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/bootstrap-lite.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-dark">
@@ -50,6 +51,8 @@
     Copyright oPyRuSo 2025-<span id="year"></span>
   </footer>
   <script src="js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>AOS.init({ once: true, duration: 500, easing: 'ease-out', offset: 50 });</script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
