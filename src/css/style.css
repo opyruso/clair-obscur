@@ -260,8 +260,20 @@
       transition: background 0.15s;
       font-size: 1.07em;
     }
-    th.sorted-asc:after { content: " ⬆️"; font-size: 0.85em; }
-    th.sorted-desc:after { content: " ⬇️"; font-size: 0.85em; }
+    th.sorted-asc:after {
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      content: "\f062";
+      font-size: 0.85em;
+      margin-left: 4px;
+    }
+    th.sorted-desc:after {
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      content: "\f063";
+      font-size: 0.85em;
+      margin-left: 4px;
+    }
     tr.owned td, tr.owned th {
       background: #1a3820 !important;
     }
