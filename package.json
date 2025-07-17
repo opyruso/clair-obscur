@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3"
+    ,"@fontsource/cinzel": "^5.0.5"
   },
   "devDependencies": {
     "lite-server": "^2.6.1"

@@ -182,6 +182,14 @@ function notify(msg, delay = 3000) {
       updateIconStates();
     }
 
+    function saveToLocal() {
+      if(!confirm('Save selection to this browser?')) return;
+      localStorage.setItem('myPictos', JSON.stringify(Array.from(myPictosSet)));
+      modified = false;
+      notify('Selection saved');
+      updateIconStates();
+    }
+
     function selectAll() {
       const total = pictosFiltered.length;
       const selected = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
@@ -211,6 +219,8 @@ function notify(msg, delay = 3000) {
     function updateIconStates() {
       const downloadBtn = document.getElementById('downloadBtn');
       if(downloadBtn) downloadBtn.classList.toggle('disabled', !modified);
+      const saveBtn = document.getElementById('saveBtn');
+      if(saveBtn) saveBtn.classList.toggle('disabled', !modified);
       const baseFiltered = pictos.filter(p => {
         const term = document.getElementById('search').value.trim().toLowerCase();
         return Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
@@ -246,7 +256,13 @@ function notify(msg, delay = 3000) {
       pictos = data;
       pictosFiltered = pictos.slice();
       myPictosSet = new Set();
-      ownedCount = 0;
+      const saved = localStorage.getItem('myPictos');
+      if(saved) {
+        try {
+          JSON.parse(saved).forEach(id => myPictosSet.add(id));
+        } catch(e) { /* ignore */ }
+      }
+      ownedCount = myPictosSet.size;
       totalCount = pictos.length;
       dataLoaded = true;
       updateIconStates();
@@ -255,6 +271,7 @@ function notify(msg, delay = 3000) {
 
     document.getElementById('downloadBtn').addEventListener('click', downloadJson);
     document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
+    document.getElementById('saveBtn').addEventListener('click', saveToLocal);
     document.getElementById('fileInput').addEventListener('change', e => {
       if (e.target.files && e.target.files[0]) {
         handleUpload(e.target.files[0]);
