@@ -1,0 +1,20 @@
+name: Déploiement Recette
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Lancer le déploiement
+    runs-on: self-hosted
+
+    steps:
+      - name: 🧬 Récupération du code
+        uses: actions/checkout@v4
+
+      - name: 🚀 Exécution du script de déploiement
+        run: |
+          chmod +x ./deploy-recette.sh
+          ./deploy-recette.sh
