@@ -1,5 +1,5 @@
     body {
-      background: #191c23 url(../resources/images/background_site_1.png) repeat left top;
+      background: #191c23 url(../resources/images/background_site.png) repeat left top;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
@@ -361,43 +361,42 @@
   transform: translateY(0);
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-}
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    background: url('../resources/images/background_site_header_footer.png') repeat;
+  }
 
-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('../resources/images/background_header.png') repeat-x top;
-  transform: scaleY(-1);
-  transform-origin: top;
-  z-index: -1;
-}
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: url('../resources/images/background_border.png') repeat-x top;
+    z-index: -1;
+  }
 
-.navbar {
-  position: relative;
-  min-height: 120px;
-  background: none;
-}
+  .navbar {
+    position: relative;
+    min-height: 120px;
+    background: url('../resources/images/background_site_header_footer.png') repeat;
+  }
 
-.navbar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('../resources/images/background_header.png') repeat-x bottom;
-  z-index: -1;
-}
+  .navbar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 25px;
+    background: url('../resources/images/background_border.png') repeat-x bottom;
+    z-index: -1;
+  }
 
 body {
   padding-bottom: 60px;
