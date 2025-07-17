@@ -105,8 +105,9 @@
       z-index: 0;
     }
     .card.owned {
-      background: url('../resources/images/background_tile.png') repeat, linear-gradient(120deg, #254B2F 60%, #23263a 100%);
+      background: linear-gradient(120deg, #254B2F 60%, #23263a 100%), url('../resources/images/background_tile.png') repeat;
       box-shadow: 0 4px 20px #214b2f88;
+      border-color: #2c3142;
     }
     .card:hover {
       transform: translateY(-2px);
