@@ -347,30 +347,36 @@ function notify(msg, delay = 3000) {
         const owned = myPictosSet.has(p.id);
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
-        let html = `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
+
+        let front = `<div class="card-face card-front">`;
+        front += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
         if (p.bonus_picto && Object.keys(p.bonus_picto).length > 0) {
-          html += `<div class="bonus-list">`;
+          front += `<div class="bonus-list">`;
           for (const k in p.bonus_picto) {
-            html += `<div class="bonus"><div class="bonus-name">${pictoLabels[k] || k}</div><div class="bonus-value">${p.bonus_picto[k]}${k==="critical-luck"?"%":""}</div></div>`;
+            front += `<div class="bonus"><div class="bonus-name">${pictoLabels[k] || k}</div><div class="bonus-value">${p.bonus_picto[k]}${k==="critical-luck"?"%":""}</div></div>`;
           }
-          html += `</div>`;
+          front += `</div>`;
         }
-        html += `<hr class="separator">`;
+        front += `<hr class="separator">`;
         if (p.bonus_lumina)
-          html += `<div class="bonus-lumina">${p.bonus_lumina}</div>`;
-        html += `<hr class="separator">`;
-        html += `<div class="info-panel">`;
-        html += `<div class="level">Lv. ${p.level || ''}</div>`;
-        html += `<div class="region-block">`;
+          front += `<div class="bonus-lumina">${p.bonus_lumina}</div>`;
+        front += `</div>`;
+
+        let back = `<div class="card-face card-back">`;
+        back += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
+        back += `<div class="level">Lv. ${p.level || ''}</div>`;
+        back += `<div class="region-block">`;
         if (p.region)
-          html += `<div class="region-title">${p.region}</div>`;
+          back += `<div class="region-title">${p.region}</div>`;
         if (p.unlock_description)
-          html += `<div class="description">${p.unlock_description}</div>`;
-        html += `</div></div>`;
-        card.innerHTML = html;
-        card.addEventListener('mouseenter', () => card.classList.add('show-info'));
+          back += `<div class="description">${p.unlock_description}</div>`;
+        back += `</div></div>`;
+
+        card.innerHTML = `<div class="card-inner">${front}${back}</div>`;
+
+        card.addEventListener('mouseenter', () => card.classList.add('flipped'));
         card.addEventListener('mouseleave', () => {
-          if(!card.classList.contains('pinned')) card.classList.remove('show-info');
+          if(!card.classList.contains('pinned')) card.classList.remove('flipped');
         });
         card.addEventListener('click', e => {
           const pin = e.target.closest('.pin-btn');
@@ -379,7 +385,7 @@ function notify(msg, delay = 3000) {
             togglePicto(pin.dataset.id);
           } else {
             card.classList.toggle('pinned');
-            card.classList.toggle('show-info', card.classList.contains('pinned'));
+            card.classList.toggle('flipped', card.classList.contains('pinned'));
           }
         });
         container.appendChild(card);
