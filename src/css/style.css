@@ -177,6 +177,7 @@
     }
     .card-back {
       transform: rotateY(180deg);
+      padding-left: 26px;
     }
     .card.flipped .card-inner,
     .card.pinned .card-inner {
