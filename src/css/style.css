@@ -83,6 +83,7 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 30px;
+      perspective: 1000px;
     }
     @media (min-width: 1280px) {
       .cards { grid-template-columns: repeat(2, 1fr); }
@@ -98,9 +99,7 @@
       border-right: 20px solid transparent;
       border-image: url('../resources/images/background_tile.png') 0 20 fill stretch;
       border-radius: 14px;
-      padding: 22px 60px 18px 20px;
-      display: flex;
-      flex-direction: column;
+      perspective: 1000px;
       transition: background 0.18s, transform 0.1s;
       z-index: 0;
     }
@@ -158,34 +157,30 @@
       background: #555;
       margin: 10px 0;
     }
-    .info-panel {
+    .card-inner {
       position: absolute;
-      top: 100%;
-      right: 8px;
-      width: 75%;
-      background: #23263a;
-      border: 1px solid #2c3142;
-      border-top: none;
-      border-radius: 0 0 10px 10px;
-      padding: 10px;
-      box-shadow: 0 4px 12px #0008;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none;
+      inset: 0;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+    .card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 8px;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: 22px 60px 18px 20px;
     }
-.card.show-info .info-panel,
-.card.pinned .info-panel {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+    .card-back {
+      transform: rotateY(180deg);
     }
-.card.show-info,
-.card.pinned {
+    .card.flipped .card-inner,
+    .card.pinned .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card.flipped,
+    .card.pinned {
       z-index: 10;
     }
     .level {
