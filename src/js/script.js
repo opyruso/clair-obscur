@@ -347,6 +347,7 @@ function notify(msg, delay = 3000) {
         const owned = myPictosSet.has(p.id);
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
+        card.setAttribute('data-aos', 'flip-zoom');
 
         let front = `<div class="card-face card-front">`;
         front += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
@@ -374,9 +375,17 @@ function notify(msg, delay = 3000) {
 
         card.innerHTML = `<div class="card-inner">${front}${back}</div>`;
 
-        card.addEventListener('mouseenter', () => card.classList.add('flipped'));
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          const maxDeg = 8;
+          const rx = y * maxDeg;
+          const ry = -x * maxDeg;
+          card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
         card.addEventListener('mouseleave', () => {
-          if(!card.classList.contains('pinned')) card.classList.remove('flipped');
+          card.style.transform = '';
         });
         card.addEventListener('click', e => {
           const pin = e.target.closest('.pin-btn');
@@ -384,12 +393,12 @@ function notify(msg, delay = 3000) {
             e.stopPropagation();
             togglePicto(pin.dataset.id);
           } else {
-            card.classList.toggle('pinned');
-            card.classList.toggle('flipped', card.classList.contains('pinned'));
+            card.classList.toggle('flipped');
           }
         });
         container.appendChild(card);
       });
+      if (window.AOS) AOS.refresh();
     }
 
     // Vue Tableau

@@ -115,9 +115,6 @@
     .card.owned .card-inner {
       background-image: url('../resources/images/background_tile_selected.png');
     }
-    .card:hover {
-      transform: translateY(-2px);
-    }
     .region {
       color: #7cc9ff;
       font-size: 0.93em;
@@ -410,4 +407,15 @@
 body {
   padding-top: 145px;
   padding-bottom: 80px;
+}
+
+/* AOS custom animation for flip with zoom */
+[data-aos="flip-zoom"] {
+  transform: perspective(1000px) rotateY(90deg) scale(0.5);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+[data-aos="flip-zoom"].aos-animate {
+  transform: perspective(1000px) rotateY(0) scale(1);
+  opacity: 1;
 }
