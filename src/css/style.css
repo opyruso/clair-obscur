@@ -93,7 +93,7 @@
     }
     .card {
       position: relative;
-      background: #23263a url('../resources/images/background_tile.png') repeat;
+      background: url('../resources/images/background_tile.png') no-repeat center/cover;
       border-radius: 14px;
       box-shadow: 0 2px 8px #0006;
       padding: 22px 20px 18px 20px;
@@ -101,13 +101,13 @@
       flex-direction: column;
       min-height: 210px;
       transition: box-shadow .2s, background 0.18s, transform 0.1s;
-      border: 1px solid #2c3142;
+      border: none;
       z-index: 0;
     }
     .card.owned {
-      background: #23263a url('../resources/images/background_tile.png') repeat;
+      background: url('../resources/images/background_tile.png') no-repeat center/cover;
       box-shadow: 0 4px 20px #214b2f88;
-      border-color: #2c3142;
+      border: none;
     }
     .card:hover {
       transform: translateY(-2px);
