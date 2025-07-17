@@ -1,5 +1,6 @@
     body {
-      background: #191c23;
+      background: #191c23 url('../resources/images/background_site_1.png') no-repeat center top;
+      background-size: cover;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
@@ -92,7 +93,7 @@
     }
 .card {
       position: relative;
-      background: #23263a;
+      background: #23263a url('../resources/images/background_tile.png') no-repeat center / cover;
       border-radius: 14px;
       box-shadow: 0 2px 8px #0006;
       padding: 22px 20px 18px 20px;
@@ -104,7 +105,7 @@
       z-index: 0;
     }
     .card.owned {
-      background: linear-gradient(120deg, #254B2F 60%, #23263a 100%);
+      background: url('../resources/images/background_tile.png') no-repeat center / cover, linear-gradient(120deg, #254B2F 60%, #23263a 100%);
       border-color: #2c6b48;
       box-shadow: 0 4px 20px #214b2f88;
     }
@@ -364,6 +365,38 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../resources/images/background_header.png') repeat-x top;
+  background-size: auto 100%;
+  transform: scaleY(-1);
+  transform-origin: top;
+  z-index: -1;
+}
+
+.navbar {
+  position: relative;
+  min-height: 120px;
+}
+
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../resources/images/background_header.png') repeat-x bottom;
+  background-size: auto 100%;
+  z-index: -1;
 }
 
 body {
