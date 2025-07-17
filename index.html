@@ -2,21 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Clair Obscur - Pictos</title>
+  <title>Clair Obscur Helper - Pictos inventory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="container">
-      <h1>Clair Obscur - Pictos</h1>
+<body class="d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Clair Obscur Helper</a>
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item me-3">
+          <a class="nav-link active" href="#">Pictos inventory</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <main class="container mt-4 flex-grow-1">
+      <h1>Pictos inventory</h1>
       <div class="actions">
         <div class="icon-bar">
           <button class="icon-btn" id="downloadBtn" title="Download">💾</button>
           <button class="icon-btn" id="uploadBtn" title="Upload">📂</button>
-          <button class="icon-btn" id="loadPictosBtn" title="Load pictos">📥</button>
           <div class="icon-sep"></div>
           <button class="icon-btn toggle" id="hideOwnedBtn" title="Hide owned">🙈</button>
           <button class="icon-btn toggle" id="hideMissingBtn" title="Hide missing">❓</button>
@@ -35,7 +45,12 @@
       <div id="table" class="table-view" style="display:none"></div>
       <div id="modal" class="modal" style="display:none"><div class="modal-content"></div></div>
       <div id="notificationContainer" class="notification-container"></div>
-    </div>
+  </main>
+  <footer class="bg-dark text-center text-white py-3">
+    Copyright oPyRuSo 2025-<span id="year"></span>
+  </footer>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
