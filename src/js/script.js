@@ -347,7 +347,7 @@ function notify(msg, delay = 3000) {
         const owned = myPictosSet.has(p.id);
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
-        let html = `<div class="card-header"><span class="pin-btn" data-id="${p.id}">📌</span><span class="name">${p.name}</span></div>`;
+        let html = `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
         if (p.bonus_picto && Object.keys(p.bonus_picto).length > 0) {
           html += `<div class="bonus-list">`;
           for (const k in p.bonus_picto) {
@@ -373,9 +373,10 @@ function notify(msg, delay = 3000) {
           if(!card.classList.contains('pinned')) card.classList.remove('show-info');
         });
         card.addEventListener('click', e => {
-          if(e.target.classList.contains('pin-btn')) {
+          const pin = e.target.closest('.pin-btn');
+          if(pin) {
             e.stopPropagation();
-            togglePicto(e.target.dataset.id);
+            togglePicto(pin.dataset.id);
           } else {
             card.classList.toggle('pinned');
             card.classList.toggle('show-info', card.classList.contains('pinned'));
@@ -396,7 +397,7 @@ function notify(msg, delay = 3000) {
         if(col.key === "checkbox") {
           html += `<th></th>`;
         } else if(col.key === "unlock_description") {
-          if(showInfoCol) html += `<th>ℹ️</th>`;
+          if(showInfoCol) html += `<th><i class="fa-solid fa-circle-info"></i></th>`;
           else html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
         } else if((col.key === "region" || col.key === "level") && hideInfo) {
           /* skip */
@@ -418,7 +419,7 @@ function notify(msg, delay = 3000) {
               const r = region.replace(/"/g,'&quot;');
               const l = String(level).replace(/"/g,'&quot;');
               const d = desc.replace(/"/g,'&quot;');
-              html += `<td class="info-cell"><span class="info-icon" data-region="${r}" data-level="${l}" data-desc="${d}">ℹ️</span></td>`;
+              html += `<td class="info-cell"><span class="info-icon" data-region="${r}" data-level="${l}" data-desc="${d}"><i class="fa-solid fa-circle-info"></i></span></td>`;
             } else {
               html += `<td>${p.unlock_description || ''}</td>`;
             }
