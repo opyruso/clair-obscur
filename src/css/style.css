@@ -100,7 +100,7 @@
       box-sizing: border-box;
       aspect-ratio: 1088 / 481;
       perspective: 1000px;
-      transition: transform 0.2s;
+      transition: transform 0.35s;
       z-index: 0;
     }
     .card.fade {
