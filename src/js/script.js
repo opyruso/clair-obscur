@@ -381,10 +381,7 @@ function handleCardPressLeave(e) {
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
         card.dataset.id = p.id;
-        if(initialRender) {
-          card.setAttribute('data-aos','fade-up');
-          card.setAttribute('data-aos-duration','500');
-        } else {
+        if(!initialRender) {
           card.classList.add('fade');
         }
 
@@ -430,7 +427,6 @@ function handleCardPressLeave(e) {
         container.appendChild(card);
         if(!initialRender) requestAnimationFrame(() => card.classList.add('show'));
       });
-      if(initialRender && window.AOS) AOS.refresh();
       initialRender = false;
     }
 
