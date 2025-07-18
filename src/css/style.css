@@ -332,11 +332,14 @@
   .content-wrapper { padding: 5px; }
   .cards { grid-template-columns: 1fr; }
   th, td { font-size: 0.93em; }
-  html { font-size: 14px; }
+  html { font-size: 13px; }
 }
 
 @media (max-width: 480px) {
-  html { font-size: 12px; }
+  html { font-size: 11px; }
+  .name { font-size: 1.2em; }
+  .level { font-size: 1.2em; }
+  .badge { font-size: 0.86em; }
 }
 
 .notification-container {
