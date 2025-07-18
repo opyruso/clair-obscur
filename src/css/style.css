@@ -103,6 +103,13 @@
       transition: transform 0.2s;
       z-index: 0;
     }
+    .card.fade {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .card.fade.show {
+      opacity: 1;
+    }
     .card-inner {
       position: absolute;
       inset: 0;
