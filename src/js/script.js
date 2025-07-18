@@ -11,6 +11,7 @@ let hideMissing = false;
 let modified = false;
 let hiddenCount = 0;
 let dataLoaded = false;
+let initialRender = true;
 
     function togglePicto(id) {
       const hadId = myPictosSet.has(id);
@@ -380,8 +381,9 @@ function handleCardPressLeave(e) {
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
         card.dataset.id = p.id;
-        card.setAttribute('data-aos','fade-up');
-        card.setAttribute('data-aos-duration','500');
+        if(!initialRender) {
+          card.classList.add('fade');
+        }
 
         let front = `<div class="card-face card-front">`;
         front += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
@@ -423,8 +425,9 @@ function handleCardPressLeave(e) {
           }
         });
         container.appendChild(card);
+        if(!initialRender) requestAnimationFrame(() => card.classList.add('show'));
       });
-      if(window.AOS) AOS.refresh();
+      initialRender = false;
     }
 
     // Vue Tableau
