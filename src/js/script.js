@@ -65,8 +65,8 @@ function handleCardPressMove(e) {
   const rect = card.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  const rx = ((y - rect.height / 2) / rect.height) * 6;
-  const ry = -((x - rect.width / 2) / rect.width) * 6;
+  const rx = ((y - rect.height / 2) / rect.height) * 2;
+  const ry = -((x - rect.width / 2) / rect.width) * 2;
   card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
 }
 
