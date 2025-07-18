@@ -147,7 +147,10 @@
       font-size: 1.4em;
       font-weight: 700;
       color: #CDB48E;
-      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
     }
     .bonus-list {
       display: flex;
@@ -177,11 +180,11 @@
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      padding: 22px 24px 18px 24px;
+      padding: 22px 24px 18px 32px;
     }
     .card-back {
       transform: rotateY(180deg);
-      padding-left: 30px;
+      padding-left: 40px;
       padding-right: 30px;
     }
     .card.flipped .card-inner,
@@ -233,8 +236,13 @@
       font-size: 0.98em;
       margin: 4px 0 2px 0;
       color: #ffffff;
-      white-space: pre-line;
+      white-space: normal;
       word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
     }
     .description {
       margin-top: 7px;
