@@ -112,9 +112,9 @@ function handleCardPressMove(e) {
     card.style.transform = '';
     return;
   }
-  const ry = ((x - rect.width / 2) / rect.width);
+  const ry = ((x - rect.width / 2) / rect.width) * 0.3;
   const weight = 0.8 + 0.4 * (y / rect.height);
-  const rx = -((y - rect.height / 2) / rect.height) * weight;
+  const rx = -((y - rect.height / 2) / rect.height) * weight * 0.3;
   card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
 }
 
