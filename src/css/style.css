@@ -423,3 +423,15 @@ body {
   padding-top: 145px;
   padding-bottom: 80px;
 }
+
+.lang-select {
+  background: #23263a;
+  color: #b6e4ff;
+  border: 1px solid #3d4769;
+  border-radius: 9px;
+  padding: 4px 8px;
+}
+
+.lang-select option {
+  color: #000;
+}

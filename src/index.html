@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
   <meta charset="UTF-8">
-  <title>Clair Obscur Helper - Pictos inventory</title>
+  <title data-i18n="site_title">Clair Obscur Helper - Pictos inventory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,33 +12,40 @@
 <body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Clair Obscur Helper</a>
-      <ul class="navbar-nav flex-row ms-auto">
+      <a class="navbar-brand" href="#" data-i18n="nav_brand">Clair Obscur Helper</a>
+      <ul class="navbar-nav flex-row">
         <li class="nav-item me-3">
-          <a class="nav-link active" href="#">Pictos inventory</a>
+          <a class="nav-link active" href="#" data-i18n="nav_pictos">Pictos inventory</a>
         </li>
       </ul>
+      <select id="languageSelect" class="lang-select ms-auto">
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="es">ES</option>
+      </select>
     </div>
   </nav>
   <main class="content-wrapper mt-4 flex-grow-1">
-      <h1>Pictos inventory</h1>
+      <h1 data-i18n="heading_pictos">Pictos inventory</h1>
       <div class="actions">
         <div class="icon-bar">
-          <button class="icon-btn" id="downloadBtn" title="Download"><i class="fa-solid fa-download"></i></button>
-          <button class="icon-btn" id="uploadBtn" title="Upload"><i class="fa-solid fa-upload"></i></button>
-          <button class="icon-btn" id="saveBtn" title="Sauvegarder"><i class="fa-solid fa-floppy-disk"></i></button>
+          <button class="icon-btn" id="downloadBtn" data-i18n-title="download" title="Download"><i class="fa-solid fa-download"></i></button>
+          <button class="icon-btn" id="uploadBtn" data-i18n-title="upload" title="Upload"><i class="fa-solid fa-upload"></i></button>
+          <button class="icon-btn" id="saveBtn" data-i18n-title="save" title="Sauvegarder"><i class="fa-solid fa-floppy-disk"></i></button>
           <div class="icon-sep"></div>
-          <button class="icon-btn toggle" id="hideOwnedBtn" title="Hide owned"><i class="fa-solid fa-lock"></i></button>
-          <button class="icon-btn toggle" id="hideMissingBtn" title="Hide missing"><i class="fa-solid fa-ghost"></i></button>
+          <button class="icon-btn toggle" id="hideOwnedBtn" data-i18n-title="hide_owned" title="Hide owned"><i class="fa-solid fa-lock"></i></button>
+          <button class="icon-btn toggle" id="hideMissingBtn" data-i18n-title="hide_missing" title="Hide missing"><i class="fa-solid fa-ghost"></i></button>
           <div class="icon-sep"></div>
-          <button class="icon-btn" id="selectAllBtn" title="Select all"><i class="fa-solid fa-check"></i></button>
-          <button class="icon-btn" id="clearAllBtn" title="Clear all"><i class="fa-solid fa-trash"></i></button>
+          <button class="icon-btn" id="selectAllBtn" data-i18n-title="select_all" title="Select all"><i class="fa-solid fa-check"></i></button>
+          <button class="icon-btn" id="clearAllBtn" data-i18n-title="clear_all" title="Clear all"><i class="fa-solid fa-trash"></i></button>
           <div class="icon-sep"></div>
-          <button class="icon-btn" id="gridViewBtn" title="Grid view"><i class="fa-solid fa-th"></i></button>
-          <button class="icon-btn" id="tableViewBtn" title="Table view"><i class="fa-solid fa-table"></i></button>
+          <button class="icon-btn" id="gridViewBtn" data-i18n-title="grid_view" title="Grid view"><i class="fa-solid fa-th"></i></button>
+          <button class="icon-btn" id="tableViewBtn" data-i18n-title="table_view" title="Table view"><i class="fa-solid fa-table"></i></button>
           <div class="icon-sep"></div>
         </div>
-        <input class="searchbar" id="search" placeholder="Search pictos by any field...">
+        <input class="searchbar" id="search" placeholder="Search pictos by any field..." data-i18n-placeholder="search_placeholder">
         <input type="file" id="fileInput" accept="application/json" style="display:none">
       </div>
       <div id="cards" class="cards"></div>
@@ -49,6 +56,7 @@
   <footer class="text-center text-white py-3">
     Copyright oPyRuSo 2025-<span id="year"></span>
   </footer>
+  <script src="js/i18n.js"></script>
   <script src="js/script.js"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>

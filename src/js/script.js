@@ -1,4 +1,4 @@
-    const jsonUrl = "data/picto-dictionnary.json";
+    const baseDataUrl = "data/picto-dictionnary";
 let pictos = [];
 let pictosFiltered = [];
 let myPictosSet = new Set();
@@ -12,6 +12,31 @@ let modified = false;
 let hiddenCount = 0;
 let dataLoaded = false;
 let initialRender = true;
+let pictoLabels = {};
+let tableCols = [];
+
+function updateTranslations() {
+  pictoLabels = {
+    "defence": t('defence'),
+    "speed": t('speed'),
+    "critical-luck": t('critical-luck'),
+    "health": t('health')
+  };
+  tableCols = [
+    {key: "checkbox", label: ""},
+    {key: "name", label: t('name')},
+    {key: "region", label: t('region')},
+    {key: "level", label: t('level')},
+    {key: "defence", label: t('defence')},
+    {key: "speed", label: t('speed')},
+    {key: "critical-luck", label: t('critical-luck')},
+    {key: "health", label: t('health')},
+    {key: "bonus_lumina", label: t('bonus_lumina')},
+    {key: "unlock_description", label: t('unlock_description')}
+  ];
+}
+
+updateTranslations();
 
     function togglePicto(id) {
       const hadId = myPictosSet.has(id);
@@ -52,7 +77,7 @@ function showModal(region, level, description) {
   if(level) {
     const l = document.createElement('div');
     l.className = 'modal-level';
-    l.textContent = `Level ${level}`;
+    l.textContent = `${t('level_short')} ${level}`;
     content.appendChild(l);
   }
   if(description) {
@@ -108,15 +133,15 @@ function handleCardPressLeave(e) {
       const visibleTotal = pictosFiltered.length;
       const hiddenTotal = totalCount - visibleTotal;
       const ownedPart = hiddenOwned > 0
-        ? `${visibleOwned} (+${hiddenOwned} masqués)`
+        ? `${visibleOwned} (+${hiddenOwned} ${t('hidden')})`
         : `${visibleOwned}`;
       const totalPart = hiddenTotal > 0
-        ? `${visibleTotal} (+${hiddenTotal} masqués)`
+        ? `${visibleTotal} (+${hiddenTotal} ${t('hidden')})`
         : `${visibleTotal}`;
       const suffix = ` - ${ownedPart} / ${totalPart}`;
       const h1 = document.querySelector("h1");
-      if (h1) h1.textContent = `Clair Obscur - Pictos${suffix}`;
-      document.title = `Clair Obscur - Pictos${suffix}`;
+      if (h1) h1.textContent = `${t('pictos_title')}${suffix}`;
+      document.title = `${t('pictos_title')}${suffix}`;
     }
 
     function applyFilters() {
@@ -136,26 +161,6 @@ function handleCardPressLeave(e) {
       render();
     }
 
-    // Traduction pour badges
-    const pictoLabels = {
-      "defence": "Defence",
-      "speed": "Speed",
-      "critical-luck": "Crit. Luck",
-      "health": "Health"
-    };
-
-    const tableCols = [
-      {key: "checkbox", label: ""},
-      {key: "name", label: "Name"},
-      {key: "region", label: "Region"},
-      {key: "level", label: "Level"},
-      {key: "defence", label: "Defence"},
-      {key: "speed", label: "Speed"},
-      {key: "critical-luck", label: "Crit. Luck"},
-      {key: "health", label: "Health"},
-      {key: "bonus_lumina", label: "Lumina Bonus"},
-      {key: "unlock_description", label: "Unlock"}
-    ];
 
     function levenshtein(a, b) {
       const al = a.length, bl = b.length;
@@ -194,7 +199,7 @@ function handleCardPressLeave(e) {
       reader.onload = e => {
         try {
           const arr = JSON.parse(e.target.result);
-          if (!Array.isArray(arr)) throw new Error('Invalid format');
+          if (!Array.isArray(arr)) throw new Error(t('invalid_format'));
           let added = 0;
           arr.forEach(entry => {
             if (typeof entry !== 'string') return;
@@ -203,7 +208,7 @@ function handleCardPressLeave(e) {
             if (!p) {
               const {picto, score} = bestMatch(entry);
               if (picto && score >= 0.75) {
-                if (confirm(`No exact match for "${entry}". Use "${picto.name}"?`)) p = picto;
+                if (confirm(t('no_match_confirm', {entry, picto: picto.name}))) p = picto;
               }
             }
             if (p) {
@@ -216,9 +221,9 @@ function handleCardPressLeave(e) {
           ownedCount = myPictosSet.size;
           modified = true;
           applyFilters();
-          notify(`${added} pictos added.`);
+          notify(t('pictos_added', {count: added}));
         } catch(err) {
-          notify('Invalid JSON file');
+          notify(t('invalid_json'));
         }
       };
       reader.readAsText(file);
@@ -240,10 +245,10 @@ function handleCardPressLeave(e) {
     }
 
     function saveToLocal() {
-      if(!confirm('Save selection to this browser?')) return;
+      if(!confirm(t('save_confirm'))) return;
       localStorage.setItem('myPictos', JSON.stringify(Array.from(myPictosSet)));
       modified = false;
-      notify('Selection saved');
+      notify(t('selection_saved'));
       updateIconStates();
     }
 
@@ -252,7 +257,7 @@ function handleCardPressLeave(e) {
       const selected = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
       if(total === selected) return;
       if(selected > 0 && selected < total) {
-        if(!confirm('Select all visible pictos?')) return;
+        if(!confirm(t('select_all_confirm'))) return;
       }
       pictosFiltered.forEach(p => myPictosSet.add(p.id));
       ownedCount = myPictosSet.size;
@@ -265,7 +270,7 @@ function handleCardPressLeave(e) {
       const selected = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
       if(selected === 0) return;
       if(selected > 0 && selected < total) {
-        if(!confirm('Clear selection of visible pictos?')) return;
+        if(!confirm(t('clear_selection_confirm'))) return;
       }
       pictosFiltered.forEach(p => myPictosSet.delete(p.id));
       ownedCount = myPictosSet.size;
@@ -308,8 +313,8 @@ function handleCardPressLeave(e) {
     }
 
     async function loadData() {
-      if(dataLoaded) return;
-      const data = await fetch(jsonUrl).then(r => r.json());
+      const url = `${baseDataUrl}_${currentLang}.json`;
+      const data = await fetch(url).then(r => r.json()).catch(() => fetch(`${baseDataUrl}.json`).then(r => r.json()));
       pictos = data;
       pictosFiltered = pictos.slice();
       myPictosSet = new Set();
@@ -550,3 +555,4 @@ function handleCardPressLeave(e) {
 
     // Load pictos immediately on startup
     loadData();
+    window.loadData = loadData;
