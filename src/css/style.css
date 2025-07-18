@@ -424,14 +424,22 @@ body {
   padding-bottom: 80px;
 }
 
-.lang-select {
-  background: #23263a;
-  color: #b6e4ff;
-  border: 1px solid #3d4769;
-  border-radius: 9px;
-  padding: 4px 8px;
+.lang-flags {
+  display: flex;
+  gap: 8px;
 }
 
-.lang-select option {
-  color: #000;
+.lang-flag {
+  cursor: pointer;
+  font-size: 1.6em;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.lang-flag.active {
+  opacity: 1;
+}
+
+.lang-flag:not(.active):hover {
+  opacity: 0.8;
 }

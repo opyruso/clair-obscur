@@ -17,6 +17,7 @@ async function loadLang(lang) {
   translations = await fetch(`lang/${lang}.json`).then(r => r.json());
   document.documentElement.lang = lang;
   applyTranslations();
+  updateFlagState();
   if (typeof updateTranslations === 'function') updateTranslations();
   if (typeof loadData === 'function') loadData();
   if (typeof render === 'function') render();
@@ -38,12 +39,16 @@ function applyTranslations() {
   if (typeof updateTitle === 'function') updateTitle();
 }
 
+function updateFlagState() {
+  document.querySelectorAll('.lang-flag').forEach(el => {
+    el.classList.toggle('active', el.dataset.lang === currentLang);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const sel = document.getElementById('languageSelect');
-  if (sel) {
-    sel.addEventListener('change', e => loadLang(e.target.value));
-    sel.value = currentLang;
-  }
+  document.querySelectorAll('.lang-flag').forEach(el => {
+    el.addEventListener('click', () => loadLang(el.dataset.lang));
+  });
   loadLang(currentLang);
 });
 
