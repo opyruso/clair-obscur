@@ -82,6 +82,10 @@ function handleCardPressMove(e) {
   const rect = card.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
+  if(x < rect.width*0.25 && y < rect.height*0.25 || e.target.closest('.pin-btn')) {
+    card.style.transform = '';
+    return;
+  }
   const ry = ((x - rect.width / 2) / rect.width);
   const weight = 0.8 + 0.4 * (y / rect.height);
   const rx = -((y - rect.height / 2) / rect.height) * weight;
