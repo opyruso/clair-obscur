@@ -161,26 +161,6 @@ function handleCardPressLeave(e) {
       render();
     }
 
-    // Traduction pour badges
-    const pictoLabels = {
-      "defence": "Defence",
-      "speed": "Speed",
-      "critical-luck": "Crit. Luck",
-      "health": "Health"
-    };
-
-    const tableCols = [
-      {key: "checkbox", label: ""},
-      {key: "name", label: "Name"},
-      {key: "region", label: "Region"},
-      {key: "level", label: "Level"},
-      {key: "defence", label: "Defence"},
-      {key: "speed", label: "Speed"},
-      {key: "critical-luck", label: "Crit. Luck"},
-      {key: "health", label: "Health"},
-      {key: "bonus_lumina", label: "Lumina Bonus"},
-      {key: "unlock_description", label: "Unlock"}
-    ];
 
     function levenshtein(a, b) {
       const al = a.length, bl = b.length;
