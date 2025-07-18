@@ -13,10 +13,27 @@ let hiddenCount = 0;
 let dataLoaded = false;
 
     function togglePicto(id) {
-      if(myPictosSet.has(id)) myPictosSet.delete(id); else myPictosSet.add(id);
+      const hadId = myPictosSet.has(id);
+      if(hadId) myPictosSet.delete(id); else myPictosSet.add(id);
       ownedCount = myPictosSet.size;
       modified = true;
-      applyFilters();
+
+      // If a filter hides or shows owned/missing pictos, we need a full refresh
+      if(hideOwned || hideMissing) {
+        applyFilters();
+        return;
+      }
+
+      const card = document.querySelector(`.card[data-id="${id}"]`);
+      if(card) card.classList.toggle('owned', !hadId);
+      const row = document.querySelector(`tr[data-id="${id}"]`);
+      if(row) {
+        row.classList.toggle('owned', !hadId);
+        const cb = row.querySelector('.picto-checkbox');
+        if(cb) cb.checked = !hadId;
+      }
+      updateTitle();
+      updateIconStates();
     }
 
 function showModal(region, level, description) {
@@ -362,6 +379,7 @@ function handleCardPressLeave(e) {
         const owned = myPictosSet.has(p.id);
         const card = document.createElement("div");
         card.className = "card" + (owned ? " owned" : "");
+        card.dataset.id = p.id;
         card.setAttribute('data-aos','fade-up');
         card.setAttribute('data-aos-duration','500');
 
@@ -431,7 +449,7 @@ function handleCardPressLeave(e) {
       html += `</tr></thead><tbody>`;
       pictosFiltered.forEach(p => {
         const owned = myPictosSet.has(p.id);
-        html += `<tr${owned ? ' class="owned"' : ''}>`;
+        html += `<tr data-id="${p.id}"${owned ? ' class="owned"' : ''}>`;
         html += `<td class="checkbox-cell"><input type="checkbox" class="picto-checkbox" data-id="${p.id}"${owned ? " checked" : ""}></td>`;
         tableCols.slice(1).forEach(col => {
           if(col.key === "unlock_description") {
