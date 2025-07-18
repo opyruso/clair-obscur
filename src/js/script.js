@@ -1,4 +1,4 @@
-    const jsonUrl = "data/picto-dictionnary.json";
+    const baseDataUrl = "data/picto-dictionnary";
 let pictos = [];
 let pictosFiltered = [];
 let myPictosSet = new Set();
@@ -313,8 +313,8 @@ function handleCardPressLeave(e) {
     }
 
     async function loadData() {
-      if(dataLoaded) return;
-      const data = await fetch(jsonUrl).then(r => r.json());
+      const url = `${baseDataUrl}_${currentLang}.json`;
+      const data = await fetch(url).then(r => r.json()).catch(() => fetch(`${baseDataUrl}.json`).then(r => r.json()));
       pictos = data;
       pictosFiltered = pictos.slice();
       myPictosSet = new Set();
@@ -555,3 +555,4 @@ function handleCardPressLeave(e) {
 
     // Load pictos immediately on startup
     loadData();
+    window.loadData = loadData;

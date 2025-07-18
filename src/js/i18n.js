@@ -18,6 +18,7 @@ async function loadLang(lang) {
   document.documentElement.lang = lang;
   applyTranslations();
   if (typeof updateTranslations === 'function') updateTranslations();
+  if (typeof loadData === 'function') loadData();
   if (typeof render === 'function') render();
 }
 
