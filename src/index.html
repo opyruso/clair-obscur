@@ -5,13 +5,14 @@
   <title data-i18n="site_title">Clair Obscur Helper - Pictos inventory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/bootstrap-lite.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-dark">
-    <div class="container-fluid">
+    <div class="container-fluid flex-nowrap align-items-center">
       <a class="navbar-brand" href="#" data-i18n="nav_brand">Clair Obscur Helper</a>
       <ul class="navbar-nav flex-row">
         <li class="nav-item me-3">
@@ -19,8 +20,8 @@
         </li>
       </ul>
       <div class="lang-flags ms-auto">
-        <span class="lang-flag" data-lang="fr" id="frFlag">🇫🇷</span>
-        <span class="lang-flag" data-lang="en" id="enFlag">🇬🇧</span>
+        <span class="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>
+        <span class="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span>
       </div>
     </div>
   </nav>
