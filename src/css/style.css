@@ -425,6 +425,7 @@ body {
 }
 
 .lang-flags {
+  margin-left: auto;
   display: flex;
   gap: 8px;
 }
