@@ -186,6 +186,8 @@
       transform: rotateY(180deg);
       padding-left: 40px;
       padding-right: 30px;
+      text-align: left;
+      align-items: flex-start;
     }
     .card.flipped .card-inner,
     .card.pinned .card-inner {
