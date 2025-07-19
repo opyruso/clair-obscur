@@ -1,5 +1,5 @@
     body {
-      background: #191c23 url(../resources/images/general/background_body.avif) repeat left top;
+      background: #191c23 url(../resources/images/general/background_body.avif) repeat-y center top/100% auto;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
@@ -388,7 +388,7 @@
     left: 0;
     width: 100%;
     overflow: hidden;
-    background: url('../resources/images/general/background_header.avif') repeat;
+    background: url('../resources/images/background_site_header_footer.png') repeat-x center center/100% auto;
     z-index: 3000;
     padding: 28px 0 18px;
   }
@@ -411,7 +411,7 @@
     width: 100%;
     overflow: hidden;
     min-height: 120px;
-    background: url('../resources/images/general/background_header.avif') repeat;
+    background: url('../resources/images/general/background_header.avif') repeat-x center center/100% auto;
     z-index: 3000;
   }
 
@@ -474,4 +474,9 @@ body {
 .char-select img.active{opacity:1;}
 
 .damage-icon{width:24px;height:24px;vertical-align:middle;}
+
+a, button, .icon-btn, .toggle-btn, .nav-link, .pin-btn, .lang-flag,
+th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
+  cursor: url('../resources/images/general/clairobscur_cursor.png'), pointer;
+}
 
