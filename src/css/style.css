@@ -1,9 +1,10 @@
     body {
-      background: #191c23 url(../resources/images/background_site.png) repeat left top;
+      background: #191c23 url(../resources/images/general/background_body.avif) repeat left top;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
       padding: 0;
+      cursor: url('../resources/images/general/clairobscur_cursor.png'), auto;
     }
     .content-wrapper {
       margin: 20px;
@@ -114,7 +115,7 @@
       position: absolute;
       inset: 0;
       box-sizing: border-box;
-      background: url('../resources/images/background_tile.png') center/cover no-repeat;
+      background: url('../resources/images/general/panel_background.avif') center/cover no-repeat;
       border-radius: 14px;
       transform-style: preserve-3d;
       transition: transform 0.6s, background 0.18s;
@@ -387,7 +388,7 @@
     left: 0;
     width: 100%;
     overflow: hidden;
-    background: url('../resources/images/background_site_header_footer.png') repeat;
+    background: url('../resources/images/general/background_header.avif') repeat;
     z-index: 3000;
     padding: 28px 0 18px;
   }
@@ -410,7 +411,7 @@
     width: 100%;
     overflow: hidden;
     min-height: 120px;
-    background: url('../resources/images/background_site_header_footer.png') repeat;
+    background: url('../resources/images/general/background_header.avif') repeat;
     z-index: 3000;
   }
 
@@ -471,4 +472,6 @@ body {
 .char-select img{width:128px;height:128px;opacity:0.4;cursor:pointer;transition:opacity .2s;}
 .char-select img:hover{opacity:0.6;}
 .char-select img.active{opacity:1;}
+
+.damage-icon{width:24px;height:24px;vertical-align:middle;}
 
