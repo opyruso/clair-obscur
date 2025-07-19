@@ -2,7 +2,12 @@ const {useEffect} = React;
 const {BrowserRouter, Routes, Route, Navigate, NavLink} = ReactRouterDOM;
 
 function Home(){
-  useEffect(()=>{document.body.dataset.page='index';},[]);
+  useEffect(() => {
+    document.body.dataset.page="index";
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  }, []);
   return (
     <main className="content-wrapper mt-4 flex-grow-1">
       <h1>Home</h1>
@@ -12,7 +17,13 @@ function Home(){
 }
 
 function PictosPage(){
-  useEffect(()=>{document.body.dataset.page='pictos'; if(window.initPictosPage) window.initPictosPage();},[]);
+  useEffect(() => {
+    document.body.dataset.page="pictos";
+    if(window.initPictosPage) window.initPictosPage();
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  }, []);
   return (
     <>
       <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
@@ -46,8 +57,13 @@ function PictosPage(){
 }
 
 function WeaponsPage(){
-  useEffect(()=>{document.body.dataset.page='weapons'; if(window.initWeaponsPage) window.initWeaponsPage();},[]);
-  return (
+  useEffect(() => {
+    document.body.dataset.page="weapons";
+    if(window.initWeaponsPage) window.initWeaponsPage();
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  }, []);
     <>
       <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
       <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
@@ -80,8 +96,12 @@ function WeaponsPage(){
 }
 
 function NotFound(){
-  useEffect(()=>{document.body.dataset.page='404';},[]);
-  return (
+  useEffect(() => {
+    document.body.dataset.page="404";
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  }, []);
     <main className="content-wrapper mt-4 flex-grow-1">
       <h1>404 - Not Found</h1>
     </main>
@@ -106,3 +126,6 @@ function App(){
 }
 
 ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+if(window.bindLangEvents) window.bindLangEvents();
+if(window.applyTranslations) window.applyTranslations();
+if(window.updateFlagState) window.updateFlagState();
