@@ -352,7 +352,7 @@ function handleCardPressLeave(e) {
       loadData();
       window.loadData = loadData;
     }
-    document.addEventListener('commonLoaded', initPage);
+    window.initPictosPage = initPage;
 
     function render() {
       document.getElementById("cards").style.display = currentView === "cards" ? "grid" : "none";
