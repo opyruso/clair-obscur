@@ -21,7 +21,6 @@ let currentCharacter = characters[0];
 let currentView = localStorage.getItem('weaponViewMode') || 'cards';
 let hideOwned = false;
 let hideMissing = false;
-let modified = false;
 let sortCol = null, sortDir = 1;
 let tableCols = [];
 
@@ -42,8 +41,8 @@ function initPage(){
   document.getElementById('search').addEventListener('input', applyFilters);
   document.getElementById('hideOwnedBtn').addEventListener('click',()=>{hideOwned=!hideOwned;if(hideOwned)hideMissing=false;applyFilters();});
   document.getElementById('hideMissingBtn').addEventListener('click',()=>{hideMissing=!hideMissing;if(hideMissing)hideOwned=false;applyFilters();});
-  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));modified=true;applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
-  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));modified=true;applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
+  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
+  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
   document.getElementById('downloadBtn').addEventListener('click',downloadJson);
   document.getElementById('uploadBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
   document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleSiteUpload(e.target.files[0]);e.target.value='';});
@@ -103,7 +102,7 @@ function updateTitle(){
 
 function toggleWeapon(id){
   if(myWeapons.has(id)) myWeapons.delete(id); else myWeapons.add(id);
-  modified=true;updateIconStates();render();
+  updateIconStates();render();
   setSavedItems(storageKey, Array.from(myWeapons));
 }
 
@@ -169,14 +168,7 @@ function updateIconStates(){
 function downloadJson(){
   setSavedItems(storageKey, Array.from(myWeapons));
   downloadSiteData();
-  modified=false;updateIconStates();
-}
-
-function saveToLocal(){
-  if(!confirm(t('save_confirm'))) return;
-  setSavedItems(storageKey, Array.from(myWeapons));
-  saveSiteData();
-  modified=false;updateIconStates();
+  updateIconStates();
 }
 
 function handleUpload(file){
@@ -185,7 +177,6 @@ function handleUpload(file){
 
 function onSiteDataUpdated(){
   myWeapons = new Set(getSavedItems(storageKey));
-  modified = false;
   applyFilters();
 }
 

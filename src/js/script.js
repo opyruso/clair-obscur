@@ -9,7 +9,6 @@ let ownedCount = 0;
 let totalCount = 0;
 let hideOwned = false;
 let hideMissing = false;
-let modified = false;
 let hiddenCount = 0;
 let dataLoaded = false;
 let initialRender = true;
@@ -43,7 +42,6 @@ updateTranslations();
       const hadId = myPictosSet.has(id);
       if(hadId) myPictosSet.delete(id); else myPictosSet.add(id);
       ownedCount = myPictosSet.size;
-      modified = true;
 
       // If a filter hides or shows owned/missing pictos, we need a full refresh
       if(hideOwned || hideMissing) {
@@ -221,7 +219,6 @@ function handleCardPressLeave(e) {
             }
           });
           ownedCount = myPictosSet.size;
-          modified = true;
           applyFilters();
           notify(t('pictos_added', {count: added}));
         } catch(err) {
@@ -234,18 +231,9 @@ function handleCardPressLeave(e) {
     function downloadJson() {
       setSavedItems(storageKey, Array.from(myPictosSet));
       downloadSiteData();
-      modified = false;
       updateIconStates();
     }
 
-    function saveToLocal() {
-      if(!confirm(t('save_confirm'))) return;
-      setSavedItems(storageKey, Array.from(myPictosSet));
-      saveSiteData();
-      modified = false;
-      notify(t('selection_saved'));
-      updateIconStates();
-    }
 
     function selectAll() {
       const total = pictosFiltered.length;
@@ -256,7 +244,6 @@ function handleCardPressLeave(e) {
       }
       pictosFiltered.forEach(p => myPictosSet.add(p.id));
       ownedCount = myPictosSet.size;
-      modified = true;
       applyFilters();
       setSavedItems(storageKey, Array.from(myPictosSet));
     }
@@ -270,7 +257,6 @@ function handleCardPressLeave(e) {
       }
       pictosFiltered.forEach(p => myPictosSet.delete(p.id));
       ownedCount = myPictosSet.size;
-      modified = true;
       applyFilters();
       setSavedItems(storageKey, Array.from(myPictosSet));
     }
@@ -508,7 +494,6 @@ function handleCardPressLeave(e) {
     function onSiteDataUpdated() {
       myPictosSet = new Set(getSavedItems(storageKey));
       ownedCount = myPictosSet.size;
-      modified = false;
       applyFilters();
     }
 
