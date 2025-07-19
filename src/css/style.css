@@ -578,3 +578,27 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   transform: translateY(50%);
   z-index: 3002;
 }
+
+/* Home page layout */
+.index-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.index-row.reverse {
+  flex-direction: column;
+}
+.index-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.index-desc {
+  flex: 1;
+}
+@media (min-width: 800px) {
+  .index-row { flex-direction: row; }
+  .index-row.reverse { flex-direction: row-reverse; }
+}
