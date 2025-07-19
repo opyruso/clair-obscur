@@ -142,7 +142,7 @@ function handleCardPressLeave(e) {
         : `${visibleTotal}`;
       const suffix = ` - ${ownedPart} / ${totalPart}`;
       const h1 = document.querySelector("h1");
-      if (h1) h1.textContent = `${t('pictos_title')}${suffix}`;
+      if (h1) h1.textContent = `${t('heading_pictos')}${suffix}`;
       document.title = `${t('pictos_title')}${suffix}`;
     }
 
