@@ -11,6 +11,7 @@ async function loadCommon() {
   const active = document.querySelector(`a[data-page="${page}"]`);
   if(active) active.classList.add('active');
   if(typeof applyTranslations==='function') applyTranslations();
+  if(typeof updateFlagState==='function') updateFlagState();
 }
 
 document.addEventListener('DOMContentLoaded', loadCommon);
