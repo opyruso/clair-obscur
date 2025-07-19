@@ -616,3 +616,33 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
     width: 50%;
   }
 }
+
+/* Team builder */
+.team-builder {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.build-col {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid #555;
+  padding: 10px;
+}
+.build-col select {
+  width: 100%;
+  margin-bottom: 6px;
+}
+.char-img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 6px;
+}
+.weapon-detail,
+.picto-detail {
+  font-size: 0.9em;
+  margin-bottom: 6px;
+}
+.stats div {
+  font-size: 0.9em;
+}
