@@ -6,6 +6,7 @@ async function loadCommon() {
   document.getElementById('header').outerHTML = header;
   document.getElementById('footer').outerHTML = footer;
   document.getElementById('year').textContent = new Date().getFullYear();
+  if(typeof bindLangEvents==='function') bindLangEvents();
   const page = document.body.dataset.page;
   const active = document.querySelector(`a[data-page="${page}"]`);
   if(active) active.classList.add('active');
