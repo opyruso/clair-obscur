@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 const {useEffect} = React;
 const {BrowserRouter, Routes, Route, Navigate} = ReactRouterDOM;
 
@@ -131,3 +132,4 @@ ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
 if(window.bindLangEvents) window.bindLangEvents();
 if(window.applyTranslations) window.applyTranslations();
 if(window.updateFlagState) window.updateFlagState();
+});
