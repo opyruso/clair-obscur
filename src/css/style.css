@@ -629,9 +629,16 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   border: 1px solid #555;
   padding: 10px;
 }
-.build-col select {
+.select-btn {
+  display: block;
   width: 100%;
   margin-bottom: 6px;
+  padding: 4px 6px;
+  background: #323846;
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
 }
 .char-img {
   width: 100%;
@@ -645,4 +652,12 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .stats div {
   font-size: 0.9em;
+}
+.modal-option {
+  padding: 4px 6px;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+}
+.modal-option:last-child {
+  border-bottom: none;
 }
