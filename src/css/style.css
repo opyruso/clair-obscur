@@ -514,7 +514,32 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 
 .section-frame, .section-separator {
   pointer-events: none;
-  display: block;
+  position: fixed;
+  left: 0;
   width: 100%;
+  display: block;
+}
 
+.frame-top {
+  top: 120px;
+  transform: translateY(-50%);
+  z-index: 3001;
+}
+
+.separator-top {
+  top: 120px;
+  transform: translateY(-50%);
+  z-index: 3002;
+}
+
+.frame-bottom {
+  bottom: 80px;
+  transform: translateY(50%);
+  z-index: 3001;
+}
+
+.separator-bottom {
+  bottom: 80px;
+  transform: translateY(50%);
+  z-index: 3002;
 }
