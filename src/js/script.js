@@ -2,6 +2,7 @@
 let pictos = [];
 let pictosFiltered = [];
 let myPictosSet = new Set();
+const storageKey = 'pictos';
 let currentView = localStorage.getItem('viewMode') || "cards";
 let sortCol = null, sortDir = 1; // 1 asc, -1 desc
 let ownedCount = 0;
@@ -60,6 +61,7 @@ updateTranslations();
       }
       updateTitle();
       updateIconStates();
+      setSavedItems(storageKey, Array.from(myPictosSet));
     }
 
 function showModal(region, level, description) {
@@ -230,23 +232,16 @@ function handleCardPressLeave(e) {
     }
 
     function downloadJson() {
-      const data = JSON.stringify(Array.from(myPictosSet), null, 2);
-      const blob = new Blob([data], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'myPictos.json';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      setSavedItems(storageKey, Array.from(myPictosSet));
+      downloadSiteData();
       modified = false;
       updateIconStates();
     }
 
     function saveToLocal() {
       if(!confirm(t('save_confirm'))) return;
-      localStorage.setItem('myPictos', JSON.stringify(Array.from(myPictosSet)));
+      setSavedItems(storageKey, Array.from(myPictosSet));
+      saveSiteData();
       modified = false;
       notify(t('selection_saved'));
       updateIconStates();
@@ -263,6 +258,7 @@ function handleCardPressLeave(e) {
       ownedCount = myPictosSet.size;
       modified = true;
       applyFilters();
+      setSavedItems(storageKey, Array.from(myPictosSet));
     }
 
     function clearAll() {
@@ -276,6 +272,7 @@ function handleCardPressLeave(e) {
       ownedCount = myPictosSet.size;
       modified = true;
       applyFilters();
+      setSavedItems(storageKey, Array.from(myPictosSet));
     }
 
     function updateIconStates() {
@@ -318,12 +315,7 @@ function handleCardPressLeave(e) {
       pictos = data;
       pictosFiltered = pictos.slice();
       myPictosSet = new Set();
-      const saved = localStorage.getItem('myPictos');
-      if(saved) {
-        try {
-          JSON.parse(saved).forEach(id => myPictosSet.add(id));
-        } catch(e) { /* ignore */ }
-      }
+      getSavedItems(storageKey).forEach(id => myPictosSet.add(id));
       ownedCount = myPictosSet.size;
       totalCount = pictos.length;
       dataLoaded = true;
@@ -337,7 +329,7 @@ function handleCardPressLeave(e) {
       document.getElementById('saveBtn').addEventListener('click', saveToLocal);
       document.getElementById('fileInput').addEventListener('change', e => {
         if (e.target.files && e.target.files[0]) {
-          handleUpload(e.target.files[0]);
+          handleSiteUpload(e.target.files[0]);
           e.target.value = '';
         }
       });
@@ -515,8 +507,17 @@ function handleCardPressLeave(e) {
           const el = e.currentTarget;
           showModal(el.dataset.region, el.dataset.level, el.dataset.desc);
         });
-      });
+    });
+  }
+
+    function onSiteDataUpdated() {
+      myPictosSet = new Set(getSavedItems(storageKey));
+      ownedCount = myPictosSet.size;
+      modified = false;
+      applyFilters();
     }
+
+    window.onSiteDataUpdated = onSiteDataUpdated;
 
     // Tri tableau (accessible depuis onClick HTML, pour compatibilité file://)
     window.sortTableCol = function(idx) {
