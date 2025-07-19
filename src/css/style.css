@@ -1,9 +1,10 @@
     body {
-      background: #191c23 url(../resources/images/background_site.png) repeat left top;
+      background: #191c23 url(../resources/images/general/background_body.avif) repeat-y center top/100% auto;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
       padding: 0;
+      cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, auto;
     }
     .content-wrapper {
       margin: 20px;
@@ -32,15 +33,18 @@
     .icon-btn {
       background: none;
       border: none;
-      color: #b6e4ff;
-      font-size: 1.4em;
-      cursor: pointer;
       padding: 4px;
-      transition: color 0.15s, opacity 0.15s;
+      cursor: pointer;
+      transition: filter 0.15s, opacity 0.15s;
     }
-    .icon-btn.toggled,
-    .icon-btn:not(.disabled):hover {
-      color: #fff;
+    .icon-btn img {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+    .icon-btn.toggled img,
+    .icon-btn:not(.disabled):hover img {
+      filter: brightness(1.2);
     }
     .icon-btn.disabled {
       opacity: 0.4;
@@ -114,14 +118,17 @@
       position: absolute;
       inset: 0;
       box-sizing: border-box;
-      background: url('../resources/images/background_tile.png') center/cover no-repeat;
+      background: url('../resources/images/general/panel_background.avif') center/cover no-repeat;
       border-radius: 14px;
       transform-style: preserve-3d;
       transition: transform 0.6s, background 0.18s;
     }
-    .card.owned .card-inner {
-      background-image: url('../resources/images/background_tile_selected.png');
-    }
+.card.owned .card-inner {
+  background-image: url('../resources/images/background_tile_selected.png');
+}
+body[data-page="pictos"] .card-inner {
+  background: url('../resources/images/background_tile_selected.png') center/cover no-repeat;
+}
     .region {
       color: #7cc9ff;
       font-size: 0.93em;
@@ -387,7 +394,7 @@
     left: 0;
     width: 100%;
     overflow: hidden;
-    background: url('../resources/images/background_site_header_footer.png') repeat;
+    background: url('../resources/images/background_site_header_footer.png') repeat-x center center/100% auto;
     z-index: 3000;
     padding: 28px 0 18px;
   }
@@ -410,7 +417,7 @@
     width: 100%;
     overflow: hidden;
     min-height: 120px;
-    background: url('../resources/images/background_site_header_footer.png') repeat;
+    background: url('../resources/images/general/background_header.avif') repeat-x center center/100% auto;
     z-index: 3000;
   }
 
@@ -471,4 +478,11 @@ body {
 .char-select img{width:128px;height:128px;opacity:0.4;cursor:pointer;transition:opacity .2s;}
 .char-select img:hover{opacity:0.6;}
 .char-select img.active{opacity:1;}
+
+.damage-icon{width:24px;height:24px;vertical-align:middle;}
+
+a, button, .icon-btn, .toggle-btn, .nav-link, .pin-btn, .lang-flag,
+th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
+  cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, pointer;
+}
 
