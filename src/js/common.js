@@ -12,6 +12,7 @@ async function loadCommon() {
   if(active) active.classList.add('active');
   if(typeof applyTranslations==='function') applyTranslations();
   if(typeof updateFlagState==='function') updateFlagState();
+  document.dispatchEvent(new Event('commonLoaded'));
 }
 
 document.addEventListener('DOMContentLoaded', loadCommon);

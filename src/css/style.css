@@ -50,9 +50,20 @@
   padding: 4px;
   transition: color 0.15s, opacity 0.15s;
 }
+.icon-btn img {
+  width: 24px;
+  height: 24px;
+}
 .icon-btn.toggled,
 .icon-btn:not(.disabled):hover {
   color: #fff;
+}
+.icon-btn:not(.disabled):hover img,
+.icon-btn.toggled img {
+  filter: brightness(1.2);
+}
+.icon-btn.disabled img {
+  opacity: 0.4;
 }
 .icon-btn.disabled {
   opacity: 0.4;
@@ -468,19 +479,24 @@ body[data-page="weapons"] .card-back {
     z-index: 1;
   }
 
-  .navbar .header-inner {
+.navbar .header-inner {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     padding: 0 20px 10px 20px;
-  }
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
 
   .navbar-nav .nav-item {
     margin: 0 10px;
   }
 
   .lang-flags {
-    margin-left: auto;
     margin-right: 10px;
     display: flex;
     gap: 8px;

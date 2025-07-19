@@ -35,7 +35,7 @@ function updateTranslations() {
 }
 updateTranslations();
 
-document.addEventListener('DOMContentLoaded', () => {
+function initPage(){
   document.getElementById('gridViewBtn').addEventListener('click', () => { if(currentView!=='cards'){currentView='cards';localStorage.setItem('weaponViewMode',currentView);render();updateIconStates();}});
   document.getElementById('tableViewBtn').addEventListener('click', () => { if(currentView!=='table'){currentView='table';localStorage.setItem('weaponViewMode',currentView);render();updateIconStates();}});
   document.getElementById('search').addEventListener('input', applyFilters);
@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleUpload(e.target.files[0]);e.target.value='';});
   initCharacters();
   loadData();
-});
+}
+document.addEventListener('commonLoaded', initPage);
 
 function initCharacters(){
   const div=document.getElementById('charSelect');
