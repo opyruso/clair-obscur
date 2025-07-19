@@ -13,9 +13,11 @@
   "grid_view": "Grid view",
   "table_view": "Table view",
   "search_placeholder": "Search pictos by any field...",
-  "defence": "Defence",
+  "defense": "Defense",
   "speed": "Speed",
+  "vitality": "Vitality",
   "critical-luck": "Crit. Luck",
+  "luck": "Luck",
   "health": "Health",
   "name": "Name",
   "region": "Region",
@@ -32,5 +34,11 @@
   "select_all_confirm": "Select all visible pictos?",
   "clear_selection_confirm": "Clear selection of visible pictos?",
   "hidden": "hidden",
-  "pictos_title": "Clair Obscur - Pictos"
+  "pictos_title": "Clair Obscur - Pictos",
+  "nav_weapons": "Weapons inventory",
+  "heading_weapons": "Weapons inventory",
+  "damage_type": "Damage type",
+  "damage_buff": "Damage buff",
+  "weapon_effect": "Effect",
+  "weapons_title": "Clair Obscur - Weapons"
 }

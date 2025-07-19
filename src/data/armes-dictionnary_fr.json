@@ -3,12 +3,12 @@
     "character": "Gustave",
     "name": "Abysseram",
     "region": "Eaux volantes",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Au rang D, vous infligez 50% de dégâts supplémentaires. Votre attaque de base inflige 50% de points de dégâts supplémentaires et, au rang D, elle vous soigne également à hauteur de 20% de vos points de vie.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
@@ -20,7 +20,7 @@
     "weapon_effect": "Votre Perfection augmente au fur et à mesure que vous perdez des points de vie (1 rang par tranche de 20% de points de vie manquants). Les compétences de lumière font 20% de dégâts en plus, et vous obtenez +1 PA au rang supérieur.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -31,7 +31,7 @@
     "damage_type": "Léger",
     "weapon_effect": "Les coups critiques peuvent infliger Brûlure au lieu de Marque. Vous commencez avec 3 piles de brûlure, et chaque rang augmente les dégâts de brûlure de 50% (jusqu'à 300%).",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ]
   },
@@ -39,12 +39,12 @@
     "character": "Gustave",
     "name": "Contorso",
     "region": "Visages",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Éclair",
     "weapon_effect": "Lorsque vous brisez un ennemi, vous atteignez automatiquement le rang S. Au rang S, toutes vos attaques infligent des Crit et déclenchent des éclairs.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -56,7 +56,7 @@
     "weapon_effect": "Les attaques de base ajoutent 2 brûlures par rang. Vous obtenez +1 PA en montant de rang, et les dégâts de Brûlure augmentent de 50% (jusqu'à 300%) à chaque rang.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -67,8 +67,8 @@
     "damage_type": "Glace",
     "weapon_effect": "Lorsque vous subissez des dégâts d'ennemis sans pouvoir, votre rang reste le même. Frapper des ennemis sans pouvoir confère +1 Perfection, et vos pions s'appliquent à Sans pouvoir.",
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ]
   },
   {
@@ -79,7 +79,7 @@
     "damage_type": "Sombre",
     "weapon_effect": "Vous ne perdez pas de Perfection lorsque vous subissez des dégâts, mais vous en perdez si vous êtes soigné. Chaque contre-attaque donne +2 AP et augmente votre Rang de 1.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -87,12 +87,12 @@
     "character": "Gustave",
     "name": "Delaram",
     "region": "(Actuellement indisponible)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Lumière",
     "weapon_effect": "Vous commencez les combats au Rang B avec la moitié de vos PV. Les attaques de base vous soignent à hauteur de 15% et, au rang B, vous appliquez automatiquement Puissant.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
@@ -104,7 +104,7 @@
     "weapon_effect": "Les compétences de lumière augmentent les dégâts de votre prochaine compétence physique de 50%, et les compétences physiques bénéficient d'une augmentation des dégâts de 20%. Les dégâts de lumière infligés par les compétences vous soignent de 3%.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -127,31 +127,31 @@
     "damage_type": "Éclair",
     "weapon_effect": "Après une attaque de base, vous attaquez à nouveau. Les attaques de base infligent 50% de dégâts supplémentaires et vous confèrent 4 Perfection.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
     "character": "Gustave",
     "name": "Gaulteram",
     "region": "Moisson jaune",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Terre",
     "weapon_effect": "Lorsque vous êtes touché, vous perdez du Perfectionnement au lieu du Rang. Au Rang S, vous appliquez Ruée et gagnez 2 Perfection à chaque tour.",
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ]
   },
   {
     "character": "Gustave",
     "name": "Glaceso",
     "region": "Coeurs gelés",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Glace",
     "weapon_effect": "Les coups critiques confèrent +1 Perfection et vous soignent de 2%. Vos contre-attaques sont toujours des coups critiques.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ]
   },
@@ -159,11 +159,11 @@
     "character": "Gustave",
     "name": "Lanceram",
     "region": "Prairies printanières",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Votre Rang ne peut pas descendre en dessous de C. Les attaques de base donnent 4 Perfection, et parer donne 2 Perfection au lieu de 1.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ]
   },
@@ -171,11 +171,11 @@
     "character": "Gustave",
     "name": "Liteso",
     "region": "(actuellement indisponible)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Les attaques de base utilisent tous les boucliers pour +100% de dégâts par bouclier. Les contre-attaques donnent +1 bouclier, et les attaques de base donnent 4 Perfection.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -183,11 +183,11 @@
     "character": "Gustave",
     "name": "Noahram",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Pas d'améliorations spéciales.",
     "damage_buff": [
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -199,19 +199,19 @@
     "weapon_effect": "Vous ne pouvez pas perdre la Perfection. Les attaques de base infligent 50% de dégâts supplémentaires et vous donnent 4 Perfection.",
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ]
   },
   {
     "character": "Gustave",
     "name": "Seeram",
     "region": "(Actuellement indisponible)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Lumière",
     "weapon_effect": "Vous gagnez +1 Perfection de toutes les sources, mais ne pouvez pas atteindre le rang S. Les attaques de base confèrent 4 Perfection, et les compétences de Lumière infligent 20% de dégâts en plus.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -222,7 +222,7 @@
     "damage_type": "Physique",
     "weapon_effect": "Les dégâts supplémentaires que vous infligez avec Perfection sont partagés avec vos alliés à la moitié de leur force. Lorsque vous êtes puissant, vous obtenez +1 Perfection et les compétences de soutien coûtent 1 PA de moins.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ]
   },
@@ -230,23 +230,23 @@
     "character": "Gustave",
     "name": "Virleso",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Pas d'améliorations spéciales.",
     "damage_buff": [
-      "speed"
+      "vitality"
     ]
   },
   {
     "character": "Verso",
     "name": "Abysseram",
     "region": "Eaux volantes",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Au rang D, vous infligez 50% de dégâts supplémentaires. Votre attaque de base inflige 50% de points de dégâts supplémentaires et, au rang D, elle vous soigne également à hauteur de 20% de vos points de vie.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
@@ -258,7 +258,7 @@
     "weapon_effect": "Votre Perfection augmente au fur et à mesure que vous perdez des points de vie (1 rang par tranche de 20% de points de vie manquants). Les compétences de lumière font 20% de dégâts en plus, et vous obtenez +1 PA au rang supérieur.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -269,7 +269,7 @@
     "damage_type": "Léger",
     "weapon_effect": "Les coups critiques peuvent infliger Brûlure au lieu de Marque. Vous commencez avec 3 piles de brûlure, et chaque rang augmente les dégâts de brûlure de 50% (jusqu'à 300%).",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ]
   },
@@ -277,12 +277,12 @@
     "character": "Verso",
     "name": "Contorso",
     "region": "Visages",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Éclair",
     "weapon_effect": "Lorsque vous brisez un ennemi, vous atteignez automatiquement le rang S. Au rang S, toutes vos attaques infligent des Crit et déclenchent des éclairs.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -294,7 +294,7 @@
     "weapon_effect": "Les attaques de base ajoutent 2 brûlures par rang. Vous obtenez +1 PA en montant de rang, et les dégâts de Brûlure augmentent de 50% (jusqu'à 300%) à chaque rang.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -305,8 +305,8 @@
     "damage_type": "Glace",
     "weapon_effect": "Lorsque vous subissez des dégâts d'ennemis sans pouvoir, votre rang reste le même. Frapper des ennemis sans pouvoir confère +1 Perfection, et vos pions s'appliquent à Sans pouvoir.",
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ]
   },
   {
@@ -317,7 +317,7 @@
     "damage_type": "Sombre",
     "weapon_effect": "Vous ne perdez pas de Perfection lorsque vous subissez des dégâts, mais vous en perdez si vous êtes soigné. Chaque contre-attaque donne +2 AP et augmente votre Rang de 1.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -325,12 +325,12 @@
     "character": "Verso",
     "name": "Delaram",
     "region": "(Actuellement indisponible)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Lumière",
     "weapon_effect": "Vous commencez les combats au Rang B avec la moitié de vos PV. Les attaques de base vous soignent à hauteur de 15% et, au rang B, vous appliquez automatiquement Puissant.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
@@ -342,7 +342,7 @@
     "weapon_effect": "Les compétences de lumière augmentent les dégâts de votre prochaine compétence physique de 50%, et les compétences physiques bénéficient d'une augmentation des dégâts de 20%. Les dégâts de lumière infligés par les compétences vous soignent de 3%.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -365,31 +365,31 @@
     "damage_type": "Éclair",
     "weapon_effect": "Après une attaque de base, vous attaquez à nouveau. Les attaques de base infligent 50% de dégâts supplémentaires et vous confèrent 4 Perfection.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
     "character": "Verso",
     "name": "Gaulteram",
     "region": "Moisson jaune",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Terre",
     "weapon_effect": "Lorsque vous êtes touché, vous perdez du Perfectionnement au lieu du Rang. Au Rang S, vous appliquez Ruée et gagnez 2 Perfection à chaque tour.",
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ]
   },
   {
     "character": "Verso",
     "name": "Glaceso",
     "region": "Coeurs gelés",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Glace",
     "weapon_effect": "Les coups critiques confèrent +1 Perfection et vous soignent de 2%. Vos contre-attaques sont toujours des coups critiques.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ]
   },
@@ -397,11 +397,11 @@
     "character": "Verso",
     "name": "Lanceram",
     "region": "Prairies printanières",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Votre Rang ne peut pas descendre en dessous de C. Les attaques de base donnent 4 Perfection, et parer donne 2 Perfection au lieu de 1.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ]
   },
@@ -409,11 +409,11 @@
     "character": "Verso",
     "name": "Liteso",
     "region": "(actuellement indisponible)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Les attaques de base utilisent tous les boucliers pour +100% de dégâts par bouclier. Les contre-attaques donnent +1 bouclier, et les attaques de base donnent 4 Perfection.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -421,11 +421,11 @@
     "character": "Verso",
     "name": "Noahram",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Pas d'améliorations spéciales.",
     "damage_buff": [
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -437,19 +437,19 @@
     "weapon_effect": "Vous ne pouvez pas perdre la Perfection. Les attaques de base infligent 50% de dégâts supplémentaires et vous donnent 4 Perfection.",
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ]
   },
   {
     "character": "Verso",
     "name": "Seeram",
     "region": "(Actuellement indisponible)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Lumière",
     "weapon_effect": "Vous gagnez +1 Perfection de toutes les sources, mais ne pouvez pas atteindre le rang S. Les attaques de base confèrent 4 Perfection, et les compétences de Lumière infligent 20% de dégâts en plus.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -460,7 +460,7 @@
     "damage_type": "Physique",
     "weapon_effect": "Les dégâts supplémentaires que vous infligez avec Perfection sont partagés avec vos alliés à la moitié de leur force. Lorsque vous êtes puissant, vous obtenez +1 Perfection et les compétences de soutien coûtent 1 PA de moins.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ]
   },
@@ -468,11 +468,11 @@
     "character": "Verso",
     "name": "Virleso",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Pas d'améliorations spéciales.",
     "damage_buff": [
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -483,7 +483,7 @@
     "damage_type": "Feu",
     "weapon_effect": "L'attaque de base ajoute 2 brûlures pour chaque tache de feu. Génère 1 tache de feu au début de chaque tour. Les dégâts de brûlure augmentent de 30% par tache de feu.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ]
   },
@@ -495,20 +495,20 @@
     "damage_type": "Terre",
     "weapon_effect": "Les compétences de soin coûtent 1 AP de moins. Génère 1 tache de terre au début de chaque tour. Rejoue instantanément les compétences de soin après avoir consommé des taches.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
     "character": "Lune",
     "name": "Braselim",
     "region": "À l'intérieur du monolithe",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Feu",
     "weapon_effect": "Les chances de coup critique augmentent de 30% pour chaque tache de glace. +5% de charge graduelle sur les coups critiques. Les dégâts de feu augmentent de 20% avec les compétences.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
@@ -520,18 +520,18 @@
     "weapon_effect": "Les dégâts de rupture augmentent de 30% par tache de terre. Gagne 9 PA en brisant un ennemi. Génère 1 tache de terre au début de chaque tour.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
     "character": "Lune",
     "name": "Colim",
     "region": "Sirène",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Léger",
     "weapon_effect": "50% de chances de créer une Light Stain en consommant des Stains. Gagnez 1 PA pour chaque tache lumineuse consommée. Les dégâts augmentent de 20% avec les compétences pour chaque tache lumineuse active.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ]
   },
@@ -543,8 +543,8 @@
     "damage_type": "Glace",
     "weapon_effect": "Les compétences de glace coûtent 1 PA de moins. Les dégâts de glace augmentent de 20% avec les compétences. Commencez avec 1 Tache de terre au début de la bataille.",
     "damage_buff": [
-      "defence",
-      "speed"
+      "defense",
+      "vitality"
     ]
   },
   {
@@ -555,7 +555,7 @@
     "damage_type": "Éclair",
     "weapon_effect": "Les compétences de foudre coûtent 1 PA de moins. Les dégâts de foudre augmentent de 20% avec les compétences. Commencez avec 1 Tache de feu au début de la bataille.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ]
   },
@@ -563,12 +563,12 @@
     "character": "Lune",
     "name": "Elerim",
     "region": "Grotte sinistre",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Terre",
     "weapon_effect": "Consommer une tache de terre vous donne 1 bouclier. Les dégâts de terre augmentent de 20% avec les compétences. L'attaque de base génère une tache de terre.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
@@ -580,7 +580,7 @@
     "weapon_effect": "L'exécution d'une compétence augmente les dégâts de toutes les autres compétences d'élément de 20%, réinitialisation lors de l'exécution de la même compétence d'élément. Au début du tour, 2 taches aléatoires sont générées si aucune n'est active. Gagnez 1 PA en consommant des taches.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -592,30 +592,30 @@
     "weapon_effect": "Les compétences de feu coûtent 1 PA de moins. Les dégâts de feu augmentent de 20% avec les compétences. Commencez avec 1 tache de glace au début de la bataille.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
     "character": "Lune",
     "name": "Lithelim",
     "region": "À l'intérieur du monolithe",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Vide",
     "weapon_effect": "50% de chances de générer une tache sombre ou claire en consommant des taches. Inflige 50% de dégâts supplémentaires avec les compétences pour chaque tache sombre active. Gagnez 1 PA en consommant une tache claire. Les attaques de base peuvent consommer une tache sombre pour 200% de dégâts supplémentaires.",
     "damage_buff": [
-      "speed"
+      "vitality"
     ]
   },
   {
     "character": "Lune",
     "name": "Lunerim",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Feu",
     "weapon_effect": "Pas de bonus d'amélioration.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
@@ -627,18 +627,18 @@
     "weapon_effect": "Les compétences de soin génèrent 1 tache de lumière supplémentaire. La consommation d'une tache lumineuse applique Lenteur à un ennemi aléatoire. L'attaque de base génère une tache lumineuse.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
     "character": "Lune",
     "name": "Saperim",
     "region": "Feuilles tombantes",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Éclair",
     "weapon_effect": "L'utilisation d'Attaques Gradient génère 1 Tache de Lumière supplémentaire. Lorsqu'une tache de feu est créée, une tache de foudre est également créée (une fois par tour). Les attaques graduelles et les contres infligent 50% de dégâts supplémentaires.",
     "damage_buff": [
-      "defence",
+      "defense",
       "Luck"
     ]
   },
@@ -650,7 +650,7 @@
     "damage_type": "Sombre",
     "weapon_effect": "50% de chances de générer une tache sombre en consommant des taches. Inflige 50% de dégâts supplémentaires avec les compétences pour chaque tache sombre active. Les attaques de base peuvent consommer une tache sombre pour 200% de dégâts supplémentaires. Avec 4 taches sombres actives, n'importe quelle compétence peut les consommer pour 300% de dégâts supplémentaires.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ]
   },
@@ -663,7 +663,7 @@
     "weapon_effect": "Vous gèlez lorsque vous êtes en dessous de 30% de santé, ce qui vous empêche de subir les dégâts suivants. Si vous êtes gelé, vous pouvez retirer le gel et récupérer 60% de vos points de vie au début de votre tour. Gagne 2 taches de glace et 3 PA lorsqu'il est gelé.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -674,8 +674,8 @@
     "damage_type": "Éclair",
     "weapon_effect": "Génère une tache aléatoire avec un tir en Visée libre. Gagnez 1 PA en consommant des taches. L'attaque de base génère 2 taches aléatoires.",
     "damage_buff": [
-      "speed",
-      "critical-luck"
+      "vitality",
+      "luck"
     ]
   },
   {
@@ -686,8 +686,8 @@
     "damage_type": "Physique",
     "weapon_effect": "Visée libre touche une cible aléatoire supplémentaire. Les dégâts de Visée libre augmentent de 50%. Génère une tache aléatoire avec un tir en Visée libre.",
     "damage_buff": [
-      "defence",
-      "speed"
+      "defense",
+      "vitality"
     ]
   },
   {
@@ -698,7 +698,7 @@
     "damage_type": "Glace",
     "weapon_effect": "L'attaque de base donne 3 Foretell. Les tirs en Visée Libre infligent des dégâts doublés pendant le Crépuscule.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "Luck"
     ]
   },
@@ -710,42 +710,42 @@
     "damage_type": "Glace",
     "weapon_effect": "Si tu as une charge lunaire, les compétences lunaires crissent toujours, mais tu subis des dégâts doublés.+25% de dégâts par charge lunaire.L'attaque de base donne 1 charge lunaire.",
     "damage_buff": [
-      "critical-luck"
+      "luck"
     ]
   },
   {
     "character": "Sciel",
     "name": "Bourgelon",
     "region": "Marchand des cavernes côtières",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Lumière",
     "weapon_effect": "L'utilisation de Foretell met le feu aux ennemis si vous avez des charges de Soleil.Les brûlures infligent des dégâts doublés au Crépuscule.Les compétences de Soleil donnent une charge supplémentaire.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
     "character": "Sciel",
     "name": "Chation",
     "region": "Falaise de la vague de pierre",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Sombre",
     "weapon_effect": "Les compétences de soleil donnent toujours 10 Foretell, mais vous subissez deux fois plus de dégâts.L'attaque de base donne 1 charge de lune et utilise Foretell pour brûler les ennemis.Les brûlures frappent plus fort dans le Crépuscule.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
     "character": "Sciel",
     "name": "Corderon",
     "region": "(Inconnu)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Sombre",
     "weapon_effect": "Commence le combat maudit, mais inflige 50% de dégâts en plus pendant la malédiction.le compteur de malédiction se réinitialise dans le Crépuscule.vous obtenez un tour supplémentaire lorsque vous entrez dans le Crépuscule.",
     "damage_buff": [
-      "defence",
+      "defense",
       "Luck"
     ]
   },
@@ -753,12 +753,12 @@
     "character": "Sciel",
     "name": "Direton",
     "region": "Marchand de feuilles mortes",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Terre",
     "weapon_effect": "Gagnez 1 PA par charge lunaire au début du tour.L'attaque de base donne 1 charge lunaire.Dans le Crépuscule, l'attaque de base mange tous les PA pour frapper plus fort et appliquer Foretell.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -769,19 +769,19 @@
     "damage_type": "Feu",
     "weapon_effect": "Si vous avez une charge de Soleil, vous êtes brûlé lorsque vous êtes touché.Les contre-attaques appliquent une brûlure basée sur les charges de Soleil.L'attaque de base peut utiliser la charge de Soleil pour appliquer Foretell.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
     "character": "Sciel",
     "name": "Gobluson",
     "region": "Marchands de la grotte côtière",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Feu",
     "weapon_effect": "Tous les 3 Foretell appliqués ajoutent de la brûlure.+20% de dégâts de la compétence de feu.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -789,11 +789,11 @@
     "character": "Sciel",
     "name": "Litheson",
     "region": "(Inconnu)",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Dans Moon, votre équipe est plus rapide. Dans le Crépuscule, les deux effets se produisent.+3 AP lors de l'application de buffs ou debuffs (une fois par tour).",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ]
   },
@@ -805,7 +805,7 @@
     "damage_type": "Sombre",
     "weapon_effect": "L'utilisation de Foretell applique Mark.+20% de dégâts de la compétence Ténèbres.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ]
   },
@@ -817,15 +817,15 @@
     "damage_type": "Physique",
     "weapon_effect": "Les compétences de soleil deviennent plus puissantes pour chaque Foretell sur la cible. Les compétences lunaires cessent de générer des charges lunaires.Plus de PA pour chaque Foretell utilisé si vous avez une charge de soleil.L'attaque de base peut utiliser la charge de soleil pour ajouter un Foretell.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
     "character": "Sciel",
     "name": "Moisson",
     "region": "Moissonneuse chromatique",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Dans le Crépuscule, tous vos dégâts deviennent sombres.+20% de dégâts de compétences sombres.Vous obtenez Coquille dans la Lune, Puissant dans le Soleil, et Rush dans le Crépuscule.",
     "damage_buff": [
@@ -837,12 +837,12 @@
     "character": "Sciel",
     "name": "Ramasson",
     "region": "Champ de bataille oublié",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Dépense 1 charge lunaire au début du tour pour soigner les alliés de 20%.L'attaque de base donne 1 charge lunaire.Les compétences lunaires donnent une charge supplémentaire.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
@@ -854,7 +854,7 @@
     "weapon_effect": "Soigne 5% de PV à chaque fois que vous appliquez Foretell.Les compétences de soin coûtent 1 PA de moins.Les soins sont plus puissants par charge lunaire. L'attaque de base donne 1 charge lunaire.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -866,14 +866,14 @@
     "weapon_effect": "Au début du tour, gagnez 1 bouclier si vous avez une charge de soleil.Brisez le bouclier d'un ennemi pour appliquer 5 Foretell.Obtenez +2 charges de soleil des contre-attaques.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
     "character": "Sciel",
     "name": "Scielson",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Pas de bonus spécial.",
     "damage_buff": [
@@ -885,24 +885,24 @@
     "character": "Sciel",
     "name": "Tisseron",
     "region": "Sirène",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Foudre",
     "weapon_effect": "L'utilisation des compétences de la Lune permet au Crépuscule de durer plus longtemps. Les compétences du Soleil augmentent les dégâts du Crépuscule de 50%. Vous obtenez un tour supplémentaire lorsque vous entrez dans le Crépuscule.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
     "character": "Monoco",
     "name": "Ballaro",
     "region": "Sirène",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Lumière",
     "weapon_effect": "La roue tourne désormais en sens inverse. L'utilisation de n'importe quelle compétence améliorée donne à tous vos alliés +1 AP. Masque tout-puissant? Il donne +2 AP aux ennemis, alors utilisez-le à bon escient.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
@@ -913,7 +913,7 @@
     "damage_type": "Feu",
     "weapon_effect": "Vous commencez toujours en Agile Mask, ce qui vous donne Rush pendant 3 tours. Oh, et les crits frappent beaucoup plus fort quand vous êtes en Agile.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ]
   },
@@ -925,7 +925,7 @@
     "damage_type": "Éclair",
     "weapon_effect": "Visée libre fait désormais tourner la roue à un endroit aléatoire et frappe beaucoup plus fort avec n'importe quel masque qui n'est pas Tout-puissant. Mais si vous tombez sur Tout-puissant, votre prochaine Visée libre est un critérium garanti.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ]
   },
@@ -937,15 +937,15 @@
     "damage_type": "Terre",
     "weapon_effect": "Vous commencez avec Heavy Mask, qui vous donne Shell pendant 3 tours. De plus, chaque fois que vous prenez un coup, vous obtenez +1 AP. Idéal pour les builds tanky.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
     "character": "Monoco",
     "name": "Monocaro",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Le Monocaro est doté d'un Masque équilibré dès le départ, ce qui lui permet d'être puissant pendant 3 tours. Les Crits sont 30% plus forts lorsque vous utilisez ce masque.",
     "damage_buff": [
@@ -957,23 +957,23 @@
     "character": "Monoco",
     "name": "Nusaro",
     "region": "Emplacement actuellement indisponible",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Sombre",
     "weapon_effect": "Chaque parade fait avancer la roue de 1, mais les dégâts la réinitialisent. Les compétences améliorées infligent 30% de dégâts supplémentaires et vous obtenez 1 PA à chaque fois que vous changez de masque.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
     "character": "Maelle",
     "name": "Brise-barrière",
     "region": "Objet de la quête principale",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Vide",
     "weapon_effect": "Si vous brisez un bouclier, vous le volez. Brisez n'importe quel bouclier et passez automatiquement en posture Virtuose. Si l'ennemi est marqué, supprimez tous ses boucliers.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -981,11 +981,11 @@
     "character": "Maelle",
     "name": "Battlum",
     "region": "Feuilles tombantes",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Double le gradient lorsque vous êtes en défensive. Pas de posture? Votre attaque de base vous met sur la défensive. Gradient gratuit à chaque parade également.",
     "damage_buff": [
-      "defence",
+      "defense",
       "Luck"
     ]
   },
@@ -997,7 +997,7 @@
     "damage_type": "Feu",
     "weapon_effect": "Les Crits appliquent désormais Brûlure. L'attaque de base frappe avec une double brûlure. Lorsque vous n'êtes pas en équilibre, vous réussissez toujours à obtenir un critérium.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ]
   },
@@ -1010,7 +1010,7 @@
     "weapon_effect": "Parer en défensive vous donne un bouclier, mais vous perdez tous les boucliers au début du tour. Les compétences légères frappent plus fort, et les contre-dégâts s'envolent avec les boucliers.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -1021,7 +1021,7 @@
     "damage_type": "Feu",
     "weapon_effect": "Si vous êtes Stanceless au début du tour, vous serez poussé vers l'Offensive. Les compétences de feu sont moins chères, et vous obtenez un bouclier gratuit lorsque vous passez à l'offensive.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ]
   },
@@ -1034,19 +1034,19 @@
     "weapon_effect": "Les compétences qui crissent donnent +2 AP (une fois par tour). Les dégâts de foudre sont augmentés. La posture offensive vous donne de bien meilleures chances de crit.",
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ]
   },
   {
     "character": "Maelle",
     "name": "Coldum",
     "region": "Station de Monoco",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Glace",
     "weapon_effect": "Les Crits vous soignent un peu. Les crits sont meilleurs lorsque vous êtes en défensive, et si vous n'avez pas de stance, votre attaque de base vous met en défensive.",
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ]
   },
   {
@@ -1057,7 +1057,7 @@
     "damage_type": "Physique",
     "weapon_effect": "En posture défensive, chaque fois que vous gagnez des PA, votre équipe en gagne 1 aussi. De plus, changer de posture donne +1 AP, et l'Attaque de base vous met en Défensive si vous êtes sans posture.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -1065,11 +1065,11 @@
     "character": "Maelle",
     "name": "Glaisum",
     "region": "Feuilles tombantes",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Lorsque vous entrez en posture Virtuose, tous les alliés reçoivent 20% de soins. Quitter Virtuose vous donne Coquille, et cela efface également vos débuffs.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -1077,23 +1077,23 @@
     "character": "Maelle",
     "name": "Jarum",
     "region": "Emplacement actuellement indisponible",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Contre-attaquer vous place en position de Virtuose et inflige 5 brûlures à l'ennemi. De plus, votre contre frappe plus fort pour chaque bouclier que vous avez.",
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ]
   },
   {
     "character": "Maelle",
     "name": "Maellum",
     "region": "Arme de départ",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Pas d'amélioration ici, juste l'équipement de base.",
     "damage_buff": [
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -1104,7 +1104,7 @@
     "damage_type": "Physique",
     "weapon_effect": "Commencez en Virtuose. Lorsque vous êtes en Virtuose, toutes les brûlures que vous appliquez sont doublées, et elles infligent également des dégâts doublés. Les builds de brûlure deviennent fous ici.",
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ]
   },
@@ -1112,11 +1112,11 @@
     "character": "Maelle",
     "name": "Melarum",
     "region": "Emplacement actuellement indisponible",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "Passer à Virtuose soigne votre groupe. Si vous êtes en bonne santé (plus de 80%), vous obtenez Shell. Vous tombez en dessous de 50% de PV? Vous passez automatiquement à Virtuose.",
     "damage_buff": [
-      "speed",
+      "vitality",
       "Luck"
     ]
   },
@@ -1128,7 +1128,7 @@
     "damage_type": "Glace",
     "weapon_effect": "Si vous êtes Stanceless au début du tour, vous passez en Defensive. Lorsque vous êtes sur la défensive, les dégâts de Break sont doublés. Les compétences de soutien sont également moins chères.",
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ]
   },
@@ -1136,12 +1136,12 @@
     "character": "Maelle",
     "name": "Stalum",
     "region": "Cœurs gelés",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Feu",
     "weapon_effect": "Vous vous brûlez à chaque tour mais vous gagnez plus de dégâts par pile. L'Attaque de base lance la Brûlure, et lorsque vous êtes en Défense, la Brûlure vous soigne.",
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ]
   },
   {
@@ -1153,7 +1153,7 @@
     "weapon_effect": "En défensive, vos Breaks frappent très fort. Briser un ennemi vous donne 9 PA et lui inflige d'énormes dégâts de terre.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   },
   {
@@ -1164,20 +1164,20 @@
     "damage_type": "Physique",
     "weapon_effect": "Pas de posture? L'attaque de base vous fait passer à l'offensive. Les contres s'appliquent sans défense. Bonus de chances de critérium lorsque vous êtes en position offensive.",
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ]
   },
   {
     "character": "Maelle",
     "name": "Volestrum",
     "region": "Emplacement actuellement indisponible",
-    "unlock_description": NaN,
+    "unlock_description": null,
     "damage_type": "Physique",
     "weapon_effect": "L'échange de posture donne +1 AP et 5% de soins. Si vous n'avez pas d'équilibre, l'attaque de base vous met sur la défensive.",
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ]
   }
 ]

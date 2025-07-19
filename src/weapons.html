@@ -2,7 +2,7 @@
 <html lang="en" id="htmlRoot">
 <head>
   <meta charset="UTF-8">
-  <title data-i18n="site_title">Clair Obscur Helper - Pictos inventory</title>
+  <title data-i18n="site_title">Clair Obscur Helper - Weapons inventory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
@@ -10,10 +10,11 @@
   <link rel="stylesheet" href="css/bootstrap-lite.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="d-flex flex-column min-vh-100" data-page="pictos">
+<body class="d-flex flex-column min-vh-100" data-page="weapons">
   <div id="header"></div>
   <main class="content-wrapper mt-4 flex-grow-1">
-      <h1 data-i18n="heading_pictos">Pictos inventory</h1>
+      <h1 data-i18n="heading_weapons">Weapons inventory</h1>
+      <div class="char-select" id="charSelect"></div>
       <div class="actions">
         <div class="icon-bar">
           <button class="icon-btn" id="downloadBtn" data-i18n-title="download" title="Download"><i class="fa-solid fa-download"></i></button>
@@ -30,17 +31,16 @@
           <button class="icon-btn" id="tableViewBtn" data-i18n-title="table_view" title="Table view"><i class="fa-solid fa-table"></i></button>
           <div class="icon-sep"></div>
         </div>
-        <input class="searchbar" id="search" placeholder="Search pictos by any field..." data-i18n-placeholder="search_placeholder">
+        <input class="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder">
         <input type="file" id="fileInput" accept="application/json" style="display:none">
       </div>
       <div id="cards" class="cards"></div>
       <div id="table" class="table-view" style="display:none"></div>
-      <div id="modal" class="modal" style="display:none"><div class="modal-content"></div></div>
       <div id="notificationContainer" class="notification-container"></div>
   </main>
   <div id="footer"></div>
   <script src="js/i18n.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/weapons.js"></script>
   <script src="js/common.js"></script>
 </body>
 </html>

@@ -13,9 +13,11 @@
   "grid_view": "Vue grille",
   "table_view": "Vue tableau",
   "search_placeholder": "Rechercher un picto...",
-  "defence": "Défense",
+  "defense": "Défense",
   "speed": "Vitesse",
+  "vitality": "Vitalité",
   "critical-luck": "Ch. Critique",
+  "luck": "Chance",
   "health": "Vie",
   "name": "Nom",
   "region": "Région",
@@ -32,5 +34,11 @@
   "select_all_confirm": "Sélectionner tous les pictos visibles ?",
   "clear_selection_confirm": "Effacer la sélection des pictos visibles ?",
   "hidden": "masqués",
-  "pictos_title": "Clair Obscur - Pictos"
+  "pictos_title": "Clair Obscur - Pictos",
+  "nav_weapons": "Inventaire des armes",
+  "heading_weapons": "Inventaire des armes",
+  "damage_type": "Type de dégâts",
+  "damage_buff": "Bonus",
+  "weapon_effect": "Effet",
+  "weapons_title": "Clair Obscur - Armes"
 }

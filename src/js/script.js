@@ -17,7 +17,7 @@ let tableCols = [];
 
 function updateTranslations() {
   pictoLabels = {
-    "defence": t('defence'),
+    "defense": t('defense'),
     "speed": t('speed'),
     "critical-luck": t('critical-luck'),
     "health": t('health')
@@ -27,7 +27,7 @@ function updateTranslations() {
     {key: "name", label: t('name')},
     {key: "region", label: t('region')},
     {key: "level", label: t('level')},
-    {key: "defence", label: t('defence')},
+    {key: "defense", label: t('defense')},
     {key: "speed", label: t('speed')},
     {key: "critical-luck", label: t('critical-luck')},
     {key: "health", label: t('health')},
@@ -482,7 +482,7 @@ function handleCardPressLeave(e) {
             return; // skip column
           }
           let val = "";
-          if (["defence","speed","critical-luck","health"].includes(col.key)) {
+          if (["defense","speed","critical-luck","health"].includes(col.key)) {
             val = (p.bonus_picto && typeof p.bonus_picto[col.key] !== "undefined") ? p.bonus_picto[col.key] : "";
             if(col.key==="critical-luck" && val!=="") val = val+"%";
           } else if (col.key === "level") {
@@ -490,7 +490,7 @@ function handleCardPressLeave(e) {
           } else {
             val = p[col.key] || "";
           }
-          let cls = ["defence","speed","critical-luck","health"].includes(col.key) ? 'nowrap' : '';
+          let cls = ["defense","speed","critical-luck","health"].includes(col.key) ? 'nowrap' : '';
           if(col.key==='name') cls += ' name-cell';
           if(col.key==='level') cls += ' level-cell';
           html += `<td class="${cls.trim()}">${val}</td>`;
@@ -514,7 +514,7 @@ function handleCardPressLeave(e) {
     // Tri tableau (accessible depuis onClick HTML, pour compatibilité file://)
     window.sortTableCol = function(idx) {
       // Pour les colonnes bonus_picto, tri descendant par défaut (sortDir = -1)
-      if(["defence","speed","critical-luck","health"].includes(tableCols[idx].key)) {
+      if(["defense","speed","critical-luck","health"].includes(tableCols[idx].key)) {
         if(sortCol === idx) sortDir = -sortDir;
         else { sortCol = idx; sortDir = -1; }
       } else {
@@ -524,7 +524,7 @@ function handleCardPressLeave(e) {
       const key = tableCols[idx].key;
       pictosFiltered.sort((a,b) => {
         let av, bv;
-        if (["defence","speed","critical-luck","health"].includes(key)) {
+        if (["defense","speed","critical-luck","health"].includes(key)) {
           av = a.bonus_picto?.[key] ?? -Infinity;
           bv = b.bonus_picto?.[key] ?? -Infinity;
           av = isNaN(av) ? -Infinity : av;

@@ -466,3 +466,9 @@ body {
 .lang-flag:not(.active):hover {
   opacity: 0.8;
 }
+
+.char-select{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;}
+.char-select img{width:128px;height:128px;opacity:0.4;cursor:pointer;transition:opacity .2s;}
+.char-select img:hover{opacity:0.6;}
+.char-select img.active{opacity:1;}
+

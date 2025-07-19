@@ -5,7 +5,7 @@
     "region": "Tour Éternelle",
     "level": 30,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "speed": 597
     },
     "bonus_lumina": "+15% à la réduction de dégâts infligée par Affaiblissement.",
@@ -41,7 +41,7 @@
     "region": "Falaises de Rochevague",
     "level": 20,
     "bonus_picto": {
-      "defence": 1022,
+      "defense": 1022,
       "critical-luck": 12
     },
     "bonus_lumina": "Dégâts augmentés de 15% par altération sur le personnage.",
@@ -54,7 +54,7 @@
     "level": 22,
     "bonus_picto": {
       "health": 1602,
-      "defence": 801
+      "defense": 801
     },
     "bonus_lumina": "Immunité contre Brûlure.",
     "unlock_description": "Obtenu en battant le boss Gargant."
@@ -66,7 +66,7 @@
     "level": 13,
     "bonus_picto": {
       "health": 599,
-      "defence": 240
+      "defense": 240
     },
     "bonus_lumina": "Immunité contre Charme.",
     "unlock_description": "Obtenu en battant le Tisseur."
@@ -78,7 +78,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1333,
-      "defence": 647
+      "defense": 647
     },
     "bonus_lumina": "Immunité contre Corruption.",
     "unlock_description": "À acheter au marchand Eragol pour 67 350 chroma."
@@ -90,7 +90,7 @@
     "level": 21,
     "bonus_picto": {
       "health": 1464,
-      "defence": 733
+      "defense": 733
     },
     "bonus_lumina": "Immunité contre Gel.",
     "unlock_description": "Récupérable dans la sphère de peinture de la zone Chutes de glace."
@@ -102,7 +102,7 @@
     "level": 29,
     "bonus_picto": {
       "health": 2,
-      "defence": 1
+      "defense": 1
     },
     "bonus_lumina": "Immunité contre Étourdissement.",
     "unlock_description": "Obtenu en battant le Petank Chromatique."
@@ -138,7 +138,7 @@
     "level": 15,
     "bonus_picto": {
       "health": 389,
-      "defence": 478
+      "defense": 478
     },
     "bonus_lumina": "Les attaques de base infligent Affaiblissement pendant 1 tour.",
     "unlock_description": "Posé devant un corps près des immeubles ensevelis sous la neige."
@@ -149,7 +149,7 @@
     "region": "Vallons fleuris",
     "level": 2,
     "bonus_picto": {
-      "defence": 8,
+      "defense": 8,
       "speed": 10
     },
     "bonus_lumina": "Dégâts d’attaque de base augmentés de 50%.",
@@ -222,7 +222,7 @@
     "level": 25,
     "bonus_picto": {
       "health": 3,
-      "defence": 524
+      "defense": 524
     },
     "bonus_lumina": "Les attaques de base confèrent Carapace pendant 1 tour.",
     "unlock_description": "À acheter au marchand Anthonypo pour 100 050 chroma."
@@ -245,7 +245,7 @@
     "region": "Rives Obscures",
     "level": 23,
     "bonus_picto": {
-      "defence": 1310,
+      "defense": 1310,
       "critical-luck": 13
     },
     "bonus_lumina": "+3 boucliers au début du combat, mais le maximum de santé est réduit de moitié.",
@@ -257,7 +257,7 @@
     "region": "L’Atelier",
     "level": 30,
     "bonus_picto": {
-      "defence": 1817,
+      "defense": 1817,
       "critical-luck": 34
     },
     "bonus_lumina": "Inflige 50% de dégâts en plus si la santé est en dessous de 10%.",
@@ -329,7 +329,7 @@
     "region": "Glacier Ardent",
     "level": 22,
     "bonus_picto": {
-      "defence": 401,
+      "defense": 401,
       "speed": 321
     },
     "bonus_lumina": "+1 PA en appliquant Brûlure. Une fois par tour.",
@@ -354,7 +354,7 @@
     "level": 28,
     "bonus_picto": {
       "health": 2,
-      "defence": 1
+      "defense": 1
     },
     "bonus_lumina": "La durée de Brûlure augmente de 2.",
     "unlock_description": "À acheter au marchand Fusoka pour 142 625 chroma."
@@ -365,7 +365,7 @@
     "region": "L’Aspirante",
     "level": 20,
     "bonus_picto": {
-      "defence": 647,
+      "defense": 647,
       "speed": 266
     },
     "bonus_lumina": "Récupère 15% de santé en appliquant un buff.",
@@ -389,7 +389,7 @@
     "level": 13,
     "bonus_picto": {
       "health": 599,
-      "defence": 240
+      "defense": 240
     },
     "bonus_lumina": "+10% à la réduction de dégâts conférée par Carapace.",
     "unlock_description": "Après avoir emprunté une plateforme volante non loin de la sphère de peinture, prenez le chemin de droite et éliminez les ennemis pour récupérer le picto tout au bout."
@@ -412,7 +412,7 @@
     "level": 29,
     "bonus_picto": {
       "health": -1,
-      "defence": -1
+      "defense": -1
     },
     "bonus_lumina": "En appliquant Carapace, sa durée augmente de 2.",
     "unlock_description": "Battre le Veilleur dans la zone surélevée à l’ouest de la sortie nord des Terres Oubliées. Nécessite d’avoir débloqué la capacité de voler d’Esquie."
@@ -423,7 +423,7 @@
     "region": "Continent",
     "level": 23,
     "bonus_picto": {
-      "defence": -1,
+      "defense": -1,
       "critical-luck": -1
     },
     "bonus_lumina": "",
@@ -435,7 +435,7 @@
     "region": "Manoir Suspendu",
     "level": 28,
     "bonus_picto": {
-      "defence": 1501,
+      "defense": 1501,
       "speed": 546
     },
     "bonus_lumina": "+10% de charge Gradient en appliquant un buff. Une fois par tour.",
@@ -472,7 +472,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1333,
-      "defence": 647
+      "defense": 647
     },
     "bonus_lumina": "+10% de charge Gradient à chaque contre.",
     "unlock_description": "Après avoir croisé un homme gommé dans la zone Montagne, allez sur la droite et utilisez deux fois le grappin. Avancez ensuite jusqu’à tomber sur 2 échassiers. Vous trouverez le picto au sol à côté d’eux."
@@ -483,7 +483,7 @@
     "region": "Esquisses de Renoir",
     "level": 31,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "critical-luck": 35
     },
     "bonus_lumina": "+20% de charge Gradient en cas de coup critique. Une fois par tour.",
@@ -543,7 +543,7 @@
     "region": "Feuilles Ambrées",
     "level": 14,
     "bonus_picto": {
-      "defence": 274,
+      "defense": 274,
       "speed": 135
     },
     "bonus_lumina": "+2 PA en appliquant une altération. Une fois par tour.",
@@ -567,7 +567,7 @@
     "region": "Visages",
     "level": 12,
     "bonus_picto": {
-      "defence": 208,
+      "defense": 208,
       "critical-luck": 15
     },
     "bonus_lumina": "Dégâts de contre augmentés de 50%.",
@@ -579,7 +579,7 @@
     "region": "Lumière",
     "level": 17,
     "bonus_picto": {
-      "defence": 432,
+      "defense": 432,
       "critical-luck": 19
     },
     "bonus_lumina": "Dégâts de contre augmentés de 75%.",
@@ -626,7 +626,7 @@
     "region": "Continent",
     "level": 9,
     "bonus_picto": {
-      "defence": 116,
+      "defense": 116,
       "speed": 62,
       "critical-luck": 25
     },
@@ -639,7 +639,7 @@
     "region": "Feuilles Ambrées",
     "level": 14,
     "bonus_picto": {
-      "defence": 288,
+      "defense": 288,
       "speed": 142
     },
     "bonus_lumina": "Gagne Rapidité en tombant en dessous de 50% de santé.",
@@ -651,7 +651,7 @@
     "region": "Océan suspendu",
     "level": 3,
     "bonus_picto": {
-      "defence": 13,
+      "defense": 13,
       "speed": 14
     },
     "bonus_lumina": "Gagne Carapace en tombant en dessous de 50 % de santé.",
@@ -688,7 +688,7 @@
     "level": 6,
     "bonus_picto": {
       "health": 168,
-      "defence": 50
+      "defense": 50
     },
     "bonus_lumina": "100% de chances de critique en combattant seul.",
     "unlock_description": "Obtenu après avoir battu pour la première fois Matthieu le Colosse."
@@ -700,7 +700,7 @@
     "level": 6,
     "bonus_picto": {
       "health": 168,
-      "defence": 50
+      "defense": 50
     },
     "bonus_lumina": "Le personnage gagne Carapace s’il se bat seul.",
     "unlock_description": "Obtenu après avoir battu pour la première fois Dominique aux Grands Pieds."
@@ -769,7 +769,7 @@
     "region": "Sirène",
     "level": 13,
     "bonus_picto": {
-      "defence": 240,
+      "defense": 240,
       "speed": 118
     },
     "bonus_lumina": "Récupère 25% de santé en attaquant une cible en train de brûler. Une fois par tour.",
@@ -841,7 +841,7 @@
     "region": "L’Aspirante",
     "level": 20,
     "bonus_picto": {
-      "defence": 681,
+      "defense": 681,
       "speed": 280
     },
     "bonus_lumina": "Applique Vulnérabilité en cas de Fracture.",
@@ -877,7 +877,7 @@
     "region": "Manoir Suspendu",
     "level": 28,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "speed": 546
     },
     "bonus_lumina": "Applique Lenteur en cas de Fracture.",
@@ -1033,7 +1033,7 @@
     "region": "Île Céleste",
     "level": 20,
     "bonus_picto": {
-      "defence": 647,
+      "defense": 647,
       "speed": 266
     },
     "bonus_lumina": "+15% à la réduction de vitesse imposée par Lenteur.",
@@ -1058,7 +1058,7 @@
     "level": 31,
     "bonus_picto": {
       "health": 3,
-      "defence": 1
+      "defense": 1
     },
     "bonus_lumina": "Inflige 50% de dégâts en plus en combattant seul.",
     "unlock_description": "À acheter au marchand Grour pour 97 700 chroma."
@@ -1069,7 +1069,7 @@
     "region": "Falaises de Rochevague",
     "level": 7,
     "bonus_picto": {
-      "defence": 102,
+      "defense": 102,
       "speed": 21
     },
     "bonus_lumina": "Les cibles marquées infligent 30% de dégâts en moins.",
@@ -1094,7 +1094,7 @@
     "level": 4,
     "bonus_picto": {
       "health": 44,
-      "defence": 32
+      "defense": 32
     },
     "bonus_lumina": "Applique Brûlure en touchant un ennemi marqué.",
     "unlock_description": "Après avoir croisé le Petank, suivez le chemin principal et longer la paroi sur la gauche pour trouve le picto légèrement en contrebas."
@@ -1105,7 +1105,7 @@
     "region": "Village des Gestrals",
     "level": 5,
     "bonus_picto": {
-      "defence": 65
+      "defense": 65
     },
     "bonus_lumina": "Récupère 25% de santé en touchant un ennemi marqué.",
     "unlock_description": "À acheté à l’escroc marchand du bazar Gestral."
@@ -1116,7 +1116,7 @@
     "region": "Fleuve Sacré",
     "level": 20,
     "bonus_picto": {
-      "defence": 1022,
+      "defense": 1022,
       "speed": 140
     },
     "bonus_lumina": "+2 PA en attaquant une cible marquée. Une fois par tour.",
@@ -1141,7 +1141,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 216,
-      "defence": 71
+      "defense": 71
     },
     "bonus_lumina": "Quand des dégâts sont subis, consomme 1 PA pour subir 30% de dégâts en moins (si possible).",
     "unlock_description": "À trouver près de l’accès arrière des Falaises de Rochevague."
@@ -1200,7 +1200,7 @@
     "region": "Les Corbeaux",
     "level": 22,
     "bonus_picto": {
-      "defence": 801,
+      "defense": 801,
       "speed": 161
     },
     "bonus_lumina": "Lorsque le personnage meurt, ses alliés gagnent 3 boucliers.",
@@ -1223,7 +1223,7 @@
     "region": "Gare de Monoco",
     "level": 21,
     "bonus_picto": {
-      "defence": 771,
+      "defense": 771,
       "speed": 308
     },
     "bonus_lumina": "Lorsque le personnage meurt, +4 PA aux alliés.",
@@ -1236,7 +1236,7 @@
     "level": 10,
     "bonus_picto": {
       "health": 395,
-      "defence": 152
+      "defense": 152
     },
     "bonus_lumina": "Récupère 3% de santé à chaque parade réussie.",
     "unlock_description": "Obtenu en réussissant les 3 défis du Troubadour blanc."
@@ -1296,7 +1296,7 @@
     "level": 16,
     "bonus_picto": {
       "health": 876,
-      "defence": 373
+      "defense": 373
     },
     "bonus_lumina": "Dégâts augmentés de 25% quand la santé est au maximum.",
     "unlock_description": "À acheter au marchand Cribappa contre 53 200 chroma."
@@ -1319,7 +1319,7 @@
     "level": 16,
     "bonus_picto": {
       "health": 876,
-      "defence": 373
+      "defense": 373
     },
     "bonus_lumina": "Joue toujours deux fois de suite, mais inflige 50% de dégâts en moins.",
     "unlock_description": "Obtenu en battant le mini-boss Création dans les Jardins de Lumière."
@@ -1343,7 +1343,7 @@
     "level": 8,
     "bonus_picto": {
       "health": 270,
-      "defence": 96
+      "defense": 96
     },
     "bonus_lumina": "Dégâts augmentés de 50% en état d’Épuisement.",
     "unlock_description": "À ramasser au sol près de l’Hexga Chromatique."
@@ -1388,7 +1388,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 2000,
-      "defence": 324
+      "defense": 324
     },
     "bonus_lumina": "Consomme 1 PA pour empêcher l’application d’altérations (si possible).",
     "unlock_description": "Le picto se trouve au sol juste derrière les deux Orphelins à battre."
@@ -1400,7 +1400,7 @@
     "level": 15,
     "bonus_picto": {
       "health": 1166,
-      "defence": 160
+      "defense": 160
     },
     "bonus_lumina": "Dissipe la première altération reçue et confère 2 PA.",
     "unlock_description": "À acheter au marchand Mistra après l’avoir battu pour 40 800 chroma."
@@ -1459,7 +1459,7 @@
     "region": "Sanctuaire de la Nuit Éternelle",
     "level": 25,
     "bonus_picto": {
-      "defence": 1048,
+      "defense": 1048,
       "speed": 413
     },
     "bonus_lumina": "Applique également Carapace en appliquant Rapidité.",
@@ -1483,7 +1483,7 @@
     "region": "Esquisses de Renoir",
     "level": 31,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "speed": 672
     },
     "bonus_lumina": "+1 bouclier quand le personnage est ranimé.",
@@ -1496,7 +1496,7 @@
     "level": 12,
     "bonus_picto": {
       "health": 546,
-      "defence": 218
+      "defense": 218
     },
     "bonus_lumina": "Confère Régénération pendant 3 en revenant à la vie.",
     "unlock_description": "Dans la zone du Gault Chromatique, cherchez derrière la première maison à droite de l’entrée de la zone pour trouver le picto."
@@ -1520,7 +1520,7 @@
     "level": 8,
     "bonus_picto": {
       "health": 270,
-      "defence": 96
+      "defense": 96
     },
     "bonus_lumina": "+3 PA pour tous les alliés lorsque ce personnage est ranimé.",
     "unlock_description": "Obtenu en battant l’Hexga Chromatique."
@@ -1531,7 +1531,7 @@
     "region": "Village des Gestrals",
     "level": 5,
     "bonus_picto": {
-      "defence": 34,
+      "defense": 34,
       "critical-luck": 9
     },
     "bonus_lumina": "Chaque coup a 50% de chances d’infliger soit 50% soit 200% des dégâts normaux.",
@@ -1544,7 +1544,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 2000,
-      "defence": 324
+      "defense": 324
     },
     "bonus_lumina": "Récupère 10% de santé au début du tour.",
     "unlock_description": "Payez les montants réclamés par le Bénisseur pour un total de 90 000 chroma."
@@ -1555,7 +1555,7 @@
     "region": "Sirène",
     "level": 13,
     "bonus_picto": {
-      "defence": 479
+      "defense": 479
     },
     "bonus_lumina": "Applique Régénération pendant 3 tours au début du combat.",
     "unlock_description": "À ramasser non loin du Bénisseur."
@@ -1579,7 +1579,7 @@
     "level": 13,
     "bonus_picto": {
       "health": 284,
-      "defence": 341
+      "defense": 341
     },
     "bonus_lumina": "Double tous les soins reçus",
     "unlock_description": "À ramasser au sol après avoir battu le Cultiste épéiste Chromatique."
@@ -1591,7 +1591,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 206,
-      "defence": 68
+      "defense": 68
     },
     "bonus_lumina": "En soignant un allié, se soigne également, mais deux fois moins.",
     "unlock_description": "Près de l’entrée du mini-niveau Arbre Blanc."
@@ -1638,7 +1638,7 @@
     "region": "Fleuve Sacré",
     "level": 20,
     "bonus_picto": {
-      "defence": 647,
+      "defense": 647,
       "speed": 266
     },
     "bonus_lumina": "+2 boucliers quand la santé du personnage tombe en dessous de 50%. Une fois par combat.",
@@ -1747,7 +1747,7 @@
     "level": 9,
     "bonus_picto": {
       "health": 329,
-      "defence": 122
+      "defense": 122
     },
     "bonus_lumina": "5% de chage Gradient en utilisant un objet.",
     "unlock_description": "Après avoir battu le Stalact au sud de la Plage Gestral du mini-jeu de la géante ascension. Se ramasse au sol tout près."
@@ -1759,7 +1759,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 216,
-      "defence": 71
+      "defense": 71
     },
     "bonus_lumina": "Les teintes curatives confèrent également 1 PA.",
     "unlock_description": "Obtenu en battant l’Hexga situé près des bâtiments."
@@ -1771,7 +1771,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1333,
-      "defence": 647
+      "defense": 647
     },
     "bonus_lumina": "Les teintes de vie confèrent également 3 PA.",
     "unlock_description": "À acheter au Gestral marchand pour 67 350 chroma après l’avoir battu."
@@ -1783,7 +1783,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1402,
-      "defence": 681
+      "defense": 681
     },
     "bonus_lumina": "Les teintes curatives confèrent également Carapace.",
     "unlock_description": "Au bout d’un des ponts de bois dans la Zone embrumée."
@@ -1795,7 +1795,7 @@
     "level": 9,
     "bonus_picto": {
       "health": 313,
-      "defence": 116
+      "defense": 116
     },
     "bonus_lumina": "Les teintes curatives confèrent également 2 boucliers.",
     "unlock_description": "Rendez-vous dans la zone cloisonnée à l’est du cimetière tranchant pour trouver le picto au milieu des ruines. Nécessite d’avoir débloqué la capacité de voler d’Esquie."
@@ -1807,7 +1807,7 @@
     "level": 1,
     "bonus_picto": {
       "health": 35,
-      "defence": 6
+      "defense": 6
     },
     "bonus_lumina": "Les teintes curatives dissipent également les altérations de la cible.",
     "unlock_description": "Obtenu en battant l’Evêque."
@@ -1831,7 +1831,7 @@
     "level": 24,
     "bonus_picto": {
       "health": -1,
-      "defence": -1
+      "defense": -1
     },
     "bonus_lumina": "Les teintes énergisantes confèrent également Rapidité.",
     "unlock_description": "Obtenu en réussissant le Niv 4, Epreuve 3 de la tour."
@@ -1867,7 +1867,7 @@
     "level": 28,
     "bonus_picto": {
       "health": 4,
-      "defence": 301
+      "defense": 301
     },
     "bonus_lumina": "20% de chances de gagner Rapidité sur les tirs en visée livre.",
     "unlock_description": "À acheter au marchand Fusoka pour 89 650 chroma."
@@ -1915,7 +1915,7 @@
     "level": 28,
     "bonus_picto": {
       "health": 4,
-      "defence": 301
+      "defense": 301
     },
     "bonus_lumina": "20% de chances de gagner Carapace sur les tirs en visée libre.",
     "unlock_description": "Posé sur l’angle d’un des cadres vides."
@@ -1927,7 +1927,7 @@
     "level": 12,
     "bonus_picto": {
       "health": 983,
-      "defence": 44
+      "defense": 44
     },
     "bonus_lumina": "20% de chances de gagner Surpuissance sur les tirs en visée libre.",
     "unlock_description": "Utilisez le pouvoir Brise Peinture pour casser le rocher près du docteur qui dort."
@@ -1951,7 +1951,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 216,
-      "defence": 71
+      "defense": 71
     },
     "bonus_lumina": "Dégâts augmentés de 10% si tous les alliés sont encore en vie.",
     "unlock_description": "À acheter au marchand Pinabby pour 9120 chroma, avoir l’avoir battu."
@@ -2058,7 +2058,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 308,
-      "defence": 24
+      "defense": 24
     },
     "bonus_lumina": "Plus aucun gain de PA en cas de parade réussie, mais +1 PA lorsque le personnage se fait toucher.",
     "unlock_description": "Obtenu en battant le cultiste."
@@ -2116,7 +2116,7 @@
     "region": "Sirène",
     "level": 13,
     "bonus_picto": {
-      "defence": 120,
+      "defense": 120,
       "speed": 177
     },
     "bonus_lumina": "+1 PA à chaque attaque de base.",
@@ -2128,7 +2128,7 @@
     "region": "Continent",
     "level": 15,
     "bonus_picto": {
-      "defence": 319,
+      "defense": 319,
       "speed": 154
     },
     "bonus_lumina": "Confère 2 PA en appliquant Carapace.",
@@ -2207,7 +2207,7 @@
     "region": "Tour Éternelle",
     "level": 22,
     "bonus_picto": {
-      "defence": 801,
+      "defense": 801,
       "speed": 321
     },
     "bonus_lumina": "Confère 2 PA en appliquant Rapidité.",
@@ -2219,7 +2219,7 @@
     "region": "Lumière",
     "level": 16,
     "bonus_picto": {
-      "defence": 373,
+      "defense": 373,
       "speed": 172
     },
     "bonus_lumina": "Confère 2 PA en appliquant Surpuissance.",
@@ -2242,7 +2242,7 @@
     "region": "Fleuve Sacré",
     "level": 20,
     "bonus_picto": {
-      "defence": 681,
+      "defense": 681,
       "critical-luck": 23
     },
     "bonus_lumina": "100% de chances de critique en frappant une cible étourdie.",
@@ -2290,7 +2290,7 @@
     "region": "Manoir suspendu",
     "level": 28,
     "bonus_picto": {
-      "defence": 1426,
+      "defense": 1426,
       "speed": 519
     },
     "bonus_lumina": "+2 PA en soignant un allié. Une fois par tour.",

@@ -45,12 +45,23 @@ function updateFlagState() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function bindLangEvents() {
   document.querySelectorAll('.lang-flag').forEach(el => {
-    el.addEventListener('click', () => loadLang(el.dataset.lang));
+    el.removeEventListener('click', langClickHandler);
+    el.addEventListener('click', langClickHandler);
   });
+}
+
+function langClickHandler(event) {
+  loadLang(event.currentTarget.dataset.lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  bindLangEvents();
   loadLang(currentLang);
 });
+
+window.bindLangEvents = bindLangEvents;
 
 window.setLanguage = loadLang;
 window.t = t;
