@@ -331,48 +331,55 @@ function handleCardPressLeave(e) {
       applyFilters();
     }
 
-    document.getElementById('downloadBtn').addEventListener('click', downloadJson);
-    document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
-    document.getElementById('saveBtn').addEventListener('click', saveToLocal);
-    document.getElementById('fileInput').addEventListener('change', e => {
-      if (e.target.files && e.target.files[0]) {
-        handleUpload(e.target.files[0]);
-        e.target.value = '';
-      }
-    });
-    document.getElementById('hideOwnedBtn').addEventListener('click', () => {
-      hideOwned = !hideOwned;
-      if(hideOwned) hideMissing = false;
-      applyFilters();
-    });
-    document.getElementById('hideMissingBtn').addEventListener('click', () => {
-      hideMissing = !hideMissing;
-      if(hideMissing) hideOwned = false;
-      applyFilters();
-    });
-    document.getElementById('selectAllBtn').addEventListener('click', selectAll);
-    document.getElementById('clearAllBtn').addEventListener('click', clearAll);
-    updateIconStates();
+    function initPage() {
+      document.getElementById('downloadBtn').addEventListener('click', downloadJson);
+      document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
+      document.getElementById('saveBtn').addEventListener('click', saveToLocal);
+      document.getElementById('fileInput').addEventListener('change', e => {
+        if (e.target.files && e.target.files[0]) {
+          handleUpload(e.target.files[0]);
+          e.target.value = '';
+        }
+      });
+      document.getElementById('hideOwnedBtn').addEventListener('click', () => {
+        hideOwned = !hideOwned;
+        if(hideOwned) hideMissing = false;
+        applyFilters();
+      });
+      document.getElementById('hideMissingBtn').addEventListener('click', () => {
+        hideMissing = !hideMissing;
+        if(hideMissing) hideOwned = false;
+        applyFilters();
+      });
+      document.getElementById('selectAllBtn').addEventListener('click', selectAll);
+      document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+      updateIconStates();
 
-    // Recherche/filter
-    document.getElementById("search").addEventListener("input", applyFilters);
+      document.getElementById("search").addEventListener("input", applyFilters);
 
-    document.getElementById("gridViewBtn").addEventListener("click", () => {
-      if(currentView !== 'cards') {
-        currentView = 'cards';
-        localStorage.setItem('viewMode', currentView);
-        updateIconStates();
-        render();
-      }
-    });
-    document.getElementById("tableViewBtn").addEventListener("click", () => {
-      if(currentView !== 'table') {
-        currentView = 'table';
-        localStorage.setItem('viewMode', currentView);
-        updateIconStates();
-        render();
-      }
-    });
+      document.getElementById("gridViewBtn").addEventListener("click", () => {
+        if(currentView !== 'cards') {
+          currentView = 'cards';
+          localStorage.setItem('viewMode', currentView);
+          updateIconStates();
+          render();
+        }
+      });
+      document.getElementById("tableViewBtn").addEventListener("click", () => {
+        if(currentView !== 'table') {
+          currentView = 'table';
+          localStorage.setItem('viewMode', currentView);
+          updateIconStates();
+          render();
+        }
+      });
+      window.addEventListener('resize', () => {
+        if(currentView === 'table') renderTable();
+      });
+      loadData();
+      window.loadData = loadData;
+    }
+    document.addEventListener('commonLoaded', initPage);
 
     function render() {
       document.getElementById("cards").style.display = currentView === "cards" ? "grid" : "none";
@@ -548,11 +555,3 @@ function handleCardPressLeave(e) {
       });
     }
 
-    // Re-render table on window resize so Unlock column visibility updates
-    window.addEventListener('resize', () => {
-      if(currentView === 'table') renderTable();
-    });
-
-    // Load pictos immediately on startup
-    loadData();
-    window.loadData = loadData;
