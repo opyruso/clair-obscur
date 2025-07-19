@@ -32,5 +32,11 @@
   "select_all_confirm": "Select all visible pictos?",
   "clear_selection_confirm": "Clear selection of visible pictos?",
   "hidden": "hidden",
-  "pictos_title": "Clair Obscur - Pictos"
+  "pictos_title": "Clair Obscur - Pictos",
+  "nav_weapons": "Weapons inventory",
+  "heading_weapons": "Weapons inventory",
+  "damage_type": "Damage type",
+  "damage_buff": "Damage buff",
+  "weapon_effect": "Effect",
+  "weapons_title": "Clair Obscur - Weapons"
 }
