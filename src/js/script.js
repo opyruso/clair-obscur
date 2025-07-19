@@ -9,7 +9,6 @@ let ownedCount = 0;
 let totalCount = 0;
 let hideOwned = false;
 let hideMissing = false;
-let modified = false;
 let hiddenCount = 0;
 let dataLoaded = false;
 let initialRender = true;
@@ -43,7 +42,6 @@ updateTranslations();
       const hadId = myPictosSet.has(id);
       if(hadId) myPictosSet.delete(id); else myPictosSet.add(id);
       ownedCount = myPictosSet.size;
-      modified = true;
 
       // If a filter hides or shows owned/missing pictos, we need a full refresh
       if(hideOwned || hideMissing) {
@@ -142,7 +140,7 @@ function handleCardPressLeave(e) {
         : `${visibleTotal}`;
       const suffix = ` - ${ownedPart} / ${totalPart}`;
       const h1 = document.querySelector("h1");
-      if (h1) h1.textContent = `${t('pictos_title')}${suffix}`;
+      if (h1) h1.textContent = `${t('heading_pictos')}${suffix}`;
       document.title = `${t('pictos_title')}${suffix}`;
     }
 
@@ -221,7 +219,6 @@ function handleCardPressLeave(e) {
             }
           });
           ownedCount = myPictosSet.size;
-          modified = true;
           applyFilters();
           notify(t('pictos_added', {count: added}));
         } catch(err) {
@@ -234,18 +231,9 @@ function handleCardPressLeave(e) {
     function downloadJson() {
       setSavedItems(storageKey, Array.from(myPictosSet));
       downloadSiteData();
-      modified = false;
       updateIconStates();
     }
 
-    function saveToLocal() {
-      if(!confirm(t('save_confirm'))) return;
-      setSavedItems(storageKey, Array.from(myPictosSet));
-      saveSiteData();
-      modified = false;
-      notify(t('selection_saved'));
-      updateIconStates();
-    }
 
     function selectAll() {
       const total = pictosFiltered.length;
@@ -256,7 +244,6 @@ function handleCardPressLeave(e) {
       }
       pictosFiltered.forEach(p => myPictosSet.add(p.id));
       ownedCount = myPictosSet.size;
-      modified = true;
       applyFilters();
       setSavedItems(storageKey, Array.from(myPictosSet));
     }
@@ -270,16 +257,13 @@ function handleCardPressLeave(e) {
       }
       pictosFiltered.forEach(p => myPictosSet.delete(p.id));
       ownedCount = myPictosSet.size;
-      modified = true;
       applyFilters();
       setSavedItems(storageKey, Array.from(myPictosSet));
     }
 
     function updateIconStates() {
       const downloadBtn = document.getElementById('downloadBtn');
-      if(downloadBtn) downloadBtn.classList.toggle('disabled', !modified);
-      const saveBtn = document.getElementById('saveBtn');
-      if(saveBtn) saveBtn.classList.toggle('disabled', !modified);
+      if(downloadBtn) downloadBtn.classList.remove('disabled');
       const baseFiltered = pictos.filter(p => {
         const term = document.getElementById('search').value.trim().toLowerCase();
         return Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
@@ -297,12 +281,10 @@ function handleCardPressLeave(e) {
         hideMissingBtn.classList.toggle('disabled', missingVisible === 0);
         hideMissingBtn.classList.toggle('toggled', hideMissing);
       }
-      const anyUnselected = pictosFiltered.some(p => !myPictosSet.has(p.id));
-      const anySelected = pictosFiltered.some(p => myPictosSet.has(p.id));
       const selectAllBtn = document.getElementById('selectAllBtn');
       const clearAllBtn = document.getElementById('clearAllBtn');
-      if(selectAllBtn) selectAllBtn.classList.toggle('disabled', !anyUnselected);
-      if(clearAllBtn) clearAllBtn.classList.toggle('disabled', !anySelected);
+      if(selectAllBtn) selectAllBtn.classList.remove('disabled');
+      if(clearAllBtn) clearAllBtn.classList.remove('disabled');
       const gridViewBtn = document.getElementById('gridViewBtn');
       const tableViewBtn = document.getElementById('tableViewBtn');
       if(gridViewBtn) gridViewBtn.classList.toggle('disabled', currentView === 'cards');
@@ -326,7 +308,6 @@ function handleCardPressLeave(e) {
     function initPage() {
       document.getElementById('downloadBtn').addEventListener('click', downloadJson);
       document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
-      document.getElementById('saveBtn').addEventListener('click', saveToLocal);
       document.getElementById('fileInput').addEventListener('change', e => {
         if (e.target.files && e.target.files[0]) {
           handleSiteUpload(e.target.files[0]);
@@ -513,7 +494,6 @@ function handleCardPressLeave(e) {
     function onSiteDataUpdated() {
       myPictosSet = new Set(getSavedItems(storageKey));
       ownedCount = myPictosSet.size;
-      modified = false;
       applyFilters();
     }
 

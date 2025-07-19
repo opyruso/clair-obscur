@@ -21,7 +21,6 @@ let currentCharacter = characters[0];
 let currentView = localStorage.getItem('weaponViewMode') || 'cards';
 let hideOwned = false;
 let hideMissing = false;
-let modified = false;
 let sortCol = null, sortDir = 1;
 let tableCols = [];
 
@@ -42,11 +41,10 @@ function initPage(){
   document.getElementById('search').addEventListener('input', applyFilters);
   document.getElementById('hideOwnedBtn').addEventListener('click',()=>{hideOwned=!hideOwned;if(hideOwned)hideMissing=false;applyFilters();});
   document.getElementById('hideMissingBtn').addEventListener('click',()=>{hideMissing=!hideMissing;if(hideMissing)hideOwned=false;applyFilters();});
-  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));modified=true;applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
-  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));modified=true;applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
+  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
+  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
   document.getElementById('downloadBtn').addEventListener('click',downloadJson);
   document.getElementById('uploadBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
-  document.getElementById('saveBtn').addEventListener('click',saveToLocal);
   document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleSiteUpload(e.target.files[0]);e.target.value='';});
   initCharacters();
   loadData();
@@ -90,16 +88,43 @@ function applyFilters(){
 }
 
 function updateTitle(){
-  const owned=filteredWeapons.filter(w=>myWeapons.has(w.id)).length;
-  const total=filteredWeapons.length;
+  const ownedForChar=weapons.filter(w=>myWeapons.has(w.id)).length;
+  const visibleOwned=filteredWeapons.filter(w=>myWeapons.has(w.id)).length;
+  const hiddenOwned=ownedForChar-visibleOwned;
+  const visibleTotal=filteredWeapons.length;
+  const hiddenTotal=weapons.length-visibleTotal;
+  const ownedPart=hiddenOwned>0
+    ?`${visibleOwned} (+${hiddenOwned} ${t('hidden')})`
+    :`${visibleOwned}`;
+  const totalPart=hiddenTotal>0
+    ?`${visibleTotal} (+${hiddenTotal} ${t('hidden')})`
+    :`${visibleTotal}`;
+  const suffix=` - ${ownedPart} / ${totalPart}`;
   const h1=document.querySelector('h1');
-  if(h1)h1.textContent=`${t('heading_weapons')} - ${owned} / ${total}`;
-  document.title=`${t('weapons_title')} - ${owned}/${total}`;
+  if(h1)h1.textContent=`${t('heading_weapons')}${suffix}`;
+  document.title=`${t('weapons_title')}${suffix}`;
 }
 
 function toggleWeapon(id){
-  if(myWeapons.has(id)) myWeapons.delete(id); else myWeapons.add(id);
-  modified=true;updateIconStates();render();
+  const hadId = myWeapons.has(id);
+  if(hadId) myWeapons.delete(id); else myWeapons.add(id);
+
+  // Refresh list if current filters hide/show owned/missing weapons
+  if(hideOwned || hideMissing){
+    applyFilters();
+  } else {
+    const card = document.querySelector(`.card[data-id="${id}"]`);
+    if(card) card.classList.toggle('owned', !hadId);
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    if(row){
+      row.classList.toggle('owned', !hadId);
+      const cb = row.querySelector('.picto-checkbox');
+      if(cb) cb.checked = !hadId;
+    }
+    updateTitle();
+    updateIconStates();
+  }
+
   setSavedItems(storageKey, Array.from(myWeapons));
 }
 
@@ -153,12 +178,9 @@ function sortTableCol(idx){
 }
 
 function updateIconStates(){
-  document.getElementById('downloadBtn').classList.toggle('disabled',!modified);
-  document.getElementById('saveBtn').classList.toggle('disabled',!modified);
-  const anyUnselected=filteredWeapons.some(w=>!myWeapons.has(w.id));
-  const anySelected=filteredWeapons.some(w=>myWeapons.has(w.id));
-  document.getElementById('selectAllBtn').classList.toggle('disabled',!anyUnselected);
-  document.getElementById('clearAllBtn').classList.toggle('disabled',!anySelected);
+  document.getElementById('downloadBtn').classList.remove('disabled');
+  document.getElementById('selectAllBtn').classList.remove('disabled');
+  document.getElementById('clearAllBtn').classList.remove('disabled');
   document.getElementById('gridViewBtn').classList.toggle('disabled',currentView==='cards');
   document.getElementById('tableViewBtn').classList.toggle('disabled',currentView==='table');
   document.getElementById('hideOwnedBtn').classList.toggle('toggled',hideOwned);
@@ -168,14 +190,7 @@ function updateIconStates(){
 function downloadJson(){
   setSavedItems(storageKey, Array.from(myWeapons));
   downloadSiteData();
-  modified=false;updateIconStates();
-}
-
-function saveToLocal(){
-  if(!confirm(t('save_confirm'))) return;
-  setSavedItems(storageKey, Array.from(myWeapons));
-  saveSiteData();
-  modified=false;updateIconStates();
+  updateIconStates();
 }
 
 function handleUpload(file){
@@ -184,7 +199,6 @@ function handleUpload(file){
 
 function onSiteDataUpdated(){
   myWeapons = new Set(getSavedItems(storageKey));
-  modified = false;
   applyFilters();
 }
 
