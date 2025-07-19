@@ -40,7 +40,9 @@ fs.rmSync(path.join(distDir, 'js', 'app.jsx'));
 const packages = [
   'react',
   'react-dom',
+  'react-router',
   'react-router-dom',
+  '@remix-run/router',
   'flag-icons',
   '@fontsource/cinzel',
   '@fortawesome/fontawesome-free'

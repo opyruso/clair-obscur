@@ -1,4 +1,5 @@
-    const baseDataUrl = "data/picto-dictionnary";
+(() => {
+const baseDataUrl = "data/picto-dictionnary";
 let pictos = [];
 let pictosFiltered = [];
 let myPictosSet = new Set();
@@ -350,9 +351,7 @@ function handleCardPressLeave(e) {
         if(currentView === 'table') renderTable();
       });
       loadData();
-      window.loadData = loadData;
     }
-    window.initPictosPage = initPage;
 
     function render() {
       document.getElementById("cards").style.display = currentView === "cards" ? "grid" : "none";
@@ -431,11 +430,11 @@ function handleCardPressLeave(e) {
           html += `<th></th>`;
         } else if(col.key === "unlock_description") {
           if(showInfoCol) html += `<th><i class="fa-solid fa-circle-info"></i></th>`;
-          else html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
+          else html += `<th onclick="window.pictosPage.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
         } else if((col.key === "region" || col.key === "level") && hideInfo) {
           /* skip */
         } else {
-          html += `<th onclick="window.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
+          html += `<th onclick="window.pictosPage.sortTableCol(${i})" class="${sortCol===i ? (sortDir==1?'sorted-asc':'sorted-desc') : ''}">${col.label}</th>`;
         }
       });
       html += `</tr></thead><tbody>`;
@@ -497,10 +496,8 @@ function handleCardPressLeave(e) {
       applyFilters();
     }
 
-    window.onSiteDataUpdated = onSiteDataUpdated;
-
     // Tri tableau (accessible depuis onClick HTML, pour compatibilité file://)
-    window.sortTableCol = function(idx) {
+    function sortTableCol(idx) {
       // Pour les colonnes bonus_picto, tri descendant par défaut (sortDir = -1)
       if(["defense","speed","critical-luck","health"].includes(tableCols[idx].key)) {
         if(sortCol === idx) sortDir = -sortDir;
@@ -535,4 +532,7 @@ function handleCardPressLeave(e) {
         if(i===sortCol) th.classList.add(sortDir===1 ? "sorted-asc":"sorted-desc");
       });
     }
+
+    window.pictosPage = { initPage, updateTranslations, loadData, render, onSiteDataUpdated, sortTableCol };
+})();
 

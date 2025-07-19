@@ -1,5 +1,6 @@
+document.addEventListener('DOMContentLoaded', () => {
 const {useEffect} = React;
-const {BrowserRouter, Routes, Route, Navigate, NavLink} = ReactRouterDOM;
+const {BrowserRouter, Routes, Route, Navigate} = ReactRouterDOM;
 
 function Home(){
   useEffect(() => {
@@ -19,7 +20,7 @@ function Home(){
 function PictosPage(){
   useEffect(() => {
     document.body.dataset.page="pictos";
-    if(window.initPictosPage) window.initPictosPage();
+    if(window.pictosPage?.initPage) window.pictosPage.initPage();
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
@@ -59,7 +60,7 @@ function PictosPage(){
 function WeaponsPage(){
   useEffect(() => {
     document.body.dataset.page="weapons";
-    if(window.initWeaponsPage) window.initWeaponsPage();
+    if(window.weaponsPage?.initPage) window.weaponsPage.initPage();
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
@@ -131,3 +132,4 @@ ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
 if(window.bindLangEvents) window.bindLangEvents();
 if(window.applyTranslations) window.applyTranslations();
 if(window.updateFlagState) window.updateFlagState();
+});

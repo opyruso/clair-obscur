@@ -46,7 +46,14 @@ function handleSiteUpload(file) {
         if(Array.isArray(obj.pictos)) siteData.pictos = obj.pictos;
         if(Array.isArray(obj.weapons)) siteData.weapons = obj.weapons;
       }
-      if(typeof onSiteDataUpdated === 'function') onSiteDataUpdated();
+      const page = document.body.dataset.page;
+      if(page==='pictos' && window.pictosPage?.onSiteDataUpdated) {
+        window.pictosPage.onSiteDataUpdated();
+      } else if(page==='weapons' && window.weaponsPage?.onSiteDataUpdated) {
+        window.weaponsPage.onSiteDataUpdated();
+      } else if(typeof onSiteDataUpdated === 'function') {
+        onSiteDataUpdated();
+      }
     } catch(err) {
       /* ignore */
     }

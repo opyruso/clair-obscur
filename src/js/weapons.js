@@ -1,3 +1,4 @@
+(() => {
 const baseDataUrl = 'data/armes-dictionnary';
 const characters = ['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
 const damageIcons={
@@ -49,7 +50,6 @@ function initPage(){
   initCharacters();
   loadData();
 }
-window.initWeaponsPage = initPage;
 
 function initCharacters(){
   const div=document.getElementById('charSelect');
@@ -152,7 +152,7 @@ function renderCards(){
 function renderTable(){
   const div=document.getElementById('table');
   let html='<table><thead><tr>';
-  tableCols.forEach((col,i)=>{ html+=`<th onclick="sortTableCol(${i})" class="${sortCol===i?(sortDir===1?'sorted-asc':'sorted-desc'):''}">${col.label}</th>`;});
+  tableCols.forEach((col,i)=>{ html+=`<th onclick=\"window.weaponsPage.sortTableCol(${i})\" class=\"${sortCol===i?(sortDir===1?'sorted-asc':'sorted-desc'):''}\">${col.label}</th>`;});
   html+='</tr></thead><tbody>';
   filteredWeapons.forEach(w=>{
     html+=`<tr data-id="${w.id}"${myWeapons.has(w.id)?' class="owned"':''}>`;
@@ -202,6 +202,5 @@ function onSiteDataUpdated(){
   applyFilters();
 }
 
-window.onSiteDataUpdated = onSiteDataUpdated;
-
-window.sortTableCol=sortTableCol;
+window.weaponsPage = { initPage, updateTranslations, loadData, render, onSiteDataUpdated, sortTableCol };
+})();
