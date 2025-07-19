@@ -250,9 +250,10 @@ function BuildPage(){
   return (
     <>
       <main className="content-wrapper mt-4 flex-grow-1">
-        <h1 data-i18n="heading_build" style={{display:'flex',alignItems:'center',gap:'8px'}}>Team builder
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+          <h1 data-i18n="heading_build">Team builder</h1>
           <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
-        </h1>
+        </div>
         <div className="team-builder">
           {team.map((col,cidx)=>{
             const stats=computeStats(col.mainPictos.filter(Boolean));
