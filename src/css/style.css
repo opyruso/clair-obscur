@@ -115,7 +115,7 @@
       position: absolute;
       inset: 0;
       box-sizing: border-box;
-      background: url('../resources/images/general/panel_background.avif') center/cover no-repeat;
+      background: url('../resources/images/general/panel_background.avif') left top/cover no-repeat;
       border-radius: 14px;
       transform-style: preserve-3d;
       transition: transform 0.6s, background 0.18s;
