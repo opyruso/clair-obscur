@@ -88,12 +88,17 @@ function applyFilters(){
 }
 
 function updateTitle(){
+  const ownedForChar=weapons.filter(w=>myWeapons.has(w.id)).length;
   const visibleOwned=filteredWeapons.filter(w=>myWeapons.has(w.id)).length;
-  const hiddenOwned=myWeapons.size-visibleOwned;
+  const hiddenOwned=ownedForChar-visibleOwned;
   const visibleTotal=filteredWeapons.length;
   const hiddenTotal=weapons.length-visibleTotal;
-  const ownedPart=hiddenOwned>0?`${visibleOwned} (+${hiddenOwned} ${t('hidden')})`:`${visibleOwned}`;
-  const totalPart=hiddenTotal>0?`${visibleTotal} (+${hiddenTotal} ${t('hidden')})`:`${visibleTotal}`;
+  const ownedPart=hiddenOwned>0
+    ?`${visibleOwned} (+${hiddenOwned} ${t('hidden')})`
+    :`${visibleOwned}`;
+  const totalPart=hiddenTotal>0
+    ?`${visibleTotal} (+${hiddenTotal} ${t('hidden')})`
+    :`${visibleTotal}`;
   const suffix=` - ${ownedPart} / ${totalPart}`;
   const h1=document.querySelector('h1');
   if(h1)h1.textContent=`${t('heading_weapons')}${suffix}`;
