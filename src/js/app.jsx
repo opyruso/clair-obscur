@@ -123,6 +123,14 @@ function BuildPage(){
     document.body.dataset.page='build';
     fetch(`data/armes-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setWeapons(d));
     fetch(`data/picto-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setPictos(d));
+    const params=new URLSearchParams(window.location.search);
+    const d=params.get('data');
+    if(d){
+      try{
+        const obj=JSON.parse(atob(d));
+        if(Array.isArray(obj)&&obj.length===5) setTeam(obj);
+      }catch(e){/* ignore */}
+    }
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
@@ -233,10 +241,18 @@ function BuildPage(){
     setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:team[idx].subPictos});
   }
 
+  function copyShare(){
+    const data=btoa(JSON.stringify(team));
+    const url=`${window.location.origin}/build?data=${encodeURIComponent(data)}`;
+    navigator.clipboard.writeText(url).then(()=>alert(t('link_copied')));
+  }
+
   return (
     <>
       <main className="content-wrapper mt-4 flex-grow-1">
-        <h1 data-i18n="heading_build">Team builder</h1>
+        <h1 data-i18n="heading_build" style={{display:'flex',alignItems:'center',gap:'8px'}}>Team builder
+          <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
+        </h1>
         <div className="team-builder">
           {team.map((col,cidx)=>{
             const stats=computeStats(col.mainPictos.filter(Boolean));
