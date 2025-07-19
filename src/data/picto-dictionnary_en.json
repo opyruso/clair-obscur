@@ -5,7 +5,7 @@
     "region": "Eternal Tower",
     "level": 30,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "speed": 597
     },
     "bonus_lumina": "+15% to damage reduction inflicted by Weakening.",
@@ -41,7 +41,7 @@
     "region": "Rockwave Cliffs",
     "level": 20,
     "bonus_picto": {
-      "defence": 1022,
+      "defense": 1022,
       "critical-luck": 12
     },
     "bonus_lumina": "Damage increased by 15% per alteration on the character.",
@@ -54,7 +54,7 @@
     "level": 22,
     "bonus_picto": {
       "health": 1602,
-      "defence": 801
+      "defense": 801
     },
     "bonus_lumina": "Immunity to Burn.",
     "unlock_description": "Obtained by defeating the Gargant boss."
@@ -66,7 +66,7 @@
     "level": 13,
     "bonus_picto": {
       "health": 599,
-      "defence": 240
+      "defense": 240
     },
     "bonus_lumina": "Immunity to Charm.",
     "unlock_description": "Obtained by defeating the Weaver."
@@ -78,7 +78,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1333,
-      "defence": 647
+      "defense": 647
     },
     "bonus_lumina": "Immunity to Corruption.",
     "unlock_description": "To buy from the merchant Eragol for 67,350 chroma."
@@ -90,7 +90,7 @@
     "level": 21,
     "bonus_picto": {
       "health": 1464,
-      "defence": 733
+      "defense": 733
     },
     "bonus_lumina": "Immunity to Freeze.",
     "unlock_description": "Can be found in the paint sphere of the Icefall area."
@@ -102,7 +102,7 @@
     "level": 29,
     "bonus_picto": {
       "health": 2,
-      "defence": 1
+      "defense": 1
     },
     "bonus_lumina": "Immunity to Stun.",
     "unlock_description": "Obtained by defeating the Chromatic Petank."
@@ -138,7 +138,7 @@
     "level": 15,
     "bonus_picto": {
       "health": 389,
-      "defence": 478
+      "defense": 478
     },
     "bonus_lumina": "Basic attacks inflict Weakening for 1 turn.",
     "unlock_description": "Placed in front of a body near buildings buried under snow."
@@ -149,7 +149,7 @@
     "region": "Flowering Valleys",
     "level": 2,
     "bonus_picto": {
-      "defence": 8,
+      "defense": 8,
       "speed": 10
     },
     "bonus_lumina": "Basic attack damage increased by 50%.",
@@ -222,7 +222,7 @@
     "level": 25,
     "bonus_picto": {
       "health": 3,
-      "defence": 524
+      "defense": 524
     },
     "bonus_lumina": "Basic attacks grant Shell for 1 turn.",
     "unlock_description": "To buy from the merchant Anthonypo for 100,050 chroma."
@@ -245,7 +245,7 @@
     "region": "Dark Shores",
     "level": 23,
     "bonus_picto": {
-      "defence": 1310,
+      "defense": 1310,
       "critical-luck": 13
     },
     "bonus_lumina": "+3 shields at the start of battle, but max health is halved.",
@@ -257,7 +257,7 @@
     "region": "The Workshop",
     "level": 30,
     "bonus_picto": {
-      "defence": 1817,
+      "defense": 1817,
       "critical-luck": 34
     },
     "bonus_lumina": "Deals 50% more damage if health is below 10%.",
@@ -329,7 +329,7 @@
     "region": "Burning Glacier",
     "level": 22,
     "bonus_picto": {
-      "defence": 401,
+      "defense": 401,
       "speed": 321
     },
     "bonus_lumina": "+1 AP when applying Burn. Once per turn.",
@@ -354,7 +354,7 @@
     "level": 28,
     "bonus_picto": {
       "health": 2,
-      "defence": 1
+      "defense": 1
     },
     "bonus_lumina": "Burn duration increased by 2.",
     "unlock_description": "To buy from the merchant Fusoka for 142,625 chroma."
@@ -365,7 +365,7 @@
     "region": "The Aspirant",
     "level": 20,
     "bonus_picto": {
-      "defence": 647,
+      "defense": 647,
       "speed": 266
     },
     "bonus_lumina": "Recovers 15% health when applying a buff.",
@@ -389,7 +389,7 @@
     "level": 13,
     "bonus_picto": {
       "health": 599,
-      "defence": 240
+      "defense": 240
     },
     "bonus_lumina": "+10% to damage reduction granted by Shell.",
     "unlock_description": "After taking a flying platform near the paint sphere, take the right path and eliminate enemies to retrieve the picto at the end."
@@ -412,7 +412,7 @@
     "level": 29,
     "bonus_picto": {
       "health": -1,
-      "defence": -1
+      "defense": -1
     },
     "bonus_lumina": "When applying Shell, its duration increases by 2.",
     "unlock_description": "Defeat the Watcher in the elevated area west of the north exit of the Forgotten Lands. Requires Esquie's flying ability."
@@ -423,7 +423,7 @@
     "region": "Continent",
     "level": 23,
     "bonus_picto": {
-      "defence": -1,
+      "defense": -1,
       "critical-luck": -1
     },
     "bonus_lumina": "",
@@ -435,7 +435,7 @@
     "region": "Suspended Manor",
     "level": 28,
     "bonus_picto": {
-      "defence": 1501,
+      "defense": 1501,
       "speed": 546
     },
     "bonus_lumina": "+10% Gradient charge when applying a buff. Once per turn.",
@@ -472,7 +472,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1333,
-      "defence": 647
+      "defense": 647
     },
     "bonus_lumina": "+10% Gradient charge on each counter.",
     "unlock_description": "After passing a faceless man in the Mountain area, go right and use the grappling hook twice. Continue until you find two stilt walkers. The picto is on the ground next to them."
@@ -483,7 +483,7 @@
     "region": "Renoir Sketches",
     "level": 31,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "critical-luck": 35
     },
     "bonus_lumina": "+20% Gradient charge on a critical hit. Once per turn.",
@@ -543,7 +543,7 @@
     "region": "Amber Leaves",
     "level": 14,
     "bonus_picto": {
-      "defence": 274,
+      "defense": 274,
       "speed": 135
     },
     "bonus_lumina": "+2 AP when applying an alteration. Once per turn.",
@@ -567,7 +567,7 @@
     "region": "Faces",
     "level": 12,
     "bonus_picto": {
-      "defence": 208,
+      "defense": 208,
       "critical-luck": 15
     },
     "bonus_lumina": "Counter damage increased by 50%.",
@@ -579,7 +579,7 @@
     "region": "Light",
     "level": 17,
     "bonus_picto": {
-      "defence": 432,
+      "defense": 432,
       "critical-luck": 19
     },
     "bonus_lumina": "Counter damage increased by 75%.",
@@ -626,7 +626,7 @@
     "region": "Continent",
     "level": 9,
     "bonus_picto": {
-      "defence": 116,
+      "defense": 116,
       "speed": 62,
       "critical-luck": 25
     },
@@ -639,7 +639,7 @@
     "region": "Amber Leaves",
     "level": 14,
     "bonus_picto": {
-      "defence": 288,
+      "defense": 288,
       "speed": 142
     },
     "bonus_lumina": "Gains Haste when dropping below 50% health.",
@@ -651,7 +651,7 @@
     "region": "Suspended Ocean",
     "level": 3,
     "bonus_picto": {
-      "defence": 13,
+      "defense": 13,
       "speed": 14
     },
     "bonus_lumina": "Gains Shell when dropping below 50% health.",
@@ -688,7 +688,7 @@
     "level": 6,
     "bonus_picto": {
       "health": 168,
-      "defence": 50
+      "defense": 50
     },
     "bonus_lumina": "100% critical chance when fighting alone.",
     "unlock_description": "Obtained after first defeating Matthieu the Colossus."
@@ -700,7 +700,7 @@
     "level": 6,
     "bonus_picto": {
       "health": 168,
-      "defence": 50
+      "defense": 50
     },
     "bonus_lumina": "The character gains Shell when fighting alone.",
     "unlock_description": "Obtained after first defeating Dominique Big Feet."
@@ -769,7 +769,7 @@
     "region": "Siren",
     "level": 13,
     "bonus_picto": {
-      "defence": 240,
+      "defense": 240,
       "speed": 118
     },
     "bonus_lumina": "Recovers 25% health when attacking a burning target. Once per turn.",
@@ -841,7 +841,7 @@
     "region": "The Aspirant",
     "level": 20,
     "bonus_picto": {
-      "defence": 681,
+      "defense": 681,
       "speed": 280
     },
     "bonus_lumina": "Applies Vulnerability on Fracture.",
@@ -877,7 +877,7 @@
     "region": "Suspended Manor",
     "level": 28,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "speed": 546
     },
     "bonus_lumina": "Applies Slow on Fracture.",
@@ -1033,7 +1033,7 @@
     "region": "Celestial Island",
     "level": 20,
     "bonus_picto": {
-      "defence": 647,
+      "defense": 647,
       "speed": 266
     },
     "bonus_lumina": "+15% to the reduction of speed imposed by Slowness.",
@@ -1058,7 +1058,7 @@
     "level": 31,
     "bonus_picto": {
       "health": 3,
-      "defence": 1
+      "defense": 1
     },
     "bonus_lumina": "Deals 50% more damage when fighting alone.",
     "unlock_description": "To buy from the merchant Grour for 97,700 chroma."
@@ -1069,7 +1069,7 @@
     "region": "Rockwave Cliffs",
     "level": 7,
     "bonus_picto": {
-      "defence": 102,
+      "defense": 102,
       "speed": 21
     },
     "bonus_lumina": "Marked targets deal 30% less damage.",
@@ -1094,7 +1094,7 @@
     "level": 4,
     "bonus_picto": {
       "health": 44,
-      "defence": 32
+      "defense": 32
     },
     "bonus_lumina": "Applies Burn when hitting a marked enemy.",
     "unlock_description": "After crossing the Petank, follow the main path and go along the left wall to find the picto slightly below."
@@ -1105,7 +1105,7 @@
     "region": "Gestral Village",
     "level": 5,
     "bonus_picto": {
-      "defence": 65
+      "defense": 65
     },
     "bonus_lumina": "Recovers 25% health when hitting a marked enemy.",
     "unlock_description": "To buy from the scam merchant in the Gestral bazaar."
@@ -1116,7 +1116,7 @@
     "region": "Sacred River",
     "level": 20,
     "bonus_picto": {
-      "defence": 1022,
+      "defense": 1022,
       "speed": 140
     },
     "bonus_lumina": "+2 AP when attacking a marked target. Once per turn.",
@@ -1141,7 +1141,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 216,
-      "defence": 71
+      "defense": 71
     },
     "bonus_lumina": "When taking damage, consumes 1 AP to take 30% less damage (if possible).",
     "unlock_description": "To find near the rear access of Rockwave Cliffs."
@@ -1200,7 +1200,7 @@
     "region": "The Crows",
     "level": 22,
     "bonus_picto": {
-      "defence": 801,
+      "defense": 801,
       "speed": 161
     },
     "bonus_lumina": "When the character dies, allies gain 3 shields.",
@@ -1223,7 +1223,7 @@
     "region": "Monoco Station",
     "level": 21,
     "bonus_picto": {
-      "defence": 771,
+      "defense": 771,
       "speed": 308
     },
     "bonus_lumina": "When the character dies, allies gain +4 AP.",
@@ -1236,7 +1236,7 @@
     "level": 10,
     "bonus_picto": {
       "health": 395,
-      "defence": 152
+      "defense": 152
     },
     "bonus_lumina": "Recovers 3% health on each successful parry.",
     "unlock_description": "Obtained by completing the 3 challenges of the White Troubadour."
@@ -1296,7 +1296,7 @@
     "level": 16,
     "bonus_picto": {
       "health": 876,
-      "defence": 373
+      "defense": 373
     },
     "bonus_lumina": "Damage increased by 25% when health is at maximum.",
     "unlock_description": "To buy from the merchant Cribappa for 53,200 chroma."
@@ -1319,7 +1319,7 @@
     "level": 16,
     "bonus_picto": {
       "health": 876,
-      "defence": 373
+      "defense": 373
     },
     "bonus_lumina": "Always acts twice in a row but deals 50% less damage.",
     "unlock_description": "Obtained by defeating the Creation mini-boss in the Light Gardens."
@@ -1343,7 +1343,7 @@
     "level": 8,
     "bonus_picto": {
       "health": 270,
-      "defence": 96
+      "defense": 96
     },
     "bonus_lumina": "Damage increased by 50% when Exhausted.",
     "unlock_description": "To pick up on the ground near the Chromatic Hexga."
@@ -1388,7 +1388,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 2000,
-      "defence": 324
+      "defense": 324
     },
     "bonus_lumina": "Consumes 1 AP to prevent the application of alterations (if possible).",
     "unlock_description": "The picto is on the ground just behind the two orphans to defeat."
@@ -1400,7 +1400,7 @@
     "level": 15,
     "bonus_picto": {
       "health": 1166,
-      "defence": 160
+      "defense": 160
     },
     "bonus_lumina": "Dispels the first received alteration and grants 2 AP.",
     "unlock_description": "To buy from the merchant Mistra after defeating him for 40,800 chroma."
@@ -1459,7 +1459,7 @@
     "region": "Eternal Night Sanctuary",
     "level": 25,
     "bonus_picto": {
-      "defence": 1048,
+      "defense": 1048,
       "speed": 413
     },
     "bonus_lumina": "Also applies Shell when applying Haste.",
@@ -1483,7 +1483,7 @@
     "region": "Renoir Sketches",
     "level": 31,
     "bonus_picto": {
-      "defence": 1,
+      "defense": 1,
       "speed": 672
     },
     "bonus_lumina": "+1 shield when the character is revived.",
@@ -1496,7 +1496,7 @@
     "level": 12,
     "bonus_picto": {
       "health": 546,
-      "defence": 218
+      "defense": 218
     },
     "bonus_lumina": "Grants Regeneration for 3 turns upon revival.",
     "unlock_description": "In the Chromatic Gault area, look behind the first house to the right of the zone entrance to find the picto."
@@ -1520,7 +1520,7 @@
     "level": 8,
     "bonus_picto": {
       "health": 270,
-      "defence": 96
+      "defense": 96
     },
     "bonus_lumina": "+3 AP to all allies when this character is revived.",
     "unlock_description": "Obtained by defeating the Chromatic Hexga."
@@ -1531,7 +1531,7 @@
     "region": "Gestral Village",
     "level": 5,
     "bonus_picto": {
-      "defence": 34,
+      "defense": 34,
       "critical-luck": 9
     },
     "bonus_lumina": "Each hit has a 50% chance to deal either 50% or 200% of normal damage.",
@@ -1544,7 +1544,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 2000,
-      "defence": 324
+      "defense": 324
     },
     "bonus_lumina": "Recovers 10% health at the start of the turn.",
     "unlock_description": "Pay the amounts requested by the Blesser for a total of 90,000 chroma."
@@ -1555,7 +1555,7 @@
     "region": "Siren",
     "level": 13,
     "bonus_picto": {
-      "defence": 479
+      "defense": 479
     },
     "bonus_lumina": "Applies Regeneration for 3 turns at the start of battle.",
     "unlock_description": "To pick up near the Blesser."
@@ -1579,7 +1579,7 @@
     "level": 13,
     "bonus_picto": {
       "health": 284,
-      "defence": 341
+      "defense": 341
     },
     "bonus_lumina": "Doubles all healing received.",
     "unlock_description": "To pick up on the ground after defeating the Chromatic Sword Cultist."
@@ -1591,7 +1591,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 206,
-      "defence": 68
+      "defense": 68
     },
     "bonus_lumina": "When healing an ally, also heals self but at half the amount.",
     "unlock_description": "Near the entrance of the White Tree mini-level."
@@ -1638,7 +1638,7 @@
     "region": "Sacred River",
     "level": 20,
     "bonus_picto": {
-      "defence": 647,
+      "defense": 647,
       "speed": 266
     },
     "bonus_lumina": "+2 shields when character health drops below 50%. Once per battle.",
@@ -1747,7 +1747,7 @@
     "level": 9,
     "bonus_picto": {
       "health": 329,
-      "defence": 122
+      "defense": 122
     },
     "bonus_lumina": "5% Gradient charge when using an item.",
     "unlock_description": "After defeating the Stalact south of Gestral Beach in the Giant Ascension mini-game. Can be picked up nearby."
@@ -1759,7 +1759,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 216,
-      "defence": 71
+      "defense": 71
     },
     "bonus_lumina": "Healing tints also grant 1 AP.",
     "unlock_description": "Obtained by defeating the Hexga near the buildings."
@@ -1771,7 +1771,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1333,
-      "defence": 647
+      "defense": 647
     },
     "bonus_lumina": "Life tints also grant 3 AP.",
     "unlock_description": "To buy from the Gestral merchant for 67,350 chroma after defeating him."
@@ -1783,7 +1783,7 @@
     "level": 20,
     "bonus_picto": {
       "health": 1402,
-      "defence": 681
+      "defense": 681
     },
     "bonus_lumina": "Healing tints also grant Shell.",
     "unlock_description": "At the end of one of the wooden bridges in the Misty Zone."
@@ -1795,7 +1795,7 @@
     "level": 9,
     "bonus_picto": {
       "health": 313,
-      "defence": 116
+      "defense": 116
     },
     "bonus_lumina": "Healing tints also grant 2 shields.",
     "unlock_description": "Go to the enclosed area east of the Sharp Cemetery to find the picto among the ruins. Requires Esquie's flying ability."
@@ -1807,7 +1807,7 @@
     "level": 1,
     "bonus_picto": {
       "health": 35,
-      "defence": 6
+      "defense": 6
     },
     "bonus_lumina": "Healing tints also dispel target alterations.",
     "unlock_description": "Obtained by defeating the Bishop."
@@ -1831,7 +1831,7 @@
     "level": 24,
     "bonus_picto": {
       "health": -1,
-      "defence": -1
+      "defense": -1
     },
     "bonus_lumina": "Energizing tints also grant Haste.",
     "unlock_description": "Obtained by completing Level 4, Trial 3 of the tower."
@@ -1867,7 +1867,7 @@
     "level": 28,
     "bonus_picto": {
       "health": 4,
-      "defence": 301
+      "defense": 301
     },
     "bonus_lumina": "20% chance to gain Haste on free-aim shots.",
     "unlock_description": "To buy from the merchant Fusoka for 89,650 chroma."
@@ -1915,7 +1915,7 @@
     "level": 28,
     "bonus_picto": {
       "health": 4,
-      "defence": 301
+      "defense": 301
     },
     "bonus_lumina": "20% chance to gain Shell on free-aim shots.",
     "unlock_description": "Placed on the corner of one of the empty frames."
@@ -1927,7 +1927,7 @@
     "level": 12,
     "bonus_picto": {
       "health": 983,
-      "defence": 44
+      "defense": 44
     },
     "bonus_lumina": "20% chance to gain Empowerment on free-aim shots.",
     "unlock_description": "Use the Paint Break power to break the rock near the sleeping doctor."
@@ -1951,7 +1951,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 216,
-      "defence": 71
+      "defense": 71
     },
     "bonus_lumina": "Damage increased by 10% if all allies are still alive.",
     "unlock_description": "To buy from the merchant Pinabby for 9,120 chroma, after defeating him."
@@ -2058,7 +2058,7 @@
     "level": 7,
     "bonus_picto": {
       "health": 308,
-      "defence": 24
+      "defense": 24
     },
     "bonus_lumina": "No AP gained on successful parry, but +1 AP when the character takes damage.",
     "unlock_description": "Obtained by defeating the cultist."
@@ -2116,7 +2116,7 @@
     "region": "Siren",
     "level": 13,
     "bonus_picto": {
-      "defence": 120,
+      "defense": 120,
       "speed": 177
     },
     "bonus_lumina": "+1 AP on every basic attack.",
@@ -2128,7 +2128,7 @@
     "region": "Continent",
     "level": 15,
     "bonus_picto": {
-      "defence": 319,
+      "defense": 319,
       "speed": 154
     },
     "bonus_lumina": "Grants 2 AP when applying Shell.",
@@ -2207,7 +2207,7 @@
     "region": "Eternal Tower",
     "level": 22,
     "bonus_picto": {
-      "defence": 801,
+      "defense": 801,
       "speed": 321
     },
     "bonus_lumina": "Grants 2 AP when applying Haste.",
@@ -2219,7 +2219,7 @@
     "region": "Light",
     "level": 16,
     "bonus_picto": {
-      "defence": 373,
+      "defense": 373,
       "speed": 172
     },
     "bonus_lumina": "Grants 2 AP when applying Empowerment.",
@@ -2242,7 +2242,7 @@
     "region": "Sacred River",
     "level": 20,
     "bonus_picto": {
-      "defence": 681,
+      "defense": 681,
       "critical-luck": 23
     },
     "bonus_lumina": "100% critical chance when hitting a stunned target.",
@@ -2290,7 +2290,7 @@
     "region": "Suspended Manor",
     "level": 28,
     "bonus_picto": {
-      "defence": 1426,
+      "defense": 1426,
       "speed": 519
     },
     "bonus_lumina": "+2 AP when healing an ally. Once per turn.",

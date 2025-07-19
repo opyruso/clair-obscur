@@ -7,8 +7,8 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Flying Waters",
     "weapon_effect": "Au rank D, you deal 50% de damage supplémentaires. Votre basic attack inflige 50% de points de damage supplémentaires et, au rank D, elle you heal également à hauteur de 20% de vos HP."
@@ -22,7 +22,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Continent",
     "weapon_effect": "Votre Perfection increases au fur et à mesure que you perdez des HP (1 rank par tranche de 20% de HP manquants). Les compétences de lumière font 20% de damage en plus, et you getenez +1 AP au rank supérieur."
@@ -35,7 +35,7 @@
     "damage_type": "Léger",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ],
     "region": "Faces",
@@ -50,7 +50,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Faces",
     "weapon_effect": "Lorsque you brisez un ennemi, you atteignez automatiquement le rank S. Au rank S, toutes vos attaques deal des Crit et déclenchent des éclairs."
@@ -64,7 +64,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Continent",
     "weapon_effect": "Les attaques de base ajoutent 2 burns par rank. You getenez +1 AP en montant de rank, et les damage de Burn increasesnt de 50% (jusqu'à 300%) à chaque rank."
@@ -77,8 +77,8 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ],
     "region": "Flying Waters",
     "weapon_effect": "Lorsque you subissez des damage d'ennemis sans pouvoir, votre rank reste le même. Frapper des ennemis sans pouvoir confère +1 Perfection, et vos pions s'appliquent à Sans pouvoir."
@@ -91,7 +91,7 @@
     "damage_type": "Sombre",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "Monoco Station",
@@ -105,8 +105,8 @@
     "damage_type": "Lumière",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "(Currently unavailable)",
     "weapon_effect": "You commencez les combats au Rang B avec la moitié de vos PV. Les attaques de base you heal à hauteur de 15% et, au rank B, you appliquez automatiquement Puissant."
@@ -120,7 +120,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Gestral Village",
     "weapon_effect": "Les compétences de lumière increasesnt les damage de votre prochaine compétence physique de 50%, et les compétences physiques bénéficient d'une augmentation des damage de 20%. Les damage de lumière infligés par les compétences you heal de 3%."
@@ -147,8 +147,8 @@
     "damage_type": "Éclair",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Forgotten Battlefield",
     "weapon_effect": "Après une basic attack, you attaquez à nouveau. Les attaques de base deal 50% de damage supplémentaires et you confèrent 4 Perfection."
@@ -162,7 +162,7 @@
 
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ],
     "region": "Yellow Harvest",
     "weapon_effect": "Lorsque you êtes touché, you perdez du Perfectionnement au lieu du Rang. Au Rang S, you appliquez Ruée et gagnez 2 Perfection à chaque tour."
@@ -175,7 +175,7 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ],
     "region": "Frozen Hearts",
@@ -189,7 +189,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ],
     "region": "Spring Meadows",
@@ -203,7 +203,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "(currently unavailable)",
@@ -217,7 +217,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed"
+      "vitality"
     ],
     "region": "Starting Weapon",
     "weapon_effect": "Pas d'améliorations spéciales."
@@ -231,7 +231,7 @@
 
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ],
     "region": "Ancient Sanctuary",
     "weapon_effect": "You ne pouvez pas perdre la Perfection. Les attaques de base deal 50% de damage supplémentaires et you donnent 4 Perfection."
@@ -245,7 +245,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "(Currently unavailable)",
     "weapon_effect": "You gagnez +1 Perfection de toutes les sources, mais ne pouvez pas atteindre le rank S. Les attaques de base confèrent 4 Perfection, et les compétences de Lumière deal 20% de damage en plus."
@@ -258,7 +258,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ],
     "region": "Siren",
@@ -272,7 +272,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed"
+      "vitality"
     ],
     "region": "Starting Weapon",
     "weapon_effect": "Pas d'améliorations spéciales."
@@ -285,8 +285,8 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Flying Waters",
     "weapon_effect": "Au rank D, you deal 50% de damage supplémentaires. Votre basic attack inflige 50% de points de damage supplémentaires et, au rank D, elle you heal également à hauteur de 20% de vos HP."
@@ -300,7 +300,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Continent",
     "weapon_effect": "Votre Perfection increases au fur et à mesure que you perdez des HP (1 rank par tranche de 20% de HP manquants). Les compétences de lumière font 20% de damage en plus, et you getenez +1 AP au rank supérieur."
@@ -313,7 +313,7 @@
     "damage_type": "Léger",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ],
     "region": "Faces",
@@ -328,7 +328,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Faces",
     "weapon_effect": "Lorsque you brisez un ennemi, you atteignez automatiquement le rank S. Au rank S, toutes vos attaques deal des Crit et déclenchent des éclairs."
@@ -342,7 +342,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Continent",
     "weapon_effect": "Les attaques de base ajoutent 2 burns par rank. You getenez +1 AP en montant de rank, et les damage de Burn increasesnt de 50% (jusqu'à 300%) à chaque rank."
@@ -355,8 +355,8 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ],
     "region": "Flying Waters",
     "weapon_effect": "Lorsque you subissez des damage d'ennemis sans pouvoir, votre rank reste le même. Frapper des ennemis sans pouvoir confère +1 Perfection, et vos pions s'appliquent à Sans pouvoir."
@@ -369,7 +369,7 @@
     "damage_type": "Sombre",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "Monoco Station",
@@ -383,8 +383,8 @@
     "damage_type": "Lumière",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "(Currently unavailable)",
     "weapon_effect": "You commencez les combats au Rang B avec la moitié de vos PV. Les attaques de base you heal à hauteur de 15% et, au rank B, you appliquez automatiquement Puissant."
@@ -398,7 +398,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Gestral Village",
     "weapon_effect": "Les compétences de lumière increasesnt les damage de votre prochaine compétence physique de 50%, et les compétences physiques bénéficient d'une augmentation des damage de 20%. Les damage de lumière infligés par les compétences you heal de 3%."
@@ -425,8 +425,8 @@
     "damage_type": "Éclair",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Forgotten Battlefield",
     "weapon_effect": "Après une basic attack, you attaquez à nouveau. Les attaques de base deal 50% de damage supplémentaires et you confèrent 4 Perfection."
@@ -440,7 +440,7 @@
 
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ],
     "region": "Yellow Harvest",
     "weapon_effect": "Lorsque you êtes touché, you perdez du Perfectionnement au lieu du Rang. Au Rang S, you appliquez Ruée et gagnez 2 Perfection à chaque tour."
@@ -453,7 +453,7 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ],
     "region": "Frozen Hearts",
@@ -467,7 +467,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ],
     "region": "Spring Meadows",
@@ -481,7 +481,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "(currently unavailable)",
@@ -495,7 +495,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed"
+      "vitality"
     ],
     "region": "Starting Weapon",
     "weapon_effect": "Pas d'améliorations spéciales."
@@ -509,7 +509,7 @@
 
     "damage_buff": [
       "agility",
-      "critical-luck"
+      "luck"
     ],
     "region": "Ancient Sanctuary",
     "weapon_effect": "You ne pouvez pas perdre la Perfection. Les attaques de base deal 50% de damage supplémentaires et you donnent 4 Perfection."
@@ -523,7 +523,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "(Currently unavailable)",
     "weapon_effect": "You gagnez +1 Perfection de toutes les sources, mais ne pouvez pas atteindre le rank S. Les attaques de base confèrent 4 Perfection, et les compétences de Lumière deal 20% de damage en plus."
@@ -536,7 +536,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ],
     "region": "Siren",
@@ -550,7 +550,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed"
+      "vitality"
     ],
     "region": "Starting Weapon",
     "weapon_effect": "Pas d'améliorations spéciales."
@@ -563,7 +563,7 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ],
     "region": "Chromatic Minesweeper",
@@ -577,8 +577,8 @@
     "damage_type": "Terre",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Forgotten Battlefield",
     "weapon_effect": "Les compétences de soin coûtent 1 AP de moins. Génère 1 tache de terre au début de chaque tour. Rejoue instantanément les compétences de soin après avoir consommé des taches."
@@ -591,8 +591,8 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "Inside the Monolith",
     "weapon_effect": "Les chances de coup critical increasesnt de 30% pour chaque tache de glace. +5% de charge graduelle sur les coups criticals. Les damage de feu increasesnt de 20% avec les compétences."
@@ -606,7 +606,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Faces",
     "weapon_effect": "Les damage de rupture increasesnt de 30% par tache de terre. Gagne 9 AP en brisant un ennemi. Génère 1 tache de terre au début de chaque tour."
@@ -619,7 +619,7 @@
     "damage_type": "Léger",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ],
     "region": "Siren",
@@ -633,8 +633,8 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "defence",
-      "speed"
+      "defense",
+      "vitality"
     ],
     "region": "Stone Wave Cliffs",
     "weapon_effect": "Les compétences de glace coûtent 1 AP de moins. Les damage de glace increasesnt de 20% avec les compétences. Commencez avec 1 Tache de terre au début de la bataille."
@@ -647,7 +647,7 @@
     "damage_type": "Éclair",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ],
     "region": "Flying Waters",
@@ -661,8 +661,8 @@
     "damage_type": "Terre",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Gloomy Cave",
     "weapon_effect": "Consommer une tache de terre you donne 1 bouclier. Les damage de terre increasesnt de 20% avec les compétences. L'basic attack génère une tache de terre."
@@ -676,7 +676,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Yellow Harvest",
     "weapon_effect": "L'exécution d'une compétence increases les damage de toutes les autres compétences d'élément de 20%, réinitialisation lors de l'exécution de la même compétence d'élément. Au début du tour, 2 taches aléatoires sont générées si aucune n'est active. Gagnez 1 AP en consommant des taches."
@@ -690,7 +690,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Spring Meadows",
     "weapon_effect": "Les compétences de feu coûtent 1 AP de moins. Les damage de feu increasesnt de 20% avec les compétences. Commencez avec 1 tache de glace au début de la bataille."
@@ -703,7 +703,7 @@
     "damage_type": "Vide",
 
     "damage_buff": [
-      "speed"
+      "vitality"
     ],
     "region": "Inside the Monolith",
     "weapon_effect": "50% de chances de générer une tache sombre ou claire en consommant des taches. Inflige 50% de damage supplémentaires avec les compétences pour chaque tache sombre active. Gagnez 1 AP en consommant une tache claire. Les attaques de base peuvent consommer une tache sombre pour 200% de damage supplémentaires."
@@ -716,8 +716,8 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "Starting Weapon",
     "weapon_effect": "Pas de bonus d'amélioration."
@@ -731,7 +731,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Yellow Harvest",
     "weapon_effect": "Les compétences de soin génèrent 1 tache de lumière supplémentaire. La consommation d'une tache lumineuse applique Lenteur à un ennemi aléatoire. L'basic attack génère une tache lumineuse."
@@ -744,7 +744,7 @@
     "damage_type": "Éclair",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "Luck"
     ],
     "region": "Falling Leaves",
@@ -758,7 +758,7 @@
     "damage_type": "Sombre",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ],
     "region": "Falling Leaves",
@@ -773,7 +773,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Frozen Hearts",
     "weapon_effect": "You gèlez lorsque you êtes en dessous de 30% de santé, ce qui you empêche de subir les damage suivants. Si you êtes gelé, you pouvez retirer le gel et récupérer 60% de vos HP au début de votre tour. Gagne 2 taches de glace et 3 AP lorsqu'il est gelé."
@@ -786,8 +786,8 @@
     "damage_type": "Éclair",
 
     "damage_buff": [
-      "speed",
-      "critical-luck"
+      "vitality",
+      "luck"
     ],
     "region": "Gestral Village",
     "weapon_effect": "Génère une tache aléatoire avec un tir en Visée libre. Gagnez 1 AP en consommant des taches. L'basic attack génère 2 taches aléatoires."
@@ -800,8 +800,8 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
-      "speed"
+      "defense",
+      "vitality"
     ],
     "region": "Flying Waters",
     "weapon_effect": "Visée libre touche une cible aléatoire supplémentaire. Les damage de Visée libre increasesnt de 50%. Génère une tache aléatoire avec un tir en Visée libre."
@@ -814,7 +814,7 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "Luck"
     ],
     "region": "Ancient Light",
@@ -828,7 +828,7 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "critical-luck"
+      "luck"
     ],
     "region": "Falling Leaves",
     "weapon_effect": "Si tu as une charge lunaire, les compétences lunaires crissent toujours, mais tu subis des damage doublés.+25% de damage par charge lunaire.L'basic attack donne 1 charge lunaire."
@@ -842,7 +842,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Coastal Cave Merchant",
     "weapon_effect": "L'utilisation de Foretell met le feu aux ennemis si you avez des charges de Soleil.Les burns deal des damage doublés au Crépuscule.Les compétences de Soleil donnent une charge supplémentaire."
@@ -855,8 +855,8 @@
     "damage_type": "Sombre",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "Falaise de la vague de pierre",
     "weapon_effect": "Les compétences de soleil donnent toujours 10 Foretell, mais you subissez deux fois plus de damage.L'basic attack donne 1 charge de lune et utilise Foretell pour brûler les ennemis.Les burns frappent plus fort dans le Crépuscule."
@@ -869,7 +869,7 @@
     "damage_type": "Sombre",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "Luck"
     ],
     "region": "(Unknown)",
@@ -884,7 +884,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Dead Leaves Merchant",
     "weapon_effect": "Gagnez 1 AP par charge lunaire au début du tour.L'basic attack donne 1 charge lunaire.Dans le Crépuscule, l'basic attack mange tous les AP pour frapper plus fort et appliquer Foretell."
@@ -897,8 +897,8 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Inside the Monolith",
     "weapon_effect": "Si you avez une charge de Soleil, you êtes brûlé lorsque you êtes touché.Les contre-attaques appliquent une burn basée sur les charges de Soleil.L'basic attack peut utiliser la charge de Soleil pour appliquer Foretell."
@@ -911,7 +911,7 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "Coastal Cave Merchants",
@@ -925,7 +925,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ],
     "region": "(Unknown)",
@@ -939,7 +939,7 @@
     "damage_type": "Sombre",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "agility"
     ],
     "region": "Forgotten Battlefield",
@@ -953,8 +953,8 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "The Crows",
     "weapon_effect": "Les compétences de soleil deviennent plus puissantes pour chaque Foretell sur la cible. Les compétences lunaires cessent de générer des charges lunaires.Plus de AP pour chaque Foretell utilisé si you avez une charge de soleil.L'basic attack peut utiliser la charge de soleil pour ajouter un Foretell."
@@ -981,8 +981,8 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "Forgotten Battlefield",
     "weapon_effect": "Dépense 1 charge lunaire au début du tour pour healr les allies de 20%.L'basic attack donne 1 charge lunaire.Les compétences lunaires donnent une charge supplémentaire."
@@ -996,7 +996,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Falaise de la vague de pierre",
     "weapon_effect": "Soigne 5% de PV à chaque fois que you appliquez Foretell.Les compétences de soin coûtent 1 AP de moins.Les soins sont plus puissants par charge lunaire. L'basic attack donne 1 charge lunaire."
@@ -1010,7 +1010,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Faces",
     "weapon_effect": "Au début du tour, gagnez 1 bouclier si you avez une charge de soleil.Brisez le bouclier d'un ennemi pour appliquer 5 Foretell.Obtenez +2 charges de soleil des contre-attaques."
@@ -1038,7 +1038,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Siren",
     "weapon_effect": "L'utilisation des compétences de la Lune permet au Crépuscule de durer plus longtemps. Les compétences du Soleil increasesnt les damage du Crépuscule de 50%. You getenez un tour supplémentaire lorsque you entrez dans le Crépuscule."
@@ -1052,7 +1052,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Siren",
     "weapon_effect": "La roue tourne désormais en sens inverse. L'utilisation de n'importe quelle compétence améliorée donne à tous vos allies +1 AP. Masque tout-puissant? Il donne +2 AP aux ennemis, alors utilisez-le à bon escient."
@@ -1065,7 +1065,7 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ],
     "region": "Faces",
@@ -1079,7 +1079,7 @@
     "damage_type": "Éclair",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ],
     "region": "Inside the Monolith",
@@ -1093,8 +1093,8 @@
     "damage_type": "Terre",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Monoco Station",
     "weapon_effect": "You commencez avec Heavy Mask, qui you donne Shell pendant 3 tours. De plus, chaque fois que you prenez un coup, you getenez +1 AP. Idéal pour les builds tanky."
@@ -1122,7 +1122,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Currently unavailable location",
     "weapon_effect": "Chaque parade fait avancer la roue de 1, mais les damage la réinitialisent. Les compétences améliorées deal 30% de damage supplémentaires et you getenez 1 AP à chaque fois que you changez de masque."
@@ -1135,7 +1135,7 @@
     "damage_type": "Vide",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "Main Quest Item",
@@ -1149,7 +1149,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "Luck"
     ],
     "region": "Falling Leaves",
@@ -1163,7 +1163,7 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ],
     "region": "Flying Waters",
@@ -1178,7 +1178,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Gloomy Cave",
     "weapon_effect": "Parer en défensive you donne un bouclier, mais you perdez tous les boucliers au début du tour. Les compétences légères frappent plus fort, et les contre-damage s'envolent avec les boucliers."
@@ -1191,7 +1191,7 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "agility"
     ],
     "region": "Siren",
@@ -1206,7 +1206,7 @@
 
     "damage_buff": [
       "agility",
-      "defence"
+      "defense"
     ],
     "region": "Faces",
     "weapon_effect": "Les compétences qui crissent donnent +2 AP (une fois par tour). Les damage de foudre sont augmentés. La posture offensive you donne de bien meilleures chances de crit."
@@ -1219,8 +1219,8 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "speed",
-      "defence"
+      "vitality",
+      "defense"
     ],
     "region": "Monoco Station",
     "weapon_effect": "Les Crits you heal un peu. Les crits sont meilleurs lorsque you êtes en défensive, et si you n'avez pas de stance, votre basic attack you met en défensive."
@@ -1233,7 +1233,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "Stone Wave Cliffs",
@@ -1247,7 +1247,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "Falling Leaves",
@@ -1261,8 +1261,8 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ],
     "region": "Currently unavailable location",
     "weapon_effect": "Contre-attaquer you place en position de Virtuose et inflige 5 burns à l'ennemi. De plus, votre contre frappe plus fort pour chaque bouclier que you avez."
@@ -1275,7 +1275,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed"
+      "vitality"
     ],
     "region": "Starting Weapon",
     "weapon_effect": "Pas d'amélioration ici, juste l'équipement de base."
@@ -1288,7 +1288,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "defence",
+      "defense",
       "agility"
     ],
     "region": "Gestral Village",
@@ -1302,7 +1302,7 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "speed",
+      "vitality",
       "Luck"
     ],
     "region": "Currently unavailable location",
@@ -1316,7 +1316,7 @@
     "damage_type": "Glace",
 
     "damage_buff": [
-      "critical-luck",
+      "luck",
       "Défense"
     ],
     "region": "Yellow Harvest",
@@ -1330,8 +1330,8 @@
     "damage_type": "Feu",
 
     "damage_buff": [
-      "defence",
-      "critical-luck"
+      "defense",
+      "luck"
     ],
     "region": "Frozen Hearts",
     "weapon_effect": "You you brûlez à chaque tour mais you gagnez plus de damage par pile. L'Attaque de base lance la Burn, et lorsque you êtes en Défense, la Burn you heal."
@@ -1345,7 +1345,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Siren",
     "weapon_effect": "En défensive, vos Breaks frappent très fort. Briser un ennemi you donne 9 AP et lui inflige d'énormes damage de terre."
@@ -1358,8 +1358,8 @@
     "damage_type": "Physique",
 
     "damage_buff": [
-      "critical-luck",
-      "speed"
+      "luck",
+      "vitality"
     ],
     "region": "Inside the Monolith",
     "weapon_effect": "Pas de posture? L'basic attack you fait passer à l'offensive. Les contres s'appliquent sans défense. Bonus de chances de critérium lorsque you êtes en position offensive."
@@ -1373,7 +1373,7 @@
 
     "damage_buff": [
       "agility",
-      "speed"
+      "vitality"
     ],
     "region": "Currently unavailable location",
     "weapon_effect": "L'échange de posture donne +1 AP et 5% de soins. Si you n'avez pas d'équilibre, l'basic attack you met sur la défensive."
