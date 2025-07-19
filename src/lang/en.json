@@ -40,5 +40,8 @@
   "damage_type": "Damage type",
   "damage_buff": "Damage buff",
   "weapon_effect": "Effect",
-  "weapons_title": "Clair Obscur - Weapons"
+  "weapons_title": "Clair Obscur - Weapons",
+  "heading_home": "Welcome",
+  "index_desc1": "Manage your Clair Obscur picto collection. Mark the pictos you own, search through the list and save your progress.",
+  "index_desc2": "The weapons inventory lets you track every weapon as well. More features are coming, such as a build maker."
 }
