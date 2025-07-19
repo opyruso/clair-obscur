@@ -16,6 +16,7 @@ let allWeapons = [];
 let weapons = [];
 let filteredWeapons = [];
 let myWeapons = new Set();
+const storageKey = 'weapons';
 let currentCharacter = characters[0];
 let currentView = localStorage.getItem('weaponViewMode') || 'cards';
 let hideOwned = false;
@@ -41,12 +42,12 @@ function initPage(){
   document.getElementById('search').addEventListener('input', applyFilters);
   document.getElementById('hideOwnedBtn').addEventListener('click',()=>{hideOwned=!hideOwned;if(hideOwned)hideMissing=false;applyFilters();});
   document.getElementById('hideMissingBtn').addEventListener('click',()=>{hideMissing=!hideMissing;if(hideMissing)hideOwned=false;applyFilters();});
-  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));modified=true;applyFilters();});
-  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));modified=true;applyFilters();});
+  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));modified=true;applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
+  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));modified=true;applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
   document.getElementById('downloadBtn').addEventListener('click',downloadJson);
   document.getElementById('uploadBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
   document.getElementById('saveBtn').addEventListener('click',saveToLocal);
-  document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleUpload(e.target.files[0]);e.target.value='';});
+  document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleSiteUpload(e.target.files[0]);e.target.value='';});
   initCharacters();
   loadData();
 }
@@ -68,8 +69,7 @@ function initCharacters(){
 function loadData(){
   fetch(`${baseDataUrl}_${currentLang}.json`).then(r=>r.json()).then(data=>{
     allWeapons=data.map((w,i)=>({id:`${w.character}|${w.name}`,...w}));
-    const saved=localStorage.getItem('myWeapons');
-    if(saved){try{JSON.parse(saved).forEach(id=>myWeapons.add(id));}catch(e){}}
+    getSavedItems(storageKey).forEach(id=>myWeapons.add(id));
     applyFilters();
   });
 }
@@ -100,6 +100,7 @@ function updateTitle(){
 function toggleWeapon(id){
   if(myWeapons.has(id)) myWeapons.delete(id); else myWeapons.add(id);
   modified=true;updateIconStates();render();
+  setSavedItems(storageKey, Array.from(myWeapons));
 }
 
 function render(){
@@ -165,24 +166,28 @@ function updateIconStates(){
 }
 
 function downloadJson(){
-  const data=JSON.stringify(Array.from(myWeapons),null,2);
-  const blob=new Blob([data],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download='myWeapons.json';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);modified=false;updateIconStates();
+  setSavedItems(storageKey, Array.from(myWeapons));
+  downloadSiteData();
+  modified=false;updateIconStates();
 }
 
 function saveToLocal(){
   if(!confirm(t('save_confirm'))) return;
-  localStorage.setItem('myWeapons',JSON.stringify(Array.from(myWeapons)));
+  setSavedItems(storageKey, Array.from(myWeapons));
+  saveSiteData();
   modified=false;updateIconStates();
 }
 
 function handleUpload(file){
-  const reader=new FileReader();
-  reader.onload=e=>{try{const arr=JSON.parse(e.target.result);if(Array.isArray(arr))arr.forEach(id=>myWeapons.add(id));modified=true;applyFilters();}catch(err){}};
-  reader.readAsText(file);
+  handleSiteUpload(file);
 }
+
+function onSiteDataUpdated(){
+  myWeapons = new Set(getSavedItems(storageKey));
+  modified = false;
+  applyFilters();
+}
+
+window.onSiteDataUpdated = onSiteDataUpdated;
 
 window.sortTableCol=sortTableCol;
