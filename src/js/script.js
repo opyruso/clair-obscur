@@ -277,9 +277,7 @@ function handleCardPressLeave(e) {
 
     function updateIconStates() {
       const downloadBtn = document.getElementById('downloadBtn');
-      if(downloadBtn) downloadBtn.classList.toggle('disabled', !modified);
-      const saveBtn = document.getElementById('saveBtn');
-      if(saveBtn) saveBtn.classList.toggle('disabled', !modified);
+      if(downloadBtn) downloadBtn.classList.remove('disabled');
       const baseFiltered = pictos.filter(p => {
         const term = document.getElementById('search').value.trim().toLowerCase();
         return Object.values(p).some(v => (v && typeof v === 'string' && v.toLowerCase().includes(term)))
@@ -297,12 +295,10 @@ function handleCardPressLeave(e) {
         hideMissingBtn.classList.toggle('disabled', missingVisible === 0);
         hideMissingBtn.classList.toggle('toggled', hideMissing);
       }
-      const anyUnselected = pictosFiltered.some(p => !myPictosSet.has(p.id));
-      const anySelected = pictosFiltered.some(p => myPictosSet.has(p.id));
       const selectAllBtn = document.getElementById('selectAllBtn');
       const clearAllBtn = document.getElementById('clearAllBtn');
-      if(selectAllBtn) selectAllBtn.classList.toggle('disabled', !anyUnselected);
-      if(clearAllBtn) clearAllBtn.classList.toggle('disabled', !anySelected);
+      if(selectAllBtn) selectAllBtn.classList.remove('disabled');
+      if(clearAllBtn) clearAllBtn.classList.remove('disabled');
       const gridViewBtn = document.getElementById('gridViewBtn');
       const tableViewBtn = document.getElementById('tableViewBtn');
       if(gridViewBtn) gridViewBtn.classList.toggle('disabled', currentView === 'cards');
@@ -326,7 +322,6 @@ function handleCardPressLeave(e) {
     function initPage() {
       document.getElementById('downloadBtn').addEventListener('click', downloadJson);
       document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
-      document.getElementById('saveBtn').addEventListener('click', saveToLocal);
       document.getElementById('fileInput').addEventListener('change', e => {
         if (e.target.files && e.target.files[0]) {
           handleSiteUpload(e.target.files[0]);

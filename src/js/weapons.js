@@ -46,7 +46,6 @@ function initPage(){
   document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));modified=true;applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
   document.getElementById('downloadBtn').addEventListener('click',downloadJson);
   document.getElementById('uploadBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
-  document.getElementById('saveBtn').addEventListener('click',saveToLocal);
   document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleSiteUpload(e.target.files[0]);e.target.value='';});
   initCharacters();
   loadData();
@@ -90,11 +89,16 @@ function applyFilters(){
 }
 
 function updateTitle(){
-  const owned=filteredWeapons.filter(w=>myWeapons.has(w.id)).length;
-  const total=filteredWeapons.length;
+  const visibleOwned=filteredWeapons.filter(w=>myWeapons.has(w.id)).length;
+  const hiddenOwned=myWeapons.size-visibleOwned;
+  const visibleTotal=filteredWeapons.length;
+  const hiddenTotal=weapons.length-visibleTotal;
+  const ownedPart=hiddenOwned>0?`${visibleOwned} (+${hiddenOwned} ${t('hidden')})`:`${visibleOwned}`;
+  const totalPart=hiddenTotal>0?`${visibleTotal} (+${hiddenTotal} ${t('hidden')})`:`${visibleTotal}`;
+  const suffix=` - ${ownedPart} / ${totalPart}`;
   const h1=document.querySelector('h1');
-  if(h1)h1.textContent=`${t('heading_weapons')} - ${owned} / ${total}`;
-  document.title=`${t('weapons_title')} - ${owned}/${total}`;
+  if(h1)h1.textContent=`${t('heading_weapons')}${suffix}`;
+  document.title=`${t('weapons_title')}${suffix}`;
 }
 
 function toggleWeapon(id){
@@ -153,12 +157,9 @@ function sortTableCol(idx){
 }
 
 function updateIconStates(){
-  document.getElementById('downloadBtn').classList.toggle('disabled',!modified);
-  document.getElementById('saveBtn').classList.toggle('disabled',!modified);
-  const anyUnselected=filteredWeapons.some(w=>!myWeapons.has(w.id));
-  const anySelected=filteredWeapons.some(w=>myWeapons.has(w.id));
-  document.getElementById('selectAllBtn').classList.toggle('disabled',!anyUnselected);
-  document.getElementById('clearAllBtn').classList.toggle('disabled',!anySelected);
+  document.getElementById('downloadBtn').classList.remove('disabled');
+  document.getElementById('selectAllBtn').classList.remove('disabled');
+  document.getElementById('clearAllBtn').classList.remove('disabled');
   document.getElementById('gridViewBtn').classList.toggle('disabled',currentView==='cards');
   document.getElementById('tableViewBtn').classList.toggle('disabled',currentView==='table');
   document.getElementById('hideOwnedBtn').classList.toggle('toggled',hideOwned);

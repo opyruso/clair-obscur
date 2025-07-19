@@ -61,6 +61,11 @@
 .icon-btn.toggled img {
   filter: brightness(1.2);
 }
+#hideOwnedBtn.toggled img,
+#hideMissingBtn.toggled img {
+  opacity: 0.5;
+  filter: none;
+}
 .icon-btn.disabled img {
   opacity: 0.4;
 }
