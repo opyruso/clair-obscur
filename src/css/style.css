@@ -123,6 +123,8 @@
       perspective: 1000px;
       transition: transform 0.35s;
       z-index: 0;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
 body[data-page="weapons"] .card {
   aspect-ratio: 1088 / 681;
