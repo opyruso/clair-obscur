@@ -104,6 +104,9 @@
       transition: transform 0.35s;
       z-index: 0;
     }
+body[data-page="weapons"] .card {
+  aspect-ratio: 1088 / 681;
+}
     .card.fade {
       opacity: 0;
       transition: opacity 0.3s;
@@ -120,6 +123,9 @@
       transform-style: preserve-3d;
       transition: transform 0.6s, background 0.18s;
     }
+body[data-page="weapons"] .card-inner {
+  background-size: 100% 100%;
+}
 body[data-page="pictos"] .card-inner {
   background: url('../resources/images/background_tile.png') center/cover no-repeat;
 }
