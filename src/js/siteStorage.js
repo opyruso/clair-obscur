@@ -15,6 +15,7 @@ function getSavedItems(key) {
 
 function setSavedItems(key, arr) {
   siteData[key] = Array.from(new Set(arr));
+  saveSiteData();
 }
 
 function saveSiteData() {
@@ -54,6 +55,7 @@ function handleSiteUpload(file) {
 }
 
 document.addEventListener('DOMContentLoaded', loadSiteData);
+window.addEventListener('beforeunload', saveSiteData);
 
 window.getSavedItems = getSavedItems;
 window.setSavedItems = setSavedItems;
