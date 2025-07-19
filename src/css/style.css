@@ -470,6 +470,15 @@ body[data-page="weapons"] .card-back {
   align-items: center;
 }
 
+.header-panel {
+  background: url('../resources/images/general/background_button.png') left top/cover no-repeat;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
   .navbar-nav .nav-item {
     margin: 0 10px;
   }
