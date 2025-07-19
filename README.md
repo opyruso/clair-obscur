@@ -2,8 +2,15 @@
 
 This project is a simple static helper for Clair Obscur pictos. The source files
 are located in `src/` and the production build is generated in `dist/`.
-It now uses small React components for the header and footer. React and Babel
-are loaded from a CDN so no additional build step is required.
+The site is now a small React single-page application using React Router. All
+scripts are loaded from a CDN so no additional build step is required.
+
+Available routes:
+
+- `/index` - simple welcome page
+- `/pictos` - pictos inventory
+- `/weapons` - weapons inventory
+- `/404` - not found page
 
 ## Development
 

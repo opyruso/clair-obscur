@@ -1,10 +1,12 @@
+const {NavLink} = ReactRouterDOM;
+
 const Header = () => (
   <nav className="navbar navbar-dark">
     <div className="container-fluid header-inner">
       <a className="navbar-brand" href="#" data-i18n="nav_brand">Clair Obscur Helper</a>
       <ul className="navbar-nav flex-row">
-        <li className="nav-item"><a className="nav-link" href="index.html" data-page="pictos" data-i18n="nav_pictos">Pictos inventory</a></li>
-        <li className="nav-item"><a className="nav-link" href="weapons.html" data-page="weapons" data-i18n="nav_weapons">Weapons inventory</a></li>
+        <li className="nav-item"><NavLink className="nav-link" to="/pictos" data-i18n="nav_pictos">Pictos inventory</NavLink></li>
+        <li className="nav-item"><NavLink className="nav-link" to="/weapons" data-i18n="nav_weapons">Weapons inventory</NavLink></li>
       </ul>
       <div className="header-right">
         <div className="header-panel">

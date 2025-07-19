@@ -2,7 +2,7 @@
 <html lang="en" id="htmlRoot">
 <head>
   <meta charset="UTF-8">
-  <title data-i18n="site_title">Clair Obscur Helper - Pictos inventory</title>
+  <title>Clair Obscur Helper</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
@@ -11,41 +11,16 @@
   <link rel="stylesheet" href="css/style.css">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="d-flex flex-column min-vh-100" data-page="pictos">
-  <div id="header"></div>
-  <img class="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt="">
-  <img class="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt="">
-  <main class="content-wrapper mt-4 flex-grow-1">
-      <h1 data-i18n="heading_pictos">Pictos inventory</h1>
-      <div class="actions">
-        <div class="icon-bar">
-          <button class="icon-btn toggle" id="hideOwnedBtn" data-i18n-title="hide_owned" title="Hide owned"><img src="resources/images/icons/buttons/show_found.png" alt=""></button>
-          <button class="icon-btn toggle" id="hideMissingBtn" data-i18n-title="hide_missing" title="Hide missing"><img src="resources/images/icons/buttons/hide_notfound.png" alt=""></button>
-          <div class="icon-sep"></div>
-          <button class="icon-btn" id="selectAllBtn" data-i18n-title="select_all" title="Select all"><img src="resources/images/icons/buttons/select_all.png" alt=""></button>
-          <button class="icon-btn" id="clearAllBtn" data-i18n-title="clear_all" title="Clear all"><img src="resources/images/icons/buttons/deselect_all.png" alt=""></button>
-          <div class="icon-sep"></div>
-          <button class="icon-btn" id="gridViewBtn" data-i18n-title="grid_view" title="Grid view"><img src="resources/images/icons/buttons/tile_view.png" alt=""></button>
-          <button class="icon-btn" id="tableViewBtn" data-i18n-title="table_view" title="Table view"><img src="resources/images/icons/buttons/tab_view.png" alt=""></button>
-          <div class="icon-sep"></div>
-        </div>
-        <input class="searchbar" id="search" placeholder="Search pictos by any field..." data-i18n-placeholder="search_placeholder">
-        <input type="file" id="fileInput" accept="application/json" style="display:none">
-      </div>
-      <div id="cards" class="cards"></div>
-      <div id="table" class="table-view" style="display:none"></div>
-      <div id="modal" class="modal" style="display:none"><div class="modal-content"></div></div>
-      <div id="notificationContainer" class="notification-container"></div>
-  </main>
-  <img class="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt="">
-  <img class="section-separator separator-bottom" src="resources/images/general/separator_horizontal.png" alt="">
-  <div id="footer"></div>
+<body class="d-flex flex-column min-vh-100">
+  <div id="app"></div>
   <script type="text/babel" src="js/components.jsx"></script>
+  <script type="text/babel" src="js/app.jsx"></script>
   <script src="js/i18n.js"></script>
   <script src="js/siteStorage.js"></script>
   <script src="js/script.js"></script>
-  <script src="js/common.js"></script>
+  <script src="js/weapons.js"></script>
 </body>
 </html>

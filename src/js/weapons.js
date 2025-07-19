@@ -49,7 +49,7 @@ function initPage(){
   initCharacters();
   loadData();
 }
-document.addEventListener('commonLoaded', initPage);
+window.initWeaponsPage = initPage;
 
 function initCharacters(){
   const div=document.getElementById('charSelect');
