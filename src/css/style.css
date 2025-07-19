@@ -479,12 +479,18 @@ body[data-page="weapons"] .card-back {
     z-index: 1;
   }
 
-  .navbar .header-inner {
+.navbar .header-inner {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     padding: 0 20px 10px 20px;
-  }
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
 
   .navbar-nav .nav-item {
     margin: 0 10px;
