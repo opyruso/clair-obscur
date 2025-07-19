@@ -214,6 +214,9 @@ body[data-page="pictos"] .card.owned .card-inner::before {
       box-sizing: border-box;
       padding: 22px 24px 18px 40px;
     }
+body[data-page="weapons"] .card-face {
+  padding: 34px 40px 30px 60px;
+}
     .card-back {
       transform: rotateY(180deg);
       padding-left: 50px;
@@ -221,6 +224,10 @@ body[data-page="pictos"] .card.owned .card-inner::before {
       text-align: left;
       align-items: flex-start;
     }
+body[data-page="weapons"] .card-back {
+  padding-left: 70px;
+  padding-right: 50px;
+}
     .card.flipped .card-inner,
     .card.pinned .card-inner {
       transform: rotateY(180deg);

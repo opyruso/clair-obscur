@@ -116,7 +116,7 @@ function renderCards(){
     card.className='card'+(owned?' owned':'');
     card.dataset.id=w.id;
     const icon=damageIcons[w.damage_type]||'physical';
-    card.innerHTML=`<div class="card-inner"><div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span><img class="damage-icon" src="resources/images/icons/damage/${icon}.png" alt="${w.damage_type||''}"></div><div class="region">${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</div><div class="description">${w.weapon_effect||''}</div><div class="badges">${(w.damage_buff||[]).map(b=>`<span class="badge">${t(b)||b}</span>`).join('')}</div></div></div>`;
+    card.innerHTML=`<div class="card-inner"><div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><img class="damage-icon" src="resources/images/icons/damage/${icon}.png" alt="${w.damage_type||''}"><span class="name">${w.name}</span></div><div class="region">${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</div><div class="description">${w.weapon_effect||''}</div><div class="badges">${(w.damage_buff||[]).map(b=>`<span class="badge">${t(b)||b}</span>`).join('')}</div></div></div>`;
     card.querySelector('.pin-btn').addEventListener('click',e=>{e.stopPropagation();toggleWeapon(w.id);});
     container.appendChild(card);
   });
