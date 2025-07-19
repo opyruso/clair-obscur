@@ -1,9 +1,21 @@
     body {
-      background: #191c23 url(../resources/images/background_site.png) repeat left top;
+      position: relative;
+      background-color: #191c23;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
       padding: 0;
+      cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, auto;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url(../resources/images/general/background_body.avif) repeat-y center top/100% auto;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: -1;
     }
     .content-wrapper {
       margin: 20px;
@@ -29,23 +41,23 @@
       gap: 8px;
       flex-wrap: wrap;
     }
-    .icon-btn {
-      background: none;
-      border: none;
-      color: #b6e4ff;
-      font-size: 1.4em;
-      cursor: pointer;
-      padding: 4px;
-      transition: color 0.15s, opacity 0.15s;
-    }
-    .icon-btn.toggled,
-    .icon-btn:not(.disabled):hover {
-      color: #fff;
-    }
-    .icon-btn.disabled {
-      opacity: 0.4;
-      pointer-events: none;
-    }
+.icon-btn {
+  background: none;
+  border: none;
+  color: #b6e4ff;
+  font-size: 1.4em;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.15s, opacity 0.15s;
+}
+.icon-btn.toggled,
+.icon-btn:not(.disabled):hover {
+  color: #fff;
+}
+.icon-btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
     .icon-sep {
       width: 1px;
       height: 24px;
@@ -103,6 +115,9 @@
       transition: transform 0.35s;
       z-index: 0;
     }
+body[data-page="weapons"] .card {
+  aspect-ratio: 1088 / 681;
+}
     .card.fade {
       opacity: 0;
       transition: opacity 0.3s;
@@ -114,14 +129,31 @@
       position: absolute;
       inset: 0;
       box-sizing: border-box;
-      background: url('../resources/images/background_tile.png') center/cover no-repeat;
       border-radius: 14px;
       transform-style: preserve-3d;
-      transition: transform 0.6s, background 0.18s;
+      overflow: hidden;
+      transition: transform 0.6s;
     }
-    .card.owned .card-inner {
-      background-image: url('../resources/images/background_tile_selected.png');
+
+    .card-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: url('../resources/images/general/panel_background.avif') left top/cover no-repeat;
+      z-index: -1;
     }
+
+body[data-page="weapons"] .card-inner::before {
+  background-size: 100% 100%;
+  opacity: 0.5;
+}
+body[data-page="pictos"] .card-inner::before {
+  background: url('../resources/images/background_tile.png') center/cover no-repeat;
+}
+body[data-page="pictos"] .card.owned .card-inner::before {
+  background-image: url('../resources/images/background_tile_selected.png');
+}
     .region {
       color: #7cc9ff;
       font-size: 0.93em;
@@ -182,6 +214,9 @@
       box-sizing: border-box;
       padding: 22px 24px 18px 40px;
     }
+body[data-page="weapons"] .card-face {
+  padding: 34px 40px 30px 90px;
+}
     .card-back {
       transform: rotateY(180deg);
       padding-left: 50px;
@@ -189,6 +224,10 @@
       text-align: left;
       align-items: flex-start;
     }
+body[data-page="weapons"] .card-back {
+  padding-left: 100px;
+  padding-right: 50px;
+}
     .card.flipped .card-inner,
     .card.pinned .card-inner {
       transform: rotateY(180deg);
@@ -387,7 +426,7 @@
     left: 0;
     width: 100%;
     overflow: hidden;
-    background: url('../resources/images/background_site_header_footer.png') repeat;
+    background: url('../resources/images/background_site_header_footer.png') repeat-x center center/100% auto;
     z-index: 3000;
     padding: 28px 0 18px;
   }
@@ -410,7 +449,7 @@
     width: 100%;
     overflow: hidden;
     min-height: 120px;
-    background: url('../resources/images/background_site_header_footer.png') repeat;
+    background: url('../resources/images/general/background_header.avif') repeat-x center center/100% auto;
     z-index: 3000;
   }
 
@@ -471,4 +510,11 @@ body {
 .char-select img{width:128px;height:128px;opacity:0.4;cursor:pointer;transition:opacity .2s;}
 .char-select img:hover{opacity:0.6;}
 .char-select img.active{opacity:1;}
+
+.damage-icon{width:24px;height:24px;vertical-align:middle;}
+
+a, button, .icon-btn, .toggle-btn, .nav-link, .pin-btn, .lang-flag,
+th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
+  cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, pointer;
+}
 
