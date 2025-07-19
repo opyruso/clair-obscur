@@ -11,4 +11,5 @@ async function loadCommon() {
   document.dispatchEvent(new Event('commonLoaded'));
 }
 
-document.addEventListener('DOMContentLoaded', loadCommon);
+// Wait for the full window load to ensure Babel compiled components are ready
+window.addEventListener('load', loadCommon);
