@@ -590,15 +590,24 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .index-row.reverse {
   flex-direction: column;
 }
+.index-desc,
+.index-img {
+  width: 100%;
+}
+.index-img {
+  display: flex;
+  justify-content: center;
+}
 .index-img img {
   width: 100%;
   height: auto;
   display: block;
 }
-.index-desc {
-  flex: 1;
-}
 @media (min-width: 800px) {
   .index-row { flex-direction: row; }
   .index-row.reverse { flex-direction: row-reverse; }
+  .index-desc,
+  .index-img {
+    width: 50%;
+  }
 }
