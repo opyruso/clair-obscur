@@ -138,8 +138,13 @@ function BuildPage(){
 
   function changeMain(idx,pidx,val){
     setTeam(t=>{
-      const nt=t.map((c,i)=>({...c,mainPictos:[...c.mainPictos]}));
+      const nt=t.map((c,i)=>({...c,mainPictos:[...c.mainPictos],subPictos:[...c.subPictos]}));
       nt[idx].mainPictos[pidx]=val||null;
+      // remove duplicate main pictos for this character
+      nt[idx].mainPictos=nt[idx].mainPictos.map((p,i)=>i!==pidx&&p===val?null:p);
+      // remove from subs if selected there
+      nt[idx].subPictos=nt[idx].subPictos.filter(s=>s!==val);
+      // enforce unique across team
       for(let i=0;i<nt.length;i++) if(i!==idx){
         nt[i].mainPictos=nt[i].mainPictos.map(p=>p===val?null:p);
       }
@@ -148,7 +153,11 @@ function BuildPage(){
   }
 
   function changeSubs(idx,vals){
-    setTeam(t=>t.map((c,i)=>i===idx?{...c,subPictos:vals}:c));
+    setTeam(t=>t.map((c,i)=>{
+      if(i!==idx) return c;
+      const filtered=[...new Set(vals.filter(v=>!c.mainPictos.includes(v)))];
+      return {...c,subPictos:filtered};
+    }));
   }
 
   function computeStats(ids){
@@ -210,11 +219,17 @@ function BuildPage(){
     setModal({options:opts,onSelect:val=>updateTeam(idx,{weapon:val})});
   }
   function openMainModal(idx,pidx){
-    const available=pictos.filter(p=>!usedMain.has(p.id)||team[idx].mainPictos.includes(p.id)).map(p=>({value:p.id,label:p.name}));
+    const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
+    const available=pictos
+      .filter(p=>(!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) && !existing.includes(p.id))
+      .map(p=>({value:p.id,label:p.name}));
     setModal({options:available,onSelect:val=>changeMain(idx,pidx,val)});
   }
   function openSubsModal(idx){
-    const opts=pictos.map(p=>({value:p.id,label:p.name}));
+    const disallowed=team[idx].mainPictos.filter(Boolean);
+    const opts=pictos
+      .filter(p=>!disallowed.includes(p.id))
+      .map(p=>({value:p.id,label:p.name}));
     setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:team[idx].subPictos});
   }
 
