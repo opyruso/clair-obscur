@@ -14,7 +14,6 @@
       inset: 0;
       background: url(../resources/images/general/background_body.avif) repeat-y center top/100% auto;
       opacity: 0.5;
-      pointer-events: none;
       z-index: -1;
     }
     .content-wrapper {
@@ -67,7 +66,6 @@
 }
 .icon-btn.disabled {
   opacity: 0.4;
-  pointer-events: none;
 }
     .icon-sep {
       width: 1px;
@@ -534,3 +532,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, pointer;
 }
 
+.section-frame, .section-separator {
+  pointer-events: none;
+  display: block;
+  width: 100%;
+
+}
