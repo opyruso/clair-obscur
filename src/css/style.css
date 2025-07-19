@@ -120,11 +120,11 @@
       transform-style: preserve-3d;
       transition: transform 0.6s, background 0.18s;
     }
-.card.owned .card-inner {
-  background-image: url('../resources/images/background_tile_selected.png');
-}
 body[data-page="pictos"] .card-inner {
-  background: url('../resources/images/background_tile_selected.png') center/cover no-repeat;
+  background: url('../resources/images/background_tile.png') center/cover no-repeat;
+}
+body[data-page="pictos"] .card.owned .card-inner {
+  background-image: url('../resources/images/background_tile_selected.png');
 }
     .region {
       color: #7cc9ff;
