@@ -140,8 +140,6 @@ body[data-page="weapons"] .card {
       box-sizing: border-box;
       border-radius: 14px;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
       overflow: hidden;
       transition: transform 0.6s;
     }
