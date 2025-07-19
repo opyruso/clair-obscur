@@ -1,10 +1,21 @@
     body {
-      background: #191c23 url(../resources/images/general/background_body.avif) repeat-y center top/100% auto;
+      position: relative;
+      background-color: #191c23;
       color: #ffffff;
       font-family: 'Cinzel', serif;
       margin: 0;
       padding: 0;
       cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, auto;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url(../resources/images/general/background_body.avif) repeat-y center top/100% auto;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: -1;
     }
     .content-wrapper {
       margin: 20px;
@@ -118,18 +129,29 @@ body[data-page="weapons"] .card {
       position: absolute;
       inset: 0;
       box-sizing: border-box;
-      background: url('../resources/images/general/panel_background.avif') left top/cover no-repeat;
       border-radius: 14px;
       transform-style: preserve-3d;
-      transition: transform 0.6s, background 0.18s;
+      overflow: hidden;
+      transition: transform 0.6s;
     }
-body[data-page="weapons"] .card-inner {
+
+    .card-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: url('../resources/images/general/panel_background.avif') left top/cover no-repeat;
+      z-index: -1;
+    }
+
+body[data-page="weapons"] .card-inner::before {
   background-size: 100% 100%;
+  opacity: 0.5;
 }
-body[data-page="pictos"] .card-inner {
+body[data-page="pictos"] .card-inner::before {
   background: url('../resources/images/background_tile.png') center/cover no-repeat;
 }
-body[data-page="pictos"] .card.owned .card-inner {
+body[data-page="pictos"] .card.owned .card-inner::before {
   background-image: url('../resources/images/background_tile_selected.png');
 }
     .region {
