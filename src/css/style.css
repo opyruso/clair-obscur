@@ -480,6 +480,6 @@ body {
 
 a, button, .icon-btn, .toggle-btn, .nav-link, .pin-btn, .lang-flag,
 th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
-  cursor: url('../resources/images/general/clairobscur_cursor.png') 46 46, pointer;
+  cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, pointer;
 }
 
