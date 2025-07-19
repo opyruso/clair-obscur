@@ -521,25 +521,25 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 .frame-top {
-  top: 120px;
+  top: 175px;
   transform: translateY(-50%);
   z-index: 3001;
 }
 
 .separator-top {
-  top: 120px;
+  top: 150px;
   transform: translateY(-50%);
   z-index: 3002;
 }
 
 .frame-bottom {
-  bottom: 80px;
+  bottom: 35px;
   transform: translateY(50%);
   z-index: 3001;
 }
 
 .separator-bottom {
-  bottom: 80px;
+  bottom: 58px;
   transform: translateY(50%);
   z-index: 3002;
 }
