@@ -521,7 +521,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 .frame-top {
-  top: 175px;
+  top: 10em;
+  height: 4em;
   transform: translateY(-50%);
   z-index: 3001;
 }
@@ -533,7 +534,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 .frame-bottom {
-  bottom: 35px;
+  bottom: 3em;
+  height: 3em;
   transform: translateY(50%);
   z-index: 3001;
 }
