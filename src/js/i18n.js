@@ -18,9 +18,12 @@ async function loadLang(lang) {
   document.documentElement.lang = lang;
   applyTranslations();
   updateFlagState();
-  if (typeof updateTranslations === 'function') updateTranslations();
-  if (typeof loadData === 'function') loadData();
-  if (typeof render === 'function') render();
+  const pageObj = window[document.body.dataset.page + 'Page'];
+  if(pageObj){
+    if(typeof pageObj.updateTranslations === 'function') pageObj.updateTranslations();
+    if(typeof pageObj.loadData === 'function') pageObj.loadData();
+    if(typeof pageObj.render === 'function') pageObj.render();
+  }
 }
 
 function applyTranslations() {
