@@ -23,7 +23,9 @@ npm start
 
 ## Build
 
-Create the distributable files under `dist/`:
+Create the distributable files under `dist/`. This command transpiles the JSX
+sources with Babel, copies the required packages locally and rewrites `index.html`
+so everything works from the `dist` folder alone:
 
 ```bash
 npm run build

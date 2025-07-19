@@ -64,6 +64,7 @@ function WeaponsPage(){
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
   }, []);
+  return (
     <>
       <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
       <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
@@ -102,6 +103,7 @@ function NotFound(){
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
   }, []);
+  return (
     <main className="content-wrapper mt-4 flex-grow-1">
       <h1>404 - Not Found</h1>
     </main>
