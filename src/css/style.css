@@ -470,15 +470,23 @@ body[data-page="weapons"] .card-back {
   align-items: center;
 }
 
+.header-panel {
+  background: url('../resources/images/general/background_button.png') left top/cover no-repeat;
+  padding: 6px 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
   .navbar-nav .nav-item {
     margin: 0 10px;
   }
 
-  .lang-flags {
-    margin-right: 10px;
-    display: flex;
-    gap: 8px;
-  }
+.lang-flags {
+  display: flex;
+  gap: 8px;
+}
 
 body {
   padding-top: 145px;
@@ -521,7 +529,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 .frame-top {
-  top: 175px;
+  top: 10em;
+  height: 4em;
   transform: translateY(-50%);
   z-index: 3001;
 }
@@ -533,7 +542,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 .frame-bottom {
-  bottom: 35px;
+  bottom: 3em;
+  height: 3em;
   transform: translateY(50%);
   z-index: 3001;
 }
