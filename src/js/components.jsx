@@ -24,6 +24,6 @@ const Header = () => (
 
 const Footer = () => (
   <footer className="text-center text-white py-3">
-    Copyright oPyRuSo 2025-<span id="year"></span>
+    Copyright oPyRuSo 2025-{new Date().getFullYear()}
   </footer>
 );
