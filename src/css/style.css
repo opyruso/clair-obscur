@@ -4,7 +4,7 @@
       font-family: 'Cinzel', serif;
       margin: 0;
       padding: 0;
-      cursor: url('../resources/images/general/clairobscur_cursor.png'), auto;
+      cursor: url('../resources/images/general/clairobscur_cursor.png') 46 46, auto;
     }
     .content-wrapper {
       margin: 20px;
@@ -477,6 +477,6 @@ body {
 
 a, button, .icon-btn, .toggle-btn, .nav-link, .pin-btn, .lang-flag,
 th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
-  cursor: url('../resources/images/general/clairobscur_cursor.png'), pointer;
+  cursor: url('../resources/images/general/clairobscur_cursor.png') 46 46, pointer;
 }
 
