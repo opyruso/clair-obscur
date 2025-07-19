@@ -240,7 +240,10 @@ body[data-page="pictos"] .card.owned .card-inner::before {
       padding: 22px 24px 18px 40px;
     }
 body[data-page="weapons"] .card-face {
-  padding: 34px 40px 30px 90px;
+  padding: 34px 60px 20px 60px;
+}
+body[data-page="pictos"] .card-face {
+  padding: 34px 60px 20px 60px;
 }
 body[data-page="weapons"] .card-back {
   padding-left: 100px;
