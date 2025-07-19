@@ -417,7 +417,6 @@ function handleCardPressLeave(e) {
 
         let back = `<div class="card-face card-back">`;
         back += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
-        back += `<div class="level">Lv. ${p.level || ''}</div>`;
         back += `<div class="region-block">`;
         if (p.region)
           back += `<div class="region-title">${p.region}</div>`;
