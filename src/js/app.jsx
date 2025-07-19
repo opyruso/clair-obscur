@@ -11,8 +11,9 @@ function Home(){
   }, []);
   return (
     <main className="content-wrapper mt-4 flex-grow-1">
-      <h1>Home</h1>
-      <p>Select a section from the navigation.</p>
+      <h1 data-i18n="heading_home">Welcome</h1>
+      <p data-i18n="index_desc1">Manage your Clair Obscur picto collection. Mark the pictos you own, search through the list and save your progress.</p>
+      <p data-i18n="index_desc2">The weapons inventory lets you track every weapon as well. More features are coming, such as a build maker.</p>
     </main>
   );
 }

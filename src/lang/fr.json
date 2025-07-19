@@ -40,5 +40,8 @@
   "damage_type": "Type de dégâts",
   "damage_buff": "Bonus",
   "weapon_effect": "Effet",
-  "weapons_title": "Clair Obscur - Armes"
+  "weapons_title": "Clair Obscur - Armes",
+  "heading_home": "Bienvenue",
+  "index_desc1": "Gérez votre collection de pictos Clair Obscur. Indiquez ceux que vous possédez, effectuez des recherches et sauvegardez votre progression.",
+  "index_desc2": "La section armes vous permet aussi de suivre votre arsenal. De nouvelles fonctionnalités arriveront, comme un build maker."
 }
