@@ -7,6 +7,7 @@ const Header = () => (
       <ul className="navbar-nav flex-row">
         <li className="nav-item"><NavLink className="nav-link" to="/pictos" data-i18n="nav_pictos">Pictos inventory</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/weapons" data-i18n="nav_weapons">Weapons inventory</NavLink></li>
+        <li className="nav-item"><NavLink className="nav-link" to="/build" data-i18n="nav_build">Team builder</NavLink></li>
       </ul>
       <div className="header-right">
         <div className="header-panel">
