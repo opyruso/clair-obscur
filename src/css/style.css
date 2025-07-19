@@ -228,27 +228,32 @@ body[data-page="pictos"] .card.owned .card-inner::before {
 body[data-page="weapons"] .card-face {
   padding: 34px 40px 30px 90px;
 }
-    .card .card-front {
-      transform: rotateY(0deg);
-    }
-    .card .card-back {
-      transform: rotateY(180deg) scale(-1, 1);
-      padding-left: 50px;
-      padding-right: 30px;
-      text-align: left;
-      align-items: flex-start;
-    }
 body[data-page="weapons"] .card-back {
   padding-left: 100px;
   padding-right: 50px;
 }
-    .card.flipped .card-front {
-      transform: rotateY(180deg);
-    }
-    .card.flipped .card-back {
-      transform: rotateY(0deg) scale(-1, 1);
-    }
-    .card.pinned {
+.card-front {
+  transform: rotateY(0deg);
+}
+.card-back {
+  transform: rotateY(180deg) scale(-1, 1);
+  padding-left: 50px;
+  padding-right: 30px;
+  text-align: left;
+  align-items: flex-start;
+}
+.card.flipped .card-inner,
+.card.pinned .card-inner,
+.card.flipped .card-front,
+.card.pinned .card-front {
+  transform: rotateY(180deg);
+}
+.card.flipped .card-back,
+.card.pinned .card-back {
+  transform: rotateY(0deg) scale(-1, 1);
+}
+    .card.flipped,
+	.card.pinned {
       z-index: 10;
     }
     .level {
