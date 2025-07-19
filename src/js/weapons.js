@@ -106,8 +106,25 @@ function updateTitle(){
 }
 
 function toggleWeapon(id){
-  if(myWeapons.has(id)) myWeapons.delete(id); else myWeapons.add(id);
-  updateIconStates();render();
+  const hadId = myWeapons.has(id);
+  if(hadId) myWeapons.delete(id); else myWeapons.add(id);
+
+  // Refresh list if current filters hide/show owned/missing weapons
+  if(hideOwned || hideMissing){
+    applyFilters();
+  } else {
+    const card = document.querySelector(`.card[data-id="${id}"]`);
+    if(card) card.classList.toggle('owned', !hadId);
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    if(row){
+      row.classList.toggle('owned', !hadId);
+      const cb = row.querySelector('.picto-checkbox');
+      if(cb) cb.checked = !hadId;
+    }
+    updateTitle();
+    updateIconStates();
+  }
+
   setSavedItems(storageKey, Array.from(myWeapons));
 }
 
