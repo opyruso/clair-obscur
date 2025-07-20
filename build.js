@@ -64,7 +64,8 @@ const packages = [
   '@remix-run/router',
   'flag-icons',
   '@fontsource/cinzel',
-  '@fortawesome/fontawesome-free'
+  '@fortawesome/fontawesome-free',
+  'keycloak-js'
 ];
 for(const pkg of packages){
   const pkgPath = path.join(nodeModulesDir, pkg);
