@@ -186,16 +186,30 @@ function BuildPage(){
 
   function SelectionModal(){
     if(!modal) return null;
-    const {options,onSelect,multi,values}=modal;
+    const {options,onSelect,multi,values,search}=modal;
     const [local,setLocal]=React.useState(multi?values.slice():values||'');
+    const [term,setTerm]=React.useState('');
+    const list=search?options.filter(o=>{
+      const txt=(o.label+ (o.desc? ' '+o.desc : '')).toLowerCase();
+      return txt.includes(term.toLowerCase());
+    }):options;
     function apply(){ onSelect(local); setModal(null); }
     return (
       <div className="modal" onClick={()=>setModal(null)} id="modalSelect">
         <div className="modal-content" onClick={e=>e.stopPropagation()}>
+          {search && (
+            <input
+              className="searchbar"
+              style={{width:'100%',marginBottom:'10px'}}
+              placeholder={t('filter_placeholder')}
+              value={term}
+              onChange={e=>setTerm(e.target.value)}
+            />
+          )}
           {multi ? (
             <>
               <div className="modal-options">
-                {options.map(o => (
+                {list.map(o => (
                   <label key={o.value} className="modal-option">
                     <input
                       type="checkbox"
@@ -219,7 +233,7 @@ function BuildPage(){
               </div>
             </>
           ) : (
-            options.map(o=>(
+            list.map(o=>(
               <div key={o.value} className="modal-option" onClick={()=>{onSelect(o.value); setModal(null);}}>{o.label}</div>
             ))
           )}
@@ -254,10 +268,13 @@ function BuildPage(){
   function openSubsModal(idx){
     const locked=team[idx].mainPictos.filter(Boolean);
     const opts=[
-      ...locked.map(id=>({value:id,label:pictos.find(p=>p.id===id)?.name||id,disabled:true})),
-      ...pictos.filter(p=>!locked.includes(p.id)).map(p=>({value:p.id,label:p.name}))
+      ...locked.map(id=>{
+        const p=pictos.find(p=>p.id===id);
+        return {value:id,label:p?.name||id,desc:p?.bonus_lumina||'',disabled:true};
+      }),
+      ...pictos.filter(p=>!locked.includes(p.id)).map(p=>({value:p.id,label:p.name,desc:p.bonus_lumina}))
     ];
-    setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:team[idx].subPictos});
+    setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:team[idx].subPictos,search:true});
   }
 
   function copyShare(){
