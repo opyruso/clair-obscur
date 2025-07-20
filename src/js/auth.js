@@ -21,7 +21,13 @@ function initAuth(){
   const {"auth-url":url,"auth-realm":realm,"auth-client-id":clientId}=window.CONFIG;
   if(!url||!realm||!clientId) return;
   keycloak = new window.Keycloak({url,realm,clientId});
-  keycloak.init({onLoad:'check-sso',checkLoginIframe:false})
+  const silentUri = `${window.location.origin}/silent-check-sso.html`;
+  keycloak.init({
+    onLoad:'check-sso',
+    checkLoginIframe:false,
+    silentCheckSsoRedirectUri:silentUri,
+    pkceMethod:'S256'
+  })
     .then(auth=>updateLoginState(auth))
     .catch(()=>updateLoginState(false));
 }
