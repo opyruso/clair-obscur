@@ -30,6 +30,25 @@ function transpile(srcFile, outFile){
 fs.rmSync(distDir, { recursive: true, force: true });
 copyRecursive(srcDir, distDir);
 
+// select environment configuration
+const appEnv = process.env.APP_ENV || 'dev';
+const envFile = `config.${appEnv}.js`;
+const distEnvPath = path.join(distDir, envFile);
+let finalConfig = path.join(distDir, 'config.js');
+
+if (fs.existsSync(distEnvPath)) {
+  fs.renameSync(distEnvPath, finalConfig);
+} else {
+  const fallback = path.join(distDir, 'config.dev.js');
+  fs.renameSync(fallback, finalConfig);
+}
+
+for (const f of fs.readdirSync(distDir)) {
+  if (/^config\.(dev|rec|pro)\.js$/.test(f) && f !== 'config.js') {
+    fs.rmSync(path.join(distDir, f));
+  }
+}
+
 // transpile JSX files
 transpile(path.join(srcDir, 'js', 'components.jsx'), path.join(distDir, 'js', 'components.js'));
 transpile(path.join(srcDir, 'js', 'app.jsx'), path.join(distDir, 'js', 'app.js'));

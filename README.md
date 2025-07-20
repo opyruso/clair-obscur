@@ -30,3 +30,26 @@ so everything works from the `dist` folder alone:
 ```bash
 npm run build
 ```
+
+## Configuration
+
+Runtime options are provided by a `config.js` file loaded by the page. Three
+variants are available in `src/`:
+
+- `config.dev.js`
+- `config.rec.js`
+- `config.pro.js`
+
+The build script copies the appropriate file to the distribution directory based
+on the `APP_ENV` environment variable (`dev` by default). After building you can
+still edit `dist/config.js` to adjust the values:
+
+- `clairobscur-api-url`
+- `auth-url`
+- `auth-client-id`
+
+Example for a production build:
+
+```bash
+APP_ENV=pro npm run build
+```
