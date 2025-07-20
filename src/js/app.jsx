@@ -276,11 +276,15 @@ function BuildPage(){
                   {col.character
                     ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(cidx)}/>
                     : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
-                  {col.weapon
-                    ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
-                    : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
+                  <div className="weapon-box">
+                    {col.weapon
+                      ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
+                      : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
+                    <div className="weapon-buff">
+                      {w ? (buffs.length>0 ? `${t('damage_buff')}: ${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
+                    </div>
+                  </div>
                 </div>
-                {buffs.length>0 && <div className="weapon-buff">{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                 <div className="stats">
                   <div>{t('defense')}: {stats.def}</div>
                   <div>{t('speed')}: {stats.speed}</div>
@@ -319,11 +323,15 @@ function BuildPage(){
                   {col.character
                       ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(idx)}/>
                       : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
+                    <div className="weapon-box">
                     {col.weapon
                       ? <span className="weapon-name" onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
+                    <div className="weapon-buff">
+                      {w ? (buffs.length>0 ? `${t('damage_buff')}: ${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
+                    </div>
+                    </div>
                   </div>
-                  {buffs.length>0 && <div className="weapon-buff">{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                   <div className="stats">
                     <div>{t('defense')}: {stats.def}</div>
                     <div>{t('speed')}: {stats.speed}</div>

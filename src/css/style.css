@@ -665,6 +665,13 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   gap: 8px;
   margin-bottom: 6px;
 }
+.weapon-box {
+  flex: 0 0 50%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .char-img,
 .char-add {
   flex: 0 0 50%;
@@ -704,8 +711,7 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   transition: transform 0.2s, opacity 0.2s;
 }
 .weapon-add {
-  flex: 0 0 50%;
-  width: 50%;
+  width: 100%;
 }
 .weapon-add:hover,
 .picto-add:hover {
@@ -718,8 +724,7 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   margin-bottom: 0;
 }
 .weapon-name {
-  flex: 0 0 50%;
-  width: 50%;
+  width: 100%;
   color: #CDB48E;
   cursor: pointer;
   text-align: center;
