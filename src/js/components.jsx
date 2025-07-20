@@ -19,6 +19,8 @@ const Header = () => (
             <span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>
             <span className="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span>
           </div>
+          <div className="icon-sep"></div>
+          <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login"><i className="fa-solid fa-user"></i></button>
         </div>
       </div>
     </div>
