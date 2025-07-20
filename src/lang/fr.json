@@ -60,5 +60,7 @@
   "index_desc2": "Suivez l'intégralité de votre arsenal. Chaque fiche d'arme précise qui peut l'utiliser et quels effets elle apporte afin de ne rien manquer.",
   "login": "Connexion",
   "logout": "Déconnexion",
-  "index_desc3": "Créez votre composition d'équipe et partagez-la via un lien."
+  "index_desc3": "Créez votre composition d'équipe et partagez-la via un lien.",
+  "nav_admin": "Admin",
+  "heading_admin": "Administration"
 }

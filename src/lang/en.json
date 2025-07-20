@@ -60,5 +60,7 @@
   "index_desc2": "Track your entire arsenal. Each weapon sheet shows who can wield it and the effects it grants so you never miss a piece of equipment.",
   "login": "Login",
   "logout": "Logout",
-  "index_desc3": "Build your team composition and share it with a link."
+  "index_desc3": "Build your team composition and share it with a link.",
+  "nav_admin": "Admin",
+  "heading_admin": "Administration"
 }
