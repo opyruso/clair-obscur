@@ -644,8 +644,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .build-col {
   flex: 0 0 30%;
   min-width: 200px;
-  border: 1px solid #555;
-  padding: 10px;
+  border: none;
+  padding: 30px;
+  background: url('../resources/images/general/panel_background.avif') center/100% auto no-repeat;
 }
 .select-btn {
   display: block;
