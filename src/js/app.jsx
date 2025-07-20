@@ -261,6 +261,7 @@ function BuildPage(){
         </div>
         <div className="team-builder">
           <div className="main-team">
+            <h2 className="team-title" data-i18n="main_team">{t('main_team')}</h2>
             {team.slice(0,3).map((col,cidx)=>{
               const stats=computeStats(col.mainPictos.filter(Boolean));
               const charWeapons=weapons.filter(w=>w.character===col.character);
@@ -296,6 +297,7 @@ function BuildPage(){
             })}
           </div>
           <div className="secondary-team">
+            <h2 className="team-title" data-i18n="secondary_team">{t('secondary_team')}</h2>
             {team.slice(3).map((col,cidx)=>{
               const stats=computeStats(col.mainPictos.filter(Boolean));
               const charWeapons=weapons.filter(w=>w.character===col.character);

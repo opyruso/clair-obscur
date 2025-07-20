@@ -633,6 +633,13 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   padding-left: 20px;
   margin-left: 20px;
 }
+.team-title {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: 'Cinzel', serif;
+  color: #e0e0ff;
+}
 .build-col {
   flex: 1;
   min-width: 200px;
