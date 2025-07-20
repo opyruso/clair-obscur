@@ -72,6 +72,16 @@
 .icon-btn.disabled {
   opacity: 0.4;
 }
+
+.icon-btn.user-name {
+  font-size: 1em;
+}
+
+.admin-crown {
+  color: #ffd700;
+  margin-left: 4px;
+  font-size: 0.9em;
+}
     .icon-sep {
       width: 1px;
       height: 24px;

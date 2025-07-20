@@ -3,12 +3,21 @@ let keycloak = null;
 function updateLoginState(authenticated){
   const btn=document.getElementById('loginBtn');
   if(!btn) return;
+
   if(authenticated){
-    btn.innerHTML='<i class="fa-solid fa-right-from-bracket"></i>';
+    const username=keycloak?.tokenParsed?.preferred_username||'user';
+    btn.classList.add('user-name');
+    btn.textContent=username;
+    if(keycloak.hasResourceRole?.('admin','coh-app')){
+      const icon=document.createElement('i');
+      icon.className='fa-solid fa-crown admin-crown';
+      btn.appendChild(icon);
+    }
     btn.dataset.i18nTitle='logout';
     btn.title=t('logout');
     btn.onclick=()=>keycloak.logout();
   }else{
+    btn.classList.remove('user-name');
     btn.innerHTML='<i class="fa-solid fa-user"></i>';
     btn.dataset.i18nTitle='login';
     btn.title=t('login');
