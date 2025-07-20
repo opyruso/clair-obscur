@@ -649,8 +649,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   flex: 0 0 30%;
   min-width: 200px;
   border: none;
-  padding: 30px;
-  background: url('../resources/images/general/panel_background.avif') center/100% auto no-repeat;
+  padding: 35px;
+  background: url('../resources/images/general/panel_background.avif') top center/100% auto no-repeat;
   display: flex;
   flex-direction: column;
 }
