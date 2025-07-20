@@ -642,7 +642,7 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   color: #e0e0ff;
 }
 .build-col {
-  flex: 1;
+  flex: 0 0 30%;
   min-width: 200px;
   border: 1px solid #555;
   padding: 10px;
@@ -660,7 +660,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .char-img {
   width: 100%;
-  height: auto;
+  height: 128px;
+  object-fit: contain;
   margin-bottom: 6px;
 }
 .weapon-detail,
