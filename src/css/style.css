@@ -752,7 +752,12 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   margin-bottom: 6px;
 }
 .stats div {
+  font-size: 1.1em;
+}
+
+.weapon-buff {
   font-size: 0.9em;
+  margin-bottom: 6px;
 }
 .modal-option {
   padding: 4px 6px;

@@ -150,8 +150,9 @@ function BuildPage(){
       nt[idx].mainPictos[pidx]=val||null;
       // remove duplicate main pictos for this character
       nt[idx].mainPictos=nt[idx].mainPictos.map((p,i)=>i!==pidx&&p===val?null:p);
-      // remove from subs if selected there
-      nt[idx].subPictos=nt[idx].subPictos.filter(s=>s!==val);
+      // remove from subs if selected there and sync locked luminas
+      const locked=nt[idx].mainPictos.filter(Boolean);
+      nt[idx].subPictos=locked.concat(nt[idx].subPictos.filter(s=>locked.indexOf(s)===-1));
       // enforce unique across team
       for(let i=0;i<nt.length;i++) if(i!==idx){
         nt[i].mainPictos=nt[i].mainPictos.map(p=>p===val?null:p);
@@ -163,7 +164,8 @@ function BuildPage(){
   function changeSubs(idx,vals){
     setTeam(t=>t.map((c,i)=>{
       if(i!==idx) return c;
-      const filtered=[...new Set(vals.filter(v=>!c.mainPictos.includes(v)))];
+      const locked=c.mainPictos.filter(Boolean);
+      const filtered=[...locked,...new Set(vals.filter(v=>locked.indexOf(v)===-1))];
       return {...c,subPictos:filtered};
     }));
   }
@@ -194,7 +196,7 @@ function BuildPage(){
             <>
               {options.map(o=>(
                 <label key={o.value} className="modal-option">
-                  <input type="checkbox" checked={local.includes(o.value)} onChange={e=>{
+                  <input type="checkbox" disabled={o.disabled} checked={local.includes(o.value)} onChange={e=>{
                     const v=o.value;
                     setLocal(l=>e.target.checked?[...l,v]:l.filter(x=>x!==v));
                   }}/>
@@ -239,10 +241,11 @@ function BuildPage(){
     setModal({options:available,onSelect:val=>changeMain(idx,pidx,val)});
   }
   function openSubsModal(idx){
-    const disallowed=team[idx].mainPictos.filter(Boolean);
-    const opts=pictos
-      .filter(p=>!disallowed.includes(p.id))
-      .map(p=>({value:p.id,label:p.name}));
+    const locked=team[idx].mainPictos.filter(Boolean);
+    const opts=[
+      ...locked.map(id=>({value:id,label:pictos.find(p=>p.id===id)?.name||id,disabled:true})),
+      ...pictos.filter(p=>!locked.includes(p.id)).map(p=>({value:p.id,label:p.name}))
+    ];
     setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:team[idx].subPictos});
   }
 
@@ -277,12 +280,12 @@ function BuildPage(){
                     ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
                     : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
                 </div>
+                {buffs.length>0 && <div className="weapon-buff">{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                 <div className="stats">
                   <div>{t('defense')}: {stats.def}</div>
                   <div>{t('speed')}: {stats.speed}</div>
                   <div>{t('critical-luck')}: {stats.crit}</div>
                   <div>{t('health')}: {stats.health}</div>
-                  {buffs.length>0&&<div>{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                 </div>
                 {w && <div className="weapon-detail">{w.weapon_effect}</div>}
                 <div className="mains">
@@ -291,7 +294,6 @@ function BuildPage(){
                       {pid
                         ? <span className="picto-name" onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
                         : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
-                      {pid && (()=>{const p=pictos.find(pc=>pc.id===pid);return p?<div className="picto-detail">{Object.entries(p.bonus_picto||{}).map(([k,v])=>`${t(k)}:${v}`).join(' | ')}{p.bonus_lumina?` - ${p.bonus_lumina}`:''}</div>:null;})()}
                     </div>
                   ))}
                 </div>
@@ -321,12 +323,12 @@ function BuildPage(){
                       ? <span className="weapon-name" onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
                   </div>
+                  {buffs.length>0 && <div className="weapon-buff">{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                   <div className="stats">
                     <div>{t('defense')}: {stats.def}</div>
                     <div>{t('speed')}: {stats.speed}</div>
                     <div>{t('critical-luck')}: {stats.crit}</div>
                     <div>{t('health')}: {stats.health}</div>
-                    {buffs.length>0&&<div>{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                   </div>
                   {w && <div className="weapon-detail">{w.weapon_effect}</div>}
                   <div className="mains">
@@ -335,7 +337,6 @@ function BuildPage(){
                         {pid
                           ? <span className="picto-name" onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
                           : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}
-                        {pid && (()=>{const p=pictos.find(pc=>pc.id===pid);return p?<div className="picto-detail">{Object.entries(p.bonus_picto||{}).map(([k,v])=>`${t(k)}:${v}`).join(' | ')}{p.bonus_lumina?` - ${p.bonus_lumina}`:''}</div>:null;})()}
                       </div>
                     ))}
                   </div>
