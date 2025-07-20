@@ -666,8 +666,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .char-img,
 .char-add {
-  flex: 1 1 0;
-  width: 100%;
+  flex: 0 0 50%;
+  width: 50%;
   height: 128px;
 }
 .char-img {
@@ -694,7 +694,6 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   min-height: 40px;
   margin-bottom: 6px;
   background: url('../resources/images/general/frame_horizontal.webp') center/contain no-repeat;
@@ -703,13 +702,18 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   opacity: 0.5;
   transition: transform 0.2s, opacity 0.2s;
 }
+.weapon-add {
+  flex: 0 0 50%;
+  width: 50%;
+}
 .weapon-add:hover,
 .picto-add:hover {
   opacity: 1;
   transform: scale(1.1);
 }
 .weapon-btn {
-  flex: 1 1 0;
+  flex: 0 0 50%;
+  width: 50%;
   margin-bottom: 0;
 }
 .weapon-detail,
