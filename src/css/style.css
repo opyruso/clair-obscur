@@ -404,7 +404,7 @@ body[data-page="weapons"] .card-back {
   background: #23263a;
   padding: 20px;
   border-radius: 10px;
-  max-width: 80%;
+  width: 90%;
   max-height: 80vh;
   overflow: hidden;
   display: flex;
@@ -769,16 +769,15 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   margin-bottom: 6px;
 }
 .modal-option {
+  display: inline-flex;
+  align-items: center;
   padding: 4px 6px;
-  border-bottom: 1px solid #444;
+  border: 1px solid #444;
   cursor: pointer;
 }
-.modal-option:last-child {
-  border-bottom: none;
-}
 .modal-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 4px 12px;
   overflow-y: auto;
   flex: 1 1 auto;
