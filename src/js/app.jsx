@@ -158,20 +158,35 @@ function BuildPage(){
         ...nt[idx].subPictos.filter(s=>!oldLocked.includes(s) && !locked.includes(s))
       ];
       // enforce unique across team
-      for(let i=0;i<nt.length;i++) if(i!==idx){
-        nt[i].mainPictos=nt[i].mainPictos.map(p=>p===val?null:p);
+      if(val){
+        for(let i=0;i<nt.length;i++) if(i!==idx){
+          nt[i].mainPictos = nt[i].mainPictos.map(p => (p === val ? null : p));
+          nt[i].subPictos = nt[i].subPictos.filter(s => s !== val);
+        }
       }
       return nt;
     });
   }
 
   function changeSubs(idx,vals){
-    setTeam(t=>t.map((c,i)=>{
-      if(i!==idx) return c;
-      const locked=c.mainPictos.filter(Boolean);
-      const filtered=[...locked,...new Set(vals.filter(v=>locked.indexOf(v)===-1))];
-      return {...c,subPictos:filtered};
-    }));
+    const othersLocked = team
+      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
+      .filter(Boolean);
+    setTeam(t =>
+      t.map((c, i) => {
+        if (i !== idx) return c;
+        const locked = c.mainPictos.filter(Boolean);
+        const filtered = [
+          ...locked,
+          ...new Set(
+            vals.filter(
+              v => locked.indexOf(v) === -1 && othersLocked.indexOf(v) === -1
+            )
+          )
+        ];
+        return { ...c, subPictos: filtered };
+      })
+    );
   }
 
   function computeStats(ids){
@@ -270,16 +285,37 @@ function BuildPage(){
     setModal({options:available,onSelect:val=>changeMain(idx,pidx,val)});
   }
   function openSubsModal(idx){
-    const locked=team[idx].mainPictos.filter(Boolean);
-    const opts=[
-      ...locked.map(id=>{
-        const p=pictos.find(p=>p.id===id);
-        return {value:id,label:p?.name||id,desc:p?.bonus_lumina||'',disabled:true};
+    const locked = team[idx].mainPictos.filter(Boolean);
+    const othersLocked = team
+      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
+      .filter(Boolean);
+    const opts = [
+      ...locked.map(id => {
+        const p = pictos.find(p => p.id === id);
+        return {
+          value: id,
+          label: p?.name || id,
+          desc: p?.bonus_lumina || '',
+          disabled: true
+        };
       }),
-      ...pictos.filter(p=>!locked.includes(p.id)).map(p=>({value:p.id,label:p.name,desc:p.bonus_lumina}))
+      ...pictos
+        .filter(p => !locked.includes(p.id) && othersLocked.indexOf(p.id) === -1)
+        .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
     ];
-    const baseValues=[...new Set([...team[idx].subPictos,...locked])];
-    setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:baseValues,search:true});
+    const baseValues = [
+      ...new Set([
+        ...team[idx].subPictos.filter(v => othersLocked.indexOf(v) === -1),
+        ...locked
+      ])
+    ];
+    setModal({
+      options: opts,
+      onSelect: vals => changeSubs(idx, vals),
+      multi: true,
+      values: baseValues,
+      search: true
+    });
   }
 
   function copyShare(){
