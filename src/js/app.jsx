@@ -147,25 +147,46 @@ function BuildPage(){
   function changeMain(idx,pidx,val){
     setTeam(t=>{
       const nt=t.map((c,i)=>({...c,mainPictos:[...c.mainPictos],subPictos:[...c.subPictos]}));
+      const oldLocked=t[idx].mainPictos.filter(Boolean);
       nt[idx].mainPictos[pidx]=val||null;
       // remove duplicate main pictos for this character
       nt[idx].mainPictos=nt[idx].mainPictos.map((p,i)=>i!==pidx&&p===val?null:p);
-      // remove from subs if selected there
-      nt[idx].subPictos=nt[idx].subPictos.filter(s=>s!==val);
+      const locked=nt[idx].mainPictos.filter(Boolean);
+      // sync locked luminas, removing those unlocked
+      nt[idx].subPictos=[
+        ...locked,
+        ...nt[idx].subPictos.filter(s=>!oldLocked.includes(s) && !locked.includes(s))
+      ];
       // enforce unique across team
-      for(let i=0;i<nt.length;i++) if(i!==idx){
-        nt[i].mainPictos=nt[i].mainPictos.map(p=>p===val?null:p);
+      if(val){
+        for(let i=0;i<nt.length;i++) if(i!==idx){
+          nt[i].mainPictos = nt[i].mainPictos.map(p => (p === val ? null : p));
+          nt[i].subPictos = nt[i].subPictos.filter(s => s !== val);
+        }
       }
       return nt;
     });
   }
 
   function changeSubs(idx,vals){
-    setTeam(t=>t.map((c,i)=>{
-      if(i!==idx) return c;
-      const filtered=[...new Set(vals.filter(v=>!c.mainPictos.includes(v)))];
-      return {...c,subPictos:filtered};
-    }));
+    const othersLocked = team
+      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
+      .filter(Boolean);
+    setTeam(t =>
+      t.map((c, i) => {
+        if (i !== idx) return c;
+        const locked = c.mainPictos.filter(Boolean);
+        const filtered = [
+          ...locked,
+          ...new Set(
+            vals.filter(
+              v => locked.indexOf(v) === -1 && othersLocked.indexOf(v) === -1
+            )
+          )
+        ];
+        return { ...c, subPictos: filtered };
+      })
+    );
   }
 
   function computeStats(ids){
@@ -184,31 +205,67 @@ function BuildPage(){
 
   function SelectionModal(){
     if(!modal) return null;
-    const {options,onSelect,multi,values}=modal;
+    const {options,onSelect,multi,values,search}=modal;
     const [local,setLocal]=React.useState(multi?values.slice():values||'');
+    const [term,setTerm]=React.useState('');
+    const list=search?options.filter(o=>{
+      const txt=(o.label+ (o.desc? ' '+o.desc : '')).toLowerCase();
+      return txt.includes(term.toLowerCase());
+    }):options;
     function apply(){ onSelect(local); setModal(null); }
     return (
       <div className="modal" onClick={()=>setModal(null)} id="modalSelect">
         <div className="modal-content" onClick={e=>e.stopPropagation()}>
+          {search && (
+            <input
+              className="searchbar modal-filter"
+              style={{width:'100%'}}
+              placeholder={t('filter_placeholder')}
+              value={term}
+              onChange={e=>setTerm(e.target.value)}
+            />
+          )}
           {multi ? (
             <>
-              {options.map(o=>(
-                <label key={o.value} className="modal-option">
-                  <input type="checkbox" checked={local.includes(o.value)} onChange={e=>{
-                    const v=o.value;
-                    setLocal(l=>e.target.checked?[...l,v]:l.filter(x=>x!==v));
-                  }}/>
-                  {o.label}
-                </label>
-              ))}
-              <div style={{marginTop:'10px',textAlign:'right'}}>
-                <button className="btn btn-primary" onClick={apply}>{t('save')}</button>
+              <div className="modal-options">
+                {list.map(o => (
+                  <label key={o.value} className="modal-option">
+                    <input
+                      type="checkbox"
+                      disabled={o.disabled}
+                      checked={local.includes(o.value)}
+                      onChange={e => {
+                        const v = o.value;
+                        setLocal(l =>
+                          e.target.checked ? [...l, v] : l.filter(x => x !== v)
+                        );
+                      }}
+                    />
+                    <span>{o.label}</span>
+                  </label>
+                ))}
+              </div>
+              <div className="modal-actions">
+                <button className="modal-save-btn" onClick={apply}>
+                  {t('save')}
+                </button>
               </div>
             </>
           ) : (
-            options.map(o=>(
-              <div key={o.value} className="modal-option" onClick={()=>{onSelect(o.value); setModal(null);}}>{o.label}</div>
-            ))
+            <div className="modal-options">
+              {list.map(o => (
+                <div
+                  key={o.value}
+                  className="modal-option"
+                  onClick={() => {
+                    onSelect(o.value);
+                    setModal(null);
+                  }}
+                >
+                  {o.label}
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
@@ -218,7 +275,12 @@ function BuildPage(){
   const usedChars=new Set(team.map(t=>t.character).filter(Boolean));
 
   function openCharModal(idx){
-    const opts=characters.filter(ch=>!usedChars.has(ch)||ch===team[idx].character).map(ch=>({value:ch,label:ch}));
+    let opts=characters.filter(ch=>!usedChars.has(ch)||ch===team[idx].character);
+    const hasGustave=team.some((t,i)=>t.character==='Gustave' && i!==idx);
+    const hasVerso=team.some((t,i)=>t.character==='Verso' && i!==idx);
+    if(hasGustave) opts=opts.filter(ch=>ch!=='Verso');
+    if(hasVerso) opts=opts.filter(ch=>ch!=='Gustave');
+    opts=opts.map(ch=>({value:ch,label:ch}));
     setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[]})});
   }
   function openWeaponModal(idx){
@@ -228,17 +290,64 @@ function BuildPage(){
   }
   function openMainModal(idx,pidx){
     const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
-    const available=pictos
-      .filter(p=>(!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) && !existing.includes(p.id))
-      .map(p=>({value:p.id,label:p.name}));
-    setModal({options:available,onSelect:val=>changeMain(idx,pidx,val)});
+    const available = pictos
+      .filter(
+        p =>
+          (!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) &&
+          !existing.includes(p.id)
+      )
+      .map(p => ({ value: p.id, label: p.name }));
+    setModal({
+      options: available,
+      onSelect: val => changeMain(idx, pidx, val),
+      search: true
+    });
   }
   function openSubsModal(idx){
-    const disallowed=team[idx].mainPictos.filter(Boolean);
-    const opts=pictos
-      .filter(p=>!disallowed.includes(p.id))
-      .map(p=>({value:p.id,label:p.name}));
-    setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:team[idx].subPictos});
+    const locked = team[idx].mainPictos.filter(Boolean);
+    const othersLocked = team
+      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
+      .filter(Boolean);
+    const opts = [
+      ...locked.map(id => {
+        const p = pictos.find(p => p.id === id);
+        return {
+          value: id,
+          label: p?.name || id,
+          desc: p?.bonus_lumina || '',
+          disabled: true
+        };
+      }),
+      ...pictos
+        .filter(p => !locked.includes(p.id) && othersLocked.indexOf(p.id) === -1)
+        .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
+    ];
+    const baseValues = [
+      ...new Set([
+        ...team[idx].subPictos.filter(v => othersLocked.indexOf(v) === -1),
+        ...locked
+      ])
+    ];
+    setModal({
+      options: opts,
+      onSelect: vals => changeSubs(idx, vals),
+      multi: true,
+      values: baseValues,
+      search: true
+    });
+  }
+
+  function countAvailableSubs(idx){
+    const locked = team[idx].mainPictos.filter(Boolean);
+    const othersLocked = team
+      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
+      .filter(Boolean);
+    return (
+      locked.length +
+      pictos.filter(
+        p => !locked.includes(p.id) && othersLocked.indexOf(p.id) === -1
+      ).length
+    );
   }
 
   function copyShare(){
@@ -255,39 +364,107 @@ function BuildPage(){
           <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
         </div>
         <div className="team-builder">
-          {team.map((col,cidx)=>{
-            const stats=computeStats(col.mainPictos.filter(Boolean));
-            const charWeapons=weapons.filter(w=>w.character===col.character);
-            const w=charWeapons.find(x=>x.name===col.weapon);
-            const buffs=w?.damage_buff||[];
-            return (
+          <div className="main-team">
+            <h2 className="team-title" data-i18n="main_team">{t('main_team')}</h2>
+            {team.slice(0,3).map((col,cidx)=>{
+              const stats=computeStats(col.mainPictos.filter(Boolean));
+              const charWeapons=weapons.filter(w=>w.character===col.character);
+              const w=charWeapons.find(x=>x.name===col.weapon);
+              const buffs=w?.damage_buff||[];
+              return (
               <div className="build-col" key={cidx}>
+                <div className="char-head">
+                  {col.character
+                    ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(cidx)}/>
+                    : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
+                  <div className="weapon-box">
+                    {col.weapon
+                      ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
+                      : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
+                    <div className="weapon-buff">
+                      {w ? (buffs.length>0 ? `${t('damage_buff')}: ${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
+                    </div>
+                  </div>
+                </div>
                 <div className="stats">
                   <div>{t('defense')}: {stats.def}</div>
                   <div>{t('speed')}: {stats.speed}</div>
                   <div>{t('critical-luck')}: {stats.crit}</div>
                   <div>{t('health')}: {stats.health}</div>
-                  {buffs.length>0&&<div>{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                 </div>
-                <span className="select-btn" onClick={()=>openCharModal(cidx)}>{col.character||t('choose_character')}</span>
-                {col.character && <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt=""/>}
-                <span className="select-btn" onClick={()=>openWeaponModal(cidx)}>{col.weapon||t('choose_weapon')}</span>
                 {w && <div className="weapon-detail">{w.weapon_effect}</div>}
-                <div className="mains">
-                  {col.mainPictos.map((pid,pidx)=>(
-                    <div key={pidx}>
-                      <span className="select-btn" onClick={()=>openMainModal(cidx,pidx)}>{pid? pictos.find(pc=>pc.id===pid)?.name : t('choose_picto',{num:pidx+1})}</span>
-                      {pid && (()=>{const p=pictos.find(pc=>pc.id===pid);return p?<div className="picto-detail">{Object.entries(p.bonus_picto||{}).map(([k,v])=>`${t(k)}:${v}`).join(' | ')}{p.bonus_lumina?` - ${p.bonus_lumina}`:''}</div>:null;})()}
-                    </div>
-                  ))}
-                </div>
-                <span className="select-btn" onClick={()=>openSubsModal(cidx)}>{t('choose_luminas')}</span>
-                <div className="subs">
-                  {col.subPictos.map(id=>{const p=pictos.find(pc=>pc.id===id);return p?<div key={id}>{p.name}: {p.bonus_lumina||''}</div>:null;})}
+                <div className="bottom-controls">
+                  <div className="mains">
+                    {col.mainPictos.map((pid,pidx)=>(
+                      <div key={pidx}>
+                        {pid
+                          ? <span className="picto-name" onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                          : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
+                      </div>
+                    ))}
+                  </div>
+                  <span
+                    className="lumina-trigger"
+                    onClick={() => openSubsModal(cidx)}
+                  >
+                    {t('luminas_label')}: {col.subPictos.length} / {countAvailableSubs(cidx)}
+                  </span>
                 </div>
               </div>
-            );
-          })}
+              );
+            })}
+          </div>
+          <div className="secondary-team">
+            <h2 className="team-title" data-i18n="secondary_team">{t('secondary_team')}</h2>
+            {team.slice(3).map((col,cidx)=>{
+              const stats=computeStats(col.mainPictos.filter(Boolean));
+              const charWeapons=weapons.filter(w=>w.character===col.character);
+              const w=charWeapons.find(x=>x.name===col.weapon);
+              const buffs=w?.damage_buff||[];
+              const idx=cidx+3;
+              return (
+                <div className="build-col" key={idx}>
+                  <div className="char-head">
+                  {col.character
+                      ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(idx)}/>
+                      : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
+                    <div className="weapon-box">
+                    {col.weapon
+                      ? <span className="weapon-name" onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
+                      : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
+                    <div className="weapon-buff">
+                      {w ? (buffs.length>0 ? `${t('damage_buff')}: ${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
+                    </div>
+                    </div>
+                  </div>
+                  <div className="stats">
+                    <div>{t('defense')}: {stats.def}</div>
+                    <div>{t('speed')}: {stats.speed}</div>
+                    <div>{t('critical-luck')}: {stats.crit}</div>
+                    <div>{t('health')}: {stats.health}</div>
+                  </div>
+                  {w && <div className="weapon-detail">{w.weapon_effect}</div>}
+                    <div className="bottom-controls">
+                      <div className="mains">
+                        {col.mainPictos.map((pid,pidx)=>(
+                          <div key={pidx}>
+                            {pid
+                              ? <span className="picto-name" onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                              : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}
+                          </div>
+                        ))}
+                      </div>
+                      <span
+                        className="lumina-trigger"
+                        onClick={() => openSubsModal(idx)}
+                      >
+                        {t('luminas_label')}: {col.subPictos.length} / {countAvailableSubs(idx)}
+                      </span>
+                    </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </main>
       <SelectionModal />

@@ -404,7 +404,11 @@ body[data-page="weapons"] .card-back {
   background: #23263a;
   padding: 20px;
   border-radius: 10px;
-  max-width: 80%;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .modal-region {
   font-size: 1.2em;
@@ -620,14 +624,36 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 /* Team builder */
 .team-builder {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.team-builder .main-team,
+.team-builder .secondary-team {
+  display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
+.team-builder .secondary-team {
+  border-top: 2px solid #555;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+.team-title {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: 'Cinzel', serif;
+  color: #e0e0ff;
+}
 .build-col {
-  flex: 1;
+  width: 20vw;
+  margin: auto;
   min-width: 200px;
-  border: 1px solid #555;
-  padding: 10px;
+  border: none;
+  padding: 80px;
+  background: url('../resources/images/general/panel_background.avif') top center/100% auto no-repeat;
+  display: flex;
+  flex-direction: column;
 }
 .select-btn {
   display: block;
@@ -640,26 +666,173 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   cursor: pointer;
   text-align: center;
 }
-.char-img {
-  width: 100%;
-  height: auto;
+.char-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 6px;
+  margin-top: 2vw;
+}
+.weapon-box {
+  flex: 0 0 50%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.char-img,
+.char-add {
+  flex: 0 0 50%;
+  width: 50%;
+  height: 128px;
+}
+.char-img {
+  object-fit: contain;
+  cursor: pointer;
+}
+.char-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  background: url('../resources/images/general/frame_cadre.webp') center/contain no-repeat;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.char-add:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.weapon-add,
+.picto-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  margin-bottom: 6px;
+  background: url('../resources/images/general/frame_horizontal.webp') center/contain no-repeat;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.weapon-add {
+  width: 100%;
+}
+.weapon-add:hover,
+.picto-add:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.weapon-btn {
+  flex: 0 0 50%;
+  width: 50%;
+  margin-bottom: 0;
+}
+.weapon-name {
+  width: 100%;
+  color: #CDB48E;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.weapon-name:hover {
+  transform: scale(1.1);
+}
+.picto-name {
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+  color: #CDB48E;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.picto-name:hover {
+  transform: scale(1.1);
+}
+.lumina-trigger {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  color: #CDB48E;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.lumina-trigger:hover {
+  transform: scale(1.1);
 }
 .weapon-detail,
 .picto-detail {
   font-size: 0.9em;
-  margin-bottom: 6px;
+  margin-bottom: 20px;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px 8px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 .stats div {
+  font-size: 1.1em;
+}
+
+.weapon-buff {
   font-size: 0.9em;
+  margin-bottom: 6px;
+}
+.bottom-controls {
+  margin-top: auto;
 }
 .modal-option {
+  display: inline-flex;
+  align-items: center;
   padding: 4px 6px;
-  border-bottom: 1px solid #444;
+  border: 1px solid #444;
   cursor: pointer;
 }
-.modal-option:last-child {
-  border-bottom: none;
+.modal-option input:checked + span {
+  color: #fffff0;
+}
+.modal-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.modal-actions {
+  margin-top: 10px;
+  text-align: center;
+}
+.modal-save-btn {
+  background: #23263a;
+  color: #b6e4ff;
+  border: 1px solid #3d4769;
+  padding: 8px 18px;
+  border-radius: 9px;
+  font-size: 1.08em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.16s, color 0.18s;
+}
+.modal-save-btn:hover {
+  background: #2c3142;
+  color: #fff;
+}
+
+.modal-filter {
+  position: sticky;
+  top: 0;
+  background: #23263a;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  z-index: 1;
 }
 
 .not-found-img {
