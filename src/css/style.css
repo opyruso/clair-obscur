@@ -646,11 +646,11 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   color: #e0e0ff;
 }
 .build-col {
-  width: 25vw;
+  width: 20vw;
   margin: auto;
   min-width: 200px;
   border: none;
-  padding: 35px;
+  padding: 80px;
   background: url('../resources/images/general/panel_background.avif') top center/100% auto no-repeat;
   display: flex;
   flex-direction: column;
@@ -768,13 +768,13 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .weapon-detail,
 .picto-detail {
   font-size: 0.9em;
-  margin-bottom: 6px;
+  margin-bottom: 20px;
 }
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2px 8px;
-  margin-bottom: 6px;
+  margin-bottom: 20px;
   text-align: center;
 }
 .stats div {
