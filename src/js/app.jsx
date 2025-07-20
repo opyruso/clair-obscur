@@ -22,10 +22,18 @@ function Home(){
       </div>
       <div className="index-row reverse">
         <div className="index-desc">
-          <p data-i18n="index_desc2">The weapons inventory lets you track every weapon as well. More features are coming, such as a build maker.</p>
+          <p data-i18n="index_desc2">Track your entire arsenal. Each weapon sheet shows who can wield it and the effects it grants so you never miss a piece of equipment.</p>
         </div>
         <div className="index-img">
           <img src="resources/images/index/index_cadre_weapons.png" alt=""/>
+        </div>
+      </div>
+      <div className="index-row">
+        <div className="index-desc">
+          <p data-i18n="index_desc3">Build your team composition and share it with a link.</p>
+        </div>
+        <div className="index-img">
+          <img src="resources/images/index/index_cadre_teambuilder.png" alt=""/>
         </div>
       </div>
     </main>

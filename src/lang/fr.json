@@ -59,5 +59,6 @@
   "index_desc1": "Parcourez la liste complète des pictos et indiquez ceux que vous possédez. Filtrez par région ou par effet pour organiser votre collection et sauvegarder votre progression.",
   "index_desc2": "Suivez l'intégralité de votre arsenal. Chaque fiche d'arme précise qui peut l'utiliser et quels effets elle apporte afin de ne rien manquer.",
   "login": "Connexion",
-  "logout": "Déconnexion"
+  "logout": "Déconnexion",
+  "index_desc3": "Créez votre composition d'équipe et partagez-la via un lien."
 }
