@@ -15,6 +15,7 @@ jobs:
 
       - name: 🚀 Déploiement production
         run: |
+          export APP_ENV=pro
           echo "📦 Installation des dépendances..."
           npm install
 

@@ -1,5 +1,6 @@
 window.CONFIG = {
-  "clairobscur-api-url": "http://localhost:8000/api",
-  "auth-url": "http://localhost:8000/auth",
-  "auth-client-id": "http://localhost:8000/auth/client-id"
+  "clairobscur-api-url": "https://api-pictos-dev.opyruso.com",
+  "auth-url": "https://auth.opyruso.com",
+  "auth-realm": "development",
+  "auth-client-id": "cohui-client"
 };

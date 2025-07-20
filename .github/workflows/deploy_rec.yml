@@ -1,21 +1,21 @@
-name: Déploiement Dev
+name: Déploiement Rec
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 
 jobs:
-  deploy-dev:
+  deploy-rec:
     runs-on: self-hosted
 
     steps:
       - name: 🔄 Récupération du code
         uses: actions/checkout@v4
 
-      - name: 🚀 Déploiement sur pictos-dev
+      - name: 🚀 Déploiement sur pictos-rec
         run: |
-          export APP_ENV=dev
+          export APP_ENV=rec
           echo "📦 Installation des dépendances..."
           npm install
 
@@ -29,9 +29,9 @@ jobs:
           fi
 
           echo "🧹 Nettoyage du dossier de test..."
-          rm -rf /opt/clairobscur/pictos-dev/*
+          rm -rf /opt/clairobscur/pictos-rec/*
 
           echo "📁 Copie des fichiers dans pictos-dev..."
-          cp -r dist/* /opt/clairobscur/pictos-dev/
+          cp -r dist/* /opt/clairobscur/pictos-rec/
 
           echo "✅ Déploiement DEV terminé !"

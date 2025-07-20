@@ -1,5 +1,6 @@
 window.CONFIG = {
-  "clairobscur-api-url": "https://rec.example.com/api",
-  "auth-url": "https://rec.example.com/auth",
-  "auth-client-id": "rec-client-id"
+  "clairobscur-api-url": "https://api-pictos-rec.opyruso.com",
+	  "auth-url": "https://auth.opyruso.com",
+	  "auth-realm": "recette",
+	  "auth-client-id": "cohui-client"
 };
