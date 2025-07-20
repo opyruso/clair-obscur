@@ -126,14 +126,21 @@ function BuildPage(){
   const [pictos,setPictos]=useState([]);
   const [team,setTeam]=useState(Array.from({length:5},()=>({character:'',weapon:'',mainPictos:[null,null,null],subPictos:[]})));
   const [modal,setModal]=useState(null);
+  const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
   useEffect(()=>{
     document.body.dataset.page='build';
     fetch(`data/armes-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setWeapons(d));
     fetch(`data/picto-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setPictos(d));
     const params=new URLSearchParams(window.location.search);
+    const ref=params.get('refBuild');
     const d=params.get('data');
-    if(d){
+    if(ref && apiUrl){
+      fetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
+        .then(r=>r.ok?r.json():Promise.reject())
+        .then(obj=>{ if(Array.isArray(obj)&&obj.length===5) setTeam(obj); })
+        .catch(()=>{});
+    }else if(d){
       try{
         const obj=JSON.parse(atob(d));
         if(Array.isArray(obj)&&obj.length===5) setTeam(obj);
@@ -336,9 +343,19 @@ function BuildPage(){
   }
 
   function copyShare(){
-    const data=btoa(JSON.stringify(team));
-    const url=`${window.location.origin}/build?data=${encodeURIComponent(data)}`;
-    navigator.clipboard.writeText(url).then(()=>alert(t('link_copied')));
+    if(!apiUrl) return;
+    fetch(`${apiUrl}/public/builds`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(team)
+    })
+      .then(r=>r.json())
+      .then(({id})=>{
+        if(!id) throw new Error('no id');
+        const url=`${window.location.origin}/build?refBuild=${encodeURIComponent(id)}`;
+        navigator.clipboard.writeText(url).then(()=>alert(t('link_copied')));
+      })
+      .catch(()=>{});
   }
 
   return (
