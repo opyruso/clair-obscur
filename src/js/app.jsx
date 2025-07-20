@@ -274,7 +274,7 @@ function BuildPage(){
                     ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(cidx)}/>
                     : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
                   {col.weapon
-                    ? <span className="select-btn weapon-btn" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
+                    ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
                     : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
                 </div>
                 <div className="stats">
@@ -289,7 +289,7 @@ function BuildPage(){
                   {col.mainPictos.map((pid,pidx)=>(
                     <div key={pidx}>
                       {pid
-                        ? <span className="select-btn" onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                        ? <span className="picto-name" onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
                         : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
                       {pid && (()=>{const p=pictos.find(pc=>pc.id===pid);return p?<div className="picto-detail">{Object.entries(p.bonus_picto||{}).map(([k,v])=>`${t(k)}:${v}`).join(' | ')}{p.bonus_lumina?` - ${p.bonus_lumina}`:''}</div>:null;})()}
                     </div>
@@ -318,7 +318,7 @@ function BuildPage(){
                       ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(idx)}/>
                       : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
                     {col.weapon
-                      ? <span className="select-btn weapon-btn" onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
+                      ? <span className="weapon-name" onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
                   </div>
                   <div className="stats">
@@ -333,7 +333,7 @@ function BuildPage(){
                     {col.mainPictos.map((pid,pidx)=>(
                       <div key={pidx}>
                         {pid
-                          ? <span className="select-btn" onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                          ? <span className="picto-name" onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
                           : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}
                         {pid && (()=>{const p=pictos.find(pc=>pc.id===pid);return p?<div className="picto-detail">{Object.entries(p.bonus_picto||{}).map(([k,v])=>`${t(k)}:${v}`).join(' | ')}{p.bonus_lumina?` - ${p.bonus_lumina}`:''}</div>:null;})()}
                       </div>
