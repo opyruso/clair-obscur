@@ -361,18 +361,17 @@ function BuildPage(){
                   <div>{t('health')}: {stats.health}</div>
                 </div>
                 {w && <div className="weapon-detail">{w.weapon_effect}</div>}
-                <div className="mains">
-                  {col.mainPictos.map((pid,pidx)=>(
-                    <div key={pidx}>
-                      {pid
-                        ? <span className="picto-name" onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
-                        : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
-                    </div>
-                  ))}
-                </div>
-                <span className="select-btn" onClick={()=>openSubsModal(cidx)}>{t('choose_luminas')}</span>
-                <div className="subs">
-                  {col.subPictos.map(id=>{const p=pictos.find(pc=>pc.id===id);return p?<div key={id}>{p.name}: {p.bonus_lumina||''}</div>:null;})}
+                <div className="bottom-controls">
+                  <div className="mains">
+                    {col.mainPictos.map((pid,pidx)=>(
+                      <div key={pidx}>
+                        {pid
+                          ? <span className="picto-name" onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                          : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
+                      </div>
+                    ))}
+                  </div>
+                  <span className="select-btn" onClick={()=>openSubsModal(cidx)}>{t('choose_luminas')}</span>
                 </div>
               </div>
               );
@@ -408,19 +407,18 @@ function BuildPage(){
                     <div>{t('health')}: {stats.health}</div>
                   </div>
                   {w && <div className="weapon-detail">{w.weapon_effect}</div>}
-                  <div className="mains">
-                    {col.mainPictos.map((pid,pidx)=>(
-                      <div key={pidx}>
-                        {pid
-                          ? <span className="picto-name" onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
-                          : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}
+                    <div className="bottom-controls">
+                      <div className="mains">
+                        {col.mainPictos.map((pid,pidx)=>(
+                          <div key={pidx}>
+                            {pid
+                              ? <span className="picto-name" onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                              : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  <span className="select-btn" onClick={()=>openSubsModal(idx)}>{t('choose_luminas')}</span>
-                  <div className="subs">
-                    {col.subPictos.map(id=>{const p=pictos.find(pc=>pc.id===id);return p?<div key={id}>{p.name}: {p.bonus_lumina||''}</div>:null;})}
-                  </div>
+                      <span className="select-btn" onClick={()=>openSubsModal(idx)}>{t('choose_luminas')}</span>
+                    </div>
                 </div>
               );
             })}

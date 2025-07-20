@@ -651,6 +651,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   border: none;
   padding: 30px;
   background: url('../resources/images/general/panel_background.avif') center/100% auto no-repeat;
+  display: flex;
+  flex-direction: column;
 }
 .select-btn {
   display: block;
@@ -767,6 +769,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .weapon-buff {
   font-size: 0.9em;
   margin-bottom: 6px;
+}
+.bottom-controls {
+  margin-top: auto;
 }
 .modal-option {
   display: inline-flex;
