@@ -318,6 +318,19 @@ function BuildPage(){
     });
   }
 
+  function countAvailableSubs(idx){
+    const locked = team[idx].mainPictos.filter(Boolean);
+    const othersLocked = team
+      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
+      .filter(Boolean);
+    return (
+      locked.length +
+      pictos.filter(
+        p => !locked.includes(p.id) && othersLocked.indexOf(p.id) === -1
+      ).length
+    );
+  }
+
   function copyShare(){
     const data=btoa(JSON.stringify(team));
     const url=`${window.location.origin}/build?data=${encodeURIComponent(data)}`;
@@ -371,7 +384,12 @@ function BuildPage(){
                       </div>
                     ))}
                   </div>
-                  <span className="select-btn" onClick={()=>openSubsModal(cidx)}>{t('choose_luminas')}</span>
+                  <span
+                    className="lumina-trigger"
+                    onClick={() => openSubsModal(cidx)}
+                  >
+                    {t('luminas_label')}: {col.subPictos.length} / {countAvailableSubs(cidx)}
+                  </span>
                 </div>
               </div>
               );
@@ -417,7 +435,12 @@ function BuildPage(){
                           </div>
                         ))}
                       </div>
-                      <span className="select-btn" onClick={()=>openSubsModal(idx)}>{t('choose_luminas')}</span>
+                      <span
+                        className="lumina-trigger"
+                        onClick={() => openSubsModal(idx)}
+                      >
+                        {t('luminas_label')}: {col.subPictos.length} / {countAvailableSubs(idx)}
+                      </span>
                     </div>
                 </div>
               );
