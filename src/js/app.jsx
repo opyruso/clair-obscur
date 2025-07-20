@@ -252,9 +252,20 @@ function BuildPage(){
               </div>
             </>
           ) : (
-            list.map(o=>(
-              <div key={o.value} className="modal-option" onClick={()=>{onSelect(o.value); setModal(null);}}>{o.label}</div>
-            ))
+            <div className="modal-options">
+              {list.map(o => (
+                <div
+                  key={o.value}
+                  className="modal-option"
+                  onClick={() => {
+                    onSelect(o.value);
+                    setModal(null);
+                  }}
+                >
+                  {o.label}
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
@@ -279,10 +290,18 @@ function BuildPage(){
   }
   function openMainModal(idx,pidx){
     const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
-    const available=pictos
-      .filter(p=>(!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) && !existing.includes(p.id))
-      .map(p=>({value:p.id,label:p.name}));
-    setModal({options:available,onSelect:val=>changeMain(idx,pidx,val)});
+    const available = pictos
+      .filter(
+        p =>
+          (!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) &&
+          !existing.includes(p.id)
+      )
+      .map(p => ({ value: p.id, label: p.name }));
+    setModal({
+      options: available,
+      onSelect: val => changeMain(idx, pidx, val),
+      search: true
+    });
   }
   function openSubsModal(idx){
     const locked = team[idx].mainPictos.filter(Boolean);
