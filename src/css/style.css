@@ -689,6 +689,25 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   opacity: 1;
   transform: scale(1.1);
 }
+.weapon-add,
+.picto-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+  margin-bottom: 6px;
+  background: url('../resources/images/general/frame_horizontal.webp') center/contain no-repeat;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.weapon-add:hover,
+.picto-add:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
 .weapon-btn {
   flex: 1 1 0;
   margin-bottom: 0;
