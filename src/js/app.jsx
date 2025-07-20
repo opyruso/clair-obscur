@@ -199,8 +199,8 @@ function BuildPage(){
         <div className="modal-content" onClick={e=>e.stopPropagation()}>
           {search && (
             <input
-              className="searchbar"
-              style={{width:'100%',marginBottom:'10px'}}
+              className="searchbar modal-filter"
+              style={{width:'100%'}}
               placeholder={t('filter_placeholder')}
               value={term}
               onChange={e=>setTerm(e.target.value)}

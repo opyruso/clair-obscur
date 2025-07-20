@@ -405,6 +405,10 @@ body[data-page="weapons"] .card-back {
   padding: 20px;
   border-radius: 10px;
   max-width: 80%;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .modal-region {
   font-size: 1.2em;
@@ -776,6 +780,17 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px 12px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.modal-filter {
+  position: sticky;
+  top: 0;
+  background: #23263a;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  z-index: 1;
 }
 
 .not-found-img {
