@@ -520,6 +520,10 @@ body[data-page="weapons"] .card-back {
   gap: 8px;
 }
 
+#loginBtn {
+  margin-left: 8px;
+}
+
 body {
   padding-top: 145px;
   padding-bottom: 80px;
