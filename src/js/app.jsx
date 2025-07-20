@@ -194,17 +194,28 @@ function BuildPage(){
         <div className="modal-content" onClick={e=>e.stopPropagation()}>
           {multi ? (
             <>
-              {options.map(o=>(
-                <label key={o.value} className="modal-option">
-                  <input type="checkbox" disabled={o.disabled} checked={local.includes(o.value)} onChange={e=>{
-                    const v=o.value;
-                    setLocal(l=>e.target.checked?[...l,v]:l.filter(x=>x!==v));
-                  }}/>
-                  {o.label}
-                </label>
-              ))}
-              <div style={{marginTop:'10px',textAlign:'right'}}>
-                <button className="btn btn-primary" onClick={apply}>{t('save')}</button>
+              <div className="modal-options">
+                {options.map(o => (
+                  <label key={o.value} className="modal-option">
+                    <input
+                      type="checkbox"
+                      disabled={o.disabled}
+                      checked={local.includes(o.value)}
+                      onChange={e => {
+                        const v = o.value;
+                        setLocal(l =>
+                          e.target.checked ? [...l, v] : l.filter(x => x !== v)
+                        );
+                      }}
+                    />
+                    {o.label}
+                  </label>
+                ))}
+              </div>
+              <div style={{ marginTop: '10px', textAlign: 'right' }}>
+                <button className="btn btn-primary" onClick={apply}>
+                  {t('save')}
+                </button>
               </div>
             </>
           ) : (

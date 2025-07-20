@@ -772,6 +772,11 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .modal-option:last-child {
   border-bottom: none;
 }
+.modal-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 4px 12px;
+}
 
 .not-found-img {
   max-height: 30vh;
