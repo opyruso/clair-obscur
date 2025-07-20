@@ -269,8 +269,12 @@ function BuildPage(){
               const buffs=w?.damage_buff||[];
               return (
               <div className="build-col" key={cidx}>
-                {col.character && <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt=""/>}
-                <span className="select-btn" onClick={()=>openCharModal(cidx)}>{col.character||t('choose_character')}</span>
+                <div className="char-head">
+                  {col.character
+                    ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(cidx)}/>
+                    : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
+                  <span className="select-btn weapon-btn" onClick={()=>openWeaponModal(cidx)}>{col.weapon||t('choose_weapon')}</span>
+                </div>
                 <div className="stats">
                   <div>{t('defense')}: {stats.def}</div>
                   <div>{t('speed')}: {stats.speed}</div>
@@ -278,7 +282,6 @@ function BuildPage(){
                   <div>{t('health')}: {stats.health}</div>
                   {buffs.length>0&&<div>{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                 </div>
-                <span className="select-btn" onClick={()=>openWeaponModal(cidx)}>{col.weapon||t('choose_weapon')}</span>
                 {w && <div className="weapon-detail">{w.weapon_effect}</div>}
                 <div className="mains">
                   {col.mainPictos.map((pid,pidx)=>(
@@ -306,8 +309,12 @@ function BuildPage(){
               const idx=cidx+3;
               return (
                 <div className="build-col" key={idx}>
-                  {col.character && <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt=""/>}
-                  <span className="select-btn" onClick={()=>openCharModal(idx)}>{col.character||t('choose_character')}</span>
+                  <div className="char-head">
+                    {col.character
+                      ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(idx)}/>
+                      : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
+                    <span className="select-btn weapon-btn" onClick={()=>openWeaponModal(idx)}>{col.weapon||t('choose_weapon')}</span>
+                  </div>
                   <div className="stats">
                     <div>{t('defense')}: {stats.def}</div>
                     <div>{t('speed')}: {stats.speed}</div>
@@ -315,7 +322,6 @@ function BuildPage(){
                     <div>{t('health')}: {stats.health}</div>
                     {buffs.length>0&&<div>{t('damage_buff')}: {buffs.map(b=>t(b)).join(', ')}</div>}
                   </div>
-                  <span className="select-btn" onClick={()=>openWeaponModal(idx)}>{col.weapon||t('choose_weapon')}</span>
                   {w && <div className="weapon-detail">{w.weapon_effect}</div>}
                   <div className="mains">
                     {col.mainPictos.map((pid,pidx)=>(
