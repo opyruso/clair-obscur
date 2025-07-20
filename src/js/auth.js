@@ -43,7 +43,10 @@ function initAuth(){
     pkceMethod:'S256'
   })
     .then(auth=>updateLoginState(auth))
-    .catch(()=>updateLoginState(false));
+    .catch(err=>{
+      console.error('Keycloak init error', err);
+      updateLoginState(keycloak?.authenticated);
+    });
 }
 
 document.addEventListener('DOMContentLoaded',initAuth);
