@@ -620,6 +620,7 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 /* Team builder */
 .team-builder {
   display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 .team-builder .main-team,
@@ -629,9 +630,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   flex-wrap: wrap;
 }
 .team-builder .secondary-team {
-  border-left: 2px solid #555;
-  padding-left: 20px;
-  margin-left: 20px;
+  border-top: 2px solid #555;
+  padding-top: 20px;
+  margin-top: 20px;
 }
 .team-title {
   width: 100%;
