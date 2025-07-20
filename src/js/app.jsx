@@ -304,7 +304,10 @@ function NotFound(){
   }, []);
   return (
     <main className="content-wrapper mt-4 flex-grow-1">
-      <h1>404 - Not Found</h1>
+      <div className="d-flex flex-column align-items-center">
+        <img src="resources/images/general/404.png" alt="Merchant backpack" className="img-fluid not-found-img mb-3"/>
+        <p className="lead text-center">Oups ! Le marchand a encore disparu. Seul son sac — introuvable comme d'habitude — est resté.</p>
+      </div>
     </main>
   );
 }

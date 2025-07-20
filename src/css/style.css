@@ -661,3 +661,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .modal-option:last-child {
   border-bottom: none;
 }
+
+.not-found-img {
+  max-width: 100%;
+  max-height: 60vh;
+}
