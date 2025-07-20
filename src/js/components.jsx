@@ -8,6 +8,7 @@ const Header = () => (
         <li className="nav-item"><NavLink className="nav-link" to="/pictos" data-i18n="nav_pictos">Pictos inventory</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/weapons" data-i18n="nav_weapons">Weapons inventory</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/build" data-i18n="nav_build">Team builder</NavLink></li>
+        <li className="nav-item" id="adminNav" style={{display:'none'}}><NavLink className="nav-link" to="/admin" data-i18n="nav_admin">Admin</NavLink></li>
       </ul>
       <div className="header-right">
         <div className="header-panel">

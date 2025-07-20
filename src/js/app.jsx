@@ -474,6 +474,29 @@ function BuildPage(){
   );
 }
 
+function AdminPage(){
+  const api=window.CONFIG?.["clairobscur-api-url"]||'';
+  useEffect(()=>{
+    document.body.dataset.page='admin';
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  },[]);
+  return (
+    <>
+      <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
+      <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
+      <main className="content-wrapper mt-4 flex-grow-1">
+        <h1 data-i18n="heading_admin">Administration</h1>
+        <iframe src={`${api}/admin/pictos`} style={{width:'100%',height:'400px',border:'none',marginBottom:'20px'}} title="Pictos admin"></iframe>
+        <iframe src={`${api}/admin/weapons`} style={{width:'100%',height:'400px',border:'none'}} title="Weapons admin"></iframe>
+      </main>
+      <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
+      <img className="section-separator separator-bottom" src="resources/images/general/separator_horizontal.png" alt=""/>
+    </>
+  );
+}
+
 function NotFound(){
   useEffect(() => {
     document.body.dataset.page="404";
@@ -501,6 +524,7 @@ function App(){
         <Route path="/pictos" element={<PictosPage />} />
         <Route path="/weapons" element={<WeaponsPage />} />
         <Route path="/build" element={<BuildPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
