@@ -176,21 +176,14 @@ function BuildPage(){
     });
   }
 
-  function changeSubs(idx,vals){
-    const othersLocked = team
-      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
-      .filter(Boolean);
+  function changeSubs(idx, vals){
     setTeam(t =>
       t.map((c, i) => {
         if (i !== idx) return c;
         const locked = c.mainPictos.filter(Boolean);
         const filtered = [
           ...locked,
-          ...new Set(
-            vals.filter(
-              v => locked.indexOf(v) === -1 && othersLocked.indexOf(v) === -1
-            )
-          )
+          ...new Set(vals.filter(v => locked.indexOf(v) === -1))
         ];
         return { ...c, subPictos: filtered };
       })
@@ -313,9 +306,6 @@ function BuildPage(){
   }
   function openSubsModal(idx){
     const locked = team[idx].mainPictos.filter(Boolean);
-    const othersLocked = team
-      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
-      .filter(Boolean);
     const opts = [
       ...locked.map(id => {
         const p = pictos.find(p => p.id === id);
@@ -327,15 +317,10 @@ function BuildPage(){
         };
       }),
       ...pictos
-        .filter(p => !locked.includes(p.id) && othersLocked.indexOf(p.id) === -1)
+        .filter(p => !locked.includes(p.id))
         .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
     ];
-    const baseValues = [
-      ...new Set([
-        ...team[idx].subPictos.filter(v => othersLocked.indexOf(v) === -1),
-        ...locked
-      ])
-    ];
+    const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
     setModal({
       options: opts,
       onSelect: vals => changeSubs(idx, vals),
@@ -347,15 +332,7 @@ function BuildPage(){
 
   function countAvailableSubs(idx){
     const locked = team[idx].mainPictos.filter(Boolean);
-    const othersLocked = team
-      .flatMap((c, i) => (i === idx ? [] : c.mainPictos))
-      .filter(Boolean);
-    return (
-      locked.length +
-      pictos.filter(
-        p => !locked.includes(p.id) && othersLocked.indexOf(p.id) === -1
-      ).length
-    );
+    return locked.length + pictos.filter(p => !locked.includes(p.id)).length;
   }
 
   function copyShare(){
