@@ -44,7 +44,10 @@ function initAuth(){
   })
     .then(auth=>updateLoginState(auth))
     .catch(err=>{
-      console.error('Keycloak init error', err);
+      const message = err?.error
+        ? `${err.error}: ${err.error_description || ''}`
+        : err?.message || err || 'unknown';
+      console.error('Keycloak init error', message);
       updateLoginState(keycloak?.authenticated);
     });
 }
