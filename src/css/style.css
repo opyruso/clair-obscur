@@ -682,10 +682,11 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   background: url('../resources/images/general/frame_cadre.webp') center/contain no-repeat;
   color: #fff;
   cursor: pointer;
+  opacity: 0.5;
   transition: transform 0.2s, opacity 0.2s;
 }
 .char-add:hover {
-  opacity: 0.5;
+  opacity: 1;
   transform: scale(1.1);
 }
 .weapon-btn {
