@@ -147,12 +147,16 @@ function BuildPage(){
   function changeMain(idx,pidx,val){
     setTeam(t=>{
       const nt=t.map((c,i)=>({...c,mainPictos:[...c.mainPictos],subPictos:[...c.subPictos]}));
+      const oldLocked=t[idx].mainPictos.filter(Boolean);
       nt[idx].mainPictos[pidx]=val||null;
       // remove duplicate main pictos for this character
       nt[idx].mainPictos=nt[idx].mainPictos.map((p,i)=>i!==pidx&&p===val?null:p);
-      // remove from subs if selected there and sync locked luminas
       const locked=nt[idx].mainPictos.filter(Boolean);
-      nt[idx].subPictos=locked.concat(nt[idx].subPictos.filter(s=>locked.indexOf(s)===-1));
+      // sync locked luminas, removing those unlocked
+      nt[idx].subPictos=[
+        ...locked,
+        ...nt[idx].subPictos.filter(s=>!oldLocked.includes(s) && !locked.includes(s))
+      ];
       // enforce unique across team
       for(let i=0;i<nt.length;i++) if(i!==idx){
         nt[i].mainPictos=nt[i].mainPictos.map(p=>p===val?null:p);
@@ -274,7 +278,8 @@ function BuildPage(){
       }),
       ...pictos.filter(p=>!locked.includes(p.id)).map(p=>({value:p.id,label:p.name,desc:p.bonus_lumina}))
     ];
-    setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:team[idx].subPictos,search:true});
+    const baseValues=[...new Set([...team[idx].subPictos,...locked])];
+    setModal({options:opts,onSelect:vals=>changeSubs(idx,vals),multi:true,values:baseValues,search:true});
   }
 
   function copyShare(){
