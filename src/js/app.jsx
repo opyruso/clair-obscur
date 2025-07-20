@@ -241,12 +241,12 @@ function BuildPage(){
                         );
                       }}
                     />
-                    {o.label}
+                    <span>{o.label}</span>
                   </label>
                 ))}
               </div>
-              <div style={{ marginTop: '10px', textAlign: 'right' }}>
-                <button className="btn btn-primary" onClick={apply}>
+              <div className="modal-actions">
+                <button className="modal-save-btn" onClick={apply}>
                   {t('save')}
                 </button>
               </div>
