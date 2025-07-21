@@ -482,18 +482,6 @@ function AdminPage(){
   const [pictos, setPictos] = React.useState([]);
   const [weapons, setWeapons] = React.useState([]);
 
-  const adjustBaseHeight = () => {
-    const row = document.querySelector('.base-row');
-    if(!row) return;
-    const grids = row.querySelectorAll('.admin-grid');
-    let max = 0;
-    grids.forEach(g => {
-      g.style.height = 'auto';
-      const h = g.querySelector('table')?.offsetHeight || 0;
-      if(h > max) max = h;
-    });
-    grids.forEach(g => { g.style.height = max + 'px'; });
-  };
 
   const loadData = () => {
     fetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
@@ -565,7 +553,6 @@ function AdminPage(){
     });
   };
 
-  React.useEffect(adjustBaseHeight, [characters, damageBuffTypes, damageTypes]);
 
   useEffect(()=>{
     document.body.dataset.page='admin';
