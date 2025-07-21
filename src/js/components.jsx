@@ -1,5 +1,7 @@
 const {NavLink} = ReactRouterDOM;
 
+import { DataGrid } from '../node_modules/@mui/x-data-grid/index.js';
+
 const Header = () => (
   <nav className="navbar navbar-dark">
     <div className="container-fluid header-inner">
@@ -37,24 +39,7 @@ const Footer = () => (
 function UIGrid({columns, rows, setRows, endpoint, idField}){
   const {useState} = React;
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
-  const [editCell, setEditCell] = useState(null);
-
-  const onCellDouble = (rowIndex, field) => {
-    setEditCell({rowIndex, field});
-  };
-
-  const onCellChange = (e, rowIndex, field) => {
-    const value = e.target.value;
-    setRows(old => {
-      const nr = [...old];
-      nr[rowIndex] = { ...nr[rowIndex], [field]: value };
-      return nr;
-    });
-  };
-
-  const saveRow = async (rowIndex) => {
-    const row = rows[rowIndex];
-    setEditCell(null);
+  const processRowUpdate = async (row) => {
     const method = row.__new ? 'POST' : 'PUT';
     const body = JSON.stringify(row);
     await apiFetch(`${api}${endpoint}`, {
@@ -62,16 +47,18 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
       headers:{'Content-Type':'application/json'},
       body
     });
-    if(row.__new) delete row.__new;
+    const newRow = {...row};
+    if(newRow.__new) delete newRow.__new;
+    return newRow;
   };
 
   const addRow = () => {
-    setRows([...rows, { [idField]: '', __new:true }]);
+    setRows(old => [...old, { [idField]: '', __new:true }]);
   };
 
-  const deleteRow = async (rowIndex) => {
-    const row = rows[rowIndex];
-    setRows(rows.filter((_,i)=>i!==rowIndex));
+  const deleteRow = async (id) => {
+    const row = rows.find(r => (r[idField] || rows.indexOf(r)) === id);
+    setRows(rows.filter(r => (r[idField] || rows.indexOf(r)) !== id));
     await apiFetch(`${api}${endpoint}`, {
       method:'DELETE',
       headers:{'Content-Type':'application/json'},
@@ -79,36 +66,40 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     });
   };
 
+  const gridColumns = React.useMemo(() => [
+    ...columns.map(c => ({
+      field:c.field,
+      headerName:c.header,
+      width:c.width,
+      headerClassName:c.className,
+      flex:c.width?undefined:1
+    })),
+    {
+      field:'__actions',
+      headerName:'',
+      sortable:false,
+      filterable:false,
+      width:60,
+      renderCell:(params)=>(
+        <button className="btn btn-sm btn-danger" onClick={()=>deleteRow(params.id)}>x</button>
+      )
+    }
+  ], [columns]);
+
   return (
     <div className="admin-grid">
-      <table className="table table-sm table-bordered">
-        <thead>
-          <tr>
-            {columns.map(c => <th key={c.field} style={{width:c.width}} className={c.className}>{c.header}</th>)}
-            <th><button className="btn btn-sm btn-primary" onClick={addRow}>+</button></th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row,i) => (
-            <tr key={row[idField] || i}>
-              {columns.map(col => {
-                const val = row[col.field] ?? '';
-                const style = col.width ? {width: col.width} : undefined;
-                const cls = col.className || undefined;
-                if(editCell && editCell.rowIndex===i && editCell.field===col.field){
-                  return (
-                    <td key={col.field} style={style} className={cls}>
-                      <input value={val} onChange={e=>onCellChange(e,i,col.field)} onBlur={()=>saveRow(i)} />
-                    </td>
-                  );
-                }
-                return <td key={col.field} style={style} className={cls} onDoubleClick={()=>onCellDouble(i,col.field)}>{val}</td>;
-              })}
-              <td><button className="btn btn-sm btn-danger" onClick={()=>deleteRow(i)}>x</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <DataGrid
+        rows={rows}
+        columns={gridColumns}
+        getRowId={(row)=> row[idField] || rows.indexOf(row)}
+        processRowUpdate={processRowUpdate}
+        onProcessRowUpdateError={(e)=>console.error(e)}
+        editMode="row"
+        autoHeight
+        hideFooter
+        disableColumnMenu
+      />
+      <button className="btn btn-sm btn-primary mt-2" onClick={addRow}>+</button>
     </div>
   );
 }

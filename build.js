@@ -82,8 +82,8 @@ const indexPath = path.join(distDir, 'index.html');
 let indexHtml = fs.readFileSync(indexPath, 'utf8');
 indexHtml = indexHtml.replace(/..\/node_modules\//g, 'node_modules/');
 indexHtml = indexHtml.replace(/<script src=".*@babel\/standalone\/babel.min.js"><\/script>\s*/, '');
-indexHtml = indexHtml.replace(/<script type="text\/babel" src="js\/components.jsx"><\/script>/, '<script src="js/components.js"></script>');
-indexHtml = indexHtml.replace(/<script type="text\/babel" src="js\/app.jsx"><\/script>/, '<script src="js/app.js"></script>');
+indexHtml = indexHtml.replace(/<script type="text\/babel" data-type="module" src="js\/components.jsx"><\/script>/, '<script type="module" src="js/components.js"></script>');
+indexHtml = indexHtml.replace(/<script type="text\/babel" data-type="module" src="js\/app.jsx"><\/script>/, '<script type="module" src="js/app.js"></script>');
 fs.writeFileSync(indexPath, indexHtml);
 
 console.log(`Built dist to ${distDir}`);

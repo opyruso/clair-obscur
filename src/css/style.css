@@ -855,9 +855,5 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .admin-row{display:flex;gap:10px;margin-bottom:20px;align-items:stretch;}
 .admin-grid{flex:1;height:75vh;overflow:auto;background:#21232d;}
 .base-row .admin-grid{height:50vh;}
-.admin-grid table{min-width:100%;border-collapse:collapse;table-layout:fixed;width:100%;}
-.admin-grid th{position:sticky;top:0;background:var(--bs-table-bg);z-index:1;}
-.admin-grid th:first-child,.admin-grid td:first-child{position:sticky;left:0;background:var(--bs-table-bg);z-index:2;}
-.admin-grid th,.admin-grid td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .admin-section{margin-top:20px;}
 
