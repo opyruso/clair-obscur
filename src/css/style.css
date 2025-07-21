@@ -488,7 +488,6 @@ body[data-page="weapons"] .card-back {
     top: 0;
     left: 0;
     width: 100%;
-    overflow: hidden;
     height: 45px;
     background: url('../resources/images/general/background_header.avif') repeat-x center center/100% auto;
     z-index: 3000;
@@ -554,6 +553,7 @@ body[data-page="weapons"] .card-back {
     background: rgba(0,0,0,0.5);
     padding: 10px;
     width: fit-content;
+    z-index: 3001;
   }
   .nav-collapse.show {
     display: flex;
@@ -619,39 +619,6 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   cursor: url('../resources/images/general/clairobscur_cursor.png') 23 23, pointer;
 }
 
-.section-frame, .section-separator {
-  pointer-events: none;
-  position: fixed;
-  left: 0;
-  width: 100%;
-  display: block;
-}
-
-.frame-top {
-  top: 10em;
-  height: 4em;
-  transform: translateY(-50%);
-  z-index: 3001;
-}
-
-.separator-top {
-  top: 75px;
-  transform: translateY(-50%);
-  z-index: 3002;
-}
-
-.frame-bottom {
-  bottom: 3em;
-  height: 3em;
-  transform: translateY(50%);
-  z-index: 3001;
-}
-
-.separator-bottom {
-  bottom: 58px;
-  transform: translateY(50%);
-  z-index: 3002;
-}
 
 /* Home page layout */
 .index-row {
