@@ -475,12 +475,17 @@ function BuildPage(){
 }
 
 function AdminPage(){
-  const api=window.CONFIG?.["clairobscur-api-url"]||'';
+  const api = window.CONFIG?.["clairobscur-api-url"] || '';
+  const [data,setData] = useState(null);
   useEffect(()=>{
     document.body.dataset.page='admin';
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
+    fetch(`${api}/public/data/${currentLang}`)
+      .then(r=>r.json())
+      .then(setData)
+      .catch(()=>setData(null));
   },[]);
   return (
     <>
@@ -488,8 +493,11 @@ function AdminPage(){
       <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_admin">Administration</h1>
-        <iframe src={`${api}/admin/pictos`} style={{width:'100%',height:'400px',border:'none',marginBottom:'20px'}} title="Pictos admin"></iframe>
-        <iframe src={`${api}/admin/weapons`} style={{width:'100%',height:'400px',border:'none'}} title="Weapons admin"></iframe>
+        {data ? (
+          <pre className="admin-data" style={{whiteSpace:'pre-wrap'}}>{JSON.stringify(data,null,2)}</pre>
+        ) : (
+          <p>Loading...</p>
+        )}
       </main>
       <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
       <img className="section-separator separator-bottom" src="resources/images/general/separator_horizontal.png" alt=""/>
