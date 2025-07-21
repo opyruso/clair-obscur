@@ -1,6 +1,6 @@
 const {NavLink} = ReactRouterDOM;
 
-import { DataGrid } from '../node_modules/@mui/x-data-grid/index.js';
+import { DataGrid } from '/node_modules/@mui/x-data-grid/index.js';
 
 const Header = () => (
   <nav className="navbar navbar-dark">
