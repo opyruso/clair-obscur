@@ -538,6 +538,12 @@ body[data-page="weapons"] .card-back {
     display: block;
     margin-left: auto;
   }
+  .navbar {
+    min-height: 80px;
+  }
+  .navbar-brand {
+    font-size: 1.6rem;
+  }
   .nav-collapse {
     width: 100%;
     flex-direction: column;
@@ -559,6 +565,12 @@ body[data-page="weapons"] .card-back {
     width: 100%;
     justify-content: flex-end;
     margin-top: 10px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  body {
+    padding-top: 105px;
   }
 }
 
