@@ -489,11 +489,71 @@ function AdminPage(){
     if(window.updateFlagState) window.updateFlagState();
 
     fetch(`${api}/public/data/en`).then(r=>r.json()).then(data=>{
-      setCharacters(data.characters.map(c=>({idCharacter:c.idCharacter,name:c.details?.[0]?.name||''})));
-      setDamageTypes(data.damageTypes.map(d=>({idDamageType:d.idDamageType,name:d.details?.[0]?.name||''})));
-      setDamageBuffTypes(data.damageBuffTypes.map(d=>({idDamageBuffType:d.idDamageBuffType,name:d.details?.[0]?.name||''})));
-      setPictos(data.pictos.map(p=>({idPicto:p.idPicto,name:p.details?.[0]?.name||'',luminaCost:p.luminaCost})));
-      setWeapons(data.weapons.map(w=>({idWeapon:w.idWeapon,name:w.details?.[0]?.name||''})));
+      const charRows = [];
+      data.characters.forEach(c=>{
+        (c.details||[{lang:'',name:'',story:''}]).forEach(d=>{
+          charRows.push({idCharacter:c.idCharacter,lang:d.lang,name:d.name||'',story:d.story||''});
+        });
+      });
+      setCharacters(charRows);
+
+      const buffRows = [];
+      data.damageBuffTypes.forEach(b=>{
+        (b.details||[{lang:'',name:''}]).forEach(d=>{
+          buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:d.lang,name:d.name||''});
+        });
+      });
+      setDamageBuffTypes(buffRows);
+
+      const typeRows = [];
+      data.damageTypes.forEach(t=>{
+        (t.details||[{lang:'',name:''}]).forEach(d=>{
+          typeRows.push({idDamageType:t.idDamageType,lang:d.lang,name:d.name||''});
+        });
+      });
+      setDamageTypes(typeRows);
+
+      const pictoRows = [];
+      data.pictos.forEach(p=>{
+        (p.details||[{lang:'',name:'',region:'',descrptionBonusLumina:'',unlockDescription:''}]).forEach(d=>{
+          pictoRows.push({
+            idPicto:p.idPicto,
+            level:p.level,
+            bonusDefense:p.bonusDefense,
+            bonusSpeed:p.bonusSpeed,
+            bonusCritChance:p.bonusCritChance,
+            bonusHealth:p.bonusHealth,
+            luminaCost:p.luminaCost,
+            lang:d.lang,
+            name:d.name||'',
+            region:d.region||'',
+            descrptionBonusLumina:d.descrptionBonusLumina||'',
+            unlockDescription:d.unlockDescription||''
+          });
+        });
+      });
+      setPictos(pictoRows);
+
+      const weaponRows = [];
+      data.weapons.forEach(w=>{
+        (w.details||[{lang:'',name:'',region:'',unlockDescription:'',weaponEffect1:'',weaponEffect2:'',weaponEffect3:''}]).forEach(d=>{
+          weaponRows.push({
+            idWeapon:w.idWeapon,
+            character:w.character?.idCharacter||'',
+            damageType:w.damageType?.idDamageType||'',
+            damageBuffType1:w.damageBuffType1?.idDamageBuffType||'',
+            damageBuffType2:w.damageBuffType2?.idDamageBuffType||'',
+            lang:d.lang,
+            name:d.name||'',
+            region:d.region||'',
+            unlockDescription:d.unlockDescription||'',
+            weaponEffect1:d.weaponEffect1||'',
+            weaponEffect2:d.weaponEffect2||'',
+            weaponEffect3:d.weaponEffect3||''
+          });
+        });
+      });
+      setWeapons(weaponRows);
     });
   },[]);
 
@@ -505,17 +565,68 @@ function AdminPage(){
         <h1 data-i18n="heading_admin">Administration</h1>
         <h2 className="admin-section">Gérer les données de base</h2>
         <div className="admin-row">
-          <UIGrid columns={[{field:'idCharacter',header:'ID'},{field:'name',header:'Name'}]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
-          <UIGrid columns={[{field:'idDamageBuffType',header:'ID'},{field:'name',header:'Name'}]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
-          <UIGrid columns={[{field:'idDamageType',header:'ID'},{field:'name',header:'Name'}]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
+          <UIGrid columns={[
+            {field:'idCharacter',header:'ID'},
+            {field:'lang',header:'Lang'},
+            {field:'name',header:'Name'},
+            {field:'story',header:'Story'}
+          ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+          <UIGrid columns={[
+            {field:'idDamageBuffType',header:'ID'},
+            {field:'lang',header:'Lang'},
+            {field:'name',header:'Name'}
+          ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+          <UIGrid columns={[
+            {field:'idDamageType',header:'ID'},
+            {field:'lang',header:'Lang'},
+            {field:'name',header:'Name'}
+          ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
         </div>
         <h2 className="admin-section">Pictos</h2>
         <div className="admin-row">
-          <UIGrid columns={[{field:'idPicto',header:'ID'},{field:'name',header:'Name'},{field:'luminaCost',header:'Lumina'}]} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" />
+          <UIGrid
+            columns={[
+              {field:'idPicto',header:'ID'},
+              {field:'level',header:'Level'},
+              {field:'bonusDefense',header:'Def'},
+              {field:'bonusSpeed',header:'Speed'},
+              {field:'bonusCritChance',header:'Crit%'},
+              {field:'bonusHealth',header:'HP'},
+              {field:'luminaCost',header:'Lumina'},
+              {field:'lang',header:'Lang'},
+              {field:'name',header:'Name'},
+              {field:'region',header:'Region'},
+              {field:'descrptionBonusLumina',header:'Effect'},
+              {field:'unlockDescription',header:'Unlock'}
+            ]}
+            rows={pictos}
+            setRows={setPictos}
+            endpoint="/admin/pictos"
+            idField="idPicto"
+          />
         </div>
         <h2 className="admin-section">Weapons</h2>
         <div className="admin-row">
-          <UIGrid columns={[{field:'idWeapon',header:'ID'},{field:'name',header:'Name'}]} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" />
+          <UIGrid
+            columns={[
+              {field:'idWeapon',header:'ID'},
+              {field:'character',header:'Char'},
+              {field:'damageType',header:'Type'},
+              {field:'damageBuffType1',header:'Buff1'},
+              {field:'damageBuffType2',header:'Buff2'},
+              {field:'lang',header:'Lang'},
+              {field:'name',header:'Name'},
+              {field:'region',header:'Region'},
+              {field:'unlockDescription',header:'Unlock'},
+              {field:'weaponEffect1',header:'Effect1'},
+              {field:'weaponEffect2',header:'Effect2'},
+              {field:'weaponEffect3',header:'Effect3'}
+            ]}
+            rows={weapons}
+            setRows={setWeapons}
+            endpoint="/admin/weapons"
+            idField="idWeapon"
+          />
         </div>
       </main>
       <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
