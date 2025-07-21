@@ -57,7 +57,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     setEditCell(null);
     const method = row.__new ? 'POST' : 'PUT';
     const body = JSON.stringify(row);
-    await fetch(`${api}${endpoint}`, {
+    await apiFetch(`${api}${endpoint}`, {
       method,
       headers:{'Content-Type':'application/json'},
       body
@@ -72,7 +72,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
   const deleteRow = async (rowIndex) => {
     const row = rows[rowIndex];
     setRows(rows.filter((_,i)=>i!==rowIndex));
-    await fetch(`${api}${endpoint}`, {
+    await apiFetch(`${api}${endpoint}`, {
       method:'DELETE',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify(row)

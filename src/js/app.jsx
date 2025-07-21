@@ -136,7 +136,7 @@ function BuildPage(){
     const ref=params.get('refBuild');
     const d=params.get('data');
     if(ref && apiUrl){
-      fetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
+      apiFetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
         .then(r=>r.ok?r.json():Promise.reject())
         .then(obj=>{ if(Array.isArray(obj)&&obj.length===5) setTeam(obj); })
         .catch(()=>{});
@@ -344,7 +344,7 @@ function BuildPage(){
 
   function copyShare(){
     if(!apiUrl) return;
-    fetch(`${apiUrl}/public/builds`,{
+    apiFetch(`${apiUrl}/public/builds`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(team)
@@ -484,7 +484,7 @@ function AdminPage(){
 
 
   const loadData = () => {
-    fetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
+    apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
       const charRows = [];
       data.characters.forEach(c=>{
         (c.details||[{lang:'',name:'',story:''}]).forEach(d=>{

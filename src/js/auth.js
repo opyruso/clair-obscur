@@ -62,3 +62,14 @@ function initAuth(){
 
 document.addEventListener('DOMContentLoaded',initAuth);
 
+function apiFetch(url, options = {}) {
+  const headers = Object.assign({}, options.headers);
+  const token = window.keycloak?.token;
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return fetch(url, { ...options, headers });
+}
+
+window.apiFetch = apiFetch;
+
