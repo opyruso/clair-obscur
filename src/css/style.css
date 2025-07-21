@@ -853,11 +853,17 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 
 /* Admin Page */
 .admin-row{display:flex;gap:10px;margin-bottom:20px;align-items:stretch;}
-.admin-grid{flex:1;height:75vh;overflow:auto;}
-.base-row .admin-grid{height:50vh;}
+.admin-grid{flex:1;height:85vh;max-height:calc(100vh - 250px);overflow:auto;background:#21232d;}
+.base-row .admin-grid{height:60vh;max-height:calc(100vh - 250px);}
 .admin-grid table{min-width:100%;border-collapse:collapse;table-layout:fixed;width:100%;}
 .admin-grid th{position:sticky;top:0;background:var(--bs-table-bg);z-index:1;}
 .admin-grid th:first-child,.admin-grid td:first-child{position:sticky;left:0;background:var(--bs-table-bg);z-index:2;}
 .admin-grid th,.admin-grid td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .admin-section{margin-top:20px;}
 
+
+.admin-tabs-nav{display:flex;gap:10px;margin-bottom:20px;}
+.admin-tabs-nav button{flex:1;padding:8px 12px;border:none;background:#333;color:#fff;border-radius:4px;cursor:pointer;}
+.admin-tabs-nav button.active{background:#21232d;}
+.admin-tab-pane{display:none;}
+.admin-tab-pane.active{display:block;}
