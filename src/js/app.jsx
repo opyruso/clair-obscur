@@ -482,13 +482,8 @@ function AdminPage(){
   const [pictos, setPictos] = React.useState([]);
   const [weapons, setWeapons] = React.useState([]);
 
-  useEffect(()=>{
-    document.body.dataset.page='admin';
-    if(window.bindLangEvents) window.bindLangEvents();
-    if(window.applyTranslations) window.applyTranslations();
-    if(window.updateFlagState) window.updateFlagState();
-
-    fetch(`${api}/public/data/en`).then(r=>r.json()).then(data=>{
+  const loadData = () => {
+    fetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
       const charRows = [];
       data.characters.forEach(c=>{
         (c.details||[{lang:'',name:'',story:''}]).forEach(d=>{
@@ -555,6 +550,17 @@ function AdminPage(){
       });
       setWeapons(weaponRows);
     });
+  };
+
+  useEffect(()=>{
+    document.body.dataset.page='admin';
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+
+    window.adminPage = { loadData };
+    loadData();
+    return ()=>{ delete window.adminPage; };
   },[]);
 
   return (
