@@ -569,7 +569,7 @@ function AdminPage(){
       <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_admin">Administration</h1>
-        <h2 className="admin-section">Gérer les données de base</h2>
+        <h2 className="admin-section" data-i18n="admin_base">Gérer les données de base</h2>
         <div className="admin-row">
           <UIGrid columns={[
             {field:'idCharacter',header:'ID'},
@@ -588,7 +588,7 @@ function AdminPage(){
             {field:'name',header:'Name'}
           ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
         </div>
-        <h2 className="admin-section">Pictos</h2>
+        <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
         <div className="admin-row">
           <UIGrid
             columns={[
@@ -611,7 +611,7 @@ function AdminPage(){
             idField="idPicto"
           />
         </div>
-        <h2 className="admin-section">Weapons</h2>
+        <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
         <div className="admin-row">
           <UIGrid
             columns={[
