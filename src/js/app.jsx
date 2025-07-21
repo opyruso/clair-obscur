@@ -481,6 +481,7 @@ function AdminPage(){
   const [damageTypes, setDamageTypes] = React.useState([]);
   const [pictos, setPictos] = React.useState([]);
   const [weapons, setWeapons] = React.useState([]);
+  const [tab, setTab] = React.useState(0);
 
 
   const loadData = () => {
@@ -571,70 +572,84 @@ function AdminPage(){
       <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_admin">Administration</h1>
-        <h2 className="admin-section" data-i18n="admin_base">Gérer les données de base</h2>
-        <div className="admin-row base-row">
-          <UIGrid columns={[
-            {field:'idCharacter',header:'ID'},
-            {field:'lang',header:'Lang'},
-            {field:'name',header:'Name'},
-            {field:'story',header:'Story', width:150}
-          ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
-          <UIGrid columns={[
-            {field:'idDamageBuffType',header:'ID'},
-            {field:'lang',header:'Lang'},
-            {field:'name',header:'Name'}
-          ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
-          <UIGrid columns={[
-            {field:'idDamageType',header:'ID'},
-            {field:'lang',header:'Lang'},
-            {field:'name',header:'Name'}
-          ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
+        <div className="admin-tabs-nav">
+          <button className={tab===0?'active':''} data-i18n="admin_base" onClick={()=>setTab(0)}>Base</button>
+          <button className={tab===1?'active':''} data-i18n="admin_pictos" onClick={()=>setTab(1)}>Pictos</button>
+          <button className={tab===2?'active':''} data-i18n="admin_weapons" onClick={()=>setTab(2)}>Weapons</button>
         </div>
-        <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
-        <div className="admin-row">
-          <UIGrid
-            columns={[
-              {field:'idPicto',header:'ID'},
-              {field:'level',header:'Level'},
-              {field:'bonusDefense',header:'Def'},
-              {field:'bonusSpeed',header:'Speed'},
-              {field:'bonusCritChance',header:'Crit%'},
-              {field:'bonusHealth',header:'HP'},
-              {field:'luminaCost',header:'Lumina'},
+
+        <div className={"admin-tab-pane"+(tab===0?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_base">Gérer les données de base</h2>
+          <div className="admin-row base-row">
+            <UIGrid columns={[
+              {field:'idCharacter',header:'ID'},
               {field:'lang',header:'Lang'},
               {field:'name',header:'Name'},
-              {field:'region',header:'Region'},
-              {field:'descrptionBonusLumina',header:'Effect', width:150},
-              {field:'unlockDescription',header:'Unlock', width:150}
-            ]}
-            rows={pictos}
-            setRows={setPictos}
-            endpoint="/admin/pictos"
-            idField="idPicto"
-          />
-        </div>
-        <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
-        <div className="admin-row">
-          <UIGrid
-            columns={[
-              {field:'idWeapon',header:'ID'},
-              {field:'character',header:'Char'},
-              {field:'damageType',header:'Type'},
-              {field:'damageBuffType1',header:'Buff1'},
-              {field:'damageBuffType2',header:'Buff2'},
+              {field:'story',header:'Story', width:150}
+            ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+            <UIGrid columns={[
+              {field:'idDamageBuffType',header:'ID'},
               {field:'lang',header:'Lang'},
-              {field:'name',header:'Name'},
-              {field:'region',header:'Region'},
-              {field:'unlockDescription',header:'Unlock', width:150},
-              {field:'weaponEffect1',header:'Effect1', width:150},
-              {field:'weaponEffect2',header:'Effect2', width:150},
-              {field:'weaponEffect3',header:'Effect3', width:150}
-            ]}
-            rows={weapons}
-            setRows={setWeapons}
-            endpoint="/admin/weapons"
-            idField="idWeapon"
-          />
+              {field:'name',header:'Name'}
+            ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+            <UIGrid columns={[
+              {field:'idDamageType',header:'ID'},
+              {field:'lang',header:'Lang'},
+              {field:'name',header:'Name'}
+            ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
+          </div>
+        </div>
+
+        <div className={"admin-tab-pane"+(tab===1?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
+          <div className="admin-row">
+            <UIGrid
+              columns={[
+                {field:'idPicto',header:'ID'},
+                {field:'level',header:'Level'},
+                {field:'bonusDefense',header:'Def'},
+                {field:'bonusSpeed',header:'Speed'},
+                {field:'bonusCritChance',header:'Crit%'},
+                {field:'bonusHealth',header:'HP'},
+                {field:'luminaCost',header:'Lumina'},
+                {field:'lang',header:'Lang'},
+                {field:'name',header:'Name'},
+                {field:'region',header:'Region'},
+                {field:'descrptionBonusLumina',header:'Effect', width:150},
+                {field:'unlockDescription',header:'Unlock', width:150}
+              ]}
+              rows={pictos}
+              setRows={setPictos}
+              endpoint="/admin/pictos"
+              idField="idPicto"
+            />
+          </div>
+        </div>
+
+        <div className={"admin-tab-pane"+(tab===2?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
+          <div className="admin-row">
+            <UIGrid
+              columns={[
+                {field:'idWeapon',header:'ID'},
+                {field:'character',header:'Char'},
+                {field:'damageType',header:'Type'},
+                {field:'damageBuffType1',header:'Buff1'},
+                {field:'damageBuffType2',header:'Buff2'},
+                {field:'lang',header:'Lang'},
+                {field:'name',header:'Name'},
+                {field:'region',header:'Region'},
+                {field:'unlockDescription',header:'Unlock', width:150},
+                {field:'weaponEffect1',header:'Effect1', width:150},
+                {field:'weaponEffect2',header:'Effect2', width:150},
+                {field:'weaponEffect3',header:'Effect3', width:150}
+              ]}
+              rows={weapons}
+              setRows={setWeapons}
+              endpoint="/admin/weapons"
+              idField="idWeapon"
+            />
+          </div>
         </div>
       </main>
       <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>

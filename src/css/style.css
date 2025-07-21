@@ -861,3 +861,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .admin-grid th,.admin-grid td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .admin-section{margin-top:20px;}
 
+
+.admin-tabs-nav{display:flex;gap:10px;margin-bottom:20px;}
+.admin-tabs-nav button{flex:1;padding:8px 12px;border:none;background:#333;color:#fff;border-radius:4px;cursor:pointer;}
+.admin-tabs-nav button.active{background:#21232d;}
+.admin-tab-pane{display:none;}
+.admin-tab-pane.active{display:block;}
