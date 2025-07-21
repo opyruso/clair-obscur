@@ -122,8 +122,10 @@ function BuildPage(){
 
   useEffect(()=>{
     document.body.dataset.page='build';
-    fetch(`data/armes-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setWeapons(d));
-    fetch(`data/picto-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setPictos(d));
+    apiFetch(`${apiUrl}/public/data/${currentLang}`).then(r=>r.json()).then(d=>{
+      setWeapons(d.weapons||[]);
+      setPictos(d.pictos||[]);
+    });
     const params=new URLSearchParams(window.location.search);
     const ref=params.get('refBuild');
     const d=params.get('data');

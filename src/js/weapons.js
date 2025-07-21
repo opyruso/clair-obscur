@@ -1,5 +1,5 @@
 (() => {
-const baseDataUrl = 'data/armes-dictionnary';
+const api = window.CONFIG?.["clairobscur-api-url"] || '';
 const characters = ['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
 const damageIcons={
   'Feu':'fire',
@@ -65,8 +65,9 @@ function initCharacters(){
 }
 
 function loadData(){
-  fetch(`${baseDataUrl}_${currentLang}.json`).then(r=>r.json()).then(data=>{
-    allWeapons=data.map((w,i)=>({id:`${w.character}|${w.name}`,...w}));
+  apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
+    const list = data.weapons || [];
+    allWeapons=list.map((w,i)=>({id:`${w.character}|${w.name}`,...w}));
     getSavedItems(storageKey).forEach(id=>myWeapons.add(id));
     applyFilters();
   });

@@ -1,5 +1,5 @@
 (() => {
-const baseDataUrl = "data/picto-dictionnary";
+const api = window.CONFIG?.["clairobscur-api-url"] || '';
 let pictos = [];
 let pictosFiltered = [];
 let myPictosSet = new Set();
@@ -293,9 +293,8 @@ function handleCardPressLeave(e) {
     }
 
     async function loadData() {
-      const url = `${baseDataUrl}_${currentLang}.json`;
-      const data = await fetch(url).then(r => r.json()).catch(() => fetch(`${baseDataUrl}.json`).then(r => r.json()));
-      pictos = data;
+      const data = await apiFetch(`${api}/public/data/${currentLang}`).then(r => r.json());
+      pictos = data.pictos || [];
       pictosFiltered = pictos.slice();
       myPictosSet = new Set();
       getSavedItems(storageKey).forEach(id => myPictosSet.add(id));
