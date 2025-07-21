@@ -65,7 +65,12 @@ const packages = [
   'flag-icons',
   '@fontsource/cinzel',
   '@fortawesome/fontawesome-free',
-  'keycloak-js'
+  'keycloak-js',
+  '@mui/material',
+  '@mui/system',
+  '@mui/x-data-grid',
+  '@emotion/react',
+  '@emotion/styled'
 ];
 for(const pkg of packages){
   const pkgPath = path.join(nodeModulesDir, pkg);

@@ -62,5 +62,8 @@
   "logout": "Logout",
   "index_desc3": "Build your team composition and share it with a link.",
   "nav_admin": "Admin",
-  "heading_admin": "Administration"
+  "heading_admin": "Administration",
+  "admin_base": "Manage base data",
+  "admin_pictos": "Pictos",
+  "admin_weapons": "Weapons"
 }

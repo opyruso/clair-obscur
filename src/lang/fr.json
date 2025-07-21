@@ -62,5 +62,8 @@
   "logout": "Déconnexion",
   "index_desc3": "Créez votre composition d'équipe et partagez-la via un lien.",
   "nav_admin": "Admin",
-  "heading_admin": "Administration"
+  "heading_admin": "Administration",
+  "admin_base": "Gérer les données de base",
+  "admin_pictos": "Pictos",
+  "admin_weapons": "Armes"
 }
