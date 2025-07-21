@@ -575,7 +575,7 @@ function AdminPage(){
             {field:'idCharacter',header:'ID'},
             {field:'lang',header:'Lang'},
             {field:'name',header:'Name'},
-            {field:'story',header:'Story'}
+            {field:'story',header:'Story', width:150}
           ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
           <UIGrid columns={[
             {field:'idDamageBuffType',header:'ID'},
@@ -602,8 +602,8 @@ function AdminPage(){
               {field:'lang',header:'Lang'},
               {field:'name',header:'Name'},
               {field:'region',header:'Region'},
-              {field:'descrptionBonusLumina',header:'Effect'},
-              {field:'unlockDescription',header:'Unlock'}
+              {field:'descrptionBonusLumina',header:'Effect', width:150},
+              {field:'unlockDescription',header:'Unlock', width:150}
             ]}
             rows={pictos}
             setRows={setPictos}
@@ -623,10 +623,10 @@ function AdminPage(){
               {field:'lang',header:'Lang'},
               {field:'name',header:'Name'},
               {field:'region',header:'Region'},
-              {field:'unlockDescription',header:'Unlock'},
-              {field:'weaponEffect1',header:'Effect1'},
-              {field:'weaponEffect2',header:'Effect2'},
-              {field:'weaponEffect3',header:'Effect3'}
+              {field:'unlockDescription',header:'Unlock', width:150},
+              {field:'weaponEffect1',header:'Effect1', width:150},
+              {field:'weaponEffect2',header:'Effect2', width:150},
+              {field:'weaponEffect3',header:'Effect3', width:150}
             ]}
             rows={weapons}
             setRows={setWeapons}

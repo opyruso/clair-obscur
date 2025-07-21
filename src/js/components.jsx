@@ -84,7 +84,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
       <table className="table table-sm table-bordered">
         <thead>
           <tr>
-            {columns.map(c => <th key={c.field}>{c.header}</th>)}
+            {columns.map(c => <th key={c.field} style={{width:c.width}} className={c.className}>{c.header}</th>)}
             <th><button className="btn btn-sm btn-primary" onClick={addRow}>+</button></th>
           </tr>
         </thead>
@@ -93,14 +93,16 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
             <tr key={row[idField] || i}>
               {columns.map(col => {
                 const val = row[col.field] ?? '';
+                const style = col.width ? {width: col.width} : undefined;
+                const cls = col.className || undefined;
                 if(editCell && editCell.rowIndex===i && editCell.field===col.field){
                   return (
-                    <td key={col.field}>
+                    <td key={col.field} style={style} className={cls}>
                       <input value={val} onChange={e=>onCellChange(e,i,col.field)} onBlur={()=>saveRow(i)} />
                     </td>
                   );
                 }
-                return <td key={col.field} onDoubleClick={()=>onCellDouble(i,col.field)}>{val}</td>;
+                return <td key={col.field} style={style} className={cls} onDoubleClick={()=>onCellDouble(i,col.field)}>{val}</td>;
               })}
               <td><button className="btn btn-sm btn-danger" onClick={()=>deleteRow(i)}>x</button></td>
             </tr>
