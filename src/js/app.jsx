@@ -482,6 +482,19 @@ function AdminPage(){
   const [pictos, setPictos] = React.useState([]);
   const [weapons, setWeapons] = React.useState([]);
 
+  const adjustBaseHeight = () => {
+    const row = document.querySelector('.base-row');
+    if(!row) return;
+    const grids = row.querySelectorAll('.admin-grid');
+    let max = 0;
+    grids.forEach(g => {
+      g.style.height = 'auto';
+      const h = g.querySelector('table')?.offsetHeight || 0;
+      if(h > max) max = h;
+    });
+    grids.forEach(g => { g.style.height = max + 'px'; });
+  };
+
   const loadData = () => {
     fetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
       const charRows = [];
@@ -552,6 +565,8 @@ function AdminPage(){
     });
   };
 
+  React.useEffect(adjustBaseHeight, [characters, damageBuffTypes, damageTypes]);
+
   useEffect(()=>{
     document.body.dataset.page='admin';
     if(window.bindLangEvents) window.bindLangEvents();
@@ -570,7 +585,7 @@ function AdminPage(){
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_admin">Administration</h1>
         <h2 className="admin-section" data-i18n="admin_base">Gérer les données de base</h2>
-        <div className="admin-row">
+        <div className="admin-row base-row">
           <UIGrid columns={[
             {field:'idCharacter',header:'ID'},
             {field:'lang',header:'Lang'},
