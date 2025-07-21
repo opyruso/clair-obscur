@@ -292,9 +292,29 @@ function handleCardPressLeave(e) {
       if(tableViewBtn) tableViewBtn.classList.toggle('disabled', currentView === 'table');
     }
 
+    function mapPictos(list){
+      return list.map(p=>{
+        const det=(p.details||[]).find(d=>d.lang===currentLang)||{};
+        return {
+          id:p.idPicto,
+          name:det.name||'',
+          region:det.region||'',
+          level:p.level,
+          bonus_picto:{
+            defense:p.bonusDefense,
+            speed:p.bonusSpeed,
+            'critical-luck':p.bonusCritChance,
+            health:p.bonusHealth
+          },
+          bonus_lumina:det.descrptionBonusLumina||'',
+          unlock_description:det.unlockDescription||''
+        };
+      });
+    }
+
     async function loadData() {
       const data = await apiFetch(`${api}/public/data/${currentLang}`).then(r => r.json());
-      pictos = data.pictos || [];
+      pictos = mapPictos(data.pictos||[]);
       pictosFiltered = pictos.slice();
       myPictosSet = new Set();
       getSavedItems(storageKey).forEach(id => myPictosSet.add(id));

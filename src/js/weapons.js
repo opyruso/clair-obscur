@@ -64,9 +64,28 @@ function initCharacters(){
   });
 }
 
+function mapWeapons(list){
+  return list.map(w=>{
+    const det=(w.details||[]).find(d=>d.lang===currentLang)||{};
+    const effect=[det.weaponEffect1,det.weaponEffect2,det.weaponEffect3]
+      .filter(Boolean).join(' ');
+    const buffs=[w.damageBuffType1?.idDamageBuffType,w.damageBuffType2?.idDamageBuffType]
+      .filter(Boolean);
+    return {
+      character:w.character?.idCharacter||'',
+      name:det.name||'',
+      region:det.region||'',
+      unlock_description:det.unlockDescription||null,
+      damage_type:w.damageType?.idDamageType||'',
+      weapon_effect:effect,
+      damage_buff:buffs
+    };
+  });
+}
+
 function loadData(){
   apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
-    const list = data.weapons || [];
+    const list = mapWeapons(data.weapons || []);
     allWeapons=list.map((w,i)=>({id:`${w.character}|${w.name}`,...w}));
     getSavedItems(storageKey).forEach(id=>myWeapons.add(id));
     applyFilters();
