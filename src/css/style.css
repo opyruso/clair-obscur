@@ -853,7 +853,7 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 
 /* Admin Page */
 .admin-row{display:flex;gap:10px;margin-bottom:20px;align-items:stretch;}
-.admin-grid{flex:1;height:85vh;overflow:auto;}
+.admin-grid{flex:1;height:85vh;overflow:auto;background:#21232d;}
 .base-row .admin-grid{height:60vh;}
 .admin-grid table{min-width:100%;border-collapse:collapse;table-layout:fixed;width:100%;}
 .admin-grid th{position:sticky;top:0;background:var(--bs-table-bg);z-index:1;}
