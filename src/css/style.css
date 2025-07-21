@@ -524,6 +524,7 @@ body[data-page="weapons"] .card-back {
 .nav-collapse {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
   .navbar-nav .nav-item {
