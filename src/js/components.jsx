@@ -33,3 +33,80 @@ const Footer = () => (
     Copyright oPyRuSo 2025-{new Date().getFullYear()}
   </footer>
 );
+
+function UIGrid({columns, rows, setRows, endpoint, idField}){
+  const {useState} = React;
+  const api = window.CONFIG?.["clairobscur-api-url"] || '';
+  const [editCell, setEditCell] = useState(null);
+
+  const onCellDouble = (rowIndex, field) => {
+    setEditCell({rowIndex, field});
+  };
+
+  const onCellChange = (e, rowIndex, field) => {
+    const value = e.target.value;
+    setRows(old => {
+      const nr = [...old];
+      nr[rowIndex] = { ...nr[rowIndex], [field]: value };
+      return nr;
+    });
+  };
+
+  const saveRow = async (rowIndex) => {
+    const row = rows[rowIndex];
+    setEditCell(null);
+    const method = row.__new ? 'POST' : 'PUT';
+    const body = JSON.stringify(row);
+    await fetch(`${api}${endpoint}`, {
+      method,
+      headers:{'Content-Type':'application/json'},
+      body
+    });
+    if(row.__new) delete row.__new;
+  };
+
+  const addRow = () => {
+    setRows([...rows, { [idField]: '', __new:true }]);
+  };
+
+  const deleteRow = async (rowIndex) => {
+    const row = rows[rowIndex];
+    setRows(rows.filter((_,i)=>i!==rowIndex));
+    await fetch(`${api}${endpoint}`, {
+      method:'DELETE',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(row)
+    });
+  };
+
+  return (
+    <div className="admin-grid">
+      <table className="table table-sm table-bordered">
+        <thead>
+          <tr>
+            {columns.map(c => <th key={c.field}>{c.header}</th>)}
+            <th><button className="btn btn-sm btn-primary" onClick={addRow}>+</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row,i) => (
+            <tr key={row[idField] || i}>
+              {columns.map(col => {
+                const val = row[col.field] ?? '';
+                if(editCell && editCell.rowIndex===i && editCell.field===col.field){
+                  return (
+                    <td key={col.field}>
+                      <input value={val} onChange={e=>onCellChange(e,i,col.field)} onBlur={()=>saveRow(i)} />
+                    </td>
+                  );
+                }
+                return <td key={col.field} onDoubleClick={()=>onCellDouble(i,col.field)}>{val}</td>;
+              })}
+              <td><button className="btn btn-sm btn-danger" onClick={()=>deleteRow(i)}>x</button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}

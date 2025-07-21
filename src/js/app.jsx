@@ -476,12 +476,27 @@ function BuildPage(){
 
 function AdminPage(){
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
+  const [characters, setCharacters] = React.useState([]);
+  const [damageBuffTypes, setDamageBuffTypes] = React.useState([]);
+  const [damageTypes, setDamageTypes] = React.useState([]);
+  const [pictos, setPictos] = React.useState([]);
+  const [weapons, setWeapons] = React.useState([]);
+
   useEffect(()=>{
     document.body.dataset.page='admin';
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
+
+    fetch(`${api}/public/data/en`).then(r=>r.json()).then(data=>{
+      setCharacters(data.characters.map(c=>({idCharacter:c.idCharacter,name:c.details?.[0]?.name||''})));
+      setDamageTypes(data.damageTypes.map(d=>({idDamageType:d.idDamageType,name:d.details?.[0]?.name||''})));
+      setDamageBuffTypes(data.damageBuffTypes.map(d=>({idDamageBuffType:d.idDamageBuffType,name:d.details?.[0]?.name||''})));
+      setPictos(data.pictos.map(p=>({idPicto:p.idPicto,name:p.details?.[0]?.name||'',luminaCost:p.luminaCost})));
+      setWeapons(data.weapons.map(w=>({idWeapon:w.idWeapon,name:w.details?.[0]?.name||''})));
+    });
   },[]);
+
   return (
     <>
       <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
@@ -490,17 +505,17 @@ function AdminPage(){
         <h1 data-i18n="heading_admin">Administration</h1>
         <h2 className="admin-section">Gérer les données de base</h2>
         <div className="admin-row">
-          <iframe src={`${api}/admin/characters`} title="Characters" />
-          <iframe src={`${api}/admin/damagebufftypes`} title="Damage buff types" />
-          <iframe src={`${api}/admin/damagetypes`} title="Damage types" />
+          <UIGrid columns={[{field:'idCharacter',header:'ID'},{field:'name',header:'Name'}]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+          <UIGrid columns={[{field:'idDamageBuffType',header:'ID'},{field:'name',header:'Name'}]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+          <UIGrid columns={[{field:'idDamageType',header:'ID'},{field:'name',header:'Name'}]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
         </div>
         <h2 className="admin-section">Pictos</h2>
         <div className="admin-row">
-          <iframe src={`${api}/admin/pictos`} title="Pictos" style={{width:'100%'}} />
+          <UIGrid columns={[{field:'idPicto',header:'ID'},{field:'name',header:'Name'},{field:'luminaCost',header:'Lumina'}]} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" />
         </div>
         <h2 className="admin-section">Weapons</h2>
         <div className="admin-row">
-          <iframe src={`${api}/admin/weapons`} title="Weapons" style={{width:'100%'}} />
+          <UIGrid columns={[{field:'idWeapon',header:'ID'},{field:'name',header:'Name'}]} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" />
         </div>
       </main>
       <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
