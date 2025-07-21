@@ -50,8 +50,6 @@ function PictosPage(){
   }, []);
   return (
     <>
-      <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
-      <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_pictos">Pictos inventory</h1>
         <div className="actions">
@@ -74,8 +72,6 @@ function PictosPage(){
         <div id="modal" className="modal" style={{display:'none'}}><div className="modal-content"></div></div>
         <div id="notificationContainer" className="notification-container"></div>
       </main>
-      <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
-      <img className="section-separator separator-bottom" src="resources/images/general/separator_horizontal.png" alt=""/>
     </>
   );
 }
@@ -90,8 +86,6 @@ function WeaponsPage(){
   }, []);
   return (
     <>
-      <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
-      <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_weapons">Weapons inventory</h1>
         <div className="char-select" id="charSelect"></div>
@@ -114,8 +108,6 @@ function WeaponsPage(){
         <div id="table" className="table-view" style={{display:'none'}}></div>
         <div id="notificationContainer" className="notification-container"></div>
       </main>
-      <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
-      <img className="section-separator separator-bottom" src="resources/images/general/separator_horizontal.png" alt=""/>
     </>
   );
 }
@@ -568,8 +560,6 @@ function AdminPage(){
 
   return (
     <>
-      <img className="section-frame frame-top" src="resources/images/general/frame_horizontal.png" alt=""/>
-      <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_admin">Administration</h1>
         <div className="admin-tabs-nav">
@@ -652,8 +642,6 @@ function AdminPage(){
           </div>
         </div>
       </main>
-      <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
-      <img className="section-separator separator-bottom" src="resources/images/general/separator_horizontal.png" alt=""/>
     </>
   );
 }
