@@ -95,11 +95,15 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
         processRowUpdate={processRowUpdate}
         onProcessRowUpdateError={(e)=>console.error(e)}
         editMode="row"
-        autoHeight
         hideFooter
         disableColumnMenu
+        sx={{height:'100%'}}
       />
       <button className="btn btn-sm btn-primary mt-2" onClick={addRow}>+</button>
     </div>
   );
 }
+
+window.Header = Header;
+window.Footer = Footer;
+window.UIGrid = UIGrid;
