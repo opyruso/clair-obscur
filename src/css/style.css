@@ -850,3 +850,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   max-width: 30vh;
   margin: auto;
 }
+
+/* Admin Page */
+.admin-row{display:flex;gap:10px;margin-bottom:20px;}
+.admin-row iframe{flex:1;border:none;height:400px;}
+.admin-section{margin-top:20px;}
+

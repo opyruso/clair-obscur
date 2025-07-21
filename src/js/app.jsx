@@ -476,16 +476,11 @@ function BuildPage(){
 
 function AdminPage(){
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
-  const [data,setData] = useState(null);
   useEffect(()=>{
     document.body.dataset.page='admin';
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
-    fetch(`${api}/public/data/${currentLang}`)
-      .then(r=>r.json())
-      .then(setData)
-      .catch(()=>setData(null));
   },[]);
   return (
     <>
@@ -493,11 +488,20 @@ function AdminPage(){
       <img className="section-separator separator-top" src="resources/images/general/separator_horizontal.png" alt=""/>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_admin">Administration</h1>
-        {data ? (
-          <pre className="admin-data" style={{whiteSpace:'pre-wrap'}}>{JSON.stringify(data,null,2)}</pre>
-        ) : (
-          <p>Loading...</p>
-        )}
+        <h2 className="admin-section">Gérer les données de base</h2>
+        <div className="admin-row">
+          <iframe src={`${api}/admin/characters`} title="Characters" />
+          <iframe src={`${api}/admin/damagebufftypes`} title="Damage buff types" />
+          <iframe src={`${api}/admin/damagetypes`} title="Damage types" />
+        </div>
+        <h2 className="admin-section">Pictos</h2>
+        <div className="admin-row">
+          <iframe src={`${api}/admin/pictos`} title="Pictos" style={{width:'100%'}} />
+        </div>
+        <h2 className="admin-section">Weapons</h2>
+        <div className="admin-row">
+          <iframe src={`${api}/admin/weapons`} title="Weapons" style={{width:'100%'}} />
+        </div>
       </main>
       <img className="section-frame frame-bottom" src="resources/images/general/frame_horizontal.png" alt=""/>
       <img className="section-separator separator-bottom" src="resources/images/general/separator_horizontal.png" alt=""/>
