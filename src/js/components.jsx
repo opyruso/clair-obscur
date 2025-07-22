@@ -42,7 +42,7 @@ const Footer = () => (
 
 function UIGrid({columns, rows, setRows, endpoint, idField}){
   const {useCallback} = React;
-  const {DataGrid} = MUIDataGrid;
+  const {DataGrid} = MaterialUI;
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
 
   const processRowUpdate = useCallback(async (newRow) => {
