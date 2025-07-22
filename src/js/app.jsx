@@ -120,10 +120,51 @@ function BuildPage(){
   const [modal,setModal]=useState(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
+  function mapPictos(list){
+    return list.map(p=>{
+      const det=(p.details||[]).find(d=>d.lang===currentLang)||{};
+      return {
+        id:p.idPicto,
+        name:det.name||'',
+        region:det.region||'',
+        level:p.level,
+        bonus_picto:{
+          defense:p.bonusDefense,
+          speed:p.bonusSpeed,
+          'critical-luck':p.bonusCritChance,
+          health:p.bonusHealth
+        },
+        bonus_lumina:det.descrptionBonusLumina||'',
+        unlock_description:det.unlockDescription||''
+      };
+    });
+  }
+
+  function mapWeapons(list){
+    return list.map(w=>{
+      const det=(w.details||[]).find(d=>d.lang===currentLang)||{};
+      const effect=[det.weaponEffect1,det.weaponEffect2,det.weaponEffect3]
+        .filter(Boolean).join(' ');
+      const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
+      return {
+        id:w.idWeapon,
+        character:charDet.name||w.character?.idCharacter||'',
+        name:det.name||'',
+        region:det.region||'',
+        unlock_description:det.unlockDescription||null,
+        damage_type:w.damageType?.idDamageType||'',
+        weapon_effect:effect,
+        damage_buff:[w.damageBuffType1?.idDamageBuffType,w.damageBuffType2?.idDamageBuffType].filter(Boolean)
+      };
+    });
+  }
+
   useEffect(()=>{
     document.body.dataset.page='build';
-    fetch(`data/armes-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setWeapons(d));
-    fetch(`data/picto-dictionnary_${currentLang}.json`).then(r=>r.json()).then(d=>setPictos(d));
+    apiFetch(`${apiUrl}/public/data/${currentLang}`).then(r=>r.json()).then(d=>{
+      setWeapons(mapWeapons(d.weapons||[]));
+      setPictos(mapPictos(d.pictos||[]));
+    });
     const params=new URLSearchParams(window.location.search);
     const ref=params.get('refBuild');
     const d=params.get('data');
