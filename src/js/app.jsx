@@ -145,8 +145,9 @@ function BuildPage(){
       const det=(w.details||[]).find(d=>d.lang===currentLang)||{};
       const effect=[det.weaponEffect1,det.weaponEffect2,det.weaponEffect3]
         .filter(Boolean).join(' ');
+      const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
       return {
-        character:w.character?.idCharacter||'',
+        character:charDet.name||w.character?.idCharacter||'',
         name:det.name||'',
         region:det.region||'',
         unlock_description:det.unlockDescription||null,

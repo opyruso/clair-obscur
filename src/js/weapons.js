@@ -71,8 +71,9 @@ function mapWeapons(list){
       .filter(Boolean).join(' ');
     const buffs=[w.damageBuffType1?.idDamageBuffType,w.damageBuffType2?.idDamageBuffType]
       .filter(Boolean);
+    const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
     return {
-      character:w.character?.idCharacter||'',
+      character:charDet.name||w.character?.idCharacter||'',
       name:det.name||'',
       region:det.region||'',
       unlock_description:det.unlockDescription||null,
