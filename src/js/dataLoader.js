@@ -1,15 +1,28 @@
 let dataCache = null;
 let dataLang = null;
+let dataPromise = null;
 
 async function fetchSiteData(lang = currentLang) {
   if (dataCache && dataLang === lang) {
     return dataCache;
   }
-  const api = window.CONFIG?.["clairobscur-api-url"] || '';
-  const data = await apiFetch(`${api}/public/data/${lang}`).then(r => r.json());
-  dataCache = data;
+  if (dataPromise && dataLang === lang) {
+    return dataPromise;
+  }
   dataLang = lang;
-  return data;
+  const api = window.CONFIG?.["clairobscur-api-url"] || '';
+  dataPromise = apiFetch(`${api}/public/data/${lang}`)
+    .then(r => r.json())
+    .then(data => {
+      dataCache = data;
+      dataPromise = null;
+      return data;
+    })
+    .catch(err => {
+      dataPromise = null;
+      throw err;
+    });
+  return dataPromise;
 }
 
 function preloadSiteData() {
