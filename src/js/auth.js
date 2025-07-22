@@ -2,7 +2,7 @@ let keycloak = null;
 let refreshTimer = null;
 
 function startTokenRefresh(){
-  if(refreshTimer || !keycloak) return;
+  if(refreshTimer || !keycloak || !keycloak.token) return;
   refreshTimer = setInterval(()=>{
     keycloak.updateToken(60).catch(err=>{
       console.error('Token refresh failed', err);
@@ -83,7 +83,7 @@ function initAuth(){
 document.addEventListener('DOMContentLoaded',initAuth);
 
 async function apiFetch(url, options = {}) {
-  if (window.keycloak) {
+  if (window.keycloak && window.keycloak.token) {
     try {
       await window.keycloak.updateToken(30);
     } catch (e) {
