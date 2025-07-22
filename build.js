@@ -106,6 +106,27 @@ async function main(){
     outfile: path.join(srcDir, 'js', 'datagrid-bundle.js'),
   });
 
+  // build React Toastify bundle
+  await esbuild.build({
+    entryPoints: [path.join(srcDir, 'js', 'toastify-entry.js')],
+    bundle: true,
+    format: 'iife',
+    globalName: 'ReactToastify',
+    plugins: [reactGlobals],
+    minify: true,
+    outfile: path.join(distDir, 'js', 'toastify-bundle.js'),
+  });
+  // also produce a copy in src for development usage
+  await esbuild.build({
+    entryPoints: [path.join(srcDir, 'js', 'toastify-entry.js')],
+    bundle: true,
+    format: 'iife',
+    globalName: 'ReactToastify',
+    plugins: [reactGlobals],
+    minify: true,
+    outfile: path.join(srcDir, 'js', 'toastify-bundle.js'),
+  });
+
   // copy runtime packages so dist is self-contained
   const packages = [
     'react',
@@ -118,7 +139,8 @@ async function main(){
     '@fortawesome/fontawesome-free',
     'keycloak-js',
     '@emotion/react',
-    '@emotion/styled'
+    '@emotion/styled',
+    'react-toastify'
   ];
   for(const pkg of packages){
     const pkgPath = path.join(nodeModulesDir, pkg);

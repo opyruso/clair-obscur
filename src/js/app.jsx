@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 const {useEffect, useState} = React;
 const {BrowserRouter, Routes, Route, Navigate} = ReactRouterDOM;
+const { ToastContainer } = ReactToastify;
 
 function Home(){
   useEffect(() => {
@@ -782,6 +783,7 @@ function App(){
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
       <Footer />
+      <ToastContainer position="bottom-right" />
     </BrowserRouter>
   );
 }
