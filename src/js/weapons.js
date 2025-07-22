@@ -17,6 +17,8 @@ const damageIcons={
 let allWeapons = [];
 let weapons = [];
 let filteredWeapons = [];
+let damageBuffNames = {};
+let damageTypeNames = {};
 let myWeapons = new Set();
 const storageKey = 'weapons';
 let currentCharacter = characters[0];
@@ -87,9 +89,9 @@ function mapWeapons(list){
       name:det.name||'',
       region:det.region||'',
       unlock_description:det.unlockDescription||null,
-      damage_type:w.damageType?.idDamageType||'',
+      damage_type:damageTypeNames[w.damageType?.idDamageType]||w.damageType?.idDamageType||'',
       weapon_effect:effect,
-      damage_buff:buffs
+      damage_buff:buffs.map(b=>damageBuffNames[b]||b)
     };
   });
 }
@@ -110,6 +112,16 @@ function loadData(){
       characters=defaultCharacters.slice();
       characterIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
     }
+    damageBuffNames={};
+    (data.damageBuffTypes||[]).forEach(b=>{
+      const det=(b.details||[]).find(d=>d.lang===currentLang)||b.details?.[0]||{};
+      if(det.name) damageBuffNames[b.idDamageBuffType]=det.name;
+    });
+    damageTypeNames={};
+    (data.damageTypes||[]).forEach(t=>{
+      const det=(t.details||[]).find(d=>d.lang===currentLang)||t.details?.[0]||{};
+      if(det.name) damageTypeNames[t.idDamageType]=det.name;
+    });
     currentCharacter=characters[0];
     currentCharId=characterIds[currentCharacter];
     initCharacters();
