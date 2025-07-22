@@ -65,8 +65,10 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
 
   const handleProcessRowUpdateError = useCallback(err => console.error(err), []);
 
+  const nextIdRef = React.useRef(0);
   const addRow = () => {
-    setRows([...rows, { [idField]: '', __new:true }]);
+    nextIdRef.current += 1;
+    setRows([...rows, { [idField]: '', __new:true, __tempId: `n${nextIdRef.current}` }]);
   };
 
   const deleteRow = useCallback(async (idVal) => {
@@ -99,7 +101,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     )
   });
 
-  const rowData = rows.map((r,i)=>({id:r[idField] || `n${i}`, ...r}));
+  const rowData = rows.map((r,i)=>({id:r[idField] || r.__tempId || `n${i}`, ...r}));
 
   return (
     <div className="admin-grid">
