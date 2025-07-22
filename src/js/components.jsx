@@ -1,5 +1,6 @@
 const {NavLink} = ReactRouterDOM;
 const {useState} = React;
+const { toast } = ReactToastify;
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -52,18 +53,26 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     if(method === 'PUT') {
       url += `/${encodeURIComponent(newRow[idField])}`;
     }
-    await apiFetch(url, {
+    const response = await apiFetch(url, {
       method,
       headers:{'Accept':'application/json'},
       body: payload
     });
+    if(!response.ok){
+      console.error('Failed to save row', response.status);
+      toast.error('Failed to save data');
+      throw new Error('Request failed');
+    }
     const updated = {...newRow};
     delete updated.__new;
     setRows(rs => rs.map(r => (r[idField] === updated[idField] ? updated : r)));
     return updated;
   }, [api, endpoint, idField, setRows]);
 
-  const handleProcessRowUpdateError = useCallback(err => console.error(err), []);
+  const handleProcessRowUpdateError = useCallback(err => {
+    console.error(err);
+    toast.error('Failed to save data');
+  }, []);
 
   const addRow = () => {
     setRows([...rows, { [idField]: '', __new:true }]);
