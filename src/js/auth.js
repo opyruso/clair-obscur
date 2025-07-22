@@ -1,10 +1,29 @@
 let keycloak = null;
+let refreshTimer = null;
+
+function startTokenRefresh(){
+  if(refreshTimer || !keycloak || !keycloak.token) return;
+  refreshTimer = setInterval(()=>{
+    keycloak.updateToken(60).catch(err=>{
+      console.error('Token refresh failed', err);
+      stopTokenRefresh();
+    });
+  }, 30000);
+}
+
+function stopTokenRefresh(){
+  if(refreshTimer){
+    clearInterval(refreshTimer);
+    refreshTimer=null;
+  }
+}
 
 function updateLoginState(authenticated){
   const btn=document.getElementById('loginBtn');
   if(!btn) return;
 
   if(authenticated){
+    startTokenRefresh();
     const username=keycloak?.tokenParsed?.preferred_username||'user';
     btn.classList.add('user-name');
     btn.textContent=username;
@@ -23,6 +42,7 @@ function updateLoginState(authenticated){
     btn.title=t('logout');
     btn.onclick=()=>keycloak.logout();
   }else{
+    stopTokenRefresh();
     const adminLink=document.getElementById('adminNav');
     if(adminLink) adminLink.style.display='none';
     btn.classList.remove('user-name');
@@ -62,7 +82,14 @@ function initAuth(){
 
 document.addEventListener('DOMContentLoaded',initAuth);
 
-function apiFetch(url, options = {}) {
+async function apiFetch(url, options = {}) {
+  if (window.keycloak && window.keycloak.token) {
+    try {
+      await window.keycloak.updateToken(30);
+    } catch (e) {
+      console.error('Token refresh failed before fetch', e);
+    }
+  }
   const headers = Object.assign({}, options.headers);
   const token = window.keycloak?.token;
   if (token) {
