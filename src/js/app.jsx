@@ -113,7 +113,10 @@ function WeaponsPage(){
 }
 
 function BuildPage(){
-  const characters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
+  const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
+  const defaultCharIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
+  const [charNames,setCharNames]=useState(defaultCharacters);
+  const [charIds,setCharIds]=useState(defaultCharIds);
   const [weapons,setWeapons]=useState([]);
   const [pictos,setPictos]=useState([]);
   const [team,setTeam]=useState(Array.from({length:5},()=>({character:'',weapon:'',mainPictos:[null,null,null],subPictos:[]})));
@@ -148,7 +151,8 @@ function BuildPage(){
       const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
       return {
         id:w.idWeapon,
-        character:charDet.name||w.character?.idCharacter||'',
+        charId:w.character?.idCharacter||0,
+        character:charDet.name||'',
         name:det.name||'',
         region:det.region||'',
         unlock_description:det.unlockDescription||null,
@@ -164,6 +168,15 @@ function BuildPage(){
     apiFetch(`${apiUrl}/public/data/${currentLang}`).then(r=>r.json()).then(d=>{
       setWeapons(mapWeapons(d.weapons||[]));
       setPictos(mapPictos(d.pictos||[]));
+      let names=[]; let ids={};
+      (d.characters||[]).forEach(c=>{
+        const det=(c.details||[]).find(dd=>dd.lang===currentLang)||c.details?.[0]||{};
+        const nm=det.name||'';
+        if(nm){ names.push(nm); ids[nm]=c.idCharacter; }
+      });
+      if(names.length===0){ names=defaultCharacters.slice(); ids=defaultCharIds; }
+      setCharNames(names);
+      setCharIds(ids);
     });
     const params=new URLSearchParams(window.location.search);
     const ref=params.get('refBuild');
@@ -316,7 +329,7 @@ function BuildPage(){
   const usedChars=new Set(team.map(t=>t.character).filter(Boolean));
 
   function openCharModal(idx){
-    let opts=characters.filter(ch=>!usedChars.has(ch)||ch===team[idx].character);
+    let opts=charNames.filter(ch=>!usedChars.has(ch)||ch===team[idx].character);
     const hasGustave=team.some((t,i)=>t.character==='Gustave' && i!==idx);
     const hasVerso=team.some((t,i)=>t.character==='Verso' && i!==idx);
     if(hasGustave) opts=opts.filter(ch=>ch!=='Verso');
@@ -326,7 +339,8 @@ function BuildPage(){
   }
   function openWeaponModal(idx){
     const char=team[idx].character;
-    const opts=weapons.filter(w=>w.character===char).map(w=>({value:w.name,label:w.name}));
+    const cid=charIds[char];
+    const opts=weapons.filter(w=>w.charId===cid).map(w=>({value:w.name,label:w.name}));
     setModal({options:opts,onSelect:val=>updateTeam(idx,{weapon:val})});
   }
   function openMainModal(idx,pidx){
@@ -403,7 +417,7 @@ function BuildPage(){
             <h2 className="team-title" data-i18n="main_team">{t('main_team')}</h2>
             {team.slice(0,3).map((col,cidx)=>{
               const stats=computeStats(col.mainPictos.filter(Boolean));
-              const charWeapons=weapons.filter(w=>w.character===col.character);
+              const charWeapons=weapons.filter(w=>w.charId===charIds[col.character]);
               const w=charWeapons.find(x=>x.name===col.weapon);
               const buffs=w?.damage_buff||[];
               return (
@@ -453,7 +467,7 @@ function BuildPage(){
             <h2 className="team-title" data-i18n="secondary_team">{t('secondary_team')}</h2>
             {team.slice(3).map((col,cidx)=>{
               const stats=computeStats(col.mainPictos.filter(Boolean));
-              const charWeapons=weapons.filter(w=>w.character===col.character);
+              const charWeapons=weapons.filter(w=>w.charId===charIds[col.character]);
               const w=charWeapons.find(x=>x.name===col.weapon);
               const buffs=w?.damage_buff||[];
               const idx=cidx+3;

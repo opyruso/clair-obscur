@@ -1,6 +1,8 @@
 (() => {
 const api = window.CONFIG?.["clairobscur-api-url"] || '';
-const characters = ['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
+const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
+let characters = defaultCharacters.slice();
+let characterIds = Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
 const damageIcons={
   'Feu':'fire',
   'Glace':'ice',
@@ -19,6 +21,7 @@ let filteredWeapons = [];
 let myWeapons = new Set();
 const storageKey = 'weapons';
 let currentCharacter = characters[0];
+let currentCharId = characterIds[currentCharacter];
 let currentView = localStorage.getItem('weaponViewMode') || 'cards';
 let hideOwned = false;
 let hideMissing = false;
@@ -53,13 +56,19 @@ function initPage(){
 
 function initCharacters(){
   const div=document.getElementById('charSelect');
+  div.innerHTML='';
   characters.forEach(c=>{
     const img=document.createElement('img');
     img.src=`resources/images/characters/${c.toLowerCase()}_icon.png`;
     img.alt=c;
     img.dataset.char=c;
     img.className='char-icon'+(c===currentCharacter?' active':'');
-    img.addEventListener('click',()=>{currentCharacter=c;document.querySelectorAll('.char-icon').forEach(i=>i.classList.toggle('active',i.dataset.char===c));applyFilters();});
+    img.addEventListener('click',()=>{
+      currentCharacter=c;
+      currentCharId=characterIds[c];
+      document.querySelectorAll('.char-icon').forEach(i=>i.classList.toggle('active',i.dataset.char===c));
+      applyFilters();
+    });
     div.appendChild(img);
   });
 }
@@ -74,7 +83,8 @@ function mapWeapons(list){
     const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
     return {
       id:w.idWeapon,
-      character:charDet.name||w.character?.idCharacter||'',
+      charId:w.character?.idCharacter||0,
+      character:charDet.name||'',
       name:det.name||'',
       region:det.region||'',
       unlock_description:det.unlockDescription||null,
@@ -87,6 +97,23 @@ function mapWeapons(list){
 
 function loadData(){
   apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
+    characters=[];
+    characterIds={};
+    (data.characters||[]).forEach(c=>{
+      const det=(c.details||[]).find(d=>d.lang===currentLang)||c.details?.[0]||{};
+      const name=det.name||'';
+      if(name){
+        characters.push(name);
+        characterIds[name]=c.idCharacter;
+      }
+    });
+    if(characters.length===0){
+      characters=defaultCharacters.slice();
+      characterIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
+    }
+    currentCharacter=characters[0];
+    currentCharId=characterIds[currentCharacter];
+    initCharacters();
     const list = mapWeapons(data.weapons || []);
     allWeapons=list.map(w=>({id:w.id,...w}));
     getSavedItems(storageKey).forEach(id=>myWeapons.add(id));
@@ -95,7 +122,7 @@ function loadData(){
 }
 
 function applyFilters(){
-  weapons = allWeapons.filter(w=>w.character===currentCharacter);
+  weapons = allWeapons.filter(w=>w.charId===currentCharId);
   const term=document.getElementById('search').value.trim().toLowerCase();
   filteredWeapons=weapons.filter(w=>{
     const text=Object.values(w).join(' ').toLowerCase();
