@@ -883,6 +883,13 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .admin-grid .MuiDataGrid-cell,.admin-grid .MuiDataGrid-columnHeader{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .admin-section{margin-top:20px;}
 
+.admin-grid .MuiDataGrid-footerContainer{
+  padding-right:10px;
+}
+.admin-grid .add-row-btn{
+  margin-left:10px;
+}
+
 
 .admin-tabs-nav{display:flex;gap:10px;margin-bottom:20px;}
 .admin-tabs-nav button{flex:1;padding:8px 12px;border:none;background:#333;color:#fff;border-radius:4px;cursor:pointer;}
