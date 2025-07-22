@@ -538,9 +538,27 @@ function AdminPage(){
   const [tab, setTab] = React.useState(0);
 
   const langOptions = ['fr','en'];
-  const charOptions = React.useMemo(() => Array.from(new Set(characters.map(c => c.idCharacter))), [characters]);
-  const typeOptions = React.useMemo(() => Array.from(new Set(damageTypes.map(t => t.idDamageType))), [damageTypes]);
-  const buffOptions = React.useMemo(() => Array.from(new Set(damageBuffTypes.map(b => b.idDamageBuffType))), [damageBuffTypes]);
+  const charOptions = React.useMemo(() => {
+    const map = new Map();
+    characters.forEach(c => {
+      if(!map.has(c.idCharacter)) map.set(c.idCharacter, c.name || c.idCharacter);
+    });
+    return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
+  }, [characters]);
+  const typeOptions = React.useMemo(() => {
+    const map = new Map();
+    damageTypes.forEach(t => {
+      if(!map.has(t.idDamageType)) map.set(t.idDamageType, t.name || t.idDamageType);
+    });
+    return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
+  }, [damageTypes]);
+  const buffOptions = React.useMemo(() => {
+    const map = new Map();
+    damageBuffTypes.forEach(b => {
+      if(!map.has(b.idDamageBuffType)) map.set(b.idDamageBuffType, b.name || b.idDamageBuffType);
+    });
+    return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
+  }, [damageBuffTypes]);
 
 
   const loadData = () => {

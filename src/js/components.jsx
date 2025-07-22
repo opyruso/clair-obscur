@@ -86,7 +86,13 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     if(c.width !== undefined) col.width = c.width;
     if(c.flex !== undefined) col.flex = c.flex;
     if(c.type) col.type = c.type;
-    if(Array.isArray(c.options)) col.valueOptions = c.options;
+    if(Array.isArray(c.options)) {
+      col.valueOptions = c.options;
+      if(c.options.length && typeof c.options[0] === 'object'){
+        const map = new Map(c.options.map(o => [o.value, o.label]));
+        col.valueFormatter = ({ value }) => map.get(value) ?? value;
+      }
+    }
     if(col.width === undefined && col.flex === undefined){
       const sample = rows.find(r => r?.[c.field] !== undefined);
       const val = sample?.[c.field];
