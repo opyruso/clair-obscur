@@ -398,18 +398,31 @@ function BuildPage(){
   }
 
   function copyShare(){
-    if(!apiUrl) return;
-    apiFetch(`${apiUrl}/public/builds`,{
-      method:'POST',
-      body:team
-    })
-      .then(r=>r.json())
-      .then(({id})=>{
-        if(!id) throw new Error('no id');
-        const url=`${window.location.origin}/build?refBuild=${encodeURIComponent(id)}`;
-        navigator.clipboard.writeText(url).then(()=>alert(t('link_copied')));
-      })
+    const shareBase=`${window.location.origin}/build`;
+    const copyUrl=url=>navigator.clipboard
+      .writeText(url)
+      .then(()=>alert(t('link_copied')))
       .catch(()=>{});
+
+    if(apiUrl){
+      apiFetch(`${apiUrl}/public/builds`,{
+        method:'POST',
+        body:team
+      })
+        .then(r=>r.ok?r.json():Promise.reject())
+        .then(({id})=>{
+          if(!id) throw new Error('no id');
+          const url=`${shareBase}?refBuild=${encodeURIComponent(id)}`;
+          copyUrl(url);
+        })
+        .catch(()=>{
+          const data=`${shareBase}?data=${btoa(JSON.stringify(team))}`;
+          copyUrl(data);
+        });
+    }else{
+      const data=`${shareBase}?data=${btoa(JSON.stringify(team))}`;
+      copyUrl(data);
+    }
   }
 
   return (
