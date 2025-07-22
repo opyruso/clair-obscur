@@ -81,13 +81,29 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     });
   }, [rows, api, endpoint, idField, setRows]);
 
-  const cols = columns.map(c => ({
-    field:c.field,
-    headerName:c.header,
-    width:c.width,
-    flex:c.flex,
-    editable:true
-  }));
+  const cols = columns.map(c => {
+    const col = {field:c.field, headerName:c.header, editable: c.editable !== undefined ? c.editable : true};
+    if(c.width !== undefined) col.width = c.width;
+    if(c.flex !== undefined) col.flex = c.flex;
+    if(c.type) col.type = c.type;
+    if(Array.isArray(c.options)) {
+      col.valueOptions = c.options;
+      if(c.options.length && typeof c.options[0] === 'object'){
+        const map = new Map(c.options.map(o => [o.value, o.label]));
+        col.valueFormatter = ({ value }) => map.get(value) ?? value;
+      }
+    }
+    if(col.width === undefined && col.flex === undefined){
+      const sample = rows.find(r => r?.[c.field] !== undefined);
+      const val = sample?.[c.field];
+      if(c.field === 'lang' || c.field.toLowerCase().startsWith('id') || typeof val === 'number'){
+        col.width = 80;
+      }else{
+        col.flex = 1;
+      }
+    }
+    return col;
+  });
   cols.push({
     field:'__actions',
     headerName:'',
@@ -104,7 +120,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
   const AddRowFooter = (props) => (
     <GridFooterContainer>
       <GridPagination {...props} />
-      <button className="btn btn-sm btn-primary" onClick={addRow}>+</button>
+      <button className="btn btn-sm btn-primary add-row-btn" onClick={addRow}>+</button>
     </GridFooterContainer>
   );
 
