@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 const {useEffect, useState} = React;
-const {BrowserRouter, Routes, Route, Navigate} = ReactRouterDOM;
+const {BrowserRouter, Routes, Route, Navigate, useParams} = ReactRouterDOM;
 const { ToastContainer } = ReactToastify;
 
 function Home(){
@@ -114,6 +114,7 @@ function WeaponsPage(){
 }
 
 function BuildPage(){
+  const routerParams = useParams();
   const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
   const defaultCharIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
   const [charNames,setCharNames]=useState(defaultCharacters);
@@ -184,8 +185,10 @@ function BuildPage(){
     };
     loadData();
     const params=new URLSearchParams(window.location.search);
-    const ref=params.get('refBuild');
+    const refQuery=params.get('refBuild');
+    const refPath=routerParams.refId;
     const d=params.get('data');
+    const ref=refPath || refQuery;
     if(ref && apiUrl){
       apiFetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
         .then(r=>r.ok?r.json():Promise.reject())
@@ -413,7 +416,7 @@ function BuildPage(){
         .then(r=>r.ok?r.json():Promise.reject())
         .then(({id})=>{
           if(!id) throw new Error('no id');
-          const url=`${shareBase}?refBuild=${encodeURIComponent(id)}`;
+          const url=`${shareBase}/${encodeURIComponent(id)}`;
           copyUrl(url);
         })
         .catch(()=>{
@@ -778,6 +781,7 @@ function App(){
         <Route path="/pictos" element={<PictosPage />} />
         <Route path="/weapons" element={<WeaponsPage />} />
         <Route path="/build" element={<BuildPage />} />
+        <Route path="/build/:refId" element={<BuildPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
