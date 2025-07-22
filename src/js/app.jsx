@@ -133,6 +133,7 @@ function BuildPage(){
         name:det.name||'',
         region:det.region||'',
         level:p.level,
+        luminaCost:p.luminaCost,
         bonus_picto:{
           defense:p.bonusDefense,
           speed:p.bonusSpeed,
@@ -264,6 +265,17 @@ function BuildPage(){
       }
     });
     return stats;
+  }
+
+  function computeLuminaCost(ids){
+    let sum = 0;
+    ids.forEach(id => {
+      const p = pictos.find(pc => pc.id === id);
+      if(p && p.luminaCost){
+        sum += p.luminaCost;
+      }
+    });
+    return sum;
   }
 
   function SelectionModal(){
@@ -438,6 +450,7 @@ function BuildPage(){
             <h2 className="team-title" data-i18n="main_team">{t('main_team')}</h2>
             {team.slice(0,3).map((col,cidx)=>{
               const stats=computeStats(col.mainPictos.filter(Boolean));
+              const cost=computeLuminaCost(col.subPictos);
               const charWeapons=weapons.filter(w=>w.charId===charIds[col.character]);
               const w=charWeapons.find(x=>x.name===col.weapon);
               const buffs=w?.damage_buff||[];
@@ -479,6 +492,7 @@ function BuildPage(){
                   >
                     {t('luminas_label')}: {col.subPictos.length} / {countAvailableSubs(cidx)}
                   </span>
+                  <div className="lumina-total">{t('lumina_total')}: {cost}</div>
                 </div>
               </div>
               );
@@ -488,6 +502,7 @@ function BuildPage(){
             <h2 className="team-title" data-i18n="secondary_team">{t('secondary_team')}</h2>
             {team.slice(3).map((col,cidx)=>{
               const stats=computeStats(col.mainPictos.filter(Boolean));
+              const cost=computeLuminaCost(col.subPictos);
               const charWeapons=weapons.filter(w=>w.charId===charIds[col.character]);
               const w=charWeapons.find(x=>x.name===col.weapon);
               const buffs=w?.damage_buff||[];
@@ -530,6 +545,7 @@ function BuildPage(){
                       >
                         {t('luminas_label')}: {col.subPictos.length} / {countAvailableSubs(idx)}
                       </span>
+                      <div className="lumina-total">{t('lumina_total')}: {cost}</div>
                     </div>
                 </div>
               );

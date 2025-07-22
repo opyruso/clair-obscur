@@ -805,6 +805,14 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .lumina-trigger:hover {
   transform: scale(1.1);
 }
+.lumina-total {
+  display: block;
+  width: 100%;
+  margin-top: 2px;
+  color: #CDB48E;
+  text-align: center;
+  font-size: 0.9em;
+}
 .weapon-detail,
 .picto-detail {
   font-size: 0.9em;
