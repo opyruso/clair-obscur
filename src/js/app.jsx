@@ -713,9 +713,9 @@ function AdminPage(){
                 columns={[
                   {field:'idWeapon',header:'ID', width:80, editable:false},
                   {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
-                  {field:'damageType',header:'Type', width:80, type:'singleSelect', options:typeOptions},
-                  {field:'damageBuffType1',header:'Buff1', width:80, type:'singleSelect', options:buffOptions},
-                  {field:'damageBuffType2',header:'Buff2', width:80, type:'singleSelect', options:buffOptions},
+                  {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
+                  {field:'damageBuffType1',header:'Buff1', width:120, type:'singleSelect', options:buffOptions},
+                  {field:'damageBuffType2',header:'Buff2', width:120, type:'singleSelect', options:buffOptions},
                   {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                   {field:'name',header:'Name', width:280},
                   {field:'region',header:'Region', width:280},

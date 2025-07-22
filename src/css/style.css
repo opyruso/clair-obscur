@@ -880,7 +880,12 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .admin-grid{flex:1;height:85vh;max-height:calc(100vh - 250px);overflow:auto;background:#21232d;}
 .base-row .admin-grid{height:60vh;max-height:calc(100vh - 250px);}
 .admin-grid .MuiDataGrid-root{color:#fff;min-height:100%;}
-.admin-grid .MuiDataGrid-cell,.admin-grid .MuiDataGrid-columnHeader{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.admin-grid .MuiDataGrid-cell,.admin-grid .MuiDataGrid-columnHeader{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:0.85em;
+}
 .admin-section{margin-top:20px;}
 
 .admin-grid .MuiDataGrid-footerContainer{
