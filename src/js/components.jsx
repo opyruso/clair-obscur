@@ -84,7 +84,8 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     setRows(rows.filter((_,i)=>i!==rowIndex));
     const url = `${api}${endpoint}/${encodeURIComponent(row[idField])}`;
     await apiFetch(url, {
-      method:'DELETE'
+      method:'DELETE',
+      headers:{'Content-Type':'application/json'}
     });
   };
 
