@@ -537,6 +537,11 @@ function AdminPage(){
   const [weapons, setWeapons] = React.useState([]);
   const [tab, setTab] = React.useState(0);
 
+  const langOptions = ['fr','en'];
+  const charOptions = React.useMemo(() => Array.from(new Set(characters.map(c => c.idCharacter))), [characters]);
+  const typeOptions = React.useMemo(() => Array.from(new Set(damageTypes.map(t => t.idDamageType))), [damageTypes]);
+  const buffOptions = React.useMemo(() => Array.from(new Set(damageBuffTypes.map(b => b.idDamageBuffType))), [damageBuffTypes]);
+
 
   const loadData = () => {
     getSiteData().then(data=>{
@@ -636,18 +641,18 @@ function AdminPage(){
             <div className="admin-row base-row">
               <UIGrid columns={[
                 {field:'idCharacter',header:'ID', width:80, editable:false},
-                {field:'lang',header:'Lang', width:80},
+                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                 {field:'name',header:'Name', width:280},
                 {field:'story',header:'Story', flex:1}
               ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
               <UIGrid columns={[
                 {field:'idDamageBuffType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80},
+                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                 {field:'name',header:'Name', flex:1}
               ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
               <UIGrid columns={[
                 {field:'idDamageType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80},
+                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                 {field:'name',header:'Name', flex:1}
               ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
             </div>
@@ -667,7 +672,7 @@ function AdminPage(){
                   {field:'bonusCritChance',header:'Crit%', width:80},
                   {field:'bonusHealth',header:'HP', width:80},
                   {field:'luminaCost',header:'Lumina', width:80},
-                  {field:'lang',header:'Lang', width:80},
+                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                   {field:'name',header:'Name', width:280},
                   {field:'region',header:'Region', width:280},
                   {field:'descrptionBonusLumina',header:'Effect', width:500},
@@ -689,11 +694,11 @@ function AdminPage(){
               <UIGrid
                 columns={[
                   {field:'idWeapon',header:'ID', width:80, editable:false},
-                  {field:'character',header:'Char'},
-                  {field:'damageType',header:'Type'},
-                  {field:'damageBuffType1',header:'Buff1'},
-                  {field:'damageBuffType2',header:'Buff2'},
-                  {field:'lang',header:'Lang', width:80},
+                  {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+                  {field:'damageType',header:'Type', width:80, type:'singleSelect', options:typeOptions},
+                  {field:'damageBuffType1',header:'Buff1', width:80, type:'singleSelect', options:buffOptions},
+                  {field:'damageBuffType2',header:'Buff2', width:80, type:'singleSelect', options:buffOptions},
+                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                   {field:'name',header:'Name', width:280},
                   {field:'region',header:'Region', width:280},
                   {field:'unlockDescription',header:'Unlock', flex:1},

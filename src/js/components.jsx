@@ -85,6 +85,8 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     const col = {field:c.field, headerName:c.header, editable: c.editable !== undefined ? c.editable : true};
     if(c.width !== undefined) col.width = c.width;
     if(c.flex !== undefined) col.flex = c.flex;
+    if(c.type) col.type = c.type;
+    if(Array.isArray(c.options)) col.valueOptions = c.options;
     if(col.width === undefined && col.flex === undefined){
       const sample = rows.find(r => r?.[c.field] !== undefined);
       const val = sample?.[c.field];
