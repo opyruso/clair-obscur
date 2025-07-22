@@ -165,7 +165,7 @@ function BuildPage(){
 
   useEffect(()=>{
     document.body.dataset.page='build';
-    apiFetch(`${apiUrl}/public/data/${currentLang}`).then(r=>r.json()).then(d=>{
+    getSiteData().then(d=>{
       setWeapons(mapWeapons(d.weapons||[]));
       setPictos(mapPictos(d.pictos||[]));
       let names=[]; let ids={};
@@ -532,7 +532,7 @@ function AdminPage(){
 
 
   const loadData = () => {
-    apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
+    getSiteData().then(data=>{
       const charRows = [];
       data.characters.forEach(c=>{
         (c.details||[{lang:'',name:'',story:''}]).forEach(d=>{
