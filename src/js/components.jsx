@@ -144,6 +144,9 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
           experimentalFeatures={{newEditingApi:true}}
           processRowUpdate={processRowUpdate}
           onProcessRowUpdateError={handleProcessRowUpdateError}
+          autoHeight
+          pageSizeOptions={[10, 25, 50, 100]}
+          initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
           slots={{ footer: AddRowFooter }}
         />
       </div>
