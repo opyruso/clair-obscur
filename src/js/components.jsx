@@ -41,84 +41,80 @@ const Footer = () => (
 );
 
 function UIGrid({columns, rows, setRows, endpoint, idField}){
-  const {useState} = React;
+  const {useCallback} = React;
+  const {DataGrid} = MaterialUI;
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
-  const [editCell, setEditCell] = useState(null);
 
-  const onCellDouble = (rowIndex, field) => {
-    setEditCell({rowIndex, field});
-  };
-
-  const onCellChange = (e, rowIndex, field) => {
-    const value = e.target.value;
-    setRows(old => {
-      const nr = [...old];
-      nr[rowIndex] = { ...nr[rowIndex], [field]: value };
-      return nr;
-    });
-  };
-
-  const saveRow = async (rowIndex) => {
-    const row = rows[rowIndex];
-    setEditCell(null);
-    const {__new, ...payload} = row;
-    const method = row.__new ? 'POST' : 'PUT';
+  const processRowUpdate = useCallback(async (newRow) => {
+    const {__new, id, ...payload} = newRow;
+    const method = __new ? 'POST' : 'PUT';
     let url = `${api}${endpoint}`;
     if(method === 'PUT') {
-      url += `/${encodeURIComponent(row[idField])}`;
+      url += `/${encodeURIComponent(newRow[idField])}`;
     }
     await apiFetch(url, {
       method,
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify(payload)
     });
-    if(row.__new) delete row.__new;
-  };
+    const updated = {...newRow};
+    delete updated.__new;
+    setRows(rs => rs.map(r => (r[idField] === updated[idField] ? updated : r)));
+    return updated;
+  }, [api, endpoint, idField, setRows]);
+
+  const handleProcessRowUpdateError = useCallback(err => console.error(err), []);
 
   const addRow = () => {
     setRows([...rows, { [idField]: '', __new:true }]);
   };
 
-  const deleteRow = async (rowIndex) => {
-    const row = rows[rowIndex];
-    setRows(rows.filter((_,i)=>i!==rowIndex));
-    const url = `${api}${endpoint}/${encodeURIComponent(row[idField])}`;
+  const deleteRow = useCallback(async (idVal) => {
+    const row = rows.find(r => r[idField] === idVal);
+    if(!row) return;
+    setRows(rows.filter(r => r[idField] !== idVal));
+    if(row.__new) return;
+    const url = `${api}${endpoint}/${encodeURIComponent(idVal)}`;
     await apiFetch(url, {
       method:'DELETE',
       headers:{'Content-Type':'application/json','Accept':'application/json'}
     });
-  };
+  }, [rows, api, endpoint, idField, setRows]);
+
+  const cols = columns.map(c => ({
+    field:c.field,
+    headerName:c.header,
+    width:c.width,
+    flex:c.flex,
+    editable:true
+  }));
+  cols.push({
+    field:'__actions',
+    headerName:'',
+    sortable:false,
+    filterable:false,
+    width:60,
+    renderCell:(params)=> (
+      <button className="btn btn-sm btn-danger" onClick={()=>deleteRow(params.row[idField])}>x</button>
+    )
+  });
+
+  const rowData = rows.map((r,i)=>({id:r[idField] || `n${i}`, ...r}));
 
   return (
     <div className="admin-grid">
-      <table className="table table-sm table-bordered">
-        <thead>
-          <tr>
-            {columns.map(c => <th key={c.field} style={{width:c.width}} className={c.className}>{c.header}</th>)}
-            <th><button className="btn btn-sm btn-primary" onClick={addRow}>+</button></th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row,i) => (
-            <tr key={row[idField] || i}>
-              {columns.map(col => {
-                const val = row[col.field] ?? '';
-                const style = col.width ? {width: col.width} : undefined;
-                const cls = col.className || undefined;
-                if(editCell && editCell.rowIndex===i && editCell.field===col.field){
-                  return (
-                    <td key={col.field} style={style} className={cls}>
-                      <input value={val} onChange={e=>onCellChange(e,i,col.field)} onBlur={()=>saveRow(i)} />
-                    </td>
-                  );
-                }
-                return <td key={col.field} style={style} className={cls} onDoubleClick={()=>onCellDouble(i,col.field)}>{val}</td>;
-              })}
-              <td><button className="btn btn-sm btn-danger" onClick={()=>deleteRow(i)}>x</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div style={{height:'100%',width:'100%'}}>
+        <DataGrid
+          columns={cols}
+          rows={rowData}
+          getRowId={r=>r[idField] || r.id}
+          editMode="row"
+          experimentalFeatures={{newEditingApi:true}}
+          processRowUpdate={processRowUpdate}
+          onProcessRowUpdateError={handleProcessRowUpdateError}
+        />
+      </div>
+      <button className="btn btn-sm btn-primary mt-2" onClick={addRow}>+</button>
     </div>
   );
 }
