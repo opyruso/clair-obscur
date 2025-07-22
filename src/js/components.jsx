@@ -61,12 +61,16 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
   const saveRow = async (rowIndex) => {
     const row = rows[rowIndex];
     setEditCell(null);
+    const {__new, ...payload} = row;
     const method = row.__new ? 'POST' : 'PUT';
-    const body = JSON.stringify(row);
-    await apiFetch(`${api}${endpoint}`, {
+    let url = `${api}${endpoint}`;
+    if(method === 'PUT') {
+      url += `/${encodeURIComponent(row[idField])}`;
+    }
+    await apiFetch(url, {
       method,
-      headers:{'Content-Type':'application/json'},
-      body
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify(payload)
     });
     if(row.__new) delete row.__new;
   };
@@ -78,10 +82,10 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
   const deleteRow = async (rowIndex) => {
     const row = rows[rowIndex];
     setRows(rows.filter((_,i)=>i!==rowIndex));
-    await apiFetch(`${api}${endpoint}`, {
+    const url = `${api}${endpoint}/${encodeURIComponent(row[idField])}`;
+    await apiFetch(url, {
       method:'DELETE',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(row)
+      headers:{'Content-Type':'application/json','Accept':'application/json'}
     });
   };
 
