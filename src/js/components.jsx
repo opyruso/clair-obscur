@@ -82,7 +82,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
   }, [rows, api, endpoint, idField, setRows]);
 
   const cols = columns.map(c => {
-    const col = {field:c.field, headerName:c.header, editable:true};
+    const col = {field:c.field, headerName:c.header, editable: c.editable !== undefined ? c.editable : true};
     if(c.width !== undefined) col.width = c.width;
     if(c.flex !== undefined) col.flex = c.flex;
     if(col.width === undefined && col.flex === undefined){

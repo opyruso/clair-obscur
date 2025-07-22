@@ -635,20 +635,20 @@ function AdminPage(){
           {tab===0 && (
             <div className="admin-row base-row">
               <UIGrid columns={[
-                {field:'idCharacter',header:'ID'},
-                {field:'lang',header:'Lang'},
-                {field:'name',header:'Name'},
-                {field:'story',header:'Story', width:150}
+                {field:'idCharacter',header:'ID', width:80, editable:false},
+                {field:'lang',header:'Lang', width:80},
+                {field:'name',header:'Name', width:280},
+                {field:'story',header:'Story', flex:1}
               ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
               <UIGrid columns={[
-                {field:'idDamageBuffType',header:'ID'},
-                {field:'lang',header:'Lang'},
-                {field:'name',header:'Name'}
+                {field:'idDamageBuffType',header:'ID', width:80},
+                {field:'lang',header:'Lang', width:80},
+                {field:'name',header:'Name', flex:1}
               ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
               <UIGrid columns={[
-                {field:'idDamageType',header:'ID'},
-                {field:'lang',header:'Lang'},
-                {field:'name',header:'Name'}
+                {field:'idDamageType',header:'ID', width:80},
+                {field:'lang',header:'Lang', width:80},
+                {field:'name',header:'Name', flex:1}
               ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
             </div>
           )}
@@ -660,18 +660,18 @@ function AdminPage(){
             <div className="admin-row">
               <UIGrid
                 columns={[
-                  {field:'idPicto',header:'ID'},
-                  {field:'level',header:'Level'},
-                  {field:'bonusDefense',header:'Def'},
-                  {field:'bonusSpeed',header:'Speed'},
-                  {field:'bonusCritChance',header:'Crit%'},
-                  {field:'bonusHealth',header:'HP'},
-                  {field:'luminaCost',header:'Lumina'},
-                  {field:'lang',header:'Lang'},
-                  {field:'name',header:'Name'},
-                  {field:'region',header:'Region'},
-                  {field:'descrptionBonusLumina',header:'Effect', width:150},
-                  {field:'unlockDescription',header:'Unlock', width:150}
+                  {field:'idPicto',header:'ID', width:80, editable:false},
+                  {field:'level',header:'Level', width:80},
+                  {field:'bonusDefense',header:'Def', width:80},
+                  {field:'bonusSpeed',header:'Speed', width:80},
+                  {field:'bonusCritChance',header:'Crit%', width:80},
+                  {field:'bonusHealth',header:'HP', width:80},
+                  {field:'luminaCost',header:'Lumina', width:80},
+                  {field:'lang',header:'Lang', width:80},
+                  {field:'name',header:'Name', width:280},
+                  {field:'region',header:'Region', width:280},
+                  {field:'descrptionBonusLumina',header:'Effect', width:500},
+                  {field:'unlockDescription',header:'Unlock', flex:1}
                 ]}
                 rows={pictos}
                 setRows={setPictos}
@@ -688,18 +688,18 @@ function AdminPage(){
             <div className="admin-row">
               <UIGrid
                 columns={[
-                  {field:'idWeapon',header:'ID'},
+                  {field:'idWeapon',header:'ID', width:80, editable:false},
                   {field:'character',header:'Char'},
                   {field:'damageType',header:'Type'},
                   {field:'damageBuffType1',header:'Buff1'},
                   {field:'damageBuffType2',header:'Buff2'},
-                  {field:'lang',header:'Lang'},
-                  {field:'name',header:'Name'},
-                  {field:'region',header:'Region'},
-                  {field:'unlockDescription',header:'Unlock', width:150},
-                  {field:'weaponEffect1',header:'Effect1', width:150},
-                  {field:'weaponEffect2',header:'Effect2', width:150},
-                  {field:'weaponEffect3',header:'Effect3', width:150}
+                  {field:'lang',header:'Lang', width:80},
+                  {field:'name',header:'Name', width:280},
+                  {field:'region',header:'Region', width:280},
+                  {field:'unlockDescription',header:'Unlock', flex:1},
+                  {field:'weaponEffect1',header:'Effect1', width:280},
+                  {field:'weaponEffect2',header:'Effect2', width:280},
+                  {field:'weaponEffect3',header:'Effect3', width:280}
                 ]}
                 rows={weapons}
                 setRows={setWeapons}
