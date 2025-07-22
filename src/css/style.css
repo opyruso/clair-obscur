@@ -521,6 +521,12 @@ body[data-page="weapons"] .card-back {
   align-items: center;
 }
 
+@media (min-width: 1441px) {
+  .header-right {
+    gap: 16px;
+  }
+}
+
 
 .nav-collapse {
   display: flex;
@@ -532,7 +538,7 @@ body[data-page="weapons"] .card-back {
     margin: 0 10px;
   }
 
-@media (max-width: 800px) {
+@media (max-width: 1440px) {
   .navbar .header-inner {
     flex-wrap: wrap;
   }
@@ -550,7 +556,7 @@ body[data-page="weapons"] .card-back {
     flex-direction: column;
     display: none;
     align-items: flex-end;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.8);
     padding: 10px 20px;
     width: fit-content;
     z-index: 3001;
@@ -567,7 +573,7 @@ body[data-page="weapons"] .card-back {
     text-align: right;
   }
   .navbar-nav .nav-item {
-    margin: 5px 0;
+    margin: 10px 0;
   }
   .header-right {
     margin-left: 0;
