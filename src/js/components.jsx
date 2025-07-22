@@ -69,7 +69,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     }
     await apiFetch(url, {
       method,
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify(payload)
     });
     if(row.__new) delete row.__new;
@@ -85,7 +85,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     const url = `${api}${endpoint}/${encodeURIComponent(row[idField])}`;
     await apiFetch(url, {
       method:'DELETE',
-      headers:{'Content-Type':'application/json'}
+      headers:{'Content-Type':'application/json','Accept':'application/json'}
     });
   };
 
