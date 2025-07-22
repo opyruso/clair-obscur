@@ -896,7 +896,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 
 .admin-grid .MuiDataGrid-footerContainer{
   padding-right:10px;
-  color:#ccc;
+}
+.admin-grid .MuiTablePagination-root{
+  color:#aaa;
 }
 .admin-grid .add-row-btn{
   margin-left:10px;
