@@ -147,6 +147,7 @@ function BuildPage(){
         .filter(Boolean).join(' ');
       const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
       return {
+        id:w.idWeapon,
         character:charDet.name||w.character?.idCharacter||'',
         name:det.name||'',
         region:det.region||'',

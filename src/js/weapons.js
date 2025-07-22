@@ -73,6 +73,7 @@ function mapWeapons(list){
       .filter(Boolean);
     const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
     return {
+      id:w.idWeapon,
       character:charDet.name||w.character?.idCharacter||'',
       name:det.name||'',
       region:det.region||'',
@@ -87,7 +88,7 @@ function mapWeapons(list){
 function loadData(){
   apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
     const list = mapWeapons(data.weapons || []);
-    allWeapons=list.map((w,i)=>({id:`${w.character}|${w.name}`,...w}));
+    allWeapons=list.map(w=>({id:w.id,...w}));
     getSavedItems(storageKey).forEach(id=>myWeapons.add(id));
     applyFilters();
   });
