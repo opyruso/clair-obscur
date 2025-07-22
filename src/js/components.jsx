@@ -42,7 +42,7 @@ const Footer = () => (
 
 function UIGrid({columns, rows, setRows, endpoint, idField}){
   const {useCallback} = React;
-  const {DataGrid} = MaterialUI;
+  const {DataGrid, GridFooterContainer, GridPagination} = MaterialUI;
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
 
   const processRowUpdate = useCallback(async (newRow) => {
@@ -101,6 +101,13 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
 
   const rowData = rows.map((r,i)=>({id:r[idField] || `n${i}`, ...r}));
 
+  const AddRowFooter = (props) => (
+    <GridFooterContainer>
+      <GridPagination {...props} />
+      <button className="btn btn-sm btn-primary" onClick={addRow}>+</button>
+    </GridFooterContainer>
+  );
+
   return (
     <div className="admin-grid">
       <div style={{height:'100%',width:'100%'}}>
@@ -112,9 +119,9 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
           experimentalFeatures={{newEditingApi:true}}
           processRowUpdate={processRowUpdate}
           onProcessRowUpdateError={handleProcessRowUpdateError}
+          slots={{ footer: AddRowFooter }}
         />
       </div>
-      <button className="btn btn-sm btn-primary mt-2" onClick={addRow}>+</button>
     </div>
   );
 }
