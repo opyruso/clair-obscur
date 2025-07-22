@@ -401,8 +401,7 @@ function BuildPage(){
     if(!apiUrl) return;
     apiFetch(`${apiUrl}/public/builds`,{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(team)
+      body:team
     })
       .then(r=>r.json())
       .then(({id})=>{
