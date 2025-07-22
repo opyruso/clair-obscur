@@ -5,6 +5,7 @@ const srcDir = path.join(__dirname, 'src');
 const distDir = path.join(__dirname, 'dist');
 const nodeModulesDir = path.join(__dirname, 'node_modules');
 const babel = require('@babel/core');
+const esbuild = require('esbuild');
 
 function copyRecursive(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
@@ -55,6 +56,17 @@ transpile(path.join(srcDir, 'js', 'app.jsx'), path.join(distDir, 'js', 'app.js')
 fs.rmSync(path.join(distDir, 'js', 'components.jsx'));
 fs.rmSync(path.join(distDir, 'js', 'app.jsx'));
 
+// build MUI bundle for DataGrid
+esbuild.buildSync({
+  entryPoints: [path.join(srcDir, 'js', 'datagrid-entry.js')],
+  bundle: true,
+  format: 'iife',
+  globalName: 'MaterialUI',
+  external: ['react', 'react-dom'],
+  minify: true,
+  outfile: path.join(distDir, 'js', 'datagrid-bundle.js'),
+});
+
 // copy runtime packages so dist is self-contained
 const packages = [
   'react',
@@ -66,9 +78,6 @@ const packages = [
   '@fontsource/cinzel',
   '@fortawesome/fontawesome-free',
   'keycloak-js',
-  '@mui/material',
-  '@mui/system',
-  '@mui/x-data-grid',
   '@emotion/react',
   '@emotion/styled'
 ];
