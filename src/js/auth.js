@@ -68,7 +68,14 @@ function apiFetch(url, options = {}) {
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
-  return fetch(url, { ...options, headers });
+  let { body } = options;
+  if (body && typeof body === 'object' && !(body instanceof FormData)) {
+    if (!headers['Content-Type']) {
+      headers['Content-Type'] = 'application/json';
+    }
+    body = JSON.stringify(body);
+  }
+  return fetch(url, { ...options, headers, body });
 }
 
 window.apiFetch = apiFetch;
