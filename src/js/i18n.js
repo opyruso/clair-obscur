@@ -24,6 +24,7 @@ async function loadLang(lang) {
     if(typeof pageObj.loadData === 'function') pageObj.loadData();
     if(typeof pageObj.render === 'function') pageObj.render();
   }
+  window.dispatchEvent(new CustomEvent('langchange', {detail: lang}));
 }
 
 function applyTranslations() {

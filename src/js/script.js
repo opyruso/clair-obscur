@@ -1,5 +1,4 @@
 (() => {
-const api = window.CONFIG?.["clairobscur-api-url"] || '';
 let pictos = [];
 let pictosFiltered = [];
 let myPictosSet = new Set();
@@ -313,7 +312,7 @@ function handleCardPressLeave(e) {
     }
 
     async function loadData() {
-      const data = await apiFetch(`${api}/public/data/${currentLang}`).then(r => r.json());
+      const data = await getSiteData();
       pictos = mapPictos(data.pictos||[]);
       pictosFiltered = pictos.slice();
       myPictosSet = new Set();

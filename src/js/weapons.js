@@ -1,5 +1,4 @@
 (() => {
-const api = window.CONFIG?.["clairobscur-api-url"] || '';
 const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
 let characters = defaultCharacters.slice();
 let characterIds = Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
@@ -96,7 +95,7 @@ function mapWeapons(list){
 }
 
 function loadData(){
-  apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
+  getSiteData().then(data=>{
     characters=[];
     characterIds={};
     (data.characters||[]).forEach(c=>{

@@ -119,7 +119,8 @@ function BuildPage(){
   const [charIds,setCharIds]=useState(defaultCharIds);
   const [weapons,setWeapons]=useState([]);
   const [pictos,setPictos]=useState([]);
-  const [team,setTeam]=useState(Array.from({length:5},()=>({character:'',weapon:'',mainPictos:[null,null,null],subPictos:[]})));
+  const [team,setTeam]=useState(Array.from({length:5},()=>({character:'',weapon:'',mainPictos:[null,null,null],subPictos:[]}))); 
+  const [lang,setLang]=useState(currentLang);
   const [modal,setModal]=useState(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
@@ -165,19 +166,22 @@ function BuildPage(){
 
   useEffect(()=>{
     document.body.dataset.page='build';
-    apiFetch(`${apiUrl}/public/data/${currentLang}`).then(r=>r.json()).then(d=>{
-      setWeapons(mapWeapons(d.weapons||[]));
-      setPictos(mapPictos(d.pictos||[]));
-      let names=[]; let ids={};
-      (d.characters||[]).forEach(c=>{
-        const det=(c.details||[]).find(dd=>dd.lang===currentLang)||c.details?.[0]||{};
-        const nm=det.name||'';
-        if(nm){ names.push(nm); ids[nm]=c.idCharacter; }
+    const loadData=()=>{
+      getSiteData().then(d=>{
+        setWeapons(mapWeapons(d.weapons||[]));
+        setPictos(mapPictos(d.pictos||[]));
+        let names=[]; let ids={};
+        (d.characters||[]).forEach(c=>{
+          const det=(c.details||[]).find(dd=>dd.lang===currentLang)||c.details?.[0]||{};
+          const nm=det.name||'';
+          if(nm){ names.push(nm); ids[nm]=c.idCharacter; }
+        });
+        if(names.length===0){ names=defaultCharacters.slice(); ids=defaultCharIds; }
+        setCharNames(names);
+        setCharIds(ids);
       });
-      if(names.length===0){ names=defaultCharacters.slice(); ids=defaultCharIds; }
-      setCharNames(names);
-      setCharIds(ids);
-    });
+    };
+    loadData();
     const params=new URLSearchParams(window.location.search);
     const ref=params.get('refBuild');
     const d=params.get('data');
@@ -195,8 +199,12 @@ function BuildPage(){
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
+
+    const handleLang=()=>{ setLang(currentLang); loadData(); };
+    window.addEventListener('langchange', handleLang);
+    return ()=>{ window.removeEventListener('langchange', handleLang); };
   },[]);
-  useEffect(()=>{ document.title=t('build_title'); },[team,pictos]);
+  useEffect(()=>{ document.title=t('build_title'); },[team,pictos,lang]);
 
   const usedMain=new Set();
   team.forEach(t=>t.mainPictos.forEach(p=>{if(p) usedMain.add(p);}));
@@ -532,7 +540,7 @@ function AdminPage(){
 
 
   const loadData = () => {
-    apiFetch(`${api}/public/data/${currentLang}`).then(r=>r.json()).then(data=>{
+    getSiteData().then(data=>{
       const charRows = [];
       data.characters.forEach(c=>{
         (c.details||[{lang:'',name:'',story:''}]).forEach(d=>{
