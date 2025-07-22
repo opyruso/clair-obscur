@@ -1,7 +1,8 @@
 (() => {
 const api = window.CONFIG?.["clairobscur-api-url"] || '';
-let characters = [];
-let characterIds = {};
+const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
+let characters = defaultCharacters.slice();
+let characterIds = Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
 const damageIcons={
   'Feu':'fire',
   'Glace':'ice',
@@ -19,8 +20,8 @@ let weapons = [];
 let filteredWeapons = [];
 let myWeapons = new Set();
 const storageKey = 'weapons';
-let currentCharacter = '';
-let currentCharId = 0;
+let currentCharacter = characters[0];
+let currentCharId = characterIds[currentCharacter];
 let currentView = localStorage.getItem('weaponViewMode') || 'cards';
 let hideOwned = false;
 let hideMissing = false;
@@ -49,11 +50,13 @@ function initPage(){
   document.getElementById('downloadBtn').addEventListener('click',downloadJson);
   document.getElementById('uploadBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
   document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleSiteUpload(e.target.files[0]);e.target.value='';});
+  initCharacters();
   loadData();
 }
 
 function initCharacters(){
   const div=document.getElementById('charSelect');
+  div.innerHTML='';
   characters.forEach(c=>{
     const img=document.createElement('img');
     img.src=`resources/images/characters/${c.toLowerCase()}_icon.png`;
@@ -97,15 +100,19 @@ function loadData(){
     characters=[];
     characterIds={};
     (data.characters||[]).forEach(c=>{
-      const det=(c.details||[]).find(d=>d.lang===currentLang)||{};
+      const det=(c.details||[]).find(d=>d.lang===currentLang)||c.details?.[0]||{};
       const name=det.name||'';
       if(name){
         characters.push(name);
         characterIds[name]=c.idCharacter;
       }
     });
-    currentCharacter=characters[0]||'';
-    currentCharId=currentCharacter?characterIds[currentCharacter]:0;
+    if(characters.length===0){
+      characters=defaultCharacters.slice();
+      characterIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
+    }
+    currentCharacter=characters[0];
+    currentCharId=characterIds[currentCharacter];
     initCharacters();
     const list = mapWeapons(data.weapons || []);
     allWeapons=list.map(w=>({id:w.id,...w}));

@@ -113,8 +113,10 @@ function WeaponsPage(){
 }
 
 function BuildPage(){
-  const [charNames,setCharNames]=useState([]);
-  const [charIds,setCharIds]=useState({});
+  const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
+  const defaultCharIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
+  const [charNames,setCharNames]=useState(defaultCharacters);
+  const [charIds,setCharIds]=useState(defaultCharIds);
   const [weapons,setWeapons]=useState([]);
   const [pictos,setPictos]=useState([]);
   const [team,setTeam]=useState(Array.from({length:5},()=>({character:'',weapon:'',mainPictos:[null,null,null],subPictos:[]})));
@@ -166,12 +168,13 @@ function BuildPage(){
     apiFetch(`${apiUrl}/public/data/${currentLang}`).then(r=>r.json()).then(d=>{
       setWeapons(mapWeapons(d.weapons||[]));
       setPictos(mapPictos(d.pictos||[]));
-      const names=[]; const ids={};
+      let names=[]; let ids={};
       (d.characters||[]).forEach(c=>{
-        const det=(c.details||[]).find(dd=>dd.lang===currentLang)||{};
+        const det=(c.details||[]).find(dd=>dd.lang===currentLang)||c.details?.[0]||{};
         const nm=det.name||'';
         if(nm){ names.push(nm); ids[nm]=c.idCharacter; }
       });
+      if(names.length===0){ names=defaultCharacters.slice(); ids=defaultCharIds; }
       setCharNames(names);
       setCharIds(ids);
     });
