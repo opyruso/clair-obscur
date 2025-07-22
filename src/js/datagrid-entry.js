@@ -1,2 +1,2 @@
 export * from '@mui/material';
-export { DataGrid } from '@mui/x-data-grid';
+export { DataGrid, GridPagination, GridFooterContainer } from '@mui/x-data-grid';
