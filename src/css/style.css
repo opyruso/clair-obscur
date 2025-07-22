@@ -883,8 +883,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 
 /* Admin Page */
 .admin-row{display:flex;gap:10px;margin-bottom:20px;align-items:stretch;}
-.admin-grid{flex:1;height:85vh;max-height:calc(100vh - 250px);overflow:auto;background:#21232d;}
-.base-row .admin-grid{height:60vh;max-height:calc(100vh - 250px);}
+.admin-grid{flex:1;height:auto;max-height:calc(100vh - 250px);overflow:auto;background:#21232d;}
+.base-row .admin-grid{height:auto;max-height:calc(100vh - 250px);}
 .admin-grid .MuiDataGrid-root{color:#fff;min-height:100%;}
 .admin-grid .MuiDataGrid-cell,.admin-grid .MuiDataGrid-columnHeader{
   overflow:hidden;
