@@ -299,6 +299,11 @@ function BuildPage(){
       if(i!==idx) return c;
       const arr = c.buffStats.slice();
       arr[bidx]=val;
+      const total = arr.reduce((a,b)=>a+b,0);
+      if(total>297){
+        arr[bidx]-=(total-297);
+        if(arr[bidx]<0) arr[bidx]=0;
+      }
       return {...c, buffStats: arr};
     }));
   }
@@ -520,6 +525,7 @@ function BuildPage(){
                     </div>
                   </div>
                 </div>
+                <div className="buff-row-title" data-i18n="attributes">{t('attributes')}</div>
                 <div className="buff-stats-row">
                   <div className="buff-inputs">
                     {[1,2,3,4,5].map((id,i)=>(
@@ -586,6 +592,7 @@ function BuildPage(){
                     </div>
                     </div>
                   </div>
+                  <div className="buff-row-title" data-i18n="attributes">{t('attributes')}</div>
                   <div className="buff-stats-row">
                     <div className="buff-inputs">
                       {[1,2,3,4,5].map((id,i)=>(

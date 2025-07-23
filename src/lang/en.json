@@ -44,6 +44,7 @@
   "damage_buff_type_3": "Agility",
   "damage_buff_type_4": "Defense",
   "damage_buff_type_5": "Critical Chance",
+  "attributes": "Attributes",
   "weapon_effect": "Effect",
   "weapons_title": "Clair Obscur - Weapons",
   "nav_build": "Team builder",
