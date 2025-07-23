@@ -64,7 +64,11 @@
   "index_desc3": "Build your team composition and share it with a link.",
   "nav_admin": "Admin",
   "heading_admin": "Administration",
-  "admin_base": "Manage base data",
+  "admin_characters": "Characters",
+  "admin_damage_buff_types": "Damage Buff Types",
+  "admin_damage_types": "Damage Types",
   "admin_pictos": "Pictos",
-  "admin_weapons": "Weapons"
+  "admin_weapons": "Weapons",
+  "admin_capacity_types": "Capacity Types",
+  "admin_capacities": "Capacities"
 }

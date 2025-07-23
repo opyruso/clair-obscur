@@ -569,6 +569,8 @@ function AdminPage(){
   const [damageTypes, setDamageTypes] = React.useState([]);
   const [pictos, setPictos] = React.useState([]);
   const [weapons, setWeapons] = React.useState([]);
+  const [capacityTypes, setCapacityTypes] = React.useState([]);
+  const [capacities, setCapacities] = React.useState([]);
   const [tab, setTab] = React.useState(0);
 
   const langOptions = ['fr','en'];
@@ -593,6 +595,13 @@ function AdminPage(){
     });
     return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
   }, [damageBuffTypes]);
+  const capTypeOptions = React.useMemo(() => {
+    const map = new Map();
+    capacityTypes.forEach(ct => {
+      if(!map.has(ct.idCapacityType)) map.set(ct.idCapacityType, ct.name || ct.idCapacityType);
+    });
+    return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
+  }, [capacityTypes]);
 
 
   const loadData = () => {
@@ -620,6 +629,38 @@ function AdminPage(){
         });
       });
       setDamageTypes(typeRows);
+
+      const capTypeRows = [];
+      (data.capacityTypes||[]).forEach(ct=>{
+        (ct.details||[{lang:'',name:''}]).forEach(d=>{
+          capTypeRows.push({idCapacityType:ct.idCapacityType,lang:d.lang,name:d.name||''});
+        });
+      });
+      setCapacityTypes(capTypeRows);
+
+      const capRows = [];
+      (data.capacities||[]).forEach(c=>{
+        (c.details||[{lang:'',name:'',effectPrimary:'',effectSecondary:'',bonusDescription:'',additionnalDescription:''}]).forEach(d=>{
+          capRows.push({
+            idCapacity:c.idCapacity,
+            character:c.character?.idCharacter||'',
+            energyCost:c.energyCost,
+            canBreak:c.canBreak,
+            damageType:c.damageType?.idDamageType||c.damageType||'',
+            type:c.type?.idCapacityType||c.type||'',
+            isMultiTarget:c.isMultiTarget,
+            gridPositionX:c.gridPositionX,
+            gridPositionY:c.gridPositionY,
+            lang:d.lang,
+            name:d.name||'',
+            effectPrimary:d.effectPrimary||'',
+            effectSecondary:d.effectSecondary||'',
+            bonusDescription:d.bonusDescription||'',
+            additionnalDescription:d.additionnalDescription||''
+          });
+        });
+      });
+      setCapacities(capRows);
 
       const pictoRows = [];
       data.pictos.forEach(p=>{
@@ -682,26 +723,46 @@ function AdminPage(){
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_admin">Administration</h1>
         <div className="admin-tabs-nav">
-          <button className={tab===0?'active':''} data-i18n="admin_base" onClick={()=>setTab(0)}>Base</button>
-          <button className={tab===1?'active':''} data-i18n="admin_pictos" onClick={()=>setTab(1)}>Pictos</button>
-          <button className={tab===2?'active':''} data-i18n="admin_weapons" onClick={()=>setTab(2)}>Weapons</button>
+          <button className={tab===0?'active':''} data-i18n="admin_characters" onClick={()=>setTab(0)}>Characters</button>
+          <button className={tab===1?'active':''} data-i18n="admin_damage_buff_types" onClick={()=>setTab(1)}>Buff Types</button>
+          <button className={tab===2?'active':''} data-i18n="admin_damage_types" onClick={()=>setTab(2)}>Damage Types</button>
+          <button className={tab===3?'active':''} data-i18n="admin_pictos" onClick={()=>setTab(3)}>Pictos</button>
+          <button className={tab===4?'active':''} data-i18n="admin_weapons" onClick={()=>setTab(4)}>Weapons</button>
+          <button className={tab===5?'active':''} data-i18n="admin_capacity_types" onClick={()=>setTab(5)}>Capacity Types</button>
+          <button className={tab===6?'active':''} data-i18n="admin_capacities" onClick={()=>setTab(6)}>Capacities</button>
         </div>
 
         <div className={"admin-tab-pane"+(tab===0?" active":"")}>
-          <h2 className="admin-section" data-i18n="admin_base">Gérer les données de base</h2>
+          <h2 className="admin-section" data-i18n="admin_characters">Characters</h2>
           {tab===0 && (
-            <div className="admin-row base-row">
+            <div className="admin-row">
               <UIGrid columns={[
-                {field:'idCharacter',header:'ID', width:80, editable:false},
+                {field:'idCharacter',header:'ID', width:80},
                 {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                 {field:'name',header:'Name', width:280},
                 {field:'story',header:'Story', flex:1}
               ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+            </div>
+          )}
+        </div>
+
+        <div className={"admin-tab-pane"+(tab===1?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_damage_buff_types">Damage Buff Types</h2>
+          {tab===1 && (
+            <div className="admin-row">
               <UIGrid columns={[
                 {field:'idDamageBuffType',header:'ID', width:80},
                 {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
                 {field:'name',header:'Name', flex:1}
               ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+            </div>
+          )}
+        </div>
+
+        <div className={"admin-tab-pane"+(tab===2?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_damage_types">Damage Types</h2>
+          {tab===2 && (
+            <div className="admin-row">
               <UIGrid columns={[
                 {field:'idDamageType',header:'ID', width:80},
                 {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
@@ -711,13 +772,13 @@ function AdminPage(){
           )}
         </div>
 
-        <div className={"admin-tab-pane"+(tab===1?" active":"")}>
+        <div className={"admin-tab-pane"+(tab===3?" active":"")}>
           <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
-          {tab===1 && (
+          {tab===3 && (
             <div className="admin-row">
               <UIGrid
                 columns={[
-                  {field:'idPicto',header:'ID', width:80, editable:false},
+                  {field:'idPicto',header:'ID', width:80},
                   {field:'level',header:'Level', width:80},
                   {field:'bonusDefense',header:'Def', width:80},
                   {field:'bonusSpeed',header:'Speed', width:80},
@@ -739,13 +800,13 @@ function AdminPage(){
           )}
         </div>
 
-        <div className={"admin-tab-pane"+(tab===2?" active":"")}>
+        <div className={"admin-tab-pane"+(tab===4?" active":"")}>
           <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
-          {tab===2 && (
+          {tab===4 && (
             <div className="admin-row">
               <UIGrid
                 columns={[
-                  {field:'idWeapon',header:'ID', width:80, editable:false},
+                  {field:'idWeapon',header:'ID', width:80},
                   {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
                   {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
                   {field:'damageBuffType1',header:'Buff1', width:120, type:'singleSelect', options:buffOptions},
@@ -766,6 +827,51 @@ function AdminPage(){
             </div>
           )}
         </div>
+
+        <div className={"admin-tab-pane"+(tab===5?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_capacity_types">Capacity Types</h2>
+          {tab===5 && (
+            <div className="admin-row">
+              <UIGrid columns={[
+                {field:'idCapacityType',header:'ID', width:80},
+                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+                {field:'name',header:'Name', flex:1}
+              ]} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" />
+            </div>
+          )}
+        </div>
+
+        <div className={"admin-tab-pane"+(tab===6?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_capacities">Capacities</h2>
+          {tab===6 && (
+            <div className="admin-row">
+              <UIGrid
+                columns={[
+                  {field:'idCapacity',header:'ID', width:80},
+                  {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+                  {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
+                  {field:'type',header:'CapType', width:120, type:'singleSelect', options:capTypeOptions},
+                  {field:'energyCost',header:'Energy', width:80},
+                  {field:'canBreak',header:'Break', width:80},
+                  {field:'isMultiTarget',header:'Multi', width:80},
+                  {field:'gridPositionX',header:'PosX', width:80},
+                  {field:'gridPositionY',header:'PosY', width:80},
+                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+                  {field:'name',header:'Name', width:200},
+                  {field:'effectPrimary',header:'Primary', width:200},
+                  {field:'effectSecondary',header:'Secondary', width:200},
+                  {field:'bonusDescription',header:'Bonus', width:200},
+                  {field:'additionnalDescription',header:'More', flex:1}
+                ]}
+                rows={capacities}
+                setRows={setCapacities}
+                endpoint="/admin/capacities"
+                idField="idCapacity"
+              />
+            </div>
+          )}
+        </div>
+
       </main>
     </>
   );
