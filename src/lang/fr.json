@@ -42,6 +42,7 @@
   "build_title": "Clair Obscur - Création d'équipe",
   "choose_character": "Choisir le personnage",
   "choose_weapon": "Choisir son arme",
+  "select_character_first": "Veuillez choisir un personnage avant l'arme",
   "choose_picto": "Choisir picto {num}",
   "choose_luminas": "Choisir les luminas",
   "luminas_label": "Luminas",

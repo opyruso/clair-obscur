@@ -52,6 +52,7 @@
   "build_title": "Clair Obscur - Team builder",
   "choose_character": "Choose character",
   "choose_weapon": "Choose weapon",
+  "select_character_first": "Select a character before choosing a weapon",
   "choose_picto": "Choose picto {num}",
   "choose_luminas": "Choose luminas",
   "luminas_label": "Luminas",
