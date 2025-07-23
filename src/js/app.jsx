@@ -335,7 +335,7 @@ function BuildPage(){
 
   function SelectionModal(){
     if(!modal) return null;
-    const {options,onSelect,multi,values,search}=modal;
+    const {options,onSelect,multi,values,search,grid,hideCheck}=modal;
     const [local,setLocal]=React.useState(multi?values.slice():values||'');
     const [term,setTerm]=React.useState('');
     const list=search?options.filter(o=>{
@@ -357,9 +357,10 @@ function BuildPage(){
           )}
           {multi ? (
             <>
-              <div className="modal-options">
+              <div className={`modal-options${grid?' grid':''}`}>
                 {list.map(o => (
-                  <label key={o.value} className="modal-option">
+                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}`}>
+                    {o.icon && <img src={o.icon} alt="" />}
                     <input
                       type="checkbox"
                       disabled={o.disabled}
@@ -382,17 +383,18 @@ function BuildPage(){
               </div>
             </>
           ) : (
-            <div className="modal-options">
+            <div className={`modal-options${grid?' grid':''}`}>
               {list.map(o => (
                 <div
                   key={o.value}
-                  className="modal-option"
+                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}`}
                   onClick={() => {
                     onSelect(o.value);
                     setModal(null);
                   }}
                 >
-                  {o.label}
+                  {o.icon && <img src={o.icon} alt="" />}
+                  <span>{o.label}</span>
                 </div>
               ))}
             </div>
@@ -410,14 +412,18 @@ function BuildPage(){
     const hasVerso=team.some((t,i)=>t.character==='Verso' && i!==idx);
     if(hasGustave) opts=opts.filter(ch=>ch!=='Verso');
     if(hasVerso) opts=opts.filter(ch=>ch!=='Gustave');
-    opts=opts.map(ch=>({value:ch,label:ch}));
-    setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[]})});
+    opts=opts.map(ch=>({value:ch,label:ch,icon:`resources/images/characters/${ch.toLowerCase()}_icon.png`}));
+    setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[]}),grid:true});
   }
   function openWeaponModal(idx){
     const char=team[idx].character;
+    if(!char){
+      ReactToastify.toast(t('select_character_first'));
+      return;
+    }
     const cid=charIds[char];
     const opts=weapons.filter(w=>w.charId===cid).map(w=>({value:w.name,label:w.name}));
-    setModal({options:opts,onSelect:val=>updateTeam(idx,{weapon:val})});
+    setModal({options:opts,onSelect:val=>updateTeam(idx,{weapon:val}),grid:true});
   }
   function openMainModal(idx,pidx){
     const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
@@ -432,7 +438,8 @@ function BuildPage(){
     setModal({
       options: available,
       onSelect: val => changeMain(idx, pidx, val),
-      search: true
+      search: true,
+      grid: true
     });
   }
   function openSubsModal(idx){
@@ -457,7 +464,9 @@ function BuildPage(){
       onSelect: vals => changeSubs(idx, vals),
       multi: true,
       values: baseValues,
-      search: true
+      search: true,
+      grid: true,
+      hideCheck: true
     });
   }
 
@@ -525,6 +534,9 @@ function BuildPage(){
                     </div>
                   </div>
                 </div>
+                <div className="buff-chart">
+                  <RadarChart values={col.buffStats} buffs={buffs} />
+                </div>
                 <div className="buff-row-title" data-i18n="attributes">{t('attributes')}</div>
                 <div className="buff-stats-row">
                   <div className="buff-inputs">
@@ -535,9 +547,6 @@ function BuildPage(){
                       </label>
                     ))}
                   </div>
-                  <div className="buff-chart">
-                    <RadarChart values={col.buffStats} buffs={buffs} />
-                  </div>
                 </div>
                 <div className="stats">
                   <div>{t('defense')}: {stats.def}</div>
@@ -545,7 +554,6 @@ function BuildPage(){
                   <div>{t('critical-luck')}: {stats.crit}</div>
                   <div>{t('health')}: {stats.health}</div>
                 </div>
-                {w && <div className="weapon-detail">{w.weapon_effect}</div>}
                 <div className="bottom-controls">
                   <div className="mains">
                     {col.mainPictos.map((pid,pidx)=>(
@@ -592,6 +600,9 @@ function BuildPage(){
                     </div>
                     </div>
                   </div>
+                  <div className="buff-chart">
+                    <RadarChart values={col.buffStats} buffs={buffs} />
+                  </div>
                   <div className="buff-row-title" data-i18n="attributes">{t('attributes')}</div>
                   <div className="buff-stats-row">
                     <div className="buff-inputs">
@@ -602,9 +613,6 @@ function BuildPage(){
                         </label>
                       ))}
                     </div>
-                    <div className="buff-chart">
-                      <RadarChart values={col.buffStats} buffs={buffs} />
-                    </div>
                   </div>
                   <div className="stats">
                     <div>{t('defense')}: {stats.def}</div>
@@ -612,7 +620,6 @@ function BuildPage(){
                     <div>{t('critical-luck')}: {stats.crit}</div>
                     <div>{t('health')}: {stats.health}</div>
                   </div>
-                  {w && <div className="weapon-detail">{w.weapon_effect}</div>}
                     <div className="bottom-controls">
                       <div className="mains">
                         {col.mainPictos.map((pid,pidx)=>(
