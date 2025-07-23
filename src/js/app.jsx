@@ -375,7 +375,8 @@ function BuildPage(){
           (!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) &&
           !existing.includes(p.id)
       )
-      .map(p => ({ value: p.id, label: p.name }));
+      .map(p => ({ value: p.id, label: p.name }))
+      .sort((a, b) => a.label.localeCompare(b.label));
     setModal({
       options: available,
       onSelect: val => changeMain(idx, pidx, val),
@@ -397,7 +398,7 @@ function BuildPage(){
       ...pictos
         .filter(p => !locked.includes(p.id))
         .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
-    ];
+    ].sort((a, b) => a.label.localeCompare(b.label));
     const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
     setModal({
       options: opts,
