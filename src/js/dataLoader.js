@@ -4,6 +4,7 @@ let dataPromise = null;
 
 async function fetchSiteData(lang = currentLang) {
   if (dataCache && dataLang === lang) {
+    window.siteData = dataCache;
     return dataCache;
   }
   if (dataPromise && dataLang === lang) {
@@ -15,6 +16,7 @@ async function fetchSiteData(lang = currentLang) {
     .then(r => r.json())
     .then(data => {
       dataCache = data;
+      window.siteData = data;
       dataPromise = null;
       return data;
     })
