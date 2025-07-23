@@ -113,6 +113,33 @@ function WeaponsPage(){
   );
 }
 
+function RadarChart({values,buffs}){
+  const count = values.length;
+  const max = 99;
+  const center = 50;
+  const radius = 40;
+  const angleStep = (Math.PI*2)/count;
+  const pts = values.map((v,i)=>{
+    const a = -Math.PI/2 + i*angleStep;
+    const r = radius * (v/max);
+    const x = center + Math.cos(a)*r;
+    const y = center + Math.sin(a)*r;
+    return `${x},${y}`;
+  }).join(' ');
+  return (
+    <svg viewBox="0 0 100 100" className="radar-chart">
+      <polygon points={pts} fill="rgba(0,128,255,0.4)" stroke="#0af" />
+      {values.map((v,i)=>{
+        const a = -Math.PI/2 + i*angleStep;
+        const x = center + Math.cos(a)*(radius+6);
+        const y = center + Math.sin(a)*(radius+6);
+        const grade = buffs[0]===(i+1)?'S':buffs[1]===(i+1)?'A':'';
+        return <text key={i} x={x} y={y} fontSize="6" fill="#fff" textAnchor="middle" dominantBaseline="middle">{v}{grade?` ${grade}`:''}</text>;
+      })}
+    </svg>
+  );
+}
+
 function BuildPage(){
   const routerParams = useParams();
   const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
@@ -121,7 +148,15 @@ function BuildPage(){
   const [charIds,setCharIds]=useState(defaultCharIds);
   const [weapons,setWeapons]=useState([]);
   const [pictos,setPictos]=useState([]);
-  const [team,setTeam]=useState(Array.from({length:5},()=>({character:'',weapon:'',mainPictos:[null,null,null],subPictos:[]}))); 
+  const [team,setTeam]=useState(
+    Array.from({length:5},()=>({
+      character:'',
+      weapon:'',
+      buffStats:[0,0,0,0,0],
+      mainPictos:[null,null,null],
+      subPictos:[]
+    }))
+  );
   const [lang,setLang]=useState(currentLang);
   const [modal,setModal]=useState(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
@@ -254,6 +289,18 @@ function BuildPage(){
         return { ...c, subPictos: filtered };
       })
     );
+  }
+
+  function changeBuffStat(idx, bidx, val){
+    val = parseInt(val) || 0;
+    if(val < 0) val = 0;
+    if(val > 99) val = 99;
+    setTeam(t => t.map((c,i)=>{
+      if(i!==idx) return c;
+      const arr = c.buffStats.slice();
+      arr[bidx]=val;
+      return {...c, buffStats: arr};
+    }));
   }
 
   function computeStats(ids){
@@ -473,6 +520,19 @@ function BuildPage(){
                     </div>
                   </div>
                 </div>
+                <div className="buff-stats-row">
+                  <div className="buff-inputs">
+                    {[1,2,3,4,5].map((id,i)=>(
+                      <label key={id}>
+                        {t('damage_buff_type_'+id)}:
+                        <input type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(cidx,i,e.target.value)} />
+                      </label>
+                    ))}
+                  </div>
+                  <div className="buff-chart">
+                    <RadarChart values={col.buffStats} buffs={buffs} />
+                  </div>
+                </div>
                 <div className="stats">
                   <div>{t('defense')}: {stats.def}</div>
                   <div>{t('speed')}: {stats.speed}</div>
@@ -524,6 +584,19 @@ function BuildPage(){
                     <div className="weapon-buff">
                       {w ? (buffs.length>0 ? `${t('damage_buff')}: ${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
                     </div>
+                    </div>
+                  </div>
+                  <div className="buff-stats-row">
+                    <div className="buff-inputs">
+                      {[1,2,3,4,5].map((id,i)=>(
+                        <label key={id}>
+                          {t('damage_buff_type_'+id)}:
+                          <input type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(idx,i,e.target.value)} />
+                        </label>
+                      ))}
+                    </div>
+                    <div className="buff-chart">
+                      <RadarChart values={col.buffStats} buffs={buffs} />
                     </div>
                   </div>
                   <div className="stats">
