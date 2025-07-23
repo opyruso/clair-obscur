@@ -335,7 +335,7 @@ function BuildPage(){
 
   function SelectionModal(){
     if(!modal) return null;
-    const {options,onSelect,multi,values,search,grid}=modal;
+    const {options,onSelect,multi,values,search,grid,hideCheck}=modal;
     const [local,setLocal]=React.useState(multi?values.slice():values||'');
     const [term,setTerm]=React.useState('');
     const list=search?options.filter(o=>{
@@ -359,7 +359,7 @@ function BuildPage(){
             <>
               <div className={`modal-options${grid?' grid':''}`}>
                 {list.map(o => (
-                  <label key={o.value} className={`modal-option${grid?' grid':''}`}>
+                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}`}>
                     {o.icon && <img src={o.icon} alt="" />}
                     <input
                       type="checkbox"
@@ -387,7 +387,7 @@ function BuildPage(){
               {list.map(o => (
                 <div
                   key={o.value}
-                  className={`modal-option${grid?' grid':''}`}
+                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}`}
                   onClick={() => {
                     onSelect(o.value);
                     setModal(null);
@@ -417,6 +417,10 @@ function BuildPage(){
   }
   function openWeaponModal(idx){
     const char=team[idx].character;
+    if(!char){
+      ReactToastify.toast(t('select_character_first'));
+      return;
+    }
     const cid=charIds[char];
     const opts=weapons.filter(w=>w.charId===cid).map(w=>({value:w.name,label:w.name}));
     setModal({options:opts,onSelect:val=>updateTeam(idx,{weapon:val}),grid:true});
@@ -461,7 +465,8 @@ function BuildPage(){
       multi: true,
       values: baseValues,
       search: true,
-      grid: true
+      grid: true,
+      hideCheck: true
     });
   }
 
