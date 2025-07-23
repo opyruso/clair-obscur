@@ -144,7 +144,7 @@ function BuildPage(){
         bonus_lumina:det.descrptionBonusLumina||'',
         unlock_description:det.unlockDescription||''
       };
-    });
+    }).sort((a,b)=>a.name.localeCompare(b.name,currentLang,{sensitivity:'base'}));
   }
 
   function mapWeapons(list){
@@ -376,7 +376,7 @@ function BuildPage(){
           !existing.includes(p.id)
       )
       .map(p => ({ value: p.id, label: p.name }))
-      .sort((a, b) => a.label.localeCompare(b.label));
+      .sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
     setModal({
       options: available,
       onSelect: val => changeMain(idx, pidx, val),
@@ -398,7 +398,7 @@ function BuildPage(){
       ...pictos
         .filter(p => !locked.includes(p.id))
         .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
-    ].sort((a, b) => a.label.localeCompare(b.label));
+    ].sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
     const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
     setModal({
       options: opts,
