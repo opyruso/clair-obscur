@@ -415,6 +415,7 @@ body[data-page="weapons"] .card-back {
   padding: 20px;
   border-radius: 10px;
   width: 90%;
+  max-width: 600px;
   max-height: 80vh;
   overflow: hidden;
   display: flex;
@@ -813,11 +814,6 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   text-align: center;
   font-size: 0.9em;
 }
-.weapon-detail,
-.picto-detail {
-  font-size: 0.9em;
-  margin-bottom: 20px;
-}
 
 .buff-row-title {
   font-family: 'Cinzel', serif;
@@ -884,6 +880,16 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   border: 1px solid #444;
   cursor: pointer;
 }
+.modal-option.grid {
+  flex-direction: column;
+  text-align: center;
+}
+.modal-option.grid img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 4px;
+}
 .modal-option input:checked + span {
   color: #fffff0;
 }
@@ -893,6 +899,12 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   gap: 4px 12px;
   overflow-y: auto;
   flex: 1 1 auto;
+}
+.modal-options.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  justify-items: center;
 }
 
 .modal-actions {
