@@ -684,105 +684,112 @@ function AdminPage(){
   }, [capacityTypes]);
 
 
+  const initRows = React.useCallback(data => {
+    if(!data) return;
+
+    const charRows = [];
+    (data.characters || []).forEach(c => {
+      (c.details || [{lang:'',name:'',story:''}]).forEach(d => {
+        charRows.push({idCharacter:c.idCharacter,lang:d.lang,name:d.name||'',story:d.story||''});
+      });
+    });
+    setCharacters(charRows);
+
+    const buffRows = [];
+    (data.damageBuffTypes || []).forEach(b => {
+      (b.details || [{lang:'',name:''}]).forEach(d => {
+        buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:d.lang,name:d.name||''});
+      });
+    });
+    setDamageBuffTypes(buffRows);
+
+    const typeRows = [];
+    (data.damageTypes || []).forEach(t => {
+      (t.details || [{lang:'',name:''}]).forEach(d => {
+        typeRows.push({idDamageType:t.idDamageType,lang:d.lang,name:d.name||''});
+      });
+    });
+    setDamageTypes(typeRows);
+
+    const capTypeRows = [];
+    (data.capacityTypes || []).forEach(ct => {
+      (ct.details || [{lang:'',name:''}]).forEach(d => {
+        capTypeRows.push({idCapacityType:ct.idCapacityType,lang:d.lang,name:d.name||''});
+      });
+    });
+    setCapacityTypes(capTypeRows);
+
+    const capRows = [];
+    (data.capacities || []).forEach(c => {
+      (c.details || [{lang:'',name:'',effectPrimary:'',effectSecondary:'',bonusDescription:'',additionnalDescription:''}]).forEach(d => {
+        capRows.push({
+          idCapacity:c.idCapacity,
+          character:c.character?.idCharacter||'',
+          energyCost:c.energyCost,
+          canBreak:c.canBreak,
+          damageType:c.damageType?.idDamageType||c.damageType||'',
+          type:c.type?.idCapacityType||c.type||'',
+          isMultiTarget:c.isMultiTarget,
+          gridPositionX:c.gridPositionX,
+          gridPositionY:c.gridPositionY,
+          lang:d.lang,
+          name:d.name||'',
+          effectPrimary:d.effectPrimary||'',
+          effectSecondary:d.effectSecondary||'',
+          bonusDescription:d.bonusDescription||'',
+          additionnalDescription:d.additionnalDescription||''
+        });
+      });
+    });
+    setCapacities(capRows);
+
+    const pictoRows = [];
+    (data.pictos || []).forEach(p => {
+      (p.details || [{lang:'',name:'',region:'',descrptionBonusLumina:'',unlockDescription:''}]).forEach(d => {
+        pictoRows.push({
+          idPicto:p.idPicto,
+          level:p.level,
+          bonusDefense:p.bonusDefense,
+          bonusSpeed:p.bonusSpeed,
+          bonusCritChance:p.bonusCritChance,
+          bonusHealth:p.bonusHealth,
+          luminaCost:p.luminaCost,
+          lang:d.lang,
+          name:d.name||'',
+          region:d.region||'',
+          descrptionBonusLumina:d.descrptionBonusLumina||'',
+          unlockDescription:d.unlockDescription||''
+        });
+      });
+    });
+    setPictos(pictoRows);
+
+    const weaponRows = [];
+    (data.weapons || []).forEach(w => {
+      (w.details || [{lang:'',name:'',region:'',unlockDescription:'',weaponEffect1:'',weaponEffect2:'',weaponEffect3:''}]).forEach(d => {
+        weaponRows.push({
+          idWeapon:w.idWeapon,
+          character:w.character?.idCharacter||'',
+          damageType:w.damageType?.idDamageType||'',
+          damageBuffType1:w.damageBuffType1?.idDamageBuffType||'',
+          damageBuffType2:w.damageBuffType2?.idDamageBuffType||'',
+          lang:d.lang,
+          name:d.name||'',
+          region:d.region||'',
+          unlockDescription:d.unlockDescription||'',
+          weaponEffect1:d.weaponEffect1||'',
+          weaponEffect2:d.weaponEffect2||'',
+          weaponEffect3:d.weaponEffect3||''
+        });
+      });
+    });
+    setWeapons(weaponRows);
+  }, []);
+
+
   const loadData = () => {
-    getSiteData().then(data=>{
-      const charRows = [];
-      data.characters.forEach(c=>{
-        (c.details||[{lang:'',name:'',story:''}]).forEach(d=>{
-          charRows.push({idCharacter:c.idCharacter,lang:d.lang,name:d.name||'',story:d.story||''});
-        });
-      });
-      setCharacters(charRows);
-
-      const buffRows = [];
-      data.damageBuffTypes.forEach(b=>{
-        (b.details||[{lang:'',name:''}]).forEach(d=>{
-          buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:d.lang,name:d.name||''});
-        });
-      });
-      setDamageBuffTypes(buffRows);
-
-      const typeRows = [];
-      data.damageTypes.forEach(t=>{
-        (t.details||[{lang:'',name:''}]).forEach(d=>{
-          typeRows.push({idDamageType:t.idDamageType,lang:d.lang,name:d.name||''});
-        });
-      });
-      setDamageTypes(typeRows);
-
-      const capTypeRows = [];
-      (data.capacityTypes||[]).forEach(ct=>{
-        (ct.details||[{lang:'',name:''}]).forEach(d=>{
-          capTypeRows.push({idCapacityType:ct.idCapacityType,lang:d.lang,name:d.name||''});
-        });
-      });
-      setCapacityTypes(capTypeRows);
-
-      const capRows = [];
-      (data.capacities||[]).forEach(c=>{
-        (c.details||[{lang:'',name:'',effectPrimary:'',effectSecondary:'',bonusDescription:'',additionnalDescription:''}]).forEach(d=>{
-          capRows.push({
-            idCapacity:c.idCapacity,
-            character:c.character?.idCharacter||'',
-            energyCost:c.energyCost,
-            canBreak:c.canBreak,
-            damageType:c.damageType?.idDamageType||c.damageType||'',
-            type:c.type?.idCapacityType||c.type||'',
-            isMultiTarget:c.isMultiTarget,
-            gridPositionX:c.gridPositionX,
-            gridPositionY:c.gridPositionY,
-            lang:d.lang,
-            name:d.name||'',
-            effectPrimary:d.effectPrimary||'',
-            effectSecondary:d.effectSecondary||'',
-            bonusDescription:d.bonusDescription||'',
-            additionnalDescription:d.additionnalDescription||''
-          });
-        });
-      });
-      setCapacities(capRows);
-
-      const pictoRows = [];
-      data.pictos.forEach(p=>{
-        (p.details||[{lang:'',name:'',region:'',descrptionBonusLumina:'',unlockDescription:''}]).forEach(d=>{
-          pictoRows.push({
-            idPicto:p.idPicto,
-            level:p.level,
-            bonusDefense:p.bonusDefense,
-            bonusSpeed:p.bonusSpeed,
-            bonusCritChance:p.bonusCritChance,
-            bonusHealth:p.bonusHealth,
-            luminaCost:p.luminaCost,
-            lang:d.lang,
-            name:d.name||'',
-            region:d.region||'',
-            descrptionBonusLumina:d.descrptionBonusLumina||'',
-            unlockDescription:d.unlockDescription||''
-          });
-        });
-      });
-      setPictos(pictoRows);
-
-      const weaponRows = [];
-      data.weapons.forEach(w=>{
-        (w.details||[{lang:'',name:'',region:'',unlockDescription:'',weaponEffect1:'',weaponEffect2:'',weaponEffect3:''}]).forEach(d=>{
-          weaponRows.push({
-            idWeapon:w.idWeapon,
-            character:w.character?.idCharacter||'',
-            damageType:w.damageType?.idDamageType||'',
-            damageBuffType1:w.damageBuffType1?.idDamageBuffType||'',
-            damageBuffType2:w.damageBuffType2?.idDamageBuffType||'',
-            lang:d.lang,
-            name:d.name||'',
-            region:d.region||'',
-            unlockDescription:d.unlockDescription||'',
-            weaponEffect1:d.weaponEffect1||'',
-            weaponEffect2:d.weaponEffect2||'',
-            weaponEffect3:d.weaponEffect3||''
-          });
-        });
-      });
-      setWeapons(weaponRows);
+    getSiteData().then(data => {
+      initRows(data);
     });
   };
 
@@ -794,6 +801,7 @@ function AdminPage(){
     if(window.updateFlagState) window.updateFlagState();
 
     window.adminPage = { loadData };
+    if(window.siteData) initRows(window.siteData);
     loadData();
     return ()=>{ delete window.adminPage; };
   },[]);
