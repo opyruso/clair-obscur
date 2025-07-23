@@ -890,12 +890,18 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .modal-option.grid {
   flex-direction: column;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 .modal-option.grid img {
   width: 64px;
   height: 64px;
   object-fit: contain;
   margin-bottom: 4px;
+}
+.modal-option.grid span {
+  display: block;
+  word-break: break-word;
 }
 .modal-option input:checked + span {
   color: #fffff0;
