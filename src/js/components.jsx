@@ -47,7 +47,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
 
   const processRowUpdate = useCallback(async (newRow) => {
-    const {__new, id, ...payload} = newRow;
+    const {__new, id, _tmpId, ...payload} = newRow;
     const method = __new ? 'POST' : 'PUT';
     let url = `${api}${endpoint}`;
     if(method === 'PUT') {
@@ -63,9 +63,21 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
       toast.error('Failed to save data');
       throw new Error('Request failed');
     }
-    const updated = {...newRow};
+    let updated = {...newRow};
+    try {
+      const ct = response.headers.get('content-type') || '';
+      if(ct.includes('application/json')) {
+        const data = await response.json();
+        if(data && typeof data === 'object') {
+          updated = {...updated, ...data};
+        }
+      }
+    } catch(e){ /* ignore json errors */ }
     delete updated.__new;
-    setRows(rs => rs.map(r => (r[idField] === updated[idField] ? updated : r)));
+    delete updated._tmpId;
+    setRows(rs => rs.map(r => (
+      (r.id ? r.id === newRow.id : r[idField] === newRow[idField]) ? updated : r
+    )));
     return updated;
   }, [api, endpoint, idField, setRows]);
 
@@ -75,15 +87,18 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
   }, []);
 
   const addRow = () => {
-    setRows([...rows, { [idField]: '', __new:true }]);
+    setRows([
+      ...rows,
+      { [idField]: '', __new:true, id: `tmp-${Date.now()}-${Math.random()}` }
+    ]);
   };
 
-  const deleteRow = useCallback(async (idVal) => {
-    const row = rows.find(r => r[idField] === idVal);
+  const deleteRow = useCallback(async (rowId) => {
+    const row = rows.find(r => (r.id === rowId || r[idField] === rowId));
     if(!row) return;
-    setRows(rows.filter(r => r[idField] !== idVal));
+    setRows(rows.filter(r => (r.id !== rowId && r[idField] !== rowId)));
     if(row.__new) return;
-    const url = `${api}${endpoint}/${encodeURIComponent(idVal)}`;
+    const url = `${api}${endpoint}/${encodeURIComponent(row[idField])}`;
     await apiFetch(url, {
       method:'DELETE',
       headers:{'Accept':'application/json'}
@@ -120,11 +135,11 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     filterable:false,
     width:60,
     renderCell:(params)=> (
-      <button className="btn btn-sm btn-danger" onClick={()=>deleteRow(params.row[idField])}>x</button>
+      <button className="btn btn-sm btn-danger" onClick={()=>deleteRow(params.row.id)}>x</button>
     )
   });
 
-  const rowData = rows.map((r,i)=>({id:r[idField] || `n${i}`, ...r}));
+  const rowData = rows.map((r,i)=>({id: r[idField] || r.id || `n${i}`, ...r}));
 
   const AddRowFooter = (props) => (
     <GridFooterContainer>
