@@ -419,8 +419,8 @@ body[data-page="weapons"] .card-back {
   padding: 20px;
   margin: 10px;
   border-radius: 10px;
-  width: 90%;
-  max-width: 600px;
+  width: 95%;
+  max-width: 700px;
   max-height: 80vh;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -918,7 +918,7 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .modal-options.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 10px;
   justify-items: center;
 }

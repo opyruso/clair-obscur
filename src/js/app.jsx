@@ -529,6 +529,9 @@ function BuildPage(){
                     </div>
                   </div>
                 </div>
+                <div className="buff-chart">
+                  <RadarChart values={col.buffStats} buffs={buffs} />
+                </div>
                 <div className="buff-row-title" data-i18n="attributes">{t('attributes')}</div>
                 <div className="buff-stats-row">
                   <div className="buff-inputs">
@@ -538,9 +541,6 @@ function BuildPage(){
                         <input type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(cidx,i,e.target.value)} />
                       </label>
                     ))}
-                  </div>
-                  <div className="buff-chart">
-                    <RadarChart values={col.buffStats} buffs={buffs} />
                   </div>
                 </div>
                 <div className="stats">
@@ -595,6 +595,9 @@ function BuildPage(){
                     </div>
                     </div>
                   </div>
+                  <div className="buff-chart">
+                    <RadarChart values={col.buffStats} buffs={buffs} />
+                  </div>
                   <div className="buff-row-title" data-i18n="attributes">{t('attributes')}</div>
                   <div className="buff-stats-row">
                     <div className="buff-inputs">
@@ -604,9 +607,6 @@ function BuildPage(){
                           <input type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(idx,i,e.target.value)} />
                         </label>
                       ))}
-                    </div>
-                    <div className="buff-chart">
-                      <RadarChart values={col.buffStats} buffs={buffs} />
                     </div>
                   </div>
                   <div className="stats">
