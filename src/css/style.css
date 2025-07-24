@@ -1020,3 +1020,5 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .import-box .controls{display:flex;gap:10px;margin-bottom:5px;}
 .import-box pre{margin:0;white-space:pre-wrap;word-break:break-word;font-size:0.8em;}
+.text-danger{color:#dc3545;}
+.text-success{color:#28a745;}
