@@ -168,3 +168,87 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
     </div>
   );
 }
+
+function ImportBox({columns, rows, setRows, endpoint, idField, label}){
+  const api = window.CONFIG?.["clairobscur-api-url"] || '';
+  const fields = columns.map(c => c.field);
+  const fileRef = React.useRef();
+  const [lines, setLines] = React.useState([]);
+  const [states, setStates] = React.useState([]); // normal,error,success,fail
+
+  const exportCsv = () => {
+    const pad = n => String(n).padStart(2, '0');
+    const d = new Date();
+    const name = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}_${label}_${currentLang}.csv`;
+    const content = rows.map(r => fields.map(f => r[f] ?? '').join(';')).join('\n');
+    const blob = new Blob([content], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name; document.body.appendChild(a); a.click();
+    a.remove(); URL.revokeObjectURL(url);
+  };
+
+  const loadFile = e => {
+    const file = e.target.files?.[0];
+    if(!file) return;
+    file.text().then(txt => {
+      const ls = txt.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      const st = ls.map(l => (l.split(';').length === fields.length ? 'normal' : 'error'));
+      setLines(ls); setStates(st);
+    });
+  };
+
+  const importData = async () => {
+    const newStates = [...states];
+    let newRows = [...rows];
+    for(let i=0;i<lines.length;i++){
+      if(states[i]==='error') continue;
+      const parts = lines[i].split(';');
+      const obj = {};
+      fields.forEach((f,j)=>{ obj[f] = parts[j] ?? ''; });
+      const exists = rows.some(r => r[idField] == obj[idField]);
+      const method = exists ? 'PUT' : 'POST';
+      let url = `${api}${endpoint}`;
+      if(method === 'PUT') url += `/${encodeURIComponent(obj[idField])}`;
+      try{
+        const resp = await apiFetch(url,{method,headers:{'Accept':'application/json'},body:obj});
+        if(!resp.ok) throw new Error('err');
+        let data = {...obj};
+        try{ const ct=resp.headers.get('content-type')||''; if(ct.includes('application/json')){ const d=await resp.json(); if(d&&typeof d==='object') data={...data,...d}; }}catch(e){}
+        if(exists){
+          newRows=newRows.map(r=>r[idField]==obj[idField]?{...r,...data}:r);
+        }else{
+          newRows=[...newRows,data];
+        }
+        newStates[i]='success';
+      }catch(e){ newStates[i]='fail'; }
+    }
+    setRows(newRows); setStates(newStates);
+  };
+
+  const cleanData = async () => {
+    const ls=[]; const st=[]; let newRows=[...rows];
+    for(const r of rows){
+      const url=`${api}${endpoint}/${encodeURIComponent(r[idField])}`;
+      try{ const resp=await apiFetch(url,{method:'DELETE',headers:{'Accept':'application/json'}}); if(!resp.ok) throw new Error('del'); st.push('success'); }catch(e){ st.push('fail'); }
+      ls.push(String(r[idField]));
+    }
+    setRows([]); setLines(ls); setStates(st);
+  };
+
+  return (
+    <div className="import-box">
+      <div className="controls">
+        <button className="btn btn-sm btn-secondary" onClick={exportCsv}>Exporter</button>
+        <input type="file" ref={fileRef} style={{display:'none'}} accept=".csv" onChange={loadFile}/>
+        <button className="btn btn-sm btn-secondary" onClick={()=>fileRef.current.click()}>Charger</button>
+        <button className="btn btn-sm btn-primary" onClick={importData} disabled={states.includes('error')||!lines.length}>Importer</button>
+        <button className="btn btn-sm btn-danger" onClick={cleanData}>Nettoyer</button>
+      </div>
+      <div className="log">
+        {lines.map((l,i)=>(<pre key={i} className={states[i]==='error'||states[i]==='fail'?'text-danger':states[i]==='success'?'text-success':''}>{l}</pre>))}
+      </div>
+    </div>
+  );
+}
+

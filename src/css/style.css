@@ -1003,3 +1003,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .admin-tabs-nav button.active{background:#21232d;}
 .admin-tab-pane{display:none;}
 .admin-tab-pane.active{display:block;}
+
+/* CSV Import/Export */
+.import-box{background:#21232d;color:#fff;padding:10px;margin-top:10px;}
+.import-box .controls{display:flex;gap:10px;margin-bottom:5px;}
+.import-box pre{margin:0;white-space:pre-wrap;word-break:break-word;font-size:0.8em;}

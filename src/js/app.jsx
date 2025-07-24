@@ -690,6 +690,79 @@ function AdminPage(){
     return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
   }, [capacityTypes]);
 
+  const charCols = React.useMemo(()=>[
+    {field:'idCharacter',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'story',header:'Story', flex:1}
+  ], []);
+
+  const buffCols = React.useMemo(()=>[
+    {field:'idDamageBuffType',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', flex:1}
+  ], []);
+
+  const typeCols = React.useMemo(()=>[
+    {field:'idDamageType',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', flex:1}
+  ], []);
+
+  const pictoCols = React.useMemo(()=>[
+    {field:'idPicto',header:'ID', width:80},
+    {field:'level',header:'Level', width:80},
+    {field:'bonusDefense',header:'Def', width:80},
+    {field:'bonusSpeed',header:'Speed', width:80},
+    {field:'bonusCritChance',header:'Crit%', width:80},
+    {field:'bonusHealth',header:'HP', width:80},
+    {field:'luminaCost',header:'Lumina', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'region',header:'Region', width:280},
+    {field:'descrptionBonusLumina',header:'Effect', width:500},
+    {field:'unlockDescription',header:'Unlock', flex:1}
+  ], []);
+
+  const weaponCols = React.useMemo(()=>[
+    {field:'idWeapon',header:'ID', width:80},
+    {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+    {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
+    {field:'damageBuffType1',header:'Buff1', width:120, type:'singleSelect', options:buffOptions},
+    {field:'damageBuffType2',header:'Buff2', width:120, type:'singleSelect', options:buffOptions},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'region',header:'Region', width:280},
+    {field:'unlockDescription',header:'Unlock', flex:1},
+    {field:'weaponEffect1',header:'Effect1', width:280},
+    {field:'weaponEffect2',header:'Effect2', width:280},
+    {field:'weaponEffect3',header:'Effect3', width:280}
+  ], [charOptions, typeOptions, buffOptions]);
+
+  const capTypeCols = React.useMemo(()=>[
+    {field:'idCapacityType',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', flex:1}
+  ], []);
+
+  const capCols = React.useMemo(()=>[
+    {field:'idCapacity',header:'ID', width:80},
+    {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+    {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
+    {field:'type',header:'CapType', width:120, type:'singleSelect', options:capTypeOptions},
+    {field:'energyCost',header:'Energy', width:80},
+    {field:'canBreak',header:'Break', width:80},
+    {field:'isMultiTarget',header:'Multi', width:80},
+    {field:'gridPositionX',header:'PosX', width:80},
+    {field:'gridPositionY',header:'PosY', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:200},
+    {field:'effectPrimary',header:'Primary', width:200},
+    {field:'effectSecondary',header:'Secondary', width:200},
+    {field:'bonusDescription',header:'Bonus', width:200},
+    {field:'additionnalDescription',header:'More', flex:1}
+  ], [charOptions, typeOptions, capTypeOptions]);
+
 
   const initRows = React.useCallback(data => {
     if(!data) return;
@@ -831,12 +904,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_characters">Characters</h2>
           {tab===0 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idCharacter',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', width:280},
-                {field:'story',header:'Story', flex:1}
-              ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+              <UIGrid columns={charCols} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+              <ImportBox columns={charCols} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" label="characters" />
             </div>
           )}
         </div>
@@ -845,11 +914,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_damage_buff_types">Damage Buff Types</h2>
           {tab===1 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idDamageBuffType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', flex:1}
-              ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+              <UIGrid columns={buffCols} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+              <ImportBox columns={buffCols} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" label="damagebufftypes" />
             </div>
           )}
         </div>
@@ -858,11 +924,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_damage_types">Damage Types</h2>
           {tab===2 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idDamageType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', flex:1}
-              ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
+              <UIGrid columns={typeCols} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
+              <ImportBox columns={typeCols} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" label="damagetypes" />
             </div>
           )}
         </div>
@@ -871,26 +934,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
           {tab===3 && (
             <div className="admin-row">
-              <UIGrid
-                columns={[
-                  {field:'idPicto',header:'ID', width:80},
-                  {field:'level',header:'Level', width:80},
-                  {field:'bonusDefense',header:'Def', width:80},
-                  {field:'bonusSpeed',header:'Speed', width:80},
-                  {field:'bonusCritChance',header:'Crit%', width:80},
-                  {field:'bonusHealth',header:'HP', width:80},
-                  {field:'luminaCost',header:'Lumina', width:80},
-                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                  {field:'name',header:'Name', width:280},
-                  {field:'region',header:'Region', width:280},
-                  {field:'descrptionBonusLumina',header:'Effect', width:500},
-                  {field:'unlockDescription',header:'Unlock', flex:1}
-                ]}
-                rows={pictos}
-                setRows={setPictos}
-                endpoint="/admin/pictos"
-                idField="idPicto"
-              />
+              <UIGrid columns={pictoCols} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" />
+              <ImportBox columns={pictoCols} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" label="pictos" />
             </div>
           )}
         </div>
@@ -899,26 +944,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
           {tab===4 && (
             <div className="admin-row">
-              <UIGrid
-                columns={[
-                  {field:'idWeapon',header:'ID', width:80},
-                  {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
-                  {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
-                  {field:'damageBuffType1',header:'Buff1', width:120, type:'singleSelect', options:buffOptions},
-                  {field:'damageBuffType2',header:'Buff2', width:120, type:'singleSelect', options:buffOptions},
-                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                  {field:'name',header:'Name', width:280},
-                  {field:'region',header:'Region', width:280},
-                  {field:'unlockDescription',header:'Unlock', flex:1},
-                  {field:'weaponEffect1',header:'Effect1', width:280},
-                  {field:'weaponEffect2',header:'Effect2', width:280},
-                  {field:'weaponEffect3',header:'Effect3', width:280}
-                ]}
-                rows={weapons}
-                setRows={setWeapons}
-                endpoint="/admin/weapons"
-                idField="idWeapon"
-              />
+              <UIGrid columns={weaponCols} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" />
+              <ImportBox columns={weaponCols} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" label="weapons" />
             </div>
           )}
         </div>
@@ -927,11 +954,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_capacity_types">Capacity Types</h2>
           {tab===5 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idCapacityType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', flex:1}
-              ]} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" />
+              <UIGrid columns={capTypeCols} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" />
+              <ImportBox columns={capTypeCols} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" label="capacitytypes" />
             </div>
           )}
         </div>
@@ -940,29 +964,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_capacities">Capacities</h2>
           {tab===6 && (
             <div className="admin-row">
-              <UIGrid
-                columns={[
-                  {field:'idCapacity',header:'ID', width:80},
-                  {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
-                  {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
-                  {field:'type',header:'CapType', width:120, type:'singleSelect', options:capTypeOptions},
-                  {field:'energyCost',header:'Energy', width:80},
-                  {field:'canBreak',header:'Break', width:80},
-                  {field:'isMultiTarget',header:'Multi', width:80},
-                  {field:'gridPositionX',header:'PosX', width:80},
-                  {field:'gridPositionY',header:'PosY', width:80},
-                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                  {field:'name',header:'Name', width:200},
-                  {field:'effectPrimary',header:'Primary', width:200},
-                  {field:'effectSecondary',header:'Secondary', width:200},
-                  {field:'bonusDescription',header:'Bonus', width:200},
-                  {field:'additionnalDescription',header:'More', flex:1}
-                ]}
-                rows={capacities}
-                setRows={setCapacities}
-                endpoint="/admin/capacities"
-                idField="idCapacity"
-              />
+              <UIGrid columns={capCols} rows={capacities} setRows={setCapacities} endpoint="/admin/capacities" idField="idCapacity" />
+              <ImportBox columns={capCols} rows={capacities} setRows={setCapacities} endpoint="/admin/capacities" idField="idCapacity" label="capacities" />
             </div>
           )}
         </div>
