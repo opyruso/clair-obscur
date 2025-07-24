@@ -1,0 +1,161 @@
+From Fire;gustave;;;4;;;;;en;From Fire; Deals medium single target damage. 3 hits. Uses weapon's element;;;Marking Shot
+Lumiere Assault;gustave;;;3;;;;;en;Lumiere Assault; Deals low single target damage. 5 hits. Uses weapon's element. Critical Hits generate 1 Additional Charge ;;;N/A
+Marking Shot;gustave;;;2;;;;;en;Marking Shot; Deals low single target Lightning damage. 1 hit;;;Overcharge
+Overcharge;gustave;;;4;;;;;en;Overcharge; High Lightning damage based on the amount of Charges . 1 hit;;;N/A
+Powerful;gustave;;;3;;;;;en;Powerful; Applies Powerful to 1-3 allies, increasing the damage they deal for 3 turns;;;Lumiere Assault
+Recovery;gustave;;;3;;;;;en;Recovery; Recovers 50% Health and dispels Status Effects;;;Powerful
+Shatter;gustave;;;5;;;;;en;Shatter; Deals High Lightning damage to all enemies. 1 hit. Can Break . If a target is Broken by the hit, Overcharge is fully Charged ;;;Recovery
+Strike Storm;gustave;;;7;;;;;en;Strike Storm; Deals very high single target damage. 6 hits. Uses Weapon's element;;;From Fire
+Crippling Tsunami;lune;;;5;;;;;en;Crippling Tsunami; Deals medium Ice damage to all enemies. 1 hit. Applies Slow for 3 turns. Consumes for greatly increased damage;;;Thermal Transfer
+Crustal Crush;lune;;;7;;;;;en;Crustal Crush; Deals High single target Earth and Break damage . 5 hits. Consumes: Increased Damage;;;Rockslide
+Earth Rising;lune;;;3;;;;;en;Earth Rising; Deals low Earth damage to all enemies. 1 hit. Consumes for increased damage;;;Ice Lance
+Electrify;lune;;;1;;;;;en;Electrify; Deals low single target Lightning damage. 3 hits. Critical Hits trigger an additional hit;;;Thunderfall
+Elemental Genesis;lune;;;4;;;;;en;Elemental Genesis; Deals extreme damage to all enemies. 8 hits. Each hit deals damage in a random element;;;Elemental Trick
+Elemental Trick;lune;;;3;;;;;en;Elemental Trick; Deals low single target Ice, Fire, Lightning, and Earth damage. 4 hits. Critical Hits generate the corresponding Stain;;;Mayhem
+Fire Rage;lune;;;5;;;;;en;Fire Rage; Deals increasingly high Fire damage to all enemies every turn until Lune receives damage. Stuns self if interrupted;;;Wildfire
+Healing Light;lune;;;3;;;;;en;Healing Light; Heals the targeted Ally and dispels Status Effects;;; Ice Lance, Immolation 
+Hell;lune;;;9;;;;;en;Hell; Deals very high Fire damage that applies 5 Burn per hit to all enemies. 2 hits. Deals self-damage if failed. Consumes: Greatly increased damage;;;Fire Rage
+Ice Lance;lune;;;4;;;;;en;Ice Lance; Deals medium single target Ice damage that Slows the target. 1 Hit. Consumes to deal increased damage;;;N/A
+Immolation;lune;;;2;;;;;en;Immolation; Deals low single target Fire damage and 3 Burn . 1 hit. Applies 2 more Burns if the target is Marked . Consumes for increased damage;;;N/A
+Lightning Dance;lune;;;7;;;;;en;Lightning Dance; Deals very high single target Lightning damage. 6 hits. Critical Hits trigger an additional hit. Consumes: Greatly increased damage;;;Electrify
+Mayhem;lune;;;3;;;;;en;Mayhem; Consumes all Stains to deal high elemental damage to the target. Can Break if 4 Stains are consumed;;; Electrify or Thermal Transfer 
+Rebirth;lune;;;5;;;;;en;Rebirth; Revives an ally with 30-70% Health and 2 additional AP. Consumes: Costs 0 AP;;;Healing Light
+Revitalization;lune;;;5;;;;;en;Revitalization; Heals 1-3 allies by 40-60% Health. Consumes to also apply Regen that heals on turn start for 3 turns;;;Rebirth
+Rockslide;lune;;;5;;;;;en;Rockslide; Deals medium single target Earth damage. 2 hits. Can Break Consumes for greatly increased damage;;;Earth Rising
+Sky Break;lune;;;3;;;;;en;Sky Break; Deals extreme damage to all enemies. 1 hit. Element depends on which Stains Lune has the most;;; Reach Relationship Level 7 with Lune. 
+Storm Caller;lune;;;6;;;;;en;Storm Caller; All enemies receive medium Lightning damage at the end of their turn, and low Lightning damage when they receive damage. Duration: 3 turns. Consumes for double thunder strikes on turn end;;;Lightning Dance
+Terraquake;lune;;;5;;;;;en;Terraquake; Deals low Earth damage and Break damage to all enemies every turn. Also increases all Break damage received by 50%. Duration: 3 turns. Consumes to increase the Duration to 5 turns;;;Crustal Crush
+Thermal Transfer;lune;;;2;;;;;en;Thermal Transfer; Deals low single target Ice damage. 2 hits. Gains 4 AP if target is Burning Consumes: Play a second turn;;;Earth Rising
+Thunderfall;lune;;;5;;;;;en;Thunderfall; Deals medium Lightning damage to random enemies. 2-6 hits. Critical Hits trigger an additional hit. Consumes for increased damage;;;Immolation
+Tree of Life;lune;;;2;;;;;en;Tree of Life; Cleanses all Status Effects and Heals all allies;;; Reach Relationship Level 4 with Lune. 
+Tremor;lune;;;1;;;;;en;Tremor; Deals high Earth damage to all enemies. 1 hit;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Typhoon;lune;;;8;;;;;en;Typhoon; On turn start, deals high Ice damage to all enemies and Heals allies. Consumes: Duration increased from 3 to 5 turns;;;Crippling Tsunami
+Breaking Rules;maelle;;;3;;;;;en;Breaking Rules; Deals low single target Physical damage. 2 hits. Destroys all target's Shields Gains 1 AP per Shield destroyed. If target us Defenceless , play a second turn;;;Fleuret Fury
+Burning Canvas;maelle;;;5;;;;;en;Burning Canvas; Change Stance: Offensive Deals high single target Void damage. 5 hits. Applies 1 Burn per hit;;; Phantom Strike or Stendhal 
+Combustion;maelle;;;4;;;;;en;Combustion; Deals medium single target Physical Damage. 2 Hits. Consumes up to 10 Burn for increased damage;;;Rain of Fire
+Degagement;maelle;;;2;;;;;en;Degagement; Deals low single target Fire damage. 1 hit. Target becomes weak to Fire damage for 2 turns;;; Spark, Guard Down 
+Egide;maelle;;;3;;;;;en;Egide; Protects allies by taking damage in their place, for 2 turns;;;Guard Up
+Fender's Flurry;maelle;;;4;;;;;en;Fender's Flurry; Deals medium damage to all enemies. 1 hit. Uses weapon's element. Applies Defenceless for 1 turn;;;Breaking Rules
+Fleuret Fury;maelle;;;6;;;;;en;Fleuret Fury; Deals high single target Physical damage. 3 hits;;;Guard Up
+Gommage;maelle;;;3;;;;;en;Gommage; Kills weak targets. Otherwise deals extreme Void damage. 1 hit;;; Reach Relationship Level 7 with Maelle. 
+Guard Down;maelle;;;3;;;;;en;Guard Down; Change Stance: Offensive Applies Defenceless to all enemies for 3 turns;;; Guard Up or Degagement 
+Guard Up;maelle;;;3;;;;;en;Guard Up; Applies Shell , reducing damage taken, to up to 3 allies for 3 turns;;;Swift Stride
+Gustave's Homage;maelle;;;8;;;;;en;Gustave's Homage; Deals high single target Lightning damage. 8 hits. Increased damage to Marked targets, Doesn't remove Mark;;; Automatically unlocked through story progression after completing the Forgotten Battlefield location. 
+Last Chance;maelle;;;1;;;;;en;Last Chance; Reduces self-Health to 1 but refills all AP Switches to Virtuose Stance;;;Mezzo Forte
+Mezzo Forte;maelle;;;1;;;;;en;Mezzo Forte; Reapplies current stance and gives 2-4 AP;;;Degagement
+Momentum Strike;maelle;;;7;;;;;en;Momentum Strike; Deals high single target damage. 1 hit. Uses weapon's element. Increased damage to Marked targets;;;Egide
+Offensive Switch;maelle;;;1;;;;;en;Offensive Switch; Deals low single target damage and applies Defenceless for 3 turns. 1 hit. Uses weapon's element;;;N/A
+Payback;maelle;;;9;;;;;en;Payback; Deals very high single target Physical damage. 1 hit. Reduced AP cost for each attack parried since last turn;;; Last Chance or Momentum Strike 
+Percee;maelle;;;5;;;;;en;Percee; Deals medium single target Physical damage. 1 hit. Increased damage to Marked targets;;;N/A
+Phantom Strike;maelle;;;7;;;;;en;Phantom Strike; Change Stance: Defensive Deals very high Void damage to all enemies. 4 hits. Also gives +35% of a Gradient Charge;;; Offensive Switch or Burning Canvas 
+Phoenix Flame;maelle;;;2;;;;;en;Phoenix Flame; Applies 10 Burn to all enemies and revives all allies with 50 to 70% Health;;; Reach Relationship Level 4 with Maelle. 
+Pyrolyse;maelle;;;9;;;;;en;Pyrolyse; Deals extreme single target Fire damage. 3 hits. Applies 5 Burn per hit. Offensive Stance: Applies 2 more Burn per hit;;;Revenge
+Rain of Fire;maelle;;;5;;;;;en;Rain of Fire; Deals medium single target Fire damage. 2 hits. Applies 3 Burn per hit. Defensive Stance: applies 2 more Burn per hit;;;Degagement
+Revenge;maelle;;;5;;;;;en;Revenge; Deals high single target Fire damage. 1 hit. Damage increased for each hit received since the previous turn;;;Combustion
+Spark;maelle;;;3;;;;;en;Spark; Deals low single target Fire damage. 1 hit;;;Offensive Switch
+Stendhal;maelle;;;8;;;;;en;Stendhal; Change Stance: Stanceless Deals extreme single target Void damage. 1 hit;;; Percee or Burning Canvas 
+Swift Stride;maelle;;;3;;;;;en;Swift Stride; Deals low single target Physical damage. 1 hit;;;Percee
+Sword Ballet;maelle;;;9;;;;;en;Sword Ballet; Deals extreme single target damage. 5 hits. Uses weapon's element. Critical Hitsdeal double damage;;;Fencer's Flurry
+Virtuose Strike;maelle;;;1;;;;;en;Virtuose Strike; Deals high single target Physical damage;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+All Set;sciel;;;3;;;;;en;All Set; Applies Shell , Powerful , and Rush to all allies;;;Card Weaver
+Bad Omen;sciel;;;3;;;;;en;Bad Omen; Deals low Dark damage to all enemies. 2 hits. Applies 2 Foretell per hit;;;Marking Card
+Card Weaver;sciel;;;3;;;;;en;Card Weaver; Deals low single target Physical damage. 1 hit. Propagates target's Foretell to all enemies. Plays a second turn;;;Dark Cleansing
+Dark Cleansing;sciel;;;0;;;;;en;Dark Cleansing; Cleanses an ally of their Status Effects and propogates the target's buff to all allies;;;Spectral Sweep
+Dark Wave;sciel;;;6;;;;;en;Dark Wave; Deals high Dark damage to all enemies. 3 hits. Consumes all Foretell to deal additional damage;;; Grim Harvest or Delaying Slash 
+Delaying Slash;sciel;;;5;;;;;en;Delaying Slash; Deals medium single targe damage. 2 hits. Uses weapon's element. Consumes Foretell to increase damage and delay target's turn;;;Bad Omen
+Doom;sciel;;;2;;;;;en;Doom; Deals very high single target Dark damage. 3 hits. Applies Powerless , Defenceless , and Slow for 3 turns;;; Reach Relationship Level 4 with Sciel. 
+End Slice;sciel;;;3;;;;;en;End Slice; Deals extreme single target Physical damage. 1 hit. Damage is increased for each Foretell consumed since the beginning of the battle;;; Reach Relationship Level 7 with Sciel. 
+Final Path;sciel;;;9;;;;;en;Final Path; Deal extreme single target Dark damage and applies 10 Foretell 1 hit;;;Dark Wave
+Firing Shadow;sciel;;;3;;;;;en;Firing Shadow; Deals low Dark damage to all enemies. 3 hits. Consumes 1 Foretell per hit for increased damage;;;Searing Bond
+Focused Foretell;sciel;;;2;;;;;en;Focused Foretell; Deals medium single target Physical damage. 1 hit;;;N/A
+Fortune's Fury;sciel;;;5;;;;;en;Fortune's Fury; Targeted ally deals double damage for 1 turn;;;Firing Shadow
+Grim Harvest;sciel;;;5;;;;;en;Grim Harvest; Deals medium single target Dark damage. 1 hit. Heals all allies by 30% Health;;;Sealed Fate
+Harvest;sciel;;;3;;;;;en;Harvest; Deals medium single target damage. 1 hit. Uses weapon's element. Heals self by 40% Health;;;Twilight Slash
+Intervention;sciel;;;5;;;;;en;Intervention; Targeted ally plays immediately and gains 4 AP;;;Dark Cleansing
+Marking Card;sciel;;;3;;;;;en;Marking Card; Deals medium single target Dark damge. 2 hits. Applies Mark to the target;;;Focused Foretell
+Our Sacrifice;sciel;;;4;;;;;en;Our Sacrifice; Deals extreme Dark damage to all enemies. 1 hit. Absorbs allies' Health and enemies' Foretell to deal increased damage;;;Fortune's Fury
+Phantom Blade;sciel;;;5;;;;;en;Phantom Blade; Deals high single target Dark damage. 1 hit. Consumes all Foretell to deal additional damage;;;Twilight Slash
+Plentiful Harvest;sciel;;;4;;;;;en;Plentiful Harvest; Deals medium single target Physical damage. 2 hits. Consumes all Foretell on a target and gives 1 AP to a party member for each Foretell consumed;;;Firing Shadow
+Rush;sciel;;;3;;;;;en;Rush; Applies Rush to 1-3 allies, increasing their speed for 3 turns;;;Focused Foretell
+Sealed Fate;sciel;;;4;;;;;en;Sealed Fate; Deals high single target damage. 5-7 hits. Uses weapon's element. Each hit can consume 1 Foretell to deal 200% more damage. Critical Hitsdon't remove the Foretell but still gets the damage increase;;;Phantom Blade
+Searing Bond;sciel;;;4;;;;;en;Searing Bond; Deals medium single target Dark damage. 1 hit. Applies 5 Foretell Also deals damage and applies Foretell to every other Burning enemies;;;Harvest
+Shadow Bringer;sciel;;;1;;;;;en;Shadow Bringer; Deals high single target Dark damage to random enemies. 10 hits. Applies 1 Foretell per hit;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Spectral Sweep;sciel;;;7;;;;;en;Spectral Sweep; Deals medium single target damage. 2 to 6 hits. Uses weapon's element. Applies 1 Foretell per hit;;;Rush
+Twilight Dance;sciel;;;9;;;;;en;Twilight Dance; Deals extreme single target Dark damage. 4 hits. During Twilight , extends Twilight duration by 1 turn. Consumes all Foretell to deal additional damage;;; Final Path or All Set or Our Sacrifice 
+Twilight Slash;sciel;;;2;;;;;en;Twilight Slash; Deals low single target Dark damage. 1 hit. Consumes all Foretell to deal additional damage;;;N/A
+Angel's Eyes;verso;;;3;;;;;en;Angel's Eyes; Deals extreme Physical Damage. 8 hits. Gain 1 additional Perfection per hit. Applies Aureole to Verso, reviving him if he dies;;; Reach Relationship Level 7 with Esquie. 
+Ascending Assault;verso;;;5;;;;;en;Ascending Assault; Deals low single target damage. 1 hit. Uses weapon's element. Increase damage at each cast;;;Blitz
+Assault Zero;verso;;;3;;;;;en;Assault Zero; Critical Hits generate 1 additional Perfection: Increased damage;;;N/A
+Berserk Slash;verso;;;4;;;;;en;Berserk Slash; Deals medium single target Physical damage. 3 hits. Damage is increased for each health Verso is missing;;;Quick Strike
+Blitz;verso;;;3;;;;;en;Blitz; Deals low single target Physical damage. 1 hit. Plays a second time. Kills non-boss enemies with less than 10% health.: Increased damage;;;Purification
+Burden;verso;;;1;;;;;en;Burden; Removes all Status Effects from all allies and applies them to Verso. Gains 1 Rank;;;Berserk Slash
+Defiant Strike;verso;;;3;;;;;en;Defiant Strike; Deals high single target Physical damage that applies Mark 2 hits. Costs 30% of current Health.: Increased damage;;;Berserk Slash
+End Bringer;verso;;;9;;;;;en;End Bringer; Deals extreme single target Physical damage. 6 hits;;; Light Holder or Steeled Strike 
+Follow Up;verso;;;5;;;;;en;Follow Up; Deals medium single target Light damage. 1 hit. Damage increased for each Free Aim shot this turn, up to 10 times;;;Purification
+From Fire;verso;;;4;;;;;en;From Fire; Deals medium single target damage. 3 hits. Uses weapon's element. Heals self by 20% Health if the target Burns: Increased damage;;; N/A 
+Leadership;verso;;;3;;;;;en;Leadership; Reduces current Rank. Gives 2-4 AP to other allies;;;Powerful
+Light Holder;verso;;;4;;;;;en;Light Holder; Medium single target Light damage. 5 hits. At completion, gains 1 Rank;;;Radiant Slash
+Marking Shot;verso;;;2;;;;;en;Marking Shot; Deals low single target damage. 1 hit. Uses weapon's element;;;Assault Zero
+Overload;verso;;;0;;;;;en;Overload; Increases Rank to and refills all AP but sets self-Health to 1;;; Follow Up or Speed Burst 
+Paradigm Shift;verso;;;1;;;;;en;Paradigm Shift; Deals low Physical single target damage and gives 1-3 AP back. 3 hits;;; Purification or Quick Strike 
+Perfect Break;verso;;;7;;;;;en;Perfect Break; Deals very high single target Light damage. 1 hit;;; Blitz or Berserk Slash 
+Perfect Recovery;verso;;;3;;;;;en;Perfect Recovery; Recovers 50% Health and dispels Status Effects. Gives 0-2 Perfection: Increased heal to 100% Health;;;From Fire (Verso)
+Phantom Stars;verso;;;9;;;;;en;Phantom Stars; Deals extreme Light damage to all enemies. 5 hits;;;Burden
+Powerful;verso;;;3;;;;;en;Powerful; Applies Powerful to 1-3 Allies, increasing damage they deal for 3 turns. Gives 0-2 Perfection: Duration increased to 5 turns;;;Quick Strike
+Purification;verso;;;5;;;;;en;Purification; Deals single target medium Light damage. 2 hits. Dispels self Status Effects.: Increased damage;;;Perfect Recovery
+Quick Strike;verso;;;2;;;;;en;Quick Strike; Deals low single target Physical damage. 1 hit;;;Marking Shot
+Radiant Slash;verso;;;2;;;;;en;Radiant Slash; Deals low Light damage to all enemies. 1 hit. Can Break: Increased damage;;;Blitz
+Sabotage;verso;;;1;;;;;en;Sabotage; Deals medium Physical damage to all enemies. 1 hit;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Speed Burst;verso;;;6;;;;;en;Speed Burst; Deals high single target Light damage. 5 hits. Damage increased by Speed difference with the target;;; Ascending Assault or Overload 
+Steeled Strike;verso;;;9;;;;;en;Steeled Strike; After 1 turn, deals extreme single target Physical damage. 13 hits. Interrupted if any damage taken.: Increased damage;;; Strike Storm or End Bringer 
+Striker;verso;;;2;;;;;en;Striker; Deals high single target Physical damage. 1 hit;;; Reach Relationship Level 4 with Esquie. 
+Strike Storm;verso;;;7;;;;;en;Strike Storm; Deals very high single target damage. 5 hits. Uses weapon's element;;;Defiant Strike
+Abbest Wind;monoco;;;2;;;;;en;Abbest Wind; Deals low single target Physical damage. 1 hit. Plays a second turn;;; Defeat and acquire the foot of an Abbest enemy while Monoco is in the active party. 
+Aberration Light;monoco;;;7;;;;;en;Aberration Light; Deals high Light damage to all enemies. 2 hits. Applies 4 Burn per hit. Agile Mask: Applies 2 more Burn per hit;;; Defeat and acquire the foot of an Aberration enemy while Monoco is in the active party. 
+Ballet Charm;monoco;;;2;;;;;en;Ballet Charm; Deals low single target Light damage. 1 hit. Applies Powerless to the taret for 3 turns. Caster Mask: Increased damage;;; Defeat and acquire the foot of a Ballet enemy while Monoco is in the active party. 
+Benisseur Mortar;monoco;;;5;;;;;en;Benisseur Mortar; Deals medium single target Ice damage. 3 hits. Change to Almighty Mask if target is Marked Caster Mask: Increased damage;;; Defeat and acquire the foot of a Benisseur enemy while Monoco is in the active party. 
+Braseleur Smash;monoco;;;4;;;;;en;Braseleur Smash; Deals medium finslge target Fire damage and applies 3 Burn . 2 hits. Balanced Mask: Increased damage;;; Defeat and acquire the foot of a Braseleur enemy while Monoco is in the active party. 
+Break Point;monoco;;;3;;;;;en;Break Point; Deals extreme single target damage. 1 hit. Uses weapon's element. Fills the target's Break Bar and Breaks it;;; Reach Relationship Level 7 with Monoco. 
+Boucheclier Fortify;monoco;;;3;;;;;en;Boucheclier Fortify; Applies Shell to 1-3 Allies for 3 turns;;; Defeat and acquire the foot of a Bouchelier enemy while Monoco is in the active party. 
+Bruler Bash;monoco;;;4;;;;;en;Bruler Bash; Deals medium single target Physical damage. 3 hits. Can Break Caster Mask: Increased damage;;; Defeat and acquire the foot of a Bruler enemy while Monoco is in the active party. 
+Chalier Combo;monoco;;;7;;;;;en;Chalier Combo; Deals high single target Physical damage. 6 hits. Interrupted if failed. Balanced Mask: Increased damage;;;Starting skill of Monoco upon joining the party.
+Chapelier Slash;monoco;;;7;;;;;en;Chapelier Slash; Deals high Physical damage to all enemies. 3 hits. Applies Mark Agile Mask: Increased damage;;; Defeat and acquire the foot of a Chapelier enemy while Monoco is in the active party. 
+Chevaliere Ice;monoco;;;6;;;;;en;Chevaliere Ice; Deals high Ice damage to all enemies. 3 hits. Applies Slow to the targets for 3 turns. Balanced Mask: Increased damage;;; Defeat and acquire the foot of a Gold Chevaliere enemy while Monoco is in the active party. 
+Chevaliere Piercing;monoco;;;3;;;;;en;Chevaliere Piercing; Deals single target Physical damage through Shields . 6 hits. Damage increased for each Shield on the target. Agile Mask: Increased damage;;; Defeat and acquire the foot of a Ceramic Chevaliere enemy while Monoco is in the active party. 
+Chevaliere Thrusts;monoco;;;7;;;;;en;Chevaliere Thrusts; Deals high Physical damage to all enemis. 3 hits. Critical Hits deal double damage. Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Steel Chevaliere enemy while Monoco is in the active party. 
+Clair Enfeeble;monoco;;;5;;;;;en;Clair Enfeeble; Deals medium Light damage to all enemies. 1 hit. Applies Powerless for 3 turns. Balanced Mask: Increased damage;;;Defeat and acquire the foot of a Clair enemy while Monoco is in the active party.
+Contorsionniste Blast;monoco;;;6;;;;;en;Contorsionniste Blast; Deals medium Physical damage to all enemies. 1 hit. Heals all allies by 10% Health for each enemy hit. Balanced Mask: Increased damage;;; Defeat and acquire the foot of a Contorsionniste enemy while Monoco is in the active party. 
+Creation Void;monoco;;;9;;;;;en;Creation Void; Deals extreme Void damage to random targets. 3 hits. More damage if the same target is hit multiple times;;;Defeat and acquire the foot of a Creation enemy while Monoco is in the active party.
+Cruler Barrier;monoco;;;4;;;;;en;Cruler Barrier; Applies 1-2 Shields to the target. Heavy Mask: Gives 2 AP to the target;;; Defeat and acquire the foot of a Cruler enemy while Monoco is in the active party. 
+Cultist Blood;monoco;;;3;;;;;en;Cultist Blood; Deals medium Dark damage to all enemies. 3 hits. Sacrifices 90% Health to increase damage. Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Greatsword Cultist enemy while Monoco is in the active party. 
+Cultist Slashes;monoco;;;5;;;;;en;Cultist Slashes; Deals medium single target Dark damage. 3 hits. Deals more damage the less Health Monoco has. Agile Mask: Increased Damage;;;Defeat and acquire the foot of a Reaper Cultist enemy while Monoco is in the active party.
+Danseuse Waltz;monoco;;;8;;;;;en;Danseuse Waltz; Deals high single target Fire damage. 3 hits. Deals more damage against Burning targets. Balanced Mask: Increased damage;;; Defeat and acquire the foot of a Danseuses enemy while Monoco is in the active party. 
+Demineur Thunder;monoco;;;2;;;;;en;Demineur Thunder; Deals low single target Lightning damage. 1 hit. Deals extra Break Damage Caster Mask: Increased Break damage;;; Defeat and acquire the foot of a Demineur enemy while Monoco is in the active party. 
+Duallist Storm;monoco;;;8;;;;;en;Duallist Storm; Deals extreme single target Physical damage. 4 hits. Can Break Almighty Mask: Increased damage;;; Defeat and acquire the foot of a Dualliste enemy while Monoco is in the active party. 
+Echassier Stabs;monoco;;;4;;;;;en;Echassier Stabs; Deals medium single target Physical damage. 2 hits. Second hit applies Mark to the target. Agile Mask: Increased damage;;; Defeat and acquire the foot of an Echassier enemy while Monoco is in the active party. 
+Eveque Spear;monoco;;;6;;;;;en;Eveque Spear; Deals high single target Earth damage and applies Powerless for 3 turns. 1 hit. Heavy Mask: Increased damage;;; Defeat and acquire the foot of an Eveque enemy while Monoco is in the active party. 
+Gault Fury;monoco;;;3;;;;;en;Gault Fury; Deals low single target Physical damage. 4 hits. Applies Mark Balanced Mask: Increased damage;;; Defeat and acquire the foot of a Gault enemy while Monoco is in the active party. 
+Glaise Earthquakes;monoco;;;4;;;;;en;Glaise Earthquakes; Deals medium Earth damage to all enemies. 3 hits. Applies Powerful to self. Heavy Mask: applies Powerful to all allies;;; Defeat and acquire the foot of a Glaise enemy while Monoco is in the active party. 
+Grosse Tete Whack;monoco;;;6;;;;;en;Grosse Tete Whack; Deals high single target Physical damage. 5 hits. Applies Defenceless for 3 turns. Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Grosse Tete enemy while Monoco is in the active party. 
+Hexga Crush;monoco;;;5;;;;;en;Hexga Crush; Deals medium single target Earth damage. 2 hits. Applies Defenceless to the target for 3 turns. Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Hexga enemy while Monoco is in the active party. 
+Jar Lampstorm;monoco;;;5;;;;;en;Jar Lampstorm; Deals medium Physical damage to all enemies. 4 hits. Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Jar enemy while Monoco is in the active party. 
+Lampmaster Light;monoco;;;5;;;;;en;Lampmaster Light; Deals high Light damage to all enemies. 1 hit. Increased damage at each cast. Almighty Mask: Increased damage;;; Defeat and acquire the foot of a Lampmaster enemy while Monoco is in the active party. 
+Lancelier Impale;monoco;;;2;;;;;en;Lancelier Impale; Deals low single target Ice damage. 1 hit. Slows the target for 3 turns. Agile Mask: Increased damage;;; Defeat and acquire the foot of a Lancelier enemy while Monoco is in the active party. 
+Luster Slices;monoco;;;3;;;;;en;Luster Slices; Deals low single target Physical damage. 3 hits. Applies Rush to self for 3 turns. Agile Mask: Increased damage;;; Defeat and acquire the foot of a Luster enemy while Monoco is in the active party. 
+Mighty Strike;monoco;;;1;;;;;en;Mighty Strike; Deals double damage if the target is Stunned Goes to Almighty Mask;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Moissonneuse Vendange;monoco;;;5;;;;;en;Moissonneuse Vendange; Deals High single target Physical damage. 3 hits. Can Break Balanced Mask: Increased damage;;; Defeat and acquire the foot of a Moissoneusse enemy while Monoco is in the active party. 
+Obscur Sword;monoco;;;6;;;;;en;Obscur Sword; Deals high single target Dark damage. 5 hits. Deals more damage against Powerless targets. Heavy Mask: Increased damage;;;Defeat and acquire the foot of an Obscur enemy while Monoco is in the active party.
+Orphelin Cheers;monoco;;;3;;;;;en;Orphelin Cheers; Applies Powerful to 1-3 Allies. Caster Mask: Also gives 3 AP to targets;;; Defeat and acquire the foot of an Orphelin enemy while Monoco is in the active party. 
+Pelerin Heal;monoco;;;5;;;;;en;Pelerin Heal; Applies Regen to all allies. Caster Mask: also Heals 40% Health;;; Defeat and acquire the foot of a Pelerin enemy while Monoco is in the active party. 
+Portier Crash;monoco;;;8;;;;;en;Portier Crash; Deals high Physical damage to all enemies. 1 hit. Can Break Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Portier enemy while Monoco is in the active party. 
+Potier Energy;monoco;;;4;;;;;en;Potier Energy; Gives 1-3 AP to all allies;;; Defeat and acquire the foot of a Potier enemy while Monoco is in the active party. 
+Ramasseur Bonk;monoco;;;2;;;;;en;Ramasseur Bonk; Deals low single target Dark damage. 1 hit. Can Break Agile Mask: fills 20% of the target's Break Bar;;; Defeat and acquire the foot of a Ramasseur enemy while Monoco is in the active party. 
+Rocher Hammering;monoco;;;3;;;;;en;Rocher Hammering; Deals medium single target Physical damage. 4 hits. Can Break Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Rocher enemy while Monoco is in the active party. 
+Sakapatate Estoc;monoco;;;3;;;;;en;Sakapatate Estoc; Deals low single target Lightning damage. 1 hit. Deals more damage if the target is Stunned Balanced Mask: Increased damage;;; Defeat and acquire the foot of a Ranger Sakapatate enemy while Monoco is in the active party. 
+Sakapatate Explosion;monoco;;;4;;;;;en;Sakapatate Explosion; Deals medium Lightning damage to random enemies. 3 hits. Critical Hits trigger an additional hit. Caster Mask: Increased damage;;; Defeat and acquire the foot of a Catapult Sakapatate enemy while Monoco is in the active party. 
+Sakapatate Fire;monoco;;;9;;;;;en;Sakapatate Fire; Deals extreme Fire to all enemies. 3 hits. Apply 3 Burn per hit. Almighty Mask: Increased damage;;;Defeat and acquire the foot of the Ultimate Sakapatate enemy while Monoco is in the active party.
+Sakapatate Slam;monoco;;;7;;;;;en;Sakapatate Slam; Deals high Physical damage to all enemies. 1 hit. Increased damage to Marked targets. Heavy Mask: Increased damage;;; Defeat and acquire the foot of a Robust Sakapatate enemy while Monoco is in the active party. 
+Sanctuary;monoco;;;2;;;;;en;Sanctuary; Gives 2 Shields and applies Regen to all allies for 3 turns;;; Reach Relationship Level 4 with Monoco. 
+Sapling Absorption;monoco;;;6;;;;;en;Sapling Absorption; Deals high Dark damage. 3 hits. Recovers 5% Health on hit;;; Defeat and acquire the foot of a Sapling enemy while Monoco is in the active party. 
+Stalact Punches;monoco;;;4;;;;;en;Stalact Punches; Deals medium single target Ice damage. 4 hits. High Break damage Heavy Mask: Increased damage;;;N/A
+Troubadour Trumpet;monoco;;;3;;;;;en;Troubadour Trumpet; Applies a random buff to 1 to 3 allies. Caster Mask: applies a second random buff;;; Defeat and acquire the foot of a Troubadour enemy while Monoco is in the active party. 
