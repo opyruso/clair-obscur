@@ -227,7 +227,7 @@ function ImportBox({columns, rows, setRows, endpoint, idField, label}){
   };
 
   const cleanData = async () => {
-    const ls=[]; const st=[]; let newRows=[...rows];
+    const ls=[]; const st=[];
     for(const r of rows){
       const url=`${api}${endpoint}/${encodeURIComponent(r[idField])}`;
       try{ const resp=await apiFetch(url,{method:'DELETE',headers:{'Accept':'application/json'}}); if(!resp.ok) throw new Error('del'); st.push('success'); }catch(e){ st.push('fail'); }
