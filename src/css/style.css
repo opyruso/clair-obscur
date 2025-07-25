@@ -179,9 +179,7 @@ body[data-page="weapons"] .card-inner::before {
 }
 body[data-page="weapons"] .weapon-img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: 30px;
   object-fit: contain;
   opacity: 0.5;
   pointer-events: none;
