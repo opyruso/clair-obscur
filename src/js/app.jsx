@@ -819,39 +819,83 @@ function AdminPage(){
 
     const charRows = [];
     (data.characters || []).forEach(c => {
-      (c.details || [{lang:'',name:'',story:''}]).forEach(d => {
-        charRows.push({idCharacter:c.idCharacter,lang:d.lang,name:d.name||'',story:d.story||''});
-      });
+      if(Array.isArray(c.details)) {
+        c.details.forEach(d => {
+          charRows.push({idCharacter:c.idCharacter,lang:d.lang,name:d.name||'',story:d.story||''});
+        });
+      } else if(c.lang !== undefined) {
+        charRows.push({idCharacter:c.idCharacter,lang:c.lang,name:c.name||'',story:c.story||''});
+      } else {
+        charRows.push({idCharacter:c.idCharacter,lang:'',name:'',story:''});
+      }
     });
     setCharacters(charRows);
 
     const buffRows = [];
     (data.damageBuffTypes || []).forEach(b => {
-      (b.details || [{lang:'',name:''}]).forEach(d => {
-        buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:d.lang,name:d.name||''});
-      });
+      if(Array.isArray(b.details)) {
+        b.details.forEach(d => {
+          buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:d.lang,name:d.name||''});
+        });
+      } else if(b.lang !== undefined) {
+        buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:b.lang,name:b.name||''});
+      } else {
+        buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:'',name:''});
+      }
     });
     setDamageBuffTypes(buffRows);
 
     const typeRows = [];
     (data.damageTypes || []).forEach(t => {
-      (t.details || [{lang:'',name:''}]).forEach(d => {
-        typeRows.push({idDamageType:t.idDamageType,lang:d.lang,name:d.name||''});
-      });
+      if(Array.isArray(t.details)) {
+        t.details.forEach(d => {
+          typeRows.push({idDamageType:t.idDamageType,lang:d.lang,name:d.name||''});
+        });
+      } else if(t.lang !== undefined) {
+        typeRows.push({idDamageType:t.idDamageType,lang:t.lang,name:t.name||''});
+      } else {
+        typeRows.push({idDamageType:t.idDamageType,lang:'',name:''});
+      }
     });
     setDamageTypes(typeRows);
 
     const capTypeRows = [];
     (data.capacityTypes || []).forEach(ct => {
-      (ct.details || [{lang:'',name:''}]).forEach(d => {
-        capTypeRows.push({idCapacityType:ct.idCapacityType,lang:d.lang,name:d.name||''});
-      });
+      if(Array.isArray(ct.details)) {
+        ct.details.forEach(d => {
+          capTypeRows.push({idCapacityType:ct.idCapacityType,lang:d.lang,name:d.name||''});
+        });
+      } else if(ct.lang !== undefined) {
+        capTypeRows.push({idCapacityType:ct.idCapacityType,lang:ct.lang,name:ct.name||''});
+      } else {
+        capTypeRows.push({idCapacityType:ct.idCapacityType,lang:'',name:''});
+      }
     });
     setCapacityTypes(capTypeRows);
 
     const capRows = [];
     (data.capacities || []).forEach(c => {
-      (c.details || [{lang:'',name:'',effectPrimary:'',effectSecondary:'',bonusDescription:'',additionnalDescription:''}]).forEach(d => {
+      if(Array.isArray(c.details)) {
+        c.details.forEach(d => {
+          capRows.push({
+            idCapacity:c.idCapacity,
+            character:c.character?.idCharacter||'',
+            energyCost:c.energyCost,
+            canBreak:c.canBreak,
+            damageType:c.damageType?.idDamageType||c.damageType||'',
+            type:c.type?.idCapacityType||c.type||'',
+            isMultiTarget:c.isMultiTarget,
+            gridPositionX:c.gridPositionX,
+            gridPositionY:c.gridPositionY,
+            lang:d.lang,
+            name:d.name||'',
+            effectPrimary:d.effectPrimary||'',
+            effectSecondary:d.effectSecondary||'',
+            bonusDescription:d.bonusDescription||'',
+            additionnalDescription:d.additionnalDescription||''
+          });
+        });
+      } else if(c.lang !== undefined) {
         capRows.push({
           idCapacity:c.idCapacity,
           character:c.character?.idCharacter||'',
@@ -862,20 +906,55 @@ function AdminPage(){
           isMultiTarget:c.isMultiTarget,
           gridPositionX:c.gridPositionX,
           gridPositionY:c.gridPositionY,
-          lang:d.lang,
-          name:d.name||'',
-          effectPrimary:d.effectPrimary||'',
-          effectSecondary:d.effectSecondary||'',
-          bonusDescription:d.bonusDescription||'',
-          additionnalDescription:d.additionnalDescription||''
+          lang:c.lang,
+          name:c.name||'',
+          effectPrimary:c.effectPrimary||'',
+          effectSecondary:c.effectSecondary||'',
+          bonusDescription:c.bonusDescription||'',
+          additionnalDescription:c.additionnalDescription||''
         });
-      });
+      } else {
+        capRows.push({
+          idCapacity:c.idCapacity,
+          character:c.character?.idCharacter||'',
+          energyCost:c.energyCost,
+          canBreak:c.canBreak,
+          damageType:c.damageType?.idDamageType||c.damageType||'',
+          type:c.type?.idCapacityType||c.type||'',
+          isMultiTarget:c.isMultiTarget,
+          gridPositionX:c.gridPositionX,
+          gridPositionY:c.gridPositionY,
+          lang:'',
+          name:'',
+          effectPrimary:'',
+          effectSecondary:'',
+          bonusDescription:'',
+          additionnalDescription:''
+        });
+      }
     });
     setCapacities(capRows);
 
     const pictoRows = [];
     (data.pictos || []).forEach(p => {
-      (p.details || [{lang:'',name:'',region:'',descrptionBonusLumina:'',unlockDescription:''}]).forEach(d => {
+      if(Array.isArray(p.details)) {
+        p.details.forEach(d => {
+          pictoRows.push({
+            idPicto:p.idPicto,
+            level:p.level,
+            bonusDefense:p.bonusDefense,
+            bonusSpeed:p.bonusSpeed,
+            bonusCritChance:p.bonusCritChance,
+            bonusHealth:p.bonusHealth,
+            luminaCost:p.luminaCost,
+            lang:d.lang,
+            name:d.name||'',
+            region:d.region||'',
+            descrptionBonusLumina:d.descrptionBonusLumina||'',
+            unlockDescription:d.unlockDescription||''
+          });
+        });
+      } else if(p.lang !== undefined) {
         pictoRows.push({
           idPicto:p.idPicto,
           level:p.level,
@@ -884,48 +963,113 @@ function AdminPage(){
           bonusCritChance:p.bonusCritChance,
           bonusHealth:p.bonusHealth,
           luminaCost:p.luminaCost,
-          lang:d.lang,
-          name:d.name||'',
-          region:d.region||'',
-          descrptionBonusLumina:d.descrptionBonusLumina||'',
-          unlockDescription:d.unlockDescription||''
+          lang:p.lang,
+          name:p.name||'',
+          region:p.region||'',
+          descrptionBonusLumina:p.descrptionBonusLumina||'',
+          unlockDescription:p.unlockDescription||''
         });
-      });
+      } else {
+        pictoRows.push({
+          idPicto:p.idPicto,
+          level:p.level,
+          bonusDefense:p.bonusDefense,
+          bonusSpeed:p.bonusSpeed,
+          bonusCritChance:p.bonusCritChance,
+          bonusHealth:p.bonusHealth,
+          luminaCost:p.luminaCost,
+          lang:'',
+          name:'',
+          region:'',
+          descrptionBonusLumina:'',
+          unlockDescription:''
+        });
+      }
     });
     setPictos(pictoRows);
 
     const weaponRows = [];
     (data.weapons || []).forEach(w => {
-      (w.details || [{lang:'',name:'',region:'',unlockDescription:'',weaponEffect1:'',weaponEffect2:'',weaponEffect3:''}]).forEach(d => {
+      if(Array.isArray(w.details)) {
+        w.details.forEach(d => {
+          weaponRows.push({
+            idWeapon:w.idWeapon,
+            character:w.character?.idCharacter||'',
+            damageType:w.damageType?.idDamageType||'',
+            damageBuffType1:w.damageBuffType1?.idDamageBuffType||'',
+            damageBuffType2:w.damageBuffType2?.idDamageBuffType||'',
+            lang:d.lang,
+            name:d.name||'',
+            region:d.region||'',
+            unlockDescription:d.unlockDescription||'',
+            weaponEffect1:d.weaponEffect1||'',
+            weaponEffect2:d.weaponEffect2||'',
+            weaponEffect3:d.weaponEffect3||''
+          });
+        });
+      } else if(w.lang !== undefined) {
         weaponRows.push({
           idWeapon:w.idWeapon,
           character:w.character?.idCharacter||'',
           damageType:w.damageType?.idDamageType||'',
           damageBuffType1:w.damageBuffType1?.idDamageBuffType||'',
           damageBuffType2:w.damageBuffType2?.idDamageBuffType||'',
-          lang:d.lang,
-          name:d.name||'',
-          region:d.region||'',
-          unlockDescription:d.unlockDescription||'',
-          weaponEffect1:d.weaponEffect1||'',
-          weaponEffect2:d.weaponEffect2||'',
-          weaponEffect3:d.weaponEffect3||''
+          lang:w.lang,
+          name:w.name||'',
+          region:w.region||'',
+          unlockDescription:w.unlockDescription||'',
+          weaponEffect1:w.weaponEffect1||'',
+          weaponEffect2:w.weaponEffect2||'',
+          weaponEffect3:w.weaponEffect3||''
         });
-      });
+      } else {
+        weaponRows.push({
+          idWeapon:w.idWeapon,
+          character:w.character?.idCharacter||'',
+          damageType:w.damageType?.idDamageType||'',
+          damageBuffType1:w.damageBuffType1?.idDamageBuffType||'',
+          damageBuffType2:w.damageBuffType2?.idDamageBuffType||'',
+          lang:'',
+          name:'',
+          region:'',
+          unlockDescription:'',
+          weaponEffect1:'',
+          weaponEffect2:'',
+          weaponEffect3:''
+        });
+      }
     });
     setWeapons(weaponRows);
 
     const outfitRows = [];
     (data.outfits || []).forEach(o => {
-      (o.details || [{lang:o.lang||'',name:o.name||'',description:o.description||''}]).forEach(d => {
+      if(Array.isArray(o.details)) {
+        o.details.forEach(d => {
+          outfitRows.push({
+            idOutfit:o.idOutfit,
+            character:o.character?.idCharacter||o.character||'',
+            lang:d.lang,
+            name:d.name||'',
+            description:d.description||''
+          });
+        });
+      } else if(o.lang !== undefined) {
         outfitRows.push({
           idOutfit:o.idOutfit,
           character:o.character?.idCharacter||o.character||'',
-          lang:d.lang,
-          name:d.name||'',
-          description:d.description||''
+          lang:o.lang,
+          name:o.name||'',
+          description:o.description||''
         });
-      });
+      } else {
+        outfitRows.push({
+          idOutfit:o.idOutfit,
+          character:o.character?.idCharacter||o.character||'',
+          lang:'',
+          name:'',
+          description:''
+        });
+      }
     });
     setOutfits(outfitRows);
   }, []);
