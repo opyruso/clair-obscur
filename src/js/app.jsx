@@ -74,7 +74,6 @@ function PictosPage(){
             <div className="icon-sep"></div>
           </div>
           <input className="searchbar" id="search" placeholder="Search pictos by any field..." data-i18n-placeholder="search_placeholder"/>
-          <input type="file" id="fileInput" accept="application/json" style={{display:'none'}}/>
         </div>
         <div id="cards" className="cards"></div>
         <div id="table" className="table-view" style={{display:'none'}}></div>
@@ -111,7 +110,6 @@ function WeaponsPage(){
             <div className="icon-sep"></div>
           </div>
           <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder"/>
-          <input type="file" id="fileInput" accept="application/json" style={{display:'none'}}/>
         </div>
         <div id="cards" className="cards"></div>
         <div id="table" className="table-view" style={{display:'none'}}></div>
@@ -147,7 +145,6 @@ function OutfitsPage(){
             <div className="icon-sep"></div>
           </div>
           <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder"/>
-          <input type="file" id="fileInput" accept="application/json" style={{display:'none'}}/>
         </div>
         <div id="cards" className="cards"></div>
         <div id="table" className="table-view" style={{display:'none'}}></div>

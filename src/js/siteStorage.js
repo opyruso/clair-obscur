@@ -40,6 +40,8 @@ function handleSiteUpload(file) {
   reader.onload = e => {
     try {
       const obj = JSON.parse(e.target.result);
+      localStorage.clear();
+      siteData = { pictos: [], weapons: [], outfits: [] };
       if(Array.isArray(obj)) {
         siteData.pictos = obj;
       } else if(obj && typeof obj === 'object') {
@@ -47,6 +49,7 @@ function handleSiteUpload(file) {
         if(Array.isArray(obj.weapons)) siteData.weapons = obj.weapons;
         if(Array.isArray(obj.outfits)) siteData.outfits = obj.outfits;
       }
+      saveSiteData();
       const page = document.body.dataset.page;
       if(page==='pictos' && window.pictosPage?.onSiteDataUpdated) {
         window.pictosPage.onSiteDataUpdated();
