@@ -250,23 +250,20 @@ function handleCardPressLeave(e) {
     }
 
     function mapPictos(list){
-      return list.map(p=>{
-        const det=(p.details||[]).find(d=>d.lang===currentLang)||{};
-        return {
-          id:p.idPicto,
-          name:det.name||'',
-          region:det.region||'',
-          level:p.level,
-          bonus_picto:{
-            defense:p.bonusDefense,
-            speed:p.bonusSpeed,
-            'critical-luck':p.bonusCritChance,
-            health:p.bonusHealth
-          },
-          bonus_lumina:det.descrptionBonusLumina||'',
-          unlock_description:det.unlockDescription||''
-        };
-      });
+      return list.map(p=>({
+        id:p.idPicto,
+        name:p.name||'',
+        region:p.region||'',
+        level:p.level,
+        bonus_picto:{
+          defense:p.bonusDefense,
+          speed:p.bonusSpeed,
+          'critical-luck':p.bonusCritChance,
+          health:p.bonusHealth
+        },
+        bonus_lumina:p.descrptionBonusLumina||'',
+        unlock_description:p.unlockDescription||''
+      }));
     }
 
     async function loadData() {
