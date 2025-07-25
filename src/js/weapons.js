@@ -78,10 +78,11 @@ function mapWeapons(list){
     const buffs=[w.damageBuffType1?.idDamageBuffType,w.damageBuffType2?.idDamageBuffType]
       .filter(Boolean);
     const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
+    const charKey=w.character?.key||w.character?.idCharacter||'';
     return {
       id:w.idWeapon,
       charId:w.character?.idCharacter||0,
-      charKey:w.character?.idCharacter||'',
+      charKey,
       character:charDet.name||'',
       name:det.name||'',
       region:det.region||'',
