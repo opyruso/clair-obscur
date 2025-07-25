@@ -14,6 +14,7 @@ const Header = () => {
           <ul className="navbar-nav flex-row">
             <li className="nav-item"><NavLink className="nav-link" to="/pictos" onClick={closeMenu} data-i18n="nav_pictos">Pictos inventory</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/weapons" onClick={closeMenu} data-i18n="nav_weapons">Weapons inventory</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/outfits" onClick={closeMenu} data-i18n="nav_outfits">Outfits inventory</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/build" onClick={closeMenu} data-i18n="nav_build">Team builder</NavLink></li>
             <li className="nav-item" id="adminNav" style={{display:'none'}}><NavLink className="nav-link" to="/admin" onClick={closeMenu} data-i18n="nav_admin">Admin</NavLink></li>
           </ul>

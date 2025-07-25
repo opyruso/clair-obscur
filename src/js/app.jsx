@@ -31,7 +31,15 @@ function Home(){
       </div>
       <div className="index-row">
         <div className="index-desc">
-          <p data-i18n="index_desc3">Build your team composition and share it with a link.</p>
+          <p data-i18n="index_desc3">Customize your look by keeping track of all unlocked outfits.</p>
+        </div>
+        <div className="index-img">
+          <img src="resources/images/index/index_cadre_weapons.png" alt=""/>
+        </div>
+      </div>
+      <div className="index-row">
+        <div className="index-desc">
+          <p data-i18n="index_desc4">Build your team composition and share it with a link.</p>
         </div>
         <div className="index-img">
           <img src="resources/images/index/index_cadre_teambuilder.png" alt=""/>
@@ -89,6 +97,42 @@ function WeaponsPage(){
     <>
       <main className="content-wrapper mt-4 flex-grow-1">
         <h1 data-i18n="heading_weapons">Weapons inventory</h1>
+        <div className="char-select" id="charSelect"></div>
+        <div className="actions">
+          <div className="icon-bar">
+            <button className="icon-btn toggle" id="hideOwnedBtn" data-i18n-title="hide_owned" title="Hide owned"><img src="resources/images/icons/buttons/show_found.png" alt=""/></button>
+            <button className="icon-btn toggle" id="hideMissingBtn" data-i18n-title="hide_missing" title="Hide missing"><img src="resources/images/icons/buttons/hide_notfound.png" alt=""/></button>
+            <div className="icon-sep"></div>
+            <button className="icon-btn" id="selectAllBtn" data-i18n-title="select_all" title="Select all"><img src="resources/images/icons/buttons/select_all.png" alt=""/></button>
+            <button className="icon-btn" id="clearAllBtn" data-i18n-title="clear_all" title="Clear all"><img src="resources/images/icons/buttons/deselect_all.png" alt=""/></button>
+            <div className="icon-sep"></div>
+            <button className="icon-btn" id="gridViewBtn" data-i18n-title="grid_view" title="Grid view"><img src="resources/images/icons/buttons/tile_view.png" alt=""/></button>
+            <button className="icon-btn" id="tableViewBtn" data-i18n-title="table_view" title="Table view"><img src="resources/images/icons/buttons/tab_view.png" alt=""/></button>
+            <div className="icon-sep"></div>
+          </div>
+          <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder"/>
+          <input type="file" id="fileInput" accept="application/json" style={{display:'none'}}/>
+        </div>
+        <div id="cards" className="cards"></div>
+        <div id="table" className="table-view" style={{display:'none'}}></div>
+        <div id="notificationContainer" className="notification-container"></div>
+      </main>
+    </>
+  );
+}
+
+function OutfitsPage(){
+  useEffect(() => {
+    document.body.dataset.page="outfits";
+    if(window.outfitsPage?.initPage) window.outfitsPage.initPage();
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  }, []);
+  return (
+    <>
+      <main className="content-wrapper mt-4 flex-grow-1">
+        <h1 data-i18n="heading_outfits">Outfits inventory</h1>
         <div className="char-select" id="charSelect"></div>
         <div className="actions">
           <div className="icon-bar">
@@ -1035,6 +1079,7 @@ function App(){
         <Route path="/index" element={<Home />} />
         <Route path="/pictos" element={<PictosPage />} />
         <Route path="/weapons" element={<WeaponsPage />} />
+        <Route path="/outfits" element={<OutfitsPage />} />
         <Route path="/build" element={<BuildPage />} />
         <Route path="/build/:refId" element={<BuildPage />} />
         <Route path="/admin" element={<AdminPage />} />
