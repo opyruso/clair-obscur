@@ -59,9 +59,11 @@ function mapOutfits(list){
   return list.map(w=>{
     const det=(w.details||[]).find(d=>d.lang===currentLang)||{};
     const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
+    const charKey=w.character?.key||w.character?.idCharacter||'';
     return {
       id:w.idOutfit,
       charId:w.character?.idCharacter||0,
+      charKey,
       character:charDet.name||'',
       name:det.name||'',
       region:det.region||'',
@@ -161,15 +163,26 @@ function render(){
 function renderCards(){
   const container=document.getElementById('cards');
   container.innerHTML='';
-  filteredOutfits.forEach(w=>{
-    const owned=myOutfits.has(w.id);
-    const card=document.createElement('div');
-    card.className='card'+(owned?' owned':'');
-    card.dataset.id=w.id;
-    card.innerHTML=`<div class="card-inner"><div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region">${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</div></div></div>`;
-    card.querySelector('.pin-btn').addEventListener('click',e=>{e.stopPropagation();toggleOutfit(w.id);});
-    container.appendChild(card);
-  });
+  const skins=filteredOutfits.filter(w=>!w.id.includes('_Hair_'));
+  const hairs=filteredOutfits.filter(w=>w.id.includes('_Hair_'));
+  const addGroup=(title,list)=>{
+    if(!list.length) return;
+    const p=document.createElement('p');
+    p.className='group-title';
+    p.textContent=title;
+    container.appendChild(p);
+    list.forEach(w=>{
+      const owned=myOutfits.has(w.id);
+      const card=document.createElement('div');
+      card.className='card'+(owned?' owned':'');
+      card.dataset.id=w.id;
+      card.innerHTML=`<div class="card-inner"><img class="outfit-img" src="resources/images/outfits/${w.charKey}/${w.id}.webp" alt=""><div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region">${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</div></div></div>`;
+      card.querySelector('.pin-btn').addEventListener('click',e=>{e.stopPropagation();toggleOutfit(w.id);});
+      container.appendChild(card);
+    });
+  };
+  addGroup(t('skins_label'), skins);
+  addGroup(t('haircuts_label'), hairs);
 }
 
 function renderTable(){
