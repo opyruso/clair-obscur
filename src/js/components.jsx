@@ -1,10 +1,22 @@
 const {NavLink} = ReactRouterDOM;
-const {useState} = React;
+const {useState, useRef} = React;
 const { toast } = ReactToastify;
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const fileRef = useRef();
   const closeMenu = () => setMenuOpen(false);
+  const handleDownload = () => {
+    if(window.downloadSiteData) window.downloadSiteData();
+  };
+  const handleUploadClick = () => fileRef.current?.click();
+  const handleFileChange = e => {
+    const file = e.target.files?.[0];
+    if(file && window.handleSiteUpload) {
+      window.handleSiteUpload(file);
+    }
+    e.target.value = '';
+  };
   return (
     <nav className="navbar navbar-dark">
       <div className="container-fluid header-inner">
@@ -20,8 +32,9 @@ const Header = () => {
           </ul>
           <div className="header-right">
             <div className="icon-bar header-actions">
-              <button className="icon-btn" id="downloadBtn" data-i18n-title="download" title="Download"><img src="resources/images/icons/buttons/download.png" alt=""/></button>
-              <button className="icon-btn" id="uploadBtn" data-i18n-title="upload" title="Upload"><img src="resources/images/icons/buttons/upload.png" alt=""/></button>
+              <button className="icon-btn" id="downloadBtn" data-i18n-title="download" title="Download" onClick={handleDownload}><img src="resources/images/icons/buttons/download.png" alt=""/></button>
+              <button className="icon-btn" id="uploadBtn" data-i18n-title="upload" title="Upload" onClick={handleUploadClick}><img src="resources/images/icons/buttons/upload.png" alt=""/></button>
+              <input type="file" ref={fileRef} accept="application/json" style={{display:'none'}} onChange={handleFileChange}/>
             </div>
             <div className="lang-flags">
               <span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>

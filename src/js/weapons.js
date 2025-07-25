@@ -48,9 +48,6 @@ function initPage(){
   document.getElementById('hideMissingBtn').addEventListener('click',()=>{hideMissing=!hideMissing;if(hideMissing)hideOwned=false;applyFilters();});
   document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
   document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
-  document.getElementById('downloadBtn').addEventListener('click',downloadJson);
-  document.getElementById('uploadBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
-  document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])handleSiteUpload(e.target.files[0]);e.target.value='';});
   initCharacters();
   loadData();
 }
@@ -247,15 +244,7 @@ function updateIconStates(){
   document.getElementById('hideMissingBtn').classList.toggle('toggled',hideMissing);
 }
 
-function downloadJson(){
-  setSavedItems(storageKey, Array.from(myWeapons));
-  downloadSiteData();
-  updateIconStates();
-}
 
-function handleUpload(file){
-  handleSiteUpload(file);
-}
 
 function onSiteDataUpdated(){
   myWeapons = new Set(getSavedItems(storageKey));
