@@ -975,7 +975,13 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 /* Admin Page */
-.admin-row{display:flex;gap:10px;margin-bottom:20px;align-items:stretch;}
+.admin-row{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:20px;
+  align-items:stretch;
+}
 .admin-grid{flex:1;height:auto;max-height:calc(100vh - 250px);overflow:auto;background:#21232d;}
 .base-row .admin-grid{height:auto;max-height:calc(100vh - 250px);}
 .admin-grid .MuiDataGrid-root{color:#fff;min-height:100%;}
@@ -1003,3 +1009,16 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .admin-tabs-nav button.active{background:#21232d;}
 .admin-tab-pane{display:none;}
 .admin-tab-pane.active{display:block;}
+
+/* CSV Import/Export */
+.import-box{
+  background:#21232d;
+  color:#fff;
+  padding:10px;
+  margin-top:10px;
+  width:100%;
+}
+.import-box .controls{display:flex;gap:10px;margin-bottom:5px;}
+.import-box pre{margin:0;white-space:pre-wrap;word-break:break-word;font-size:0.8em;}
+.text-danger{color:#dc3545;}
+.text-success{color:#28a745;}
