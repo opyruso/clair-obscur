@@ -131,6 +131,18 @@
     @media (min-width: 2000px) {
       .cards { grid-template-columns: repeat(4, 1fr); }
     }
+    body[data-page="outfits"] .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 800px) {
+      body[data-page="outfits"] .cards { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (min-width: 1400px) {
+      body[data-page="outfits"] .cards { grid-template-columns: repeat(6, 1fr); }
+    }
+    @media (min-width: 2000px) {
+      body[data-page="outfits"] .cards { grid-template-columns: repeat(8, 1fr); }
+    }
     .card {
       position: relative;
       box-sizing: border-box;
@@ -187,6 +199,22 @@ body[data-page="weapons"] .weapon-img {
   opacity: 0.5;
   pointer-events: none;
   z-index: -1;
+}
+body[data-page="outfits"] .outfit-img {
+  height: 100%;
+  position: absolute;
+  inset: 60px;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+body[data-page="outfits"] #cards p.group-title {
+  margin: 0;
+  grid-column: 1 / -1;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 body[data-page="outfits"] .card-inner::before {
   background-size: 100% 100%;
@@ -492,6 +520,9 @@ body[data-page="outfits"] .card-back {
   .cards { grid-template-columns: 1fr; }
   th, td { font-size: 0.93em; }
   html { font-size: 13px; }
+}
+@media (max-width: 800px) {
+  body[data-page="outfits"] .cards { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
