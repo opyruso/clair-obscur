@@ -11,6 +11,7 @@ Available routes:
 - `/index` - simple welcome page
 - `/pictos` - pictos inventory
 - `/weapons` - weapons inventory
+- `/outfits` - outfits inventory
 - `/build` - team builder
 - `/404` - not found page
 
