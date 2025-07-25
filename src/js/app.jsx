@@ -468,41 +468,63 @@ function BuildPage(){
     const caps=capacities.filter(c=>c.character===charId);
     const isAdmin=window.keycloak?.hasResourceRole?.('admin','coh-app');
     const [edit,setEdit]=React.useState(false);
-    const [zone,setZone]=React.useState(null);
+    const [zone,setZone]=React.useState(null); // confirmed selection
+    const [hover,setHover]=React.useState(null); // preview following cursor
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
 
-    function close(){ setCapModal(null); setZone(null); }
+    function close(){ setCapModal(null); setZone(null); setHover(null); }
+
+    function calcPos(e){
+      const img=e.currentTarget;
+      const rect=img.getBoundingClientRect();
+      const scale=rect.width/img.naturalWidth;
+      const sx=e.clientX-rect.left;
+      const sy=e.clientY-rect.top;
+      const x=Math.round(sx/scale);
+      const y=Math.round(sy/scale);
+      return {sx,sy,scale,x,y};
+    }
+
+    function handleMove(e){
+      if(!edit || zone) return;
+      setHover(calcPos(e));
+    }
+
+    function handleLeave(){ if(!zone) setHover(null); }
+
     function handleClick(e){
-      const rect=e.currentTarget.getBoundingClientRect();
-      const x=Math.round(e.clientX-rect.left);
-      const y=Math.round(e.clientY-rect.top);
+      const pos=calcPos(e);
       if(edit){
         if(zone){
           const opts=caps.map(c=>({value:c.id,label:c.name}));
           setModal({options:opts,onSelect:id=>{
-            setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:x,posY:y}:c));
-            if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:x,gridPositionY:y}});
+            setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:pos.x,posY:pos.y}:c));
+            if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:pos.x,gridPositionY:pos.y}});
             close();
           }});
         }else{
-          setZone({x,y});
+          setZone(pos);
         }
       }else{
-        const cap=caps.find(c=>Math.abs(c.posX-x)<60&&Math.abs(c.posY-y)<60);
+        const cap=caps.find(c=>Math.abs(c.posX-pos.x)<60&&Math.abs(c.posY-pos.y)<60);
         if(cap) ReactToastify.toast(cap.name);
       }
     }
 
+    const disp=zone||hover;
+    const show=edit && disp;
+    const size=disp?119*disp.scale:0;
+
     return (
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
-          <img src={treeImg} alt="" onClick={handleClick} style={{width:'100%'}} />
-          {zone && edit && (
-            <div style={{position:'absolute',left:zone.x-59,top:zone.y-59,width:119,height:119,border:'2px dashed #fff',pointerEvents:'none'}}></div>
+          <img src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          {show && (
+            <div style={{position:'absolute',left:disp.sx-size/2,top:disp.sy-size/2,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none'}}></div>
           )}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
-              <label><input type="checkbox" checked={edit} onChange={e=>{setEdit(e.target.checked);setZone(null);}} /> {t('edit')}</label>
+              <label><input type="checkbox" checked={edit} onChange={e=>{setEdit(e.target.checked);setZone(null);setHover(null);}} /> {t('edit')}</label>
             </div>
           )}
         </div>
@@ -642,14 +664,14 @@ function BuildPage(){
                     {col.weapon
                       ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
-                    <div className="weapon-buff">
+                  <div className="weapon-buff">
                       {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
                     </div>
-                    {col.character && (
-                      <div className="config-cap-link" onClick={()=>openCapacityModal(cidx)} data-i18n="config_capacities">{t('config_capacities')}</div>
-                    )}
                   </div>
                 </div>
+                {col.character && (
+                  <div className="config-cap-link" onClick={()=>openCapacityModal(cidx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                )}
                 <div className="buff-chart">
                   <RadarChart values={col.buffStats} buffs={buffs} />
                 </div>
@@ -714,11 +736,11 @@ function BuildPage(){
                     <div className="weapon-buff">
                       {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
                     </div>
-                    {col.character && (
-                      <div className="config-cap-link" onClick={()=>openCapacityModal(idx)} data-i18n="config_capacities">{t('config_capacities')}</div>
-                    )}
                     </div>
                   </div>
+                  {col.character && (
+                    <div className="config-cap-link" onClick={()=>openCapacityModal(idx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                  )}
                   <div className="buff-chart">
                     <RadarChart values={col.buffStats} buffs={buffs} />
                   </div>
