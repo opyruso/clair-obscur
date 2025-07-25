@@ -656,6 +656,7 @@ function AdminPage(){
   const [damageTypes, setDamageTypes] = React.useState([]);
   const [pictos, setPictos] = React.useState([]);
   const [weapons, setWeapons] = React.useState([]);
+  const [outfits, setOutfits] = React.useState([]);
   const [capacityTypes, setCapacityTypes] = React.useState([]);
   const [capacities, setCapacities] = React.useState([]);
   const [tab, setTab] = React.useState(0);
@@ -738,6 +739,14 @@ function AdminPage(){
     {field:'weaponEffect2',header:'Effect2', width:280},
     {field:'weaponEffect3',header:'Effect3', width:280}
   ], [charOptions, typeOptions, buffOptions]);
+
+  const outfitCols = React.useMemo(()=>[
+    {field:'idOutfit',header:'ID', width:80},
+    {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'description',header:'Description', flex:1},
+  ], [charOptions]);
 
   const capTypeCols = React.useMemo(()=>[
     {field:'idCapacityType',header:'ID', width:80},
@@ -864,6 +873,20 @@ function AdminPage(){
       });
     });
     setWeapons(weaponRows);
+
+    const outfitRows = [];
+    (data.outfits || []).forEach(o => {
+      (o.details || [{lang:o.lang||'',name:o.name||'',description:o.description||''}]).forEach(d => {
+        outfitRows.push({
+          idOutfit:o.idOutfit,
+          character:o.character?.idCharacter||o.character||'',
+          lang:d.lang,
+          name:d.name||'',
+          description:d.description||''
+        });
+      });
+    });
+    setOutfits(outfitRows);
   }, []);
 
 
@@ -894,10 +917,11 @@ function AdminPage(){
           <button className={tab===0?'active':''} data-i18n="admin_characters" onClick={()=>setTab(0)}>Characters</button>
           <button className={tab===1?'active':''} data-i18n="admin_damage_buff_types" onClick={()=>setTab(1)}>Buff Types</button>
           <button className={tab===2?'active':''} data-i18n="admin_damage_types" onClick={()=>setTab(2)}>Damage Types</button>
-          <button className={tab===3?'active':''} data-i18n="admin_pictos" onClick={()=>setTab(3)}>Pictos</button>
-          <button className={tab===4?'active':''} data-i18n="admin_weapons" onClick={()=>setTab(4)}>Weapons</button>
-          <button className={tab===5?'active':''} data-i18n="admin_capacity_types" onClick={()=>setTab(5)}>Capacity Types</button>
-          <button className={tab===6?'active':''} data-i18n="admin_capacities" onClick={()=>setTab(6)}>Capacities</button>
+          <button className={tab===3?'active':''} data-i18n="admin_outfits" onClick={()=>setTab(3)}>Outfits</button>
+          <button className={tab===4?'active':''} data-i18n="admin_pictos" onClick={()=>setTab(4)}>Pictos</button>
+          <button className={tab===5?'active':''} data-i18n="admin_weapons" onClick={()=>setTab(5)}>Weapons</button>
+          <button className={tab===6?'active':''} data-i18n="admin_capacity_types" onClick={()=>setTab(6)}>Capacity Types</button>
+          <button className={tab===7?'active':''} data-i18n="admin_capacities" onClick={()=>setTab(7)}>Capacities</button>
         </div>
 
         <div className={"admin-tab-pane"+(tab===0?" active":"")}>
@@ -931,8 +955,18 @@ function AdminPage(){
         </div>
 
         <div className={"admin-tab-pane"+(tab===3?" active":"")}>
-          <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
+          <h2 className="admin-section" data-i18n="admin_outfits">Outfits</h2>
           {tab===3 && (
+            <div className="admin-row">
+              <UIGrid columns={outfitCols} rows={outfits} setRows={setOutfits} endpoint="/admin/outfits" idField="idOutfit" />
+              <ImportBox columns={outfitCols} rows={outfits} setRows={setOutfits} endpoint="/admin/outfits" idField="idOutfit" label="outfits" />
+            </div>
+          )}
+        </div>
+
+        <div className={"admin-tab-pane"+(tab===4?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
+          {tab===4 && (
             <div className="admin-row">
               <UIGrid columns={pictoCols} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" />
               <ImportBox columns={pictoCols} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" label="pictos" />
@@ -940,9 +974,9 @@ function AdminPage(){
           )}
         </div>
 
-        <div className={"admin-tab-pane"+(tab===4?" active":"")}>
+        <div className={"admin-tab-pane"+(tab===5?" active":"")}>
           <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
-          {tab===4 && (
+          {tab===5 && (
             <div className="admin-row">
               <UIGrid columns={weaponCols} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" />
               <ImportBox columns={weaponCols} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" label="weapons" />
@@ -950,9 +984,9 @@ function AdminPage(){
           )}
         </div>
 
-        <div className={"admin-tab-pane"+(tab===5?" active":"")}>
+        <div className={"admin-tab-pane"+(tab===6?" active":"")}>
           <h2 className="admin-section" data-i18n="admin_capacity_types">Capacity Types</h2>
-          {tab===5 && (
+          {tab===6 && (
             <div className="admin-row">
               <UIGrid columns={capTypeCols} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" />
               <ImportBox columns={capTypeCols} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" label="capacitytypes" />
@@ -960,9 +994,9 @@ function AdminPage(){
           )}
         </div>
 
-        <div className={"admin-tab-pane"+(tab===6?" active":"")}>
+        <div className={"admin-tab-pane"+(tab===7?" active":"")}>
           <h2 className="admin-section" data-i18n="admin_capacities">Capacities</h2>
-          {tab===6 && (
+          {tab===7 && (
             <div className="admin-row">
               <UIGrid columns={capCols} rows={capacities} setRows={setCapacities} endpoint="/admin/capacities" idField="idCapacity" />
               <ImportBox columns={capCols} rows={capacities} setRows={setCapacities} endpoint="/admin/capacities" idField="idCapacity" label="capacities" />
