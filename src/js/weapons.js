@@ -73,21 +73,18 @@ function initCharacters(){
 
 function mapWeapons(list){
   return list.map(w=>{
-    const det=(w.details||[]).find(d=>d.lang===currentLang)||{};
-    const effects=[det.weaponEffect1,det.weaponEffect2,det.weaponEffect3].filter(Boolean);
-    const buffs=[w.damageBuffType1?.idDamageBuffType,w.damageBuffType2?.idDamageBuffType]
-      .filter(Boolean);
-    const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
-    const charKey=w.character?.key||w.character?.idCharacter||'';
+    const effects=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3].filter(Boolean);
+    const buffs=[w.damageBuffType1,w.damageBuffType2].filter(Boolean);
+    const charKey=w.characterKey||w.character||'';
     return {
       id:w.idWeapon,
-      charId:w.character?.idCharacter||0,
+      charId:w.character||0,
       charKey,
-      character:charDet.name||'',
-      name:det.name||'',
-      region:det.region||'',
-      unlock_description:det.unlockDescription||null,
-      damage_type:damageTypeNames[w.damageType?.idDamageType]||w.damageType?.idDamageType||'',
+      character:w.characterName||'',
+      name:w.name||'',
+      region:w.region||'',
+      unlock_description:w.unlockDescription||null,
+      damage_type:damageTypeNames[w.damageType]||w.damageType||'',
       effects,
       damage_buff:buffs.map(b=>damageBuffNames[b]||b)
     };
@@ -99,8 +96,7 @@ function loadData(){
     characters=[];
     characterIds={};
     (data.characters||[]).forEach(c=>{
-      const det=(c.details||[]).find(d=>d.lang===currentLang)||c.details?.[0]||{};
-      const name=det.name||'';
+      const name=c.name||'';
       if(name){
         characters.push(name);
         characterIds[name]=c.idCharacter;
@@ -112,13 +108,11 @@ function loadData(){
     }
     damageBuffNames={};
     (data.damageBuffTypes||[]).forEach(b=>{
-      const det=(b.details||[]).find(d=>d.lang===currentLang)||b.details?.[0]||{};
-      if(det.name) damageBuffNames[b.idDamageBuffType]=det.name;
+      if(b.name) damageBuffNames[b.idDamageBuffType]=b.name;
     });
     damageTypeNames={};
     (data.damageTypes||[]).forEach(t=>{
-      const det=(t.details||[]).find(d=>d.lang===currentLang)||t.details?.[0]||{};
-      if(det.name) damageTypeNames[t.idDamageType]=det.name;
+      if(t.name) damageTypeNames[t.idDamageType]=t.name;
     });
     currentCharacter=characters[0];
     currentCharId=characterIds[currentCharacter];

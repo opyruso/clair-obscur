@@ -187,6 +187,10 @@ function BuildPage(){
   const defaultCharIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
   const [charNames,setCharNames]=useState(defaultCharacters);
   const [charIds,setCharIds]=useState(defaultCharIds);
+  const charNamesMap = React.useMemo(
+    () => Object.fromEntries(Object.entries(charIds).map(([name,id])=>[id,name])),
+    [charIds]
+  );
   const [weapons,setWeapons]=useState([]);
   const [pictos,setPictos]=useState([]);
   const [team,setTeam]=useState(
@@ -203,42 +207,37 @@ function BuildPage(){
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
   function mapPictos(list){
-    return list.map(p=>{
-      const det=(p.details||[]).find(d=>d.lang===currentLang)||{};
-      return {
-        id:p.idPicto,
-        name:det.name||'',
-        region:det.region||'',
-        level:p.level,
-        luminaCost:p.luminaCost,
-        bonus_picto:{
-          defense:p.bonusDefense,
-          speed:p.bonusSpeed,
-          'critical-luck':p.bonusCritChance,
-          health:p.bonusHealth
-        },
-        bonus_lumina:det.descrptionBonusLumina||'',
-        unlock_description:det.unlockDescription||''
-      };
-    }).sort((a,b)=>a.name.localeCompare(b.name,currentLang,{sensitivity:'base'}));
+    return list.map(p=>({
+      id:p.idPicto,
+      name:p.name||'',
+      region:p.region||'',
+      level:p.level,
+      luminaCost:p.luminaCost,
+      bonus_picto:{
+        defense:p.bonusDefense,
+        speed:p.bonusSpeed,
+        'critical-luck':p.bonusCritChance,
+        health:p.bonusHealth
+      },
+      bonus_lumina:p.descrptionBonusLumina||'',
+      unlock_description:p.unlockDescription||''
+    })).sort((a,b)=>a.name.localeCompare(b.name,currentLang,{sensitivity:'base'}));
   }
 
   function mapWeapons(list){
     return list.map(w=>{
-      const det=(w.details||[]).find(d=>d.lang===currentLang)||{};
-      const effect=[det.weaponEffect1,det.weaponEffect2,det.weaponEffect3]
+      const effect=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3]
         .filter(Boolean).join(' ');
-      const charDet=(w.character?.details||[]).find(d=>d.lang===currentLang)||{};
       return {
         id:w.idWeapon,
-        charId:w.character?.idCharacter||0,
-        character:charDet.name||'',
-        name:det.name||'',
-        region:det.region||'',
-        unlock_description:det.unlockDescription||null,
-        damage_type:w.damageType?.idDamageType||'',
+        charId:w.character||0,
+        character:charNamesMap[w.character]||'',
+        name:w.name||'',
+        region:w.region||'',
+        unlock_description:w.unlockDescription||null,
+        damage_type:w.damageType||'',
         weapon_effect:effect,
-        damage_buff:[w.damageBuffType1?.idDamageBuffType,w.damageBuffType2?.idDamageBuffType].filter(Boolean)
+        damage_buff:[w.damageBuffType1,w.damageBuffType2].filter(Boolean)
       };
     });
   }
@@ -251,8 +250,7 @@ function BuildPage(){
         setPictos(mapPictos(d.pictos||[]));
         let names=[]; let ids={};
         (d.characters||[]).forEach(c=>{
-          const det=(c.details||[]).find(dd=>dd.lang===currentLang)||c.details?.[0]||{};
-          const nm=det.name||'';
+          const nm=c.name||'';
           if(nm){ names.push(nm); ids[nm]=c.idCharacter; }
         });
         if(names.length===0){ names=defaultCharacters.slice(); ids=defaultCharIds; }
@@ -817,116 +815,93 @@ function AdminPage(){
   const initRows = React.useCallback(data => {
     if(!data) return;
 
-    const charRows = [];
-    (data.characters || []).forEach(c => {
-      (c.details || [{lang:'',name:'',story:''}]).forEach(d => {
-        charRows.push({idCharacter:c.idCharacter,lang:d.lang,name:d.name||'',story:d.story||''});
-      });
-    });
+    const charRows = (data.characters || []).map(c => ({
+      idCharacter:c.idCharacter,
+      lang:c.lang || '',
+      name:c.name || '',
+      story:c.story || ''
+    }));
     setCharacters(charRows);
 
-    const buffRows = [];
-    (data.damageBuffTypes || []).forEach(b => {
-      (b.details || [{lang:'',name:''}]).forEach(d => {
-        buffRows.push({idDamageBuffType:b.idDamageBuffType,lang:d.lang,name:d.name||''});
-      });
-    });
+    const buffRows = (data.damageBuffTypes || []).map(b => ({
+      idDamageBuffType:b.idDamageBuffType,
+      lang:b.lang || '',
+      name:b.name || ''
+    }));
     setDamageBuffTypes(buffRows);
 
-    const typeRows = [];
-    (data.damageTypes || []).forEach(t => {
-      (t.details || [{lang:'',name:''}]).forEach(d => {
-        typeRows.push({idDamageType:t.idDamageType,lang:d.lang,name:d.name||''});
-      });
-    });
+    const typeRows = (data.damageTypes || []).map(t => ({
+      idDamageType:t.idDamageType,
+      lang:t.lang || '',
+      name:t.name || ''
+    }));
     setDamageTypes(typeRows);
 
-    const capTypeRows = [];
-    (data.capacityTypes || []).forEach(ct => {
-      (ct.details || [{lang:'',name:''}]).forEach(d => {
-        capTypeRows.push({idCapacityType:ct.idCapacityType,lang:d.lang,name:d.name||''});
-      });
-    });
+    const capTypeRows = (data.capacityTypes || []).map(ct => ({
+      idCapacityType:ct.idCapacityType,
+      lang:ct.lang || '',
+      name:ct.name || ''
+    }));
     setCapacityTypes(capTypeRows);
 
-    const capRows = [];
-    (data.capacities || []).forEach(c => {
-      (c.details || [{lang:'',name:'',effectPrimary:'',effectSecondary:'',bonusDescription:'',additionnalDescription:''}]).forEach(d => {
-        capRows.push({
-          idCapacity:c.idCapacity,
-          character:c.character?.idCharacter||'',
-          energyCost:c.energyCost,
-          canBreak:c.canBreak,
-          damageType:c.damageType?.idDamageType||c.damageType||'',
-          type:c.type?.idCapacityType||c.type||'',
-          isMultiTarget:c.isMultiTarget,
-          gridPositionX:c.gridPositionX,
-          gridPositionY:c.gridPositionY,
-          lang:d.lang,
-          name:d.name||'',
-          effectPrimary:d.effectPrimary||'',
-          effectSecondary:d.effectSecondary||'',
-          bonusDescription:d.bonusDescription||'',
-          additionnalDescription:d.additionnalDescription||''
-        });
-      });
-    });
+    const capRows = (data.capacities || []).map(c => ({
+      idCapacity:c.idCapacity,
+      character:c.character || '',
+      energyCost:c.energyCost,
+      canBreak:c.canBreak,
+      damageType:c.damageType || '',
+      type:c.type || '',
+      isMultiTarget:c.isMultiTarget,
+      gridPositionX:c.gridPositionX,
+      gridPositionY:c.gridPositionY,
+      lang:c.lang || '',
+      name:c.name || '',
+      effectPrimary:c.effectPrimary || '',
+      effectSecondary:c.effectSecondary || '',
+      bonusDescription:c.bonusDescription || '',
+      additionnalDescription:c.additionnalDescription || ''
+    }));
     setCapacities(capRows);
 
-    const pictoRows = [];
-    (data.pictos || []).forEach(p => {
-      (p.details || [{lang:'',name:'',region:'',descrptionBonusLumina:'',unlockDescription:''}]).forEach(d => {
-        pictoRows.push({
-          idPicto:p.idPicto,
-          level:p.level,
-          bonusDefense:p.bonusDefense,
-          bonusSpeed:p.bonusSpeed,
-          bonusCritChance:p.bonusCritChance,
-          bonusHealth:p.bonusHealth,
-          luminaCost:p.luminaCost,
-          lang:d.lang,
-          name:d.name||'',
-          region:d.region||'',
-          descrptionBonusLumina:d.descrptionBonusLumina||'',
-          unlockDescription:d.unlockDescription||''
-        });
-      });
-    });
+    const pictoRows = (data.pictos || []).map(p => ({
+      idPicto:p.idPicto,
+      level:p.level,
+      bonusDefense:p.bonusDefense,
+      bonusSpeed:p.bonusSpeed,
+      bonusCritChance:p.bonusCritChance,
+      bonusHealth:p.bonusHealth,
+      luminaCost:p.luminaCost,
+      lang:p.lang || '',
+      name:p.name || '',
+      region:p.region || '',
+      descrptionBonusLumina:p.descrptionBonusLumina || '',
+      unlockDescription:p.unlockDescription || ''
+    }));
     setPictos(pictoRows);
 
-    const weaponRows = [];
-    (data.weapons || []).forEach(w => {
-      (w.details || [{lang:'',name:'',region:'',unlockDescription:'',weaponEffect1:'',weaponEffect2:'',weaponEffect3:''}]).forEach(d => {
-        weaponRows.push({
-          idWeapon:w.idWeapon,
-          character:w.character?.idCharacter||'',
-          damageType:w.damageType?.idDamageType||'',
-          damageBuffType1:w.damageBuffType1?.idDamageBuffType||'',
-          damageBuffType2:w.damageBuffType2?.idDamageBuffType||'',
-          lang:d.lang,
-          name:d.name||'',
-          region:d.region||'',
-          unlockDescription:d.unlockDescription||'',
-          weaponEffect1:d.weaponEffect1||'',
-          weaponEffect2:d.weaponEffect2||'',
-          weaponEffect3:d.weaponEffect3||''
-        });
-      });
-    });
+    const weaponRows = (data.weapons || []).map(w => ({
+      idWeapon:w.idWeapon,
+      character:w.character || '',
+      damageType:w.damageType || '',
+      damageBuffType1:w.damageBuffType1 || '',
+      damageBuffType2:w.damageBuffType2 || '',
+      lang:w.lang || '',
+      name:w.name || '',
+      region:w.region || '',
+      unlockDescription:w.unlockDescription || '',
+      weaponEffect1:w.weaponEffect1 || '',
+      weaponEffect2:w.weaponEffect2 || '',
+      weaponEffect3:w.weaponEffect3 || ''
+    }));
     setWeapons(weaponRows);
 
-    const outfitRows = [];
-    (data.outfits || []).forEach(o => {
-      (o.details || [{lang:o.lang||'',name:o.name||'',description:o.description||''}]).forEach(d => {
-        outfitRows.push({
-          idOutfit:o.idOutfit,
-          character:o.character?.idCharacter||o.character||'',
-          lang:d.lang,
-          name:d.name||'',
-          description:d.description||''
-        });
-      });
-    });
+    const outfitRows = (data.outfits || []).map(o => ({
+      idOutfit:o.idOutfit,
+      character:o.character || '',
+      lang:o.lang || '',
+      name:o.name || '',
+      description:o.description || ''
+    }));
     setOutfits(outfitRows);
   }, []);
 
