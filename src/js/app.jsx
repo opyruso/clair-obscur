@@ -31,7 +31,15 @@ function Home(){
       </div>
       <div className="index-row">
         <div className="index-desc">
-          <p data-i18n="index_desc3">Build your team composition and share it with a link.</p>
+          <p data-i18n="index_desc3">Customize your look by keeping track of all unlocked outfits.</p>
+        </div>
+        <div className="index-img">
+          <img src="resources/images/index/index_cadre_weapons.png" alt=""/>
+        </div>
+      </div>
+      <div className="index-row">
+        <div className="index-desc">
+          <p data-i18n="index_desc4">Build your team composition and share it with a link.</p>
         </div>
         <div className="index-img">
           <img src="resources/images/index/index_cadre_teambuilder.png" alt=""/>
@@ -66,7 +74,6 @@ function PictosPage(){
             <div className="icon-sep"></div>
           </div>
           <input className="searchbar" id="search" placeholder="Search pictos by any field..." data-i18n-placeholder="search_placeholder"/>
-          <input type="file" id="fileInput" accept="application/json" style={{display:'none'}}/>
         </div>
         <div id="cards" className="cards"></div>
         <div id="table" className="table-view" style={{display:'none'}}></div>
@@ -103,7 +110,41 @@ function WeaponsPage(){
             <div className="icon-sep"></div>
           </div>
           <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder"/>
-          <input type="file" id="fileInput" accept="application/json" style={{display:'none'}}/>
+        </div>
+        <div id="cards" className="cards"></div>
+        <div id="table" className="table-view" style={{display:'none'}}></div>
+        <div id="notificationContainer" className="notification-container"></div>
+      </main>
+    </>
+  );
+}
+
+function OutfitsPage(){
+  useEffect(() => {
+    document.body.dataset.page="outfits";
+    if(window.outfitsPage?.initPage) window.outfitsPage.initPage();
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  }, []);
+  return (
+    <>
+      <main className="content-wrapper mt-4 flex-grow-1">
+        <h1 data-i18n="heading_outfits">Outfits inventory</h1>
+        <div className="char-select" id="charSelect"></div>
+        <div className="actions">
+          <div className="icon-bar">
+            <button className="icon-btn toggle" id="hideOwnedBtn" data-i18n-title="hide_owned" title="Hide owned"><img src="resources/images/icons/buttons/show_found.png" alt=""/></button>
+            <button className="icon-btn toggle" id="hideMissingBtn" data-i18n-title="hide_missing" title="Hide missing"><img src="resources/images/icons/buttons/hide_notfound.png" alt=""/></button>
+            <div className="icon-sep"></div>
+            <button className="icon-btn" id="selectAllBtn" data-i18n-title="select_all" title="Select all"><img src="resources/images/icons/buttons/select_all.png" alt=""/></button>
+            <button className="icon-btn" id="clearAllBtn" data-i18n-title="clear_all" title="Clear all"><img src="resources/images/icons/buttons/deselect_all.png" alt=""/></button>
+            <div className="icon-sep"></div>
+            <button className="icon-btn" id="gridViewBtn" data-i18n-title="grid_view" title="Grid view"><img src="resources/images/icons/buttons/tile_view.png" alt=""/></button>
+            <button className="icon-btn" id="tableViewBtn" data-i18n-title="table_view" title="Table view"><img src="resources/images/icons/buttons/tab_view.png" alt=""/></button>
+            <div className="icon-sep"></div>
+          </div>
+          <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder"/>
         </div>
         <div id="cards" className="cards"></div>
         <div id="table" className="table-view" style={{display:'none'}}></div>
@@ -656,6 +697,7 @@ function AdminPage(){
   const [damageTypes, setDamageTypes] = React.useState([]);
   const [pictos, setPictos] = React.useState([]);
   const [weapons, setWeapons] = React.useState([]);
+  const [outfits, setOutfits] = React.useState([]);
   const [capacityTypes, setCapacityTypes] = React.useState([]);
   const [capacities, setCapacities] = React.useState([]);
   const [tab, setTab] = React.useState(0);
@@ -689,6 +731,87 @@ function AdminPage(){
     });
     return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
   }, [capacityTypes]);
+
+  const charCols = React.useMemo(()=>[
+    {field:'idCharacter',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'story',header:'Story', flex:1}
+  ], []);
+
+  const buffCols = React.useMemo(()=>[
+    {field:'idDamageBuffType',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', flex:1}
+  ], []);
+
+  const typeCols = React.useMemo(()=>[
+    {field:'idDamageType',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', flex:1}
+  ], []);
+
+  const pictoCols = React.useMemo(()=>[
+    {field:'idPicto',header:'ID', width:80},
+    {field:'level',header:'Level', width:80},
+    {field:'bonusDefense',header:'Def', width:80},
+    {field:'bonusSpeed',header:'Speed', width:80},
+    {field:'bonusCritChance',header:'Crit%', width:80},
+    {field:'bonusHealth',header:'HP', width:80},
+    {field:'luminaCost',header:'Lumina', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'region',header:'Region', width:280},
+    {field:'descrptionBonusLumina',header:'Effect', width:500},
+    {field:'unlockDescription',header:'Unlock', flex:1}
+  ], []);
+
+  const weaponCols = React.useMemo(()=>[
+    {field:'idWeapon',header:'ID', width:80},
+    {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+    {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
+    {field:'damageBuffType1',header:'Buff1', width:120, type:'singleSelect', options:buffOptions},
+    {field:'damageBuffType2',header:'Buff2', width:120, type:'singleSelect', options:buffOptions},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'region',header:'Region', width:280},
+    {field:'unlockDescription',header:'Unlock', flex:1},
+    {field:'weaponEffect1',header:'Effect1', width:280},
+    {field:'weaponEffect2',header:'Effect2', width:280},
+    {field:'weaponEffect3',header:'Effect3', width:280}
+  ], [charOptions, typeOptions, buffOptions]);
+
+  const outfitCols = React.useMemo(()=>[
+    {field:'idOutfit',header:'ID', width:80},
+    {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:280},
+    {field:'description',header:'Description', flex:1},
+  ], [charOptions]);
+
+  const capTypeCols = React.useMemo(()=>[
+    {field:'idCapacityType',header:'ID', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', flex:1}
+  ], []);
+
+  const capCols = React.useMemo(()=>[
+    {field:'idCapacity',header:'ID', width:80},
+    {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
+    {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
+    {field:'type',header:'CapType', width:120, type:'singleSelect', options:capTypeOptions},
+    {field:'energyCost',header:'Energy', width:80},
+    {field:'canBreak',header:'Break', width:80},
+    {field:'isMultiTarget',header:'Multi', width:80},
+    {field:'gridPositionX',header:'PosX', width:80},
+    {field:'gridPositionY',header:'PosY', width:80},
+    {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
+    {field:'name',header:'Name', width:200},
+    {field:'effectPrimary',header:'Primary', width:200},
+    {field:'effectSecondary',header:'Secondary', width:200},
+    {field:'bonusDescription',header:'Bonus', width:200},
+    {field:'additionnalDescription',header:'More', flex:1}
+  ], [charOptions, typeOptions, capTypeOptions]);
 
 
   const initRows = React.useCallback(data => {
@@ -791,6 +914,20 @@ function AdminPage(){
       });
     });
     setWeapons(weaponRows);
+
+    const outfitRows = [];
+    (data.outfits || []).forEach(o => {
+      (o.details || [{lang:o.lang||'',name:o.name||'',description:o.description||''}]).forEach(d => {
+        outfitRows.push({
+          idOutfit:o.idOutfit,
+          character:o.character?.idCharacter||o.character||'',
+          lang:d.lang,
+          name:d.name||'',
+          description:d.description||''
+        });
+      });
+    });
+    setOutfits(outfitRows);
   }, []);
 
 
@@ -821,22 +958,19 @@ function AdminPage(){
           <button className={tab===0?'active':''} data-i18n="admin_characters" onClick={()=>setTab(0)}>Characters</button>
           <button className={tab===1?'active':''} data-i18n="admin_damage_buff_types" onClick={()=>setTab(1)}>Buff Types</button>
           <button className={tab===2?'active':''} data-i18n="admin_damage_types" onClick={()=>setTab(2)}>Damage Types</button>
-          <button className={tab===3?'active':''} data-i18n="admin_pictos" onClick={()=>setTab(3)}>Pictos</button>
-          <button className={tab===4?'active':''} data-i18n="admin_weapons" onClick={()=>setTab(4)}>Weapons</button>
-          <button className={tab===5?'active':''} data-i18n="admin_capacity_types" onClick={()=>setTab(5)}>Capacity Types</button>
-          <button className={tab===6?'active':''} data-i18n="admin_capacities" onClick={()=>setTab(6)}>Capacities</button>
+          <button className={tab===3?'active':''} data-i18n="admin_outfits" onClick={()=>setTab(3)}>Outfits</button>
+          <button className={tab===4?'active':''} data-i18n="admin_pictos" onClick={()=>setTab(4)}>Pictos</button>
+          <button className={tab===5?'active':''} data-i18n="admin_weapons" onClick={()=>setTab(5)}>Weapons</button>
+          <button className={tab===6?'active':''} data-i18n="admin_capacity_types" onClick={()=>setTab(6)}>Capacity Types</button>
+          <button className={tab===7?'active':''} data-i18n="admin_capacities" onClick={()=>setTab(7)}>Capacities</button>
         </div>
 
         <div className={"admin-tab-pane"+(tab===0?" active":"")}>
           <h2 className="admin-section" data-i18n="admin_characters">Characters</h2>
           {tab===0 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idCharacter',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', width:280},
-                {field:'story',header:'Story', flex:1}
-              ]} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+              <UIGrid columns={charCols} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" />
+              <ImportBox columns={charCols} rows={characters} setRows={setCharacters} endpoint="/admin/characters" idField="idCharacter" label="characters" />
             </div>
           )}
         </div>
@@ -845,11 +979,8 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_damage_buff_types">Damage Buff Types</h2>
           {tab===1 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idDamageBuffType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', flex:1}
-              ]} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+              <UIGrid columns={buffCols} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" />
+              <ImportBox columns={buffCols} rows={damageBuffTypes} setRows={setDamageBuffTypes} endpoint="/admin/damagebufftypes" idField="idDamageBuffType" label="damagebufftypes" />
             </div>
           )}
         </div>
@@ -858,111 +989,58 @@ function AdminPage(){
           <h2 className="admin-section" data-i18n="admin_damage_types">Damage Types</h2>
           {tab===2 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idDamageType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', flex:1}
-              ]} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
+              <UIGrid columns={typeCols} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" />
+              <ImportBox columns={typeCols} rows={damageTypes} setRows={setDamageTypes} endpoint="/admin/damagetypes" idField="idDamageType" label="damagetypes" />
             </div>
           )}
         </div>
 
         <div className={"admin-tab-pane"+(tab===3?" active":"")}>
-          <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
+          <h2 className="admin-section" data-i18n="admin_outfits">Outfits</h2>
           {tab===3 && (
             <div className="admin-row">
-              <UIGrid
-                columns={[
-                  {field:'idPicto',header:'ID', width:80},
-                  {field:'level',header:'Level', width:80},
-                  {field:'bonusDefense',header:'Def', width:80},
-                  {field:'bonusSpeed',header:'Speed', width:80},
-                  {field:'bonusCritChance',header:'Crit%', width:80},
-                  {field:'bonusHealth',header:'HP', width:80},
-                  {field:'luminaCost',header:'Lumina', width:80},
-                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                  {field:'name',header:'Name', width:280},
-                  {field:'region',header:'Region', width:280},
-                  {field:'descrptionBonusLumina',header:'Effect', width:500},
-                  {field:'unlockDescription',header:'Unlock', flex:1}
-                ]}
-                rows={pictos}
-                setRows={setPictos}
-                endpoint="/admin/pictos"
-                idField="idPicto"
-              />
+              <UIGrid columns={outfitCols} rows={outfits} setRows={setOutfits} endpoint="/admin/outfits" idField="idOutfit" />
+              <ImportBox columns={outfitCols} rows={outfits} setRows={setOutfits} endpoint="/admin/outfits" idField="idOutfit" label="outfits" />
             </div>
           )}
         </div>
 
         <div className={"admin-tab-pane"+(tab===4?" active":"")}>
-          <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
+          <h2 className="admin-section" data-i18n="admin_pictos">Pictos</h2>
           {tab===4 && (
             <div className="admin-row">
-              <UIGrid
-                columns={[
-                  {field:'idWeapon',header:'ID', width:80},
-                  {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
-                  {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
-                  {field:'damageBuffType1',header:'Buff1', width:120, type:'singleSelect', options:buffOptions},
-                  {field:'damageBuffType2',header:'Buff2', width:120, type:'singleSelect', options:buffOptions},
-                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                  {field:'name',header:'Name', width:280},
-                  {field:'region',header:'Region', width:280},
-                  {field:'unlockDescription',header:'Unlock', flex:1},
-                  {field:'weaponEffect1',header:'Effect1', width:280},
-                  {field:'weaponEffect2',header:'Effect2', width:280},
-                  {field:'weaponEffect3',header:'Effect3', width:280}
-                ]}
-                rows={weapons}
-                setRows={setWeapons}
-                endpoint="/admin/weapons"
-                idField="idWeapon"
-              />
+              <UIGrid columns={pictoCols} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" />
+              <ImportBox columns={pictoCols} rows={pictos} setRows={setPictos} endpoint="/admin/pictos" idField="idPicto" label="pictos" />
             </div>
           )}
         </div>
 
         <div className={"admin-tab-pane"+(tab===5?" active":"")}>
-          <h2 className="admin-section" data-i18n="admin_capacity_types">Capacity Types</h2>
+          <h2 className="admin-section" data-i18n="admin_weapons">Weapons</h2>
           {tab===5 && (
             <div className="admin-row">
-              <UIGrid columns={[
-                {field:'idCapacityType',header:'ID', width:80},
-                {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                {field:'name',header:'Name', flex:1}
-              ]} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" />
+              <UIGrid columns={weaponCols} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" />
+              <ImportBox columns={weaponCols} rows={weapons} setRows={setWeapons} endpoint="/admin/weapons" idField="idWeapon" label="weapons" />
             </div>
           )}
         </div>
 
         <div className={"admin-tab-pane"+(tab===6?" active":"")}>
-          <h2 className="admin-section" data-i18n="admin_capacities">Capacities</h2>
+          <h2 className="admin-section" data-i18n="admin_capacity_types">Capacity Types</h2>
           {tab===6 && (
             <div className="admin-row">
-              <UIGrid
-                columns={[
-                  {field:'idCapacity',header:'ID', width:80},
-                  {field:'character',header:'Char', width:80, type:'singleSelect', options:charOptions},
-                  {field:'damageType',header:'Type', width:120, type:'singleSelect', options:typeOptions},
-                  {field:'type',header:'CapType', width:120, type:'singleSelect', options:capTypeOptions},
-                  {field:'energyCost',header:'Energy', width:80},
-                  {field:'canBreak',header:'Break', width:80},
-                  {field:'isMultiTarget',header:'Multi', width:80},
-                  {field:'gridPositionX',header:'PosX', width:80},
-                  {field:'gridPositionY',header:'PosY', width:80},
-                  {field:'lang',header:'Lang', width:80, type:'singleSelect', options:langOptions},
-                  {field:'name',header:'Name', width:200},
-                  {field:'effectPrimary',header:'Primary', width:200},
-                  {field:'effectSecondary',header:'Secondary', width:200},
-                  {field:'bonusDescription',header:'Bonus', width:200},
-                  {field:'additionnalDescription',header:'More', flex:1}
-                ]}
-                rows={capacities}
-                setRows={setCapacities}
-                endpoint="/admin/capacities"
-                idField="idCapacity"
-              />
+              <UIGrid columns={capTypeCols} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" />
+              <ImportBox columns={capTypeCols} rows={capacityTypes} setRows={setCapacityTypes} endpoint="/admin/capacitytypes" idField="idCapacityType" label="capacitytypes" />
+            </div>
+          )}
+        </div>
+
+        <div className={"admin-tab-pane"+(tab===7?" active":"")}>
+          <h2 className="admin-section" data-i18n="admin_capacities">Capacities</h2>
+          {tab===7 && (
+            <div className="admin-row">
+              <UIGrid columns={capCols} rows={capacities} setRows={setCapacities} endpoint="/admin/capacities" idField="idCapacity" />
+              <ImportBox columns={capCols} rows={capacities} setRows={setCapacities} endpoint="/admin/capacities" idField="idCapacity" label="capacities" />
             </div>
           )}
         </div>
@@ -998,6 +1076,7 @@ function App(){
         <Route path="/index" element={<Home />} />
         <Route path="/pictos" element={<PictosPage />} />
         <Route path="/weapons" element={<WeaponsPage />} />
+        <Route path="/outfits" element={<OutfitsPage />} />
         <Route path="/build" element={<BuildPage />} />
         <Route path="/build/:refId" element={<BuildPage />} />
         <Route path="/admin" element={<AdminPage />} />

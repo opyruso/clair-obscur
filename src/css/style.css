@@ -142,6 +142,9 @@
 body[data-page="weapons"] .card {
   aspect-ratio: 1088 / 681;
 }
+body[data-page="outfits"] .card {
+  aspect-ratio: 1088 / 681;
+}
     .card.fade {
       opacity: 0;
       transition: opacity 0.3s;
@@ -173,7 +176,20 @@ body[data-page="weapons"] .card-inner::before {
   background-size: 100% 100%;
   opacity: 0.5;
 }
+body[data-page="outfits"] .card-inner::before {
+  background-size: 100% 100%;
+  opacity: 0.5;
+}
 body[data-page="weapons"] .card.owned::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: rgba(26, 56, 32, 0.35);
+  box-shadow: 0 0 8px rgba(26, 56, 32, 0.8);
+  pointer-events: none;
+}
+body[data-page="outfits"] .card.owned::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -252,10 +268,17 @@ body[data-page="pictos"] .card.owned .card-inner::before {
 body[data-page="weapons"] .card-face {
   padding: 34px 60px 20px 60px;
 }
+body[data-page="outfits"] .card-face {
+  padding: 34px 60px 20px 60px;
+}
 body[data-page="pictos"] .card-face {
   padding: 34px 60px 20px 60px;
 }
 body[data-page="weapons"] .card-back {
+  padding-left: 100px;
+  padding-right: 50px;
+}
+body[data-page="outfits"] .card-back {
   padding-left: 100px;
   padding-right: 50px;
 }
@@ -975,7 +998,13 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 /* Admin Page */
-.admin-row{display:flex;gap:10px;margin-bottom:20px;align-items:stretch;}
+.admin-row{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:20px;
+  align-items:stretch;
+}
 .admin-grid{flex:1;height:auto;max-height:calc(100vh - 250px);overflow:auto;background:#21232d;}
 .base-row .admin-grid{height:auto;max-height:calc(100vh - 250px);}
 .admin-grid .MuiDataGrid-root{color:#fff;min-height:100%;}
@@ -1003,3 +1032,16 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .admin-tabs-nav button.active{background:#21232d;}
 .admin-tab-pane{display:none;}
 .admin-tab-pane.active{display:block;}
+
+/* CSV Import/Export */
+.import-box{
+  background:#21232d;
+  color:#fff;
+  padding:10px;
+  margin-top:10px;
+  width:100%;
+}
+.import-box .controls{display:flex;gap:10px;margin-bottom:5px;}
+.import-box pre{margin:0;white-space:pre-wrap;word-break:break-word;font-size:0.8em;}
+.text-danger{color:#dc3545;}
+.text-success{color:#28a745;}

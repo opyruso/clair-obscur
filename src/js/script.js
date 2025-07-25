@@ -193,48 +193,6 @@ function handleCardPressLeave(e) {
       });
       return {picto: best, score};
     }
-
-    function handleUpload(file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        try {
-          const arr = JSON.parse(e.target.result);
-          if (!Array.isArray(arr)) throw new Error(t('invalid_format'));
-          let added = 0;
-          arr.forEach(entry => {
-            if (typeof entry !== 'string') return;
-            let p = pictos.find(x => x.id === entry);
-            if (!p) p = pictos.find(x => x.name.toLowerCase() === entry.toLowerCase());
-            if (!p) {
-              const {picto, score} = bestMatch(entry);
-              if (picto && score >= 0.75) {
-                if (confirm(t('no_match_confirm', {entry, picto: picto.name}))) p = picto;
-              }
-            }
-            if (p) {
-              if (!myPictosSet.has(p.id)) {
-                myPictosSet.add(p.id);
-                added++;
-              }
-            }
-          });
-          ownedCount = myPictosSet.size;
-          applyFilters();
-          notify(t('pictos_added', {count: added}));
-        } catch(err) {
-          notify(t('invalid_json'));
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function downloadJson() {
-      setSavedItems(storageKey, Array.from(myPictosSet));
-      downloadSiteData();
-      updateIconStates();
-    }
-
-
     function selectAll() {
       const total = pictosFiltered.length;
       const selected = pictosFiltered.filter(p => myPictosSet.has(p.id)).length;
@@ -325,14 +283,6 @@ function handleCardPressLeave(e) {
     }
 
     function initPage() {
-      document.getElementById('downloadBtn').addEventListener('click', downloadJson);
-      document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('fileInput').click());
-      document.getElementById('fileInput').addEventListener('change', e => {
-        if (e.target.files && e.target.files[0]) {
-          handleSiteUpload(e.target.files[0]);
-          e.target.value = '';
-        }
-      });
       document.getElementById('hideOwnedBtn').addEventListener('click', () => {
         hideOwned = !hideOwned;
         if(hideOwned) hideMissing = false;
