@@ -915,8 +915,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .buff-inputs label {
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
+  gap:4px;
 }
 .buff-inputs input {
   width:60px;
@@ -951,6 +952,16 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .weapon-buff {
   font-size: 0.9em;
   margin-bottom: 6px;
+}
+.config-cap-link {
+  color: #CDB48E;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 6px;
+  transition: transform 0.2s;
+}
+.config-cap-link:hover {
+  transform: scale(1.1);
 }
 .bottom-controls {
   margin-top: auto;

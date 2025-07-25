@@ -84,5 +84,7 @@
   "admin_pictos": "Pictos",
   "admin_weapons": "Armes",
   "admin_capacity_types": "Types de capacités",
-  "admin_capacities": "Capacités"
+  "admin_capacities": "Capacités",
+  "config_capacities": "Configurer les capacités",
+  "edit": "Éditer"
 }
