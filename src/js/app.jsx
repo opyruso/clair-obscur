@@ -567,8 +567,10 @@ function BuildPage(){
             const bgH = (imgRef.current?.clientHeight || 0) * zoomFactor;
             const left = offset.x + hover.x*baseScale;
             const top = offset.y + hover.y*baseScale;
-            const posX = -left - size/2*(zoomFactor-1) + size/2;
-            const posY = -top - size/2*(zoomFactor-1) + size/2;
+            const centerX = left + size/2;
+            const centerY = top + size/2;
+            const posX = -centerX * zoomFactor + size/2;
+            const posY = -centerY * zoomFactor + size/2;
             return (
               <div style={{position:'absolute',left,top,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
             );
