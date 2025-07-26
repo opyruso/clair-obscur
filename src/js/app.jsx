@@ -505,21 +505,13 @@ function BuildPage(){
     }
 
     function handleMove(e){
+      if(!edit) return;
       const pos = calcPos(e);
-      if(edit){
-        if(zone) return;
-        setHover({x:pos.x,y:pos.y});
-      }else{
-        const cap=caps.find(c=>pos.x>=c.posX && pos.x<=c.posX+FRAME && pos.y>=c.posY && pos.y<=c.posY+FRAME);
-        if(cap){
-          setHover({x:cap.posX,y:cap.posY,cap});
-        }else{
-          setHover(null);
-        }
-      }
+      if(zone) return;
+      setHover({x:pos.x,y:pos.y});
     }
 
-    function handleLeave(){ if(!zone) setHover(null); }
+    function handleLeave(){ if(edit && !zone) setHover(null); }
 
     function handleClick(e){
       const pos=calcPos(e);
@@ -557,6 +549,14 @@ function BuildPage(){
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
           <img ref={imgRef} src={treeImg} alt="" onLoad={updateScale} onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          {!edit && caps.map(c=>(
+            <div
+              key={c.id}
+              onMouseEnter={()=>setHover({x:c.posX,y:c.posY,cap:c})}
+              onMouseLeave={()=>setHover(null)}
+              style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,opacity:0,pointerEvents:'auto'}}
+            ></div>
+          ))}
           {edit && caps.map(c=>(
             <div key={c.id} style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
           ))}
