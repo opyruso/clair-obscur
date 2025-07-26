@@ -468,34 +468,46 @@ function BuildPage(){
     const caps=capacities.filter(c=>c.character===charId);
     const isAdmin=window.keycloak?.hasResourceRole?.('admin','coh-app');
     const [edit,setEdit]=React.useState(false);
-    const [zone,setZone]=React.useState(null); // confirmed selection
+    const [zone,setZone]=React.useState(null); // confirmed selection {x,y}
     const [hover,setHover]=React.useState(null); // preview following cursor
     const imgRef=React.useRef(null);
+    const [scale,setScale]=React.useState(1);
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
     const FRAME=119;
 
     function close(){ setCapModal(null); setZone(null); setHover(null); }
 
+    React.useEffect(()=>{
+      function update(){
+        if(imgRef.current){
+          setScale(imgRef.current.clientWidth/imgRef.current.naturalWidth);
+        }
+      }
+      update();
+      window.addEventListener('resize',update);
+      return ()=>window.removeEventListener('resize',update);
+    },[]);
+
   function calcPos(e){
       const img=e.currentTarget;
       const rect=img.getBoundingClientRect();
-      const scale=rect.width/img.naturalWidth;
+      const sc=rect.width/img.naturalWidth;
       const sx=e.clientX-rect.left;
       const sy=e.clientY-rect.top;
-      const x=Math.round(sx/scale);
-      const y=Math.round(sy/scale);
-      return {sx,sy,scale,x,y,w:rect.width,h:rect.height};
+      const x=Math.round(sx/sc);
+      const y=Math.round(sy/sc);
+      return {x,y,sx,sy,scale:sc};
     }
 
     function handleMove(e){
       const pos = calcPos(e);
       if(edit){
         if(zone) return;
-        setHover(pos);
+        setHover({x:pos.x,y:pos.y,sx:pos.sx,sy:pos.sy});
       }else{
         const cap=caps.find(c=>pos.x>=c.posX && pos.x<=c.posX+FRAME && pos.y>=c.posY && pos.y<=c.posY+FRAME);
         if(cap){
-          setHover({sx:cap.posX*pos.scale, sy:cap.posY*pos.scale, scale:pos.scale, w:pos.w, h:pos.h});
+          setHover({x:cap.posX,y:cap.posY});
         }else{
           setHover(null);
         }
@@ -518,7 +530,7 @@ function BuildPage(){
             setHover(null);
           }});
         }else{
-          setZone(pos);
+          setZone({x:pos.x,y:pos.y});
         }
       }else{
         const cap=caps.find(c=>Math.abs(c.posX-pos.x)<60&&Math.abs(c.posY-pos.y)<60);
@@ -526,11 +538,22 @@ function BuildPage(){
       }
     }
 
+    const baseScale=scale;
     const disp=zone||hover;
     const showOutline=edit && disp;
     const showZoom=!edit && hover;
-    const size=disp?FRAME*disp.scale:0;
-    const baseScale=disp?.scale || (imgRef.current?imgRef.current.clientWidth/imgRef.current.naturalWidth:1);
+    const size=FRAME*baseScale;
+
+    const outlineLeft = zone
+      ? zone.x*baseScale
+      : hover
+        ? (hover.sx !== undefined ? hover.sx : hover.x*baseScale)
+        : 0;
+    const outlineTop = zone
+      ? zone.y*baseScale
+      : hover
+        ? (hover.sy !== undefined ? hover.sy : hover.y*baseScale)
+        : 0;
 
     return (
       <div className="modal" onClick={close} id="capModal">
@@ -540,10 +563,10 @@ function BuildPage(){
             <div key={c.id} style={{position:'absolute',left:c.posX*baseScale,top:c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
           ))}
           {showOutline && (
-            <div style={{position:'absolute',left:disp.sx,top:disp.sy,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none',transform:'translate(-100%,-100%)'}}></div>
+            <div style={{position:'absolute',left:outlineLeft,top:outlineTop,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none',transform:'translate(-100%,-100%)'}}></div>
           )}
           {showZoom && (
-            <div style={{position:'absolute',left:hover.sx,top:hover.sy,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${hover.w}px ${hover.h}px`,backgroundPosition:`-${hover.sx}px -${hover.sy}px`}}></div>
+            <div style={{position:'absolute',left:hover.x*baseScale,top:hover.y*baseScale,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${imgRef.current?.clientWidth||0}px ${imgRef.current?.clientHeight||0}px`,backgroundPosition:`-${hover.x*baseScale}px -${hover.y*baseScale}px`}}></div>
           )}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
