@@ -474,6 +474,7 @@ function BuildPage(){
     const imgRef=React.useRef(null);
     const [scale,setScale]=React.useState(1);
     const [offset,setOffset]=React.useState({x:0,y:0});
+    const tooltipRef=React.useRef(null);
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
     const FRAME=119;
 
@@ -576,18 +577,29 @@ function BuildPage(){
               <div style={{position:'absolute',left,top,width:size,height:size,pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
             );
           })()}
-          {!edit && hover?.cap && (
-            <div
-              className="cap-tooltip"
-              style={{
-                left: offset.x + hover.x*baseScale + size/2,
-                top: offset.y + hover.y*baseScale,
-              }}
-            >
-              <div className="cap-tooltip-title">{hover.cap.name}</div>
-              <div>{hover.cap.desc}</div>
-            </div>
-          )}
+          {!edit && hover?.cap && (() => {
+            const modalW = imgRef.current?.clientWidth || 0;
+            const modalH = imgRef.current?.clientHeight || 0;
+            const tipW = 220; // max-width from CSS
+            const leftPos = Math.min(
+              Math.max(offset.x + hover.x*baseScale + size/2, tipW/2 + 8),
+              modalW - tipW/2 - 8
+            );
+            const topPos = Math.min(
+              Math.max(offset.y + hover.y*baseScale, 20),
+              modalH - 20
+            );
+            return (
+              <div
+                ref={tooltipRef}
+                className="cap-tooltip"
+                style={{ left: leftPos, top: topPos }}
+              >
+                <div className="cap-tooltip-title">{hover.cap.name}</div>
+                <div>{hover.cap.desc}</div>
+              </div>
+            );
+          })()}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
               <label><input type="checkbox" checked={edit} onChange={e=>{setEdit(e.target.checked);setZone(null);setHover(null);}} /> {t('edit')}</label>
