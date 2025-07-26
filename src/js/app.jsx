@@ -206,7 +206,8 @@ function BuildPage(){
       weapon:'',
       buffStats:[0,0,0,0,0],
       mainPictos:[null,null,null],
-      subPictos:[]
+      subPictos:[],
+      capacities:[]
     }))
   );
   const [lang,setLang]=useState(currentLang);
@@ -234,6 +235,7 @@ function BuildPage(){
   }
 
   function mapWeapons(list){
+    const buffMap={vitality:1,strength:2,agility:3,defense:4,luck:5};
     return list.map(w=>{
       const effect=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3]
         .filter(Boolean).join(' ');
@@ -246,7 +248,9 @@ function BuildPage(){
         unlock_description:w.unlockDescription||null,
         damage_type:w.damageType||'',
         weapon_effect:effect,
-        damage_buff:[w.damageBuffType1,w.damageBuffType2].filter(Boolean)
+        damage_buff:[w.damageBuffType1,w.damageBuffType2]
+          .filter(Boolean)
+          .map(b=>buffMap[b]||parseInt(b)||0)
       };
     });
   }
@@ -285,15 +289,16 @@ function BuildPage(){
     const refPath=routerParams.refId;
     const d=params.get('data');
     const ref=refPath || refQuery;
+    const defaultSlot={character:'',weapon:'',buffStats:[0,0,0,0,0],mainPictos:[null,null,null],subPictos:[],capacities:[]};
     if(ref && apiUrl){
       apiFetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
         .then(r=>r.ok?r.json():Promise.reject())
-        .then(obj=>{ if(Array.isArray(obj)&&obj.length===5) setTeam(obj); })
+        .then(obj=>{ if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]}))); })
         .catch(()=>{});
     }else if(d){
       try{
         const obj=JSON.parse(atob(d));
-        if(Array.isArray(obj)&&obj.length===5) setTeam(obj);
+        if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
       }catch(e){/* ignore */}
     }
     if(window.bindLangEvents) window.bindLangEvents();
@@ -347,6 +352,22 @@ function BuildPage(){
           ...new Set(vals.filter(v => locked.indexOf(v) === -1))
         ];
         return { ...c, subPictos: filtered };
+      })
+    );
+  }
+
+  function toggleCapacity(idx, capId){
+    setTeam(t =>
+      t.map((c,i)=>{
+        if(i!==idx) return c;
+        const arr=c.capacities.slice();
+        const pos=arr.indexOf(capId);
+        if(pos!==-1){
+          arr.splice(pos,1);
+        }else if(arr.length<6){
+          arr.push(capId);
+        }
+        return {...c,capacities:arr};
       })
     );
   }
@@ -466,7 +487,7 @@ function BuildPage(){
 
   function CapacityModal({edit,setEdit}){
     if(!capModal) return null;
-    const {character,charId}=capModal;
+    const {character,charId,index}=capModal;
     const caps=capacities.filter(c=>c.character===charId);
     const isAdmin=window.keycloak?.hasResourceRole?.('admin','coh-app');
     const [zone,setZone]=React.useState(null); // confirmed selection {x,y}
@@ -532,7 +553,7 @@ function BuildPage(){
         }
       }else{
         const cap=caps.find(c=>Math.abs(c.posX-pos.x)<60&&Math.abs(c.posY-pos.y)<60);
-        if(cap) ReactToastify.toast(cap.name);
+        if(cap) toggleCapacity(index,cap.id);
       }
     }
 
@@ -555,7 +576,8 @@ function BuildPage(){
               key={c.id}
               onMouseEnter={()=>setHover({x:c.posX,y:c.posY,cap:c})}
               onMouseLeave={()=>setHover(null)}
-              style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,opacity:0,pointerEvents:'auto'}}
+              onClick={()=>toggleCapacity(index,c.id)}
+              style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,opacity:0,pointerEvents:'auto',border:team[index]?.capacities.includes(c.id)?'2px solid #0af':'none'}}
             ></div>
           ))}
           {edit && caps.map(c=>(
@@ -619,7 +641,7 @@ function BuildPage(){
     if(hasGustave) opts=opts.filter(ch=>ch!=='Verso');
     if(hasVerso) opts=opts.filter(ch=>ch!=='Gustave');
     opts=opts.map(ch=>({value:ch,label:ch,icon:`resources/images/characters/${ch.toLowerCase()}_icon.png`}));
-    setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[]}),grid:true});
+    setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[],capacities:[]}),grid:true});
   }
   function openWeaponModal(idx){
     const char=team[idx].character;
@@ -680,7 +702,7 @@ function BuildPage(){
     const char=team[idx].character;
     if(!char){ ReactToastify.toast(t('select_character_first')); return; }
     const cid=charIds[char];
-    setCapModal({character:char,charId:cid});
+    setCapModal({character:char,charId:cid,index:idx});
   }
 
   function countAvailableSubs(idx){
@@ -740,7 +762,12 @@ function BuildPage(){
                     : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
                   <div className="weapon-box">
                     {col.weapon
-                      ? <span className="weapon-name" title={w?.weapon_effect||''} onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
+                      ? (()=>{const desc=[w?.weapon_effect,w?.unlock_description].filter(Boolean).join('\n');return (
+                          <span className="weapon-name tip-hover" onClick={()=>openWeaponModal(cidx)}>
+                            {col.weapon}
+                            {desc && <span className="tooltip-text">{desc}</span>}
+                          </span>
+                        );})()
                       : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
                   <div className="weapon-buff">
                       {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
@@ -751,9 +778,10 @@ function BuildPage(){
                   <>
                     <div className="config-cap-link" onClick={()=>openCapacityModal(cidx)} data-i18n="config_capacities">{t('config_capacities')}</div>
                     <div className="capacity-list">
-                      {capacities.filter(c=>c.character===charIds[col.character]).slice(0,6).map(cap=>(
-                        <div key={cap.id} className="capacity-name">{cap.name}</div>
-                      ))}
+                      {col.capacities.map(cid=>{
+                        const cap=capacities.find(c=>c.id===cid);
+                        return cap?<div key={cid} className="capacity-name">{cap.name}</div>:null;
+                      })}
                     </div>
                   </>
                 )}
@@ -776,7 +804,12 @@ function BuildPage(){
                     {col.mainPictos.map((pid,pidx)=>(
                       <div key={pidx}>
                         {pid
-                          ? <span className="picto-name" title={pictos.find(pc=>pc.id===pid)?.unlock_description||''} onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                          ? (()=>{const desc=pictos.find(pc=>pc.id===pid)?.unlock_description||'';return (
+                              <span className="picto-name tip-hover" onClick={()=>openMainModal(cidx,pidx)}>
+                                {pictos.find(pc=>pc.id===pid)?.name}
+                                {desc && <span className="tooltip-text">{desc}</span>}
+                              </span>
+                            );})()
                           : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
                       </div>
                     ))}
@@ -810,7 +843,12 @@ function BuildPage(){
                       : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
                     <div className="weapon-box">
                     {col.weapon
-                      ? <span className="weapon-name" title={w?.weapon_effect||''} onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
+                      ? (()=>{const desc=[w?.weapon_effect,w?.unlock_description].filter(Boolean).join('\n');return (
+                          <span className="weapon-name tip-hover" onClick={()=>openWeaponModal(idx)}>
+                            {col.weapon}
+                            {desc && <span className="tooltip-text">{desc}</span>}
+                          </span>
+                        );})()
                       : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
                     <div className="weapon-buff">
                       {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
@@ -821,9 +859,10 @@ function BuildPage(){
                     <>
                       <div className="config-cap-link" onClick={()=>openCapacityModal(idx)} data-i18n="config_capacities">{t('config_capacities')}</div>
                       <div className="capacity-list">
-                        {capacities.filter(c=>c.character===charIds[col.character]).slice(0,6).map(cap=>(
-                          <div key={cap.id} className="capacity-name">{cap.name}</div>
-                        ))}
+                        {col.capacities.map(cid=>{
+                          const cap=capacities.find(c=>c.id===cid);
+                          return cap?<div key={cid} className="capacity-name">{cap.name}</div>:null;
+                        })}
                       </div>
                     </>
                   )}
@@ -846,7 +885,12 @@ function BuildPage(){
                         {col.mainPictos.map((pid,pidx)=>(
                           <div key={pidx}>
                             {pid
-                              ? <span className="picto-name" title={pictos.find(pc=>pc.id===pid)?.unlock_description||''} onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                              ? (()=>{const desc=pictos.find(pc=>pc.id===pid)?.unlock_description||'';return (
+                                  <span className="picto-name tip-hover" onClick={()=>openMainModal(idx,pidx)}>
+                                    {pictos.find(pc=>pc.id===pid)?.name}
+                                    {desc && <span className="tooltip-text">{desc}</span>}
+                                  </span>
+                                );})()
                               : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}
                           </div>
                         ))}
