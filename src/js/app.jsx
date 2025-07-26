@@ -569,10 +569,8 @@ function BuildPage(){
             const top = offset.y + hover.y*baseScale;
             const centerX = hover.x*baseScale + size/2;
             const centerY = hover.y*baseScale + size/2;
-            const shiftX = bgW * 0.01;
-            const shiftY = bgH * 0.01;
-            const posX = size/2 - centerX * zoomFactor - shiftX;
-            const posY = size/2 - centerY * zoomFactor - shiftY;
+            const posX = size/2 - centerX * zoomFactor;
+            const posY = size/2 - centerY * zoomFactor;
             return (
               <div style={{position:'absolute',left,top,width:size,height:size,pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
             );
