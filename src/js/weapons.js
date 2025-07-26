@@ -46,8 +46,8 @@ function initPage(){
   document.getElementById('search').addEventListener('input', applyFilters);
   document.getElementById('hideOwnedBtn').addEventListener('click',()=>{hideOwned=!hideOwned;if(hideOwned)hideMissing=false;applyFilters();});
   document.getElementById('hideMissingBtn').addEventListener('click',()=>{hideMissing=!hideMissing;if(hideMissing)hideOwned=false;applyFilters();});
-  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
-  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons));});
+  document.getElementById('selectAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.add(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons),currentCharId);});
+  document.getElementById('clearAllBtn').addEventListener('click',()=>{filteredWeapons.forEach(w=>myWeapons.delete(w.id));applyFilters();setSavedItems(storageKey,Array.from(myWeapons),currentCharId);});
   initCharacters();
   loadData();
 }
@@ -64,6 +64,7 @@ function initCharacters(){
     img.addEventListener('click',()=>{
       currentCharacter=c;
       currentCharId=characterIds[c];
+      myWeapons = new Set(getSavedItems(storageKey, currentCharId));
       document.querySelectorAll('.char-icon').forEach(i=>i.classList.toggle('active',i.dataset.char===c));
       applyFilters();
     });
@@ -119,7 +120,7 @@ function loadData(){
     initCharacters();
     const list = mapWeapons(data.weapons || []);
     allWeapons=list.map(w=>({id:w.id,...w}));
-    getSavedItems(storageKey).forEach(id=>myWeapons.add(id));
+    myWeapons = new Set(getSavedItems(storageKey, currentCharId));
     applyFilters();
   });
 }
@@ -177,7 +178,7 @@ function toggleWeapon(id){
     updateIconStates();
   }
 
-  setSavedItems(storageKey, Array.from(myWeapons));
+  setSavedItems(storageKey, Array.from(myWeapons), currentCharId);
 }
 
 function render(){
@@ -243,7 +244,7 @@ function updateIconStates(){
 
 
 function onSiteDataUpdated(){
-  myWeapons = new Set(getSavedItems(storageKey));
+  myWeapons = new Set(getSavedItems(storageKey, currentCharId));
   applyFilters();
 }
 
