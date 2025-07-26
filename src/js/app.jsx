@@ -256,6 +256,7 @@ function BuildPage(){
       id:c.idCapacity,
       character:c.character||0,
       name:c.name||'',
+      desc:c.effectPrimary || c.effectSecondary || c.bonusDescription || c.additionnalDescription || '',
       posX:c.gridPositionX,
       posY:c.gridPositionY
     }));
@@ -511,7 +512,7 @@ function BuildPage(){
       }else{
         const cap=caps.find(c=>pos.x>=c.posX && pos.x<=c.posX+FRAME && pos.y>=c.posY && pos.y<=c.posY+FRAME);
         if(cap){
-          setHover({x:cap.posX,y:cap.posY});
+          setHover({x:cap.posX,y:cap.posY,cap});
         }else{
           setHover(null);
         }
@@ -575,6 +576,18 @@ function BuildPage(){
               <div style={{position:'absolute',left,top,width:size,height:size,pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
             );
           })()}
+          {!edit && hover?.cap && (
+            <div
+              className="cap-tooltip"
+              style={{
+                left: offset.x + hover.x*baseScale + size/2,
+                top: offset.y + hover.y*baseScale,
+              }}
+            >
+              <div className="cap-tooltip-title">{hover.cap.name}</div>
+              <div>{hover.cap.desc}</div>
+            </div>
+          )}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
               <label><input type="checkbox" checked={edit} onChange={e=>{setEdit(e.target.checked);setZone(null);setHover(null);}} /> {t('edit')}</label>
