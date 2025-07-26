@@ -547,6 +547,7 @@ function BuildPage(){
     const showOutline=edit && disp;
     const showZoom=!edit && hover;
     const size=FRAME*baseScale;
+    const zoomFactor=1.02;
 
     const outlineLeft = disp ? offset.x + disp.x*baseScale : 0;
     const outlineTop = disp ? offset.y + disp.y*baseScale : 0;
@@ -561,9 +562,19 @@ function BuildPage(){
           {showOutline && (
             <div style={{position:'absolute',left:outlineLeft,top:outlineTop,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none',transform:'translate(-100%,-100%)'}}></div>
           )}
-          {showZoom && (
-            <div style={{position:'absolute',left:offset.x + hover.x*baseScale,top:offset.y + hover.y*baseScale,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${imgRef.current?.clientWidth||0}px ${imgRef.current?.clientHeight||0}px`,backgroundPosition:`-${offset.x + hover.x*baseScale}px -${offset.y + hover.y*baseScale}px`}}></div>
-          )}
+          {showZoom && (() => {
+            const bgW = (imgRef.current?.clientWidth || 0) * zoomFactor;
+            const bgH = (imgRef.current?.clientHeight || 0) * zoomFactor;
+            const left = offset.x + hover.x*baseScale;
+            const top = offset.y + hover.y*baseScale;
+            const centerX = hover.x*baseScale + size/2;
+            const centerY = hover.y*baseScale + size/2;
+            const posX = size/2 - centerX * zoomFactor;
+            const posY = size/2 - centerY * zoomFactor;
+            return (
+              <div style={{position:'absolute',left,top,width:size,height:size,pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
+            );
+          })()}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
               <label><input type="checkbox" checked={edit} onChange={e=>{setEdit(e.target.checked);setZone(null);setHover(null);}} /> {t('edit')}</label>
