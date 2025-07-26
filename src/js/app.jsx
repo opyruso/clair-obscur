@@ -509,8 +509,8 @@ function BuildPage(){
         if(zone){
           const opts=caps.map(c=>({value:c.id,label:c.name}));
           setModal({options:opts,onSelect:id=>{
-            const x=pos.x-FRAME;
-            const y=pos.y-FRAME;
+            const x=zone.x-FRAME;
+            const y=zone.y-FRAME;
             setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:x,posY:y}:c));
             if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:x,gridPositionY:y}});
             setZone(null);
