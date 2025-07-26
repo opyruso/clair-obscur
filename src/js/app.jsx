@@ -212,6 +212,7 @@ function BuildPage(){
   const [lang,setLang]=useState(currentLang);
   const [modal,setModal]=useState(null);
   const [capModal,setCapModal]=useState(null);
+  const [capEdit,setCapEdit]=useState(false);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
   function mapPictos(list){
@@ -462,12 +463,11 @@ function BuildPage(){
     );
   }
 
-  function CapacityModal(){
+  function CapacityModal({edit,setEdit}){
     if(!capModal) return null;
     const {character,charId}=capModal;
     const caps=capacities.filter(c=>c.character===charId);
     const isAdmin=window.keycloak?.hasResourceRole?.('admin','coh-app');
-    const [edit,setEdit]=React.useState(false);
     const [zone,setZone]=React.useState(null); // confirmed selection {x,y}
     const [hover,setHover]=React.useState(null); // preview following cursor
     const imgRef=React.useRef(null);
@@ -839,7 +839,7 @@ function BuildPage(){
         </div>
       </main>
       <SelectionModal />
-      <CapacityModal />
+      <CapacityModal edit={capEdit} setEdit={setCapEdit} />
     </>
   );
 }
