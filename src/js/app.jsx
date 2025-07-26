@@ -256,6 +256,7 @@ function BuildPage(){
       id:c.idCapacity,
       character:c.character||0,
       name:c.name||'',
+      desc:c.effectPrimary || c.effectSecondary || c.bonusDescription || c.additionnalDescription || '',
       posX:c.gridPositionX,
       posY:c.gridPositionY
     }));
@@ -473,6 +474,7 @@ function BuildPage(){
     const imgRef=React.useRef(null);
     const [scale,setScale]=React.useState(1);
     const [offset,setOffset]=React.useState({x:0,y:0});
+    const tooltipRef=React.useRef(null);
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
     const FRAME=119;
 
@@ -504,21 +506,13 @@ function BuildPage(){
     }
 
     function handleMove(e){
+      if(!edit) return;
       const pos = calcPos(e);
-      if(edit){
-        if(zone) return;
-        setHover({x:pos.x,y:pos.y});
-      }else{
-        const cap=caps.find(c=>pos.x>=c.posX && pos.x<=c.posX+FRAME && pos.y>=c.posY && pos.y<=c.posY+FRAME);
-        if(cap){
-          setHover({x:cap.posX,y:cap.posY});
-        }else{
-          setHover(null);
-        }
-      }
+      if(zone) return;
+      setHover({x:pos.x,y:pos.y});
     }
 
-    function handleLeave(){ if(!zone) setHover(null); }
+    function handleLeave(){ if(edit && !zone) setHover(null); }
 
     function handleClick(e){
       const pos=calcPos(e);
@@ -556,6 +550,14 @@ function BuildPage(){
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
           <img ref={imgRef} src={treeImg} alt="" onLoad={updateScale} onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          {!edit && caps.map(c=>(
+            <div
+              key={c.id}
+              onMouseEnter={()=>setHover({x:c.posX,y:c.posY,cap:c})}
+              onMouseLeave={()=>setHover(null)}
+              style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,opacity:0,pointerEvents:'auto'}}
+            ></div>
+          ))}
           {edit && caps.map(c=>(
             <div key={c.id} style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
           ))}
@@ -573,6 +575,29 @@ function BuildPage(){
             const posY = size/2 - centerY * zoomFactor;
             return (
               <div style={{position:'absolute',left,top,width:size,height:size,pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
+            );
+          })()}
+          {!edit && hover?.cap && (() => {
+            const modalW = imgRef.current?.clientWidth || 0;
+            const modalH = imgRef.current?.clientHeight || 0;
+            const tipW = 220; // max-width from CSS
+            const leftPos = Math.min(
+              Math.max(offset.x + hover.x*baseScale + size/2, tipW/2 + 8),
+              modalW - tipW/2 - 8
+            );
+            const topPos = Math.min(
+              Math.max(offset.y + hover.y*baseScale, 20),
+              modalH - 20
+            );
+            return (
+              <div
+                ref={tooltipRef}
+                className="cap-tooltip"
+                style={{ left: leftPos, top: topPos }}
+              >
+                <div className="cap-tooltip-title">{hover.cap.name}</div>
+                <div>{hover.cap.desc}</div>
+              </div>
             );
           })()}
           {isAdmin && (
