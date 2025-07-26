@@ -168,7 +168,7 @@ function RadarChart({values,buffs}){
     return `${x},${y}`;
   }).join(' ');
   return (
-    <svg viewBox="0 0 100 100" className="radar-chart">
+    <svg viewBox="-10 -10 120 120" className="radar-chart">
       <polygon points={pts} fill="rgba(0,128,255,0.4)" stroke="#0af" />
       {values.map((v,i)=>{ 
         const a = -Math.PI/2 + i*angleStep; 
@@ -468,26 +468,54 @@ function BuildPage(){
     const caps=capacities.filter(c=>c.character===charId);
     const isAdmin=window.keycloak?.hasResourceRole?.('admin','coh-app');
     const [edit,setEdit]=React.useState(false);
-    const [zone,setZone]=React.useState(null); // confirmed selection
+    const [zone,setZone]=React.useState(null); // confirmed selection {x,y}
     const [hover,setHover]=React.useState(null); // preview following cursor
+    const imgRef=React.useRef(null);
+    const [scale,setScale]=React.useState(1);
+    const [offset,setOffset]=React.useState({x:0,y:0});
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
+    const FRAME=119;
 
     function close(){ setCapModal(null); setZone(null); setHover(null); }
+
+    const updateScale=React.useCallback(()=>{
+      if(imgRef.current && imgRef.current.naturalWidth){
+        setScale(imgRef.current.clientWidth/imgRef.current.naturalWidth);
+        setOffset({x:imgRef.current.offsetLeft,y:imgRef.current.offsetTop});
+        if(!zone) setHover(null);
+      }
+    },[zone]);
+
+    React.useEffect(()=>{
+      updateScale();
+      window.addEventListener('resize',updateScale);
+      return ()=>window.removeEventListener('resize',updateScale);
+    },[updateScale]);
 
     function calcPos(e){
       const img=e.currentTarget;
       const rect=img.getBoundingClientRect();
-      const scale=rect.width/img.naturalWidth;
+      const sc=rect.width/img.naturalWidth;
       const sx=e.clientX-rect.left;
       const sy=e.clientY-rect.top;
-      const x=Math.round(sx/scale);
-      const y=Math.round(sy/scale);
-      return {sx,sy,scale,x,y};
+      const x=Math.round(sx/sc);
+      const y=Math.round(sy/sc);
+      return {x,y,scale:sc};
     }
 
     function handleMove(e){
-      if(!edit || zone) return;
-      setHover(calcPos(e));
+      const pos = calcPos(e);
+      if(edit){
+        if(zone) return;
+        setHover({x:pos.x,y:pos.y});
+      }else{
+        const cap=caps.find(c=>pos.x>=c.posX && pos.x<=c.posX+FRAME && pos.y>=c.posY && pos.y<=c.posY+FRAME);
+        if(cap){
+          setHover({x:cap.posX,y:cap.posY});
+        }else{
+          setHover(null);
+        }
+      }
     }
 
     function handleLeave(){ if(!zone) setHover(null); }
@@ -498,12 +526,15 @@ function BuildPage(){
         if(zone){
           const opts=caps.map(c=>({value:c.id,label:c.name}));
           setModal({options:opts,onSelect:id=>{
-            setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:pos.x,posY:pos.y}:c));
-            if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:pos.x,gridPositionY:pos.y}});
-            close();
+            const x=zone.x-FRAME;
+            const y=zone.y-FRAME;
+            setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:x,posY:y}:c));
+            if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:x,gridPositionY:y}});
+            setZone(null);
+            setHover(null);
           }});
         }else{
-          setZone(pos);
+          setZone({x:pos.x,y:pos.y});
         }
       }else{
         const cap=caps.find(c=>Math.abs(c.posX-pos.x)<60&&Math.abs(c.posY-pos.y)<60);
@@ -511,16 +542,27 @@ function BuildPage(){
       }
     }
 
+    const baseScale=scale;
     const disp=zone||hover;
-    const show=edit && disp;
-    const size=disp?119*disp.scale:0;
+    const showOutline=edit && disp;
+    const showZoom=!edit && hover;
+    const size=FRAME*baseScale;
+
+    const outlineLeft = disp ? offset.x + disp.x*baseScale : 0;
+    const outlineTop = disp ? offset.y + disp.y*baseScale : 0;
 
     return (
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
-          <img src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
-          {show && (
-            <div style={{position:'absolute',left:disp.sx-size/2,top:disp.sy-size/2,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none'}}></div>
+          <img ref={imgRef} src={treeImg} alt="" onLoad={updateScale} onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          {edit && caps.map(c=>(
+            <div key={c.id} style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
+          ))}
+          {showOutline && (
+            <div style={{position:'absolute',left:outlineLeft,top:outlineTop,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none',transform:'translate(-100%,-100%)'}}></div>
+          )}
+          {showZoom && (
+            <div style={{position:'absolute',left:offset.x + hover.x*baseScale,top:offset.y + hover.y*baseScale,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${imgRef.current?.clientWidth||0}px ${imgRef.current?.clientHeight||0}px`,backgroundPosition:`-${offset.x + hover.x*baseScale}px -${offset.y + hover.y*baseScale}px`}}></div>
           )}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
