@@ -471,6 +471,7 @@ function BuildPage(){
     const [zone,setZone]=React.useState(null); // confirmed selection
     const [hover,setHover]=React.useState(null); // preview following cursor
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
+    const FRAME=119;
 
     function close(){ setCapModal(null); setZone(null); setHover(null); }
 
@@ -491,7 +492,7 @@ function BuildPage(){
         if(zone) return;
         setHover(pos);
       }else{
-        const cap=caps.find(c=>Math.abs(c.posX-pos.x)<60&&Math.abs(c.posY-pos.y)<60);
+        const cap=caps.find(c=>pos.x>=c.posX && pos.x<=c.posX+FRAME && pos.y>=c.posY && pos.y<=c.posY+FRAME);
         if(cap){
           setHover({sx:cap.posX*pos.scale, sy:cap.posY*pos.scale, scale:pos.scale, w:pos.w, h:pos.h});
         }else{
@@ -508,8 +509,10 @@ function BuildPage(){
         if(zone){
           const opts=caps.map(c=>({value:c.id,label:c.name}));
           setModal({options:opts,onSelect:id=>{
-            setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:pos.x,posY:pos.y}:c));
-            if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:pos.x,gridPositionY:pos.y}});
+            const x=pos.x-FRAME;
+            const y=pos.y-FRAME;
+            setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:x,posY:y}:c));
+            if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:x,gridPositionY:y}});
             setZone(null);
             setHover(null);
           }});
@@ -525,17 +528,17 @@ function BuildPage(){
     const disp=zone||hover;
     const showOutline=edit && disp;
     const showZoom=!edit && hover;
-    const size=disp?119*disp.scale:0;
+    const size=disp?FRAME*disp.scale:0;
 
     return (
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
           <img src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
           {showOutline && (
-            <div style={{position:'absolute',left:disp.sx-size/2,top:disp.sy-size/2,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none'}}></div>
+            <div style={{position:'absolute',left:disp.sx-size,top:disp.sy-size,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none'}}></div>
           )}
           {showZoom && (
-            <div style={{position:'absolute',left:hover.sx-size/2,top:hover.sy-size/2,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${hover.w}px ${hover.h}px`,backgroundPosition:`-${hover.sx-size/2}px -${hover.sy-size/2}px`}}></div>
+            <div style={{position:'absolute',left:hover.sx,top:hover.sy,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${hover.w}px ${hover.h}px`,backgroundPosition:`-${hover.sx}px -${hover.sy}px`}}></div>
           )}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
