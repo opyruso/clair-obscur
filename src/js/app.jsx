@@ -237,8 +237,8 @@ function BuildPage(){
 
   function mapWeapons(list){
     return list.map(w=>{
-      const effect=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3]
-        .filter(Boolean).join(' ');
+      const effects=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3]
+        .filter(Boolean);
       return {
         id:w.idWeapon,
         charId:w.character||0,
@@ -247,7 +247,8 @@ function BuildPage(){
         region:w.region||'',
         unlock_description:w.unlockDescription||null,
         damage_type:w.damageType||'',
-        weapon_effect:effect,
+        weapon_effect_lines:effects,
+        weapon_effect:effects.join(' '),
         damage_buff:[w.damageBuffType1,w.damageBuffType2].filter(Boolean)
       };
     });
@@ -769,7 +770,7 @@ function BuildPage(){
                     : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
                   <div className="weapon-box">
                     {col.weapon
-                      ? (()=>{const desc=[w?.weapon_effect,w?.unlock_description].filter(Boolean).join('\n');return (
+                      ? (()=>{const desc=(w?.weapon_effect_lines||[]).join('\n');return (
                           <span className="weapon-name tip-hover" onClick={()=>openWeaponModal(cidx)}>
                             {col.weapon}
                             {desc && <span className="tooltip-text">{desc}</span>}
@@ -811,7 +812,7 @@ function BuildPage(){
                     {col.mainPictos.map((pid,pidx)=>(
                       <div key={pidx}>
                         {pid
-                          ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.unlock_description||pic?.bonus_lumina||'';return (
+                          ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.bonus_lumina||'';return (
                               <span className="picto-name tip-hover" onClick={()=>openMainModal(cidx,pidx)}>
                                 {pic?.name}
                                 {desc && <span className="tooltip-text">{desc}</span>}
@@ -850,7 +851,7 @@ function BuildPage(){
                       : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
                     <div className="weapon-box">
                     {col.weapon
-                      ? (()=>{const desc=[w?.weapon_effect,w?.unlock_description].filter(Boolean).join('\n');return (
+                      ? (()=>{const desc=(w?.weapon_effect_lines||[]).join('\n');return (
                           <span className="weapon-name tip-hover" onClick={()=>openWeaponModal(idx)}>
                             {col.weapon}
                             {desc && <span className="tooltip-text">{desc}</span>}
@@ -892,7 +893,7 @@ function BuildPage(){
                         {col.mainPictos.map((pid,pidx)=>(
                           <div key={pidx}>
                             {pid
-                              ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.unlock_description||pic?.bonus_lumina||'';return (
+                              ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.bonus_lumina||'';return (
                                   <span className="picto-name tip-hover" onClick={()=>openMainModal(idx,pidx)}>
                                     {pic?.name}
                                     {desc && <span className="tooltip-text">{desc}</span>}
