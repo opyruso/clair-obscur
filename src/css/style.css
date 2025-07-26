@@ -541,6 +541,8 @@ body[data-page="outfits"] .card-back {
 
 #modalSelect { z-index: 1100; }
 #capModal { z-index: 1050; }
+#capModal .modal-content { width: 75%; max-width:none; }
+@media (max-width:800px) { #capModal .modal-content { width: 95%; } }
 .notification {
   background: #323846;
   color: #fff;
@@ -934,12 +936,14 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .buff-chart {
   flex:1;
   display:flex;
+  padding-top: 12px;
   align-items:center;
   justify-content:center;
 }
 .radar-chart {
   width:100%;
   height:200px;
+  transform: translateY(8px);
 }
 .stats {
   display: grid;
