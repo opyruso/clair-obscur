@@ -170,11 +170,12 @@ function RadarChart({values,buffs}){
   return (
     <svg viewBox="-10 -10 120 120" className="radar-chart">
       <polygon points={pts} fill="rgba(0,128,255,0.4)" stroke="#0af" />
-      {values.map((v,i)=>{ 
-        const a = -Math.PI/2 + i*angleStep; 
-        const x = center + Math.cos(a)*(radius+6); 
-        const y = center + Math.sin(a)*(radius+6); 
-        const grade = buffs[0]===(i+1)?'S':buffs[1]===(i+1)?'A':''; 
+      {values.map((v,i)=>{
+        const a = -Math.PI/2 + i*angleStep;
+        const x = center + Math.cos(a)*(radius+6);
+        const y = center + Math.sin(a)*(radius+6);
+        const map={vitality:1,strength:2,agility:3,defense:4,luck:5};
+        const grade = map[buffs[0]]===(i+1)?'S':map[buffs[1]]===(i+1)?'A':'';
         const label = t('damage_buff_type_'+(i+1));
         return (
           <text key={i} x={x} y={y} fontSize="6" fill="#fff" textAnchor="middle" dominantBaseline="middle">
@@ -235,7 +236,6 @@ function BuildPage(){
   }
 
   function mapWeapons(list){
-    const buffMap={vitality:1,strength:2,agility:3,defense:4,luck:5};
     return list.map(w=>{
       const effect=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3]
         .filter(Boolean).join(' ');
@@ -248,9 +248,7 @@ function BuildPage(){
         unlock_description:w.unlockDescription||null,
         damage_type:w.damageType||'',
         weapon_effect:effect,
-        damage_buff:[w.damageBuffType1,w.damageBuffType2]
-          .filter(Boolean)
-          .map(b=>buffMap[b]||parseInt(b)||0)
+        damage_buff:[w.damageBuffType1,w.damageBuffType2].filter(Boolean)
       };
     });
   }
@@ -577,7 +575,16 @@ function BuildPage(){
               onMouseEnter={()=>setHover({x:c.posX,y:c.posY,cap:c})}
               onMouseLeave={()=>setHover(null)}
               onClick={()=>toggleCapacity(index,c.id)}
-              style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,opacity:0,pointerEvents:'auto',border:team[index]?.capacities.includes(c.id)?'2px solid #0af':'none'}}
+              style={{
+                position:'absolute',
+                left:offset.x + c.posX*baseScale,
+                top:offset.y + c.posY*baseScale,
+                width:FRAME*baseScale,
+                height:FRAME*baseScale,
+                pointerEvents:'auto',
+                borderRadius:'50%',
+                boxShadow:team[index]?.capacities.includes(c.id)?'0 0 10px 3px #0f0':'none'
+              }}
             ></div>
           ))}
           {edit && caps.map(c=>(
@@ -804,9 +811,9 @@ function BuildPage(){
                     {col.mainPictos.map((pid,pidx)=>(
                       <div key={pidx}>
                         {pid
-                          ? (()=>{const desc=pictos.find(pc=>pc.id===pid)?.unlock_description||'';return (
+                          ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.unlock_description||pic?.bonus_lumina||'';return (
                               <span className="picto-name tip-hover" onClick={()=>openMainModal(cidx,pidx)}>
-                                {pictos.find(pc=>pc.id===pid)?.name}
+                                {pic?.name}
                                 {desc && <span className="tooltip-text">{desc}</span>}
                               </span>
                             );})()
@@ -885,9 +892,9 @@ function BuildPage(){
                         {col.mainPictos.map((pid,pidx)=>(
                           <div key={pidx}>
                             {pid
-                              ? (()=>{const desc=pictos.find(pc=>pc.id===pid)?.unlock_description||'';return (
+                              ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.unlock_description||pic?.bonus_lumina||'';return (
                                   <span className="picto-name tip-hover" onClick={()=>openMainModal(idx,pidx)}>
-                                    {pictos.find(pc=>pc.id===pid)?.name}
+                                    {pic?.name}
                                     {desc && <span className="tooltip-text">{desc}</span>}
                                   </span>
                                 );})()

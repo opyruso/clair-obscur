@@ -920,12 +920,15 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   grid-template-columns: 1fr 1fr;
   gap:4px 8px;
   align-items:center;
+  justify-items:center;
 }
 .buff-label {
   text-align:right;
 }
 .buff-inputs input {
-  width:100%;
+  width:60px;
+  margin-left:auto;
+  margin-right:auto;
   background:#262b36;
   color:#fff;
   border:1px solid #555;
@@ -1144,5 +1147,5 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .cap-tooltip-title{color:#b6e4ff;font-weight:bold;margin-bottom:4px;}
 .tip-hover{position:relative;cursor:pointer;}
-.tip-hover .tooltip-text{display:none;position:absolute;background:rgba(0,0,0,0.8);color:#fff;padding:4px 6px;border-radius:4px;top:-6px;left:50%;transform:translate(-50%,-100%);white-space:pre-line;z-index:1000;}
+.tip-hover .tooltip-text{display:none;position:absolute;background:rgba(0,0,0,0.8);color:#fff;padding:4px 8px;border-radius:4px;top:-6px;left:50%;transform:translate(-50%,-100%);white-space:pre-line;z-index:1000;max-width:240px;min-width:160px;}
 .tip-hover:hover .tooltip-text{display:block;}
