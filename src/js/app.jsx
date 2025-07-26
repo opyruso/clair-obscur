@@ -168,7 +168,7 @@ function RadarChart({values,buffs}){
     return `${x},${y}`;
   }).join(' ');
   return (
-    <svg viewBox="0 0 100 100" className="radar-chart">
+    <svg viewBox="-10 -10 120 120" className="radar-chart">
       <polygon points={pts} fill="rgba(0,128,255,0.4)" stroke="#0af" />
       {values.map((v,i)=>{ 
         const a = -Math.PI/2 + i*angleStep; 
@@ -474,7 +474,7 @@ function BuildPage(){
 
     function close(){ setCapModal(null); setZone(null); setHover(null); }
 
-    function calcPos(e){
+  function calcPos(e){
       const img=e.currentTarget;
       const rect=img.getBoundingClientRect();
       const scale=rect.width/img.naturalWidth;
@@ -482,12 +482,22 @@ function BuildPage(){
       const sy=e.clientY-rect.top;
       const x=Math.round(sx/scale);
       const y=Math.round(sy/scale);
-      return {sx,sy,scale,x,y};
+      return {sx,sy,scale,x,y,w:rect.width,h:rect.height};
     }
 
     function handleMove(e){
-      if(!edit || zone) return;
-      setHover(calcPos(e));
+      const pos = calcPos(e);
+      if(edit){
+        if(zone) return;
+        setHover(pos);
+      }else{
+        const cap=caps.find(c=>Math.abs(c.posX-pos.x)<60&&Math.abs(c.posY-pos.y)<60);
+        if(cap){
+          setHover({sx:cap.posX*pos.scale, sy:cap.posY*pos.scale, scale:pos.scale, w:pos.w, h:pos.h});
+        }else{
+          setHover(null);
+        }
+      }
     }
 
     function handleLeave(){ if(!zone) setHover(null); }
@@ -500,7 +510,8 @@ function BuildPage(){
           setModal({options:opts,onSelect:id=>{
             setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:pos.x,posY:pos.y}:c));
             if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:pos.x,gridPositionY:pos.y}});
-            close();
+            setZone(null);
+            setHover(null);
           }});
         }else{
           setZone(pos);
@@ -512,15 +523,19 @@ function BuildPage(){
     }
 
     const disp=zone||hover;
-    const show=edit && disp;
+    const showOutline=edit && disp;
+    const showZoom=!edit && hover;
     const size=disp?119*disp.scale:0;
 
     return (
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
           <img src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
-          {show && (
+          {showOutline && (
             <div style={{position:'absolute',left:disp.sx-size/2,top:disp.sy-size/2,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none'}}></div>
+          )}
+          {showZoom && (
+            <div style={{position:'absolute',left:hover.sx-size/2,top:hover.sy-size/2,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${hover.w}px ${hover.h}px`,backgroundPosition:`-${hover.sx-size/2}px -${hover.sy-size/2}px`}}></div>
           )}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
