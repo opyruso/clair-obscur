@@ -470,6 +470,7 @@ function BuildPage(){
     const [edit,setEdit]=React.useState(false);
     const [zone,setZone]=React.useState(null); // confirmed selection
     const [hover,setHover]=React.useState(null); // preview following cursor
+    const imgRef=React.useRef(null);
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
     const FRAME=119;
 
@@ -529,13 +530,17 @@ function BuildPage(){
     const showOutline=edit && disp;
     const showZoom=!edit && hover;
     const size=disp?FRAME*disp.scale:0;
+    const baseScale=disp?.scale || (imgRef.current?imgRef.current.clientWidth/imgRef.current.naturalWidth:1);
 
     return (
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
-          <img src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          <img ref={imgRef} src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          {edit && caps.map(c=>(
+            <div key={c.id} style={{position:'absolute',left:c.posX*baseScale,top:c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
+          ))}
           {showOutline && (
-            <div style={{position:'absolute',left:disp.sx-size,top:disp.sy-size,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none'}}></div>
+            <div style={{position:'absolute',left:disp.sx,top:disp.sy,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none',transform:'translate(-100%,-100%)'}}></div>
           )}
           {showZoom && (
             <div style={{position:'absolute',left:hover.sx,top:hover.sy,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${hover.w}px ${hover.h}px`,backgroundPosition:`-${hover.sx}px -${hover.sy}px`}}></div>
