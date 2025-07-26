@@ -547,7 +547,7 @@ function BuildPage(){
     const showOutline=edit && disp;
     const showZoom=!edit && hover;
     const size=FRAME*baseScale;
-    const zoomFactor=1.01;
+    const zoomFactor=1.02;
 
     const outlineLeft = disp ? offset.x + disp.x*baseScale : 0;
     const outlineTop = disp ? offset.y + disp.y*baseScale : 0;
@@ -569,10 +569,12 @@ function BuildPage(){
             const top = offset.y + hover.y*baseScale;
             const centerX = hover.x*baseScale + size/2;
             const centerY = hover.y*baseScale + size/2;
-            const posX = size/2 - centerX * zoomFactor;
-            const posY = size/2 - centerY * zoomFactor;
+            const shiftX = bgW * 0.01;
+            const shiftY = bgH * 0.01;
+            const posX = size/2 - centerX * zoomFactor - shiftX;
+            const posY = size/2 - centerY * zoomFactor - shiftY;
             return (
-              <div style={{position:'absolute',left,top,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
+              <div style={{position:'absolute',left,top,width:size,height:size,pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${bgW}px ${bgH}px`,backgroundPosition:`${posX}px ${posY}px`}}></div>
             );
           })()}
           {isAdmin && (
