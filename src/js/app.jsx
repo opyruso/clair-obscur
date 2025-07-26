@@ -178,8 +178,8 @@ function RadarChart({values,buffs}){
         const label = t('damage_buff_type_'+(i+1));
         return (
           <text key={i} x={x} y={y} fontSize="6" fill="#fff" textAnchor="middle" dominantBaseline="middle">
-            <tspan x={x} dy="-4">{label}</tspan>
-            <tspan x={x} dy="6">{v}{grade?` ${grade}`:''}</tspan>
+            <tspan x={x} dy="-4">{label}{grade?` ${grade}`:''}</tspan>
+            <tspan x={x} dy="6">{v}</tspan>
           </text>
         );
       })}
@@ -740,7 +740,7 @@ function BuildPage(){
                     : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
                   <div className="weapon-box">
                     {col.weapon
-                      ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
+                      ? <span className="weapon-name" title={w?.weapon_effect||''} onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
                   <div className="weapon-buff">
                       {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
@@ -748,7 +748,14 @@ function BuildPage(){
                   </div>
                 </div>
                 {col.character && (
-                  <div className="config-cap-link" onClick={()=>openCapacityModal(cidx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                  <>
+                    <div className="config-cap-link" onClick={()=>openCapacityModal(cidx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                    <div className="capacity-list">
+                      {capacities.filter(c=>c.character===charIds[col.character]).slice(0,6).map(cap=>(
+                        <div key={cap.id} className="capacity-name">{cap.name}</div>
+                      ))}
+                    </div>
+                  </>
                 )}
                 <div className="buff-chart">
                   <RadarChart values={col.buffStats} buffs={buffs} />
@@ -757,25 +764,19 @@ function BuildPage(){
                 <div className="buff-stats-row">
                   <div className="buff-inputs">
                     {[1,2,3,4,5].map((id,i)=>(
-                      <label key={id}>
-                        {t('damage_buff_type_'+id)}:
-                        <input type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(cidx,i,e.target.value)} />
-                      </label>
+                      <React.Fragment key={id}>
+                        <label className="buff-label" htmlFor={`b${cidx}-${id}`}>{t('damage_buff_type_'+id)}</label>
+                        <input id={`b${cidx}-${id}`} type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(cidx,i,e.target.value)} />
+                      </React.Fragment>
                     ))}
                   </div>
-                </div>
-                <div className="stats">
-                  <div>{t('defense')}: {stats.def}</div>
-                  <div>{t('speed')}: {stats.speed}</div>
-                  <div>{t('critical-luck')}: {stats.crit}</div>
-                  <div>{t('health')}: {stats.health}</div>
                 </div>
                 <div className="bottom-controls">
                   <div className="mains">
                     {col.mainPictos.map((pid,pidx)=>(
                       <div key={pidx}>
                         {pid
-                          ? <span className="picto-name" onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                          ? <span className="picto-name" title={pictos.find(pc=>pc.id===pid)?.unlock_description||''} onClick={()=>openMainModal(cidx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
                           : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
                       </div>
                     ))}
@@ -809,7 +810,7 @@ function BuildPage(){
                       : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
                     <div className="weapon-box">
                     {col.weapon
-                      ? <span className="weapon-name" onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
+                      ? <span className="weapon-name" title={w?.weapon_effect||''} onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
                     <div className="weapon-buff">
                       {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
@@ -817,7 +818,14 @@ function BuildPage(){
                     </div>
                   </div>
                   {col.character && (
-                    <div className="config-cap-link" onClick={()=>openCapacityModal(idx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                    <>
+                      <div className="config-cap-link" onClick={()=>openCapacityModal(idx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                      <div className="capacity-list">
+                        {capacities.filter(c=>c.character===charIds[col.character]).slice(0,6).map(cap=>(
+                          <div key={cap.id} className="capacity-name">{cap.name}</div>
+                        ))}
+                      </div>
+                    </>
                   )}
                   <div className="buff-chart">
                     <RadarChart values={col.buffStats} buffs={buffs} />
@@ -826,25 +834,19 @@ function BuildPage(){
                   <div className="buff-stats-row">
                     <div className="buff-inputs">
                       {[1,2,3,4,5].map((id,i)=>(
-                        <label key={id}>
-                          {t('damage_buff_type_'+id)}:
-                          <input type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(idx,i,e.target.value)} />
-                        </label>
+                        <React.Fragment key={id}>
+                          <label className="buff-label" htmlFor={`b${idx}-${id}`}>{t('damage_buff_type_'+id)}</label>
+                          <input id={`b${idx}-${id}`} type="number" min="0" max="99" value={col.buffStats[i]} onChange={e=>changeBuffStat(idx,i,e.target.value)} />
+                        </React.Fragment>
                       ))}
                     </div>
-                  </div>
-                  <div className="stats">
-                    <div>{t('defense')}: {stats.def}</div>
-                    <div>{t('speed')}: {stats.speed}</div>
-                    <div>{t('critical-luck')}: {stats.crit}</div>
-                    <div>{t('health')}: {stats.health}</div>
                   </div>
                     <div className="bottom-controls">
                       <div className="mains">
                         {col.mainPictos.map((pid,pidx)=>(
                           <div key={pidx}>
                             {pid
-                              ? <span className="picto-name" onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
+                              ? <span className="picto-name" title={pictos.find(pc=>pc.id===pid)?.unlock_description||''} onClick={()=>openMainModal(idx,pidx)}>{pictos.find(pc=>pc.id===pid)?.name}</span>
                               : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}
                           </div>
                         ))}

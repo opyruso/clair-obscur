@@ -865,6 +865,7 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   cursor: pointer;
   text-align: center;
   transition: transform 0.2s;
+  font-size: 1.1em;
 }
 .weapon-name:hover {
   transform: scale(1.1);
@@ -896,37 +897,35 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .lumina-total {
   display: block;
   width: 100%;
-  margin-top: 2px;
+  margin-top: 6px;
   color: #CDB48E;
   text-align: center;
-  font-size: 0.9em;
+  font-size: 1.1em;
 }
 
 .buff-row-title {
   font-family: 'Cinzel', serif;
   color: #e0e0ff;
   margin-bottom: 4px;
+  text-align: center;
 }
 .buff-stats-row {
   display:flex;
   gap:10px;
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
 .buff-inputs {
   flex:1;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.buff-inputs label {
-  display:flex;
-  justify-content:center;
+  display:grid;
+  grid-template-columns: 1fr 60px;
+  gap:4px 8px;
   align-items:center;
-  gap:4px;
+}
+.buff-label {
+  text-align:right;
 }
 .buff-inputs input {
   width:60px;
-  margin-left:4px;
   background:#262b36;
   color:#fff;
   border:1px solid #555;
@@ -965,14 +964,28 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   cursor: pointer;
   text-align: center;
   margin: 6px 0;
+  font-size: 1.1em;
   transition: transform 0.2s;
   display: block;
 }
 .config-cap-link:hover {
   transform: scale(1.1);
 }
+.capacity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.capacity-name {
+  font-size: 0.9em;
+}
 .bottom-controls {
   margin-top: auto;
+}
+.mains {
+  margin-bottom: 8px;
 }
 .modal-option {
   display: inline-flex;
