@@ -477,18 +477,20 @@ function BuildPage(){
 
     function close(){ setCapModal(null); setZone(null); setHover(null); }
 
-    React.useEffect(()=>{
-      function update(){
-        if(imgRef.current){
-          setScale(imgRef.current.clientWidth/imgRef.current.naturalWidth);
-        }
+    const updateScale=React.useCallback(()=>{
+      if(imgRef.current && imgRef.current.naturalWidth){
+        setScale(imgRef.current.clientWidth/imgRef.current.naturalWidth);
+        if(!zone) setHover(null);
       }
-      update();
-      window.addEventListener('resize',update);
-      return ()=>window.removeEventListener('resize',update);
-    },[]);
+    },[zone]);
 
-  function calcPos(e){
+    React.useEffect(()=>{
+      updateScale();
+      window.addEventListener('resize',updateScale);
+      return ()=>window.removeEventListener('resize',updateScale);
+    },[updateScale]);
+
+    function calcPos(e){
       const img=e.currentTarget;
       const rect=img.getBoundingClientRect();
       const sc=rect.width/img.naturalWidth;
@@ -496,14 +498,14 @@ function BuildPage(){
       const sy=e.clientY-rect.top;
       const x=Math.round(sx/sc);
       const y=Math.round(sy/sc);
-      return {x,y,sx,sy,scale:sc};
+      return {x,y,scale:sc};
     }
 
     function handleMove(e){
       const pos = calcPos(e);
       if(edit){
         if(zone) return;
-        setHover({x:pos.x,y:pos.y,sx:pos.sx,sy:pos.sy});
+        setHover({x:pos.x,y:pos.y});
       }else{
         const cap=caps.find(c=>pos.x>=c.posX && pos.x<=c.posX+FRAME && pos.y>=c.posY && pos.y<=c.posY+FRAME);
         if(cap){
@@ -544,21 +546,13 @@ function BuildPage(){
     const showZoom=!edit && hover;
     const size=FRAME*baseScale;
 
-    const outlineLeft = zone
-      ? zone.x*baseScale
-      : hover
-        ? (hover.sx !== undefined ? hover.sx : hover.x*baseScale)
-        : 0;
-    const outlineTop = zone
-      ? zone.y*baseScale
-      : hover
-        ? (hover.sy !== undefined ? hover.sy : hover.y*baseScale)
-        : 0;
+    const outlineLeft = disp ? disp.x*baseScale : 0;
+    const outlineTop = disp ? disp.y*baseScale : 0;
 
     return (
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
-          <img ref={imgRef} src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          <img ref={imgRef} src={treeImg} alt="" onLoad={updateScale} onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
           {edit && caps.map(c=>(
             <div key={c.id} style={{position:'absolute',left:c.posX*baseScale,top:c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
           ))}
