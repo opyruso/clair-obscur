@@ -2,6 +2,23 @@ const {NavLink} = ReactRouterDOM;
 const {useState, useRef} = React;
 const { toast } = ReactToastify;
 
+// Clean API responses so datagrid cells don't display "[object Object]"
+function sanitizeRow(row){
+  if(!row || typeof row !== 'object') return row;
+  const idProps=[
+    'id','value','idCharacter','idDamageType','idDamageBuffType',
+    'idOutfit','idCapacity','idWeapon'
+  ];
+  for(const k of Object.keys(row)){
+    const v=row[k];
+    if(v && typeof v==='object'){
+      const prop=idProps.find(p=>v[p]!==undefined);
+      if(prop) row[k]=v[prop];
+    }
+  }
+  return row;
+}
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const fileRef = useRef();
@@ -87,6 +104,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
         }
       }
     } catch(e){ /* ignore json errors */ }
+    updated = sanitizeRow(updated);
     delete updated.__new;
     delete updated._tmpId;
     setRows(rs => rs.map(r => (
@@ -229,6 +247,7 @@ function ImportBox({columns, rows, setRows, endpoint, idField, label}){
         if(!resp.ok) throw new Error('err');
         let data = {...obj};
         try{ const ct=resp.headers.get('content-type')||''; if(ct.includes('application/json')){ const d=await resp.json(); if(d&&typeof d==='object') data={...data,...d}; }}catch(e){}
+        data = sanitizeRow(data);
         if(exists){
           newRows=newRows.map(r=>r[idField]==obj[idField]?{...r,...data}:r);
         }else{
