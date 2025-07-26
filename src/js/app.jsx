@@ -170,12 +170,18 @@ function RadarChart({values,buffs}){
   return (
     <svg viewBox="0 0 100 100" className="radar-chart">
       <polygon points={pts} fill="rgba(0,128,255,0.4)" stroke="#0af" />
-      {values.map((v,i)=>{
-        const a = -Math.PI/2 + i*angleStep;
-        const x = center + Math.cos(a)*(radius+6);
-        const y = center + Math.sin(a)*(radius+6);
-        const grade = buffs[0]===(i+1)?'S':buffs[1]===(i+1)?'A':'';
-        return <text key={i} x={x} y={y} fontSize="6" fill="#fff" textAnchor="middle" dominantBaseline="middle">{v}{grade?` ${grade}`:''}</text>;
+      {values.map((v,i)=>{ 
+        const a = -Math.PI/2 + i*angleStep; 
+        const x = center + Math.cos(a)*(radius+6); 
+        const y = center + Math.sin(a)*(radius+6); 
+        const grade = buffs[0]===(i+1)?'S':buffs[1]===(i+1)?'A':''; 
+        const label = t('damage_buff_type_'+(i+1));
+        return (
+          <text key={i} x={x} y={y} fontSize="6" fill="#fff" textAnchor="middle" dominantBaseline="middle">
+            <tspan x={x} dy="-4">{label}</tspan>
+            <tspan x={x} dy="6">{v}{grade?` ${grade}`:''}</tspan>
+          </text>
+        );
       })}
     </svg>
   );
@@ -193,6 +199,7 @@ function BuildPage(){
   );
   const [weapons,setWeapons]=useState([]);
   const [pictos,setPictos]=useState([]);
+  const [capacities,setCapacities]=useState([]);
   const [team,setTeam]=useState(
     Array.from({length:5},()=>({
       character:'',
@@ -204,6 +211,7 @@ function BuildPage(){
   );
   const [lang,setLang]=useState(currentLang);
   const [modal,setModal]=useState(null);
+  const [capModal,setCapModal]=useState(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
   function mapPictos(list){
@@ -242,12 +250,23 @@ function BuildPage(){
     });
   }
 
+  function mapCapacities(list){
+    return list.map(c=>({
+      id:c.idCapacity,
+      character:c.character||0,
+      name:c.name||'',
+      posX:c.gridPositionX,
+      posY:c.gridPositionY
+    }));
+  }
+
   useEffect(()=>{
     document.body.dataset.page='build';
     const loadData=()=>{
       getSiteData().then(d=>{
         setWeapons(mapWeapons(d.weapons||[]));
         setPictos(mapPictos(d.pictos||[]));
+        setCapacities(mapCapacities(d.capacities||[]));
         let names=[]; let ids={};
         (d.characters||[]).forEach(c=>{
           const nm=c.name||'';
@@ -443,6 +462,76 @@ function BuildPage(){
     );
   }
 
+  function CapacityModal(){
+    if(!capModal) return null;
+    const {character,charId}=capModal;
+    const caps=capacities.filter(c=>c.character===charId);
+    const isAdmin=window.keycloak?.hasResourceRole?.('admin','coh-app');
+    const [edit,setEdit]=React.useState(false);
+    const [zone,setZone]=React.useState(null); // confirmed selection
+    const [hover,setHover]=React.useState(null); // preview following cursor
+    const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
+
+    function close(){ setCapModal(null); setZone(null); setHover(null); }
+
+    function calcPos(e){
+      const img=e.currentTarget;
+      const rect=img.getBoundingClientRect();
+      const scale=rect.width/img.naturalWidth;
+      const sx=e.clientX-rect.left;
+      const sy=e.clientY-rect.top;
+      const x=Math.round(sx/scale);
+      const y=Math.round(sy/scale);
+      return {sx,sy,scale,x,y};
+    }
+
+    function handleMove(e){
+      if(!edit || zone) return;
+      setHover(calcPos(e));
+    }
+
+    function handleLeave(){ if(!zone) setHover(null); }
+
+    function handleClick(e){
+      const pos=calcPos(e);
+      if(edit){
+        if(zone){
+          const opts=caps.map(c=>({value:c.id,label:c.name}));
+          setModal({options:opts,onSelect:id=>{
+            setCapacities(cs=>cs.map(c=>c.id===id?{...c,posX:pos.x,posY:pos.y}:c));
+            if(apiUrl) apiFetch(`${apiUrl}/admin/capacities/${id}`,{method:'PUT',body:{gridPositionX:pos.x,gridPositionY:pos.y}});
+            close();
+          }});
+        }else{
+          setZone(pos);
+        }
+      }else{
+        const cap=caps.find(c=>Math.abs(c.posX-pos.x)<60&&Math.abs(c.posY-pos.y)<60);
+        if(cap) ReactToastify.toast(cap.name);
+      }
+    }
+
+    const disp=zone||hover;
+    const show=edit && disp;
+    const size=disp?119*disp.scale:0;
+
+    return (
+      <div className="modal" onClick={close} id="capModal">
+        <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
+          <img src={treeImg} alt="" onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
+          {show && (
+            <div style={{position:'absolute',left:disp.sx-size/2,top:disp.sy-size/2,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none'}}></div>
+          )}
+          {isAdmin && (
+            <div style={{marginTop:'10px',textAlign:'center'}}>
+              <label><input type="checkbox" checked={edit} onChange={e=>{setEdit(e.target.checked);setZone(null);setHover(null);}} /> {t('edit')}</label>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   const usedChars=new Set(team.map(t=>t.character).filter(Boolean));
 
   function openCharModal(idx){
@@ -509,6 +598,13 @@ function BuildPage(){
     });
   }
 
+  function openCapacityModal(idx){
+    const char=team[idx].character;
+    if(!char){ ReactToastify.toast(t('select_character_first')); return; }
+    const cid=charIds[char];
+    setCapModal({character:char,charId:cid});
+  }
+
   function countAvailableSubs(idx){
     const locked = team[idx].mainPictos.filter(Boolean);
     return locked.length + pictos.filter(p => !locked.includes(p.id)).length;
@@ -568,11 +664,14 @@ function BuildPage(){
                     {col.weapon
                       ? <span className="weapon-name" onClick={()=>openWeaponModal(cidx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
-                    <div className="weapon-buff">
-                      {w ? (buffs.length>0 ? `${t('damage_buff')}: ${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
+                  <div className="weapon-buff">
+                      {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
                     </div>
                   </div>
                 </div>
+                {col.character && (
+                  <div className="config-cap-link" onClick={()=>openCapacityModal(cidx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                )}
                 <div className="buff-chart">
                   <RadarChart values={col.buffStats} buffs={buffs} />
                 </div>
@@ -635,10 +734,13 @@ function BuildPage(){
                       ? <span className="weapon-name" onClick={()=>openWeaponModal(idx)}>{col.weapon}</span>
                       : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
                     <div className="weapon-buff">
-                      {w ? (buffs.length>0 ? `${t('damage_buff')}: ${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
+                      {w ? (buffs.length>0 ? `${buffs.map(b=>t(b)).join(', ')}` : '') : t('no_weapon')}
                     </div>
                     </div>
                   </div>
+                  {col.character && (
+                    <div className="config-cap-link" onClick={()=>openCapacityModal(idx)} data-i18n="config_capacities">{t('config_capacities')}</div>
+                  )}
                   <div className="buff-chart">
                     <RadarChart values={col.buffStats} buffs={buffs} />
                   </div>
@@ -684,6 +786,7 @@ function BuildPage(){
         </div>
       </main>
       <SelectionModal />
+      <CapacityModal />
     </>
   );
 }
