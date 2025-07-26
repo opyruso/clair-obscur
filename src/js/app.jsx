@@ -472,6 +472,7 @@ function BuildPage(){
     const [hover,setHover]=React.useState(null); // preview following cursor
     const imgRef=React.useRef(null);
     const [scale,setScale]=React.useState(1);
+    const [offset,setOffset]=React.useState({x:0,y:0});
     const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
     const FRAME=119;
 
@@ -480,6 +481,7 @@ function BuildPage(){
     const updateScale=React.useCallback(()=>{
       if(imgRef.current && imgRef.current.naturalWidth){
         setScale(imgRef.current.clientWidth/imgRef.current.naturalWidth);
+        setOffset({x:imgRef.current.offsetLeft,y:imgRef.current.offsetTop});
         if(!zone) setHover(null);
       }
     },[zone]);
@@ -546,21 +548,21 @@ function BuildPage(){
     const showZoom=!edit && hover;
     const size=FRAME*baseScale;
 
-    const outlineLeft = disp ? disp.x*baseScale : 0;
-    const outlineTop = disp ? disp.y*baseScale : 0;
+    const outlineLeft = disp ? offset.x + disp.x*baseScale : 0;
+    const outlineTop = disp ? offset.y + disp.y*baseScale : 0;
 
     return (
       <div className="modal" onClick={close} id="capModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()} style={{position:'relative'}}>
           <img ref={imgRef} src={treeImg} alt="" onLoad={updateScale} onClick={handleClick} onMouseMove={handleMove} onMouseLeave={handleLeave} style={{width:'100%'}} />
           {edit && caps.map(c=>(
-            <div key={c.id} style={{position:'absolute',left:c.posX*baseScale,top:c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
+            <div key={c.id} style={{position:'absolute',left:offset.x + c.posX*baseScale,top:offset.y + c.posY*baseScale,width:FRAME*baseScale,height:FRAME*baseScale,border:'1px solid rgba(255,255,255,0.4)',pointerEvents:'none'}}></div>
           ))}
           {showOutline && (
             <div style={{position:'absolute',left:outlineLeft,top:outlineTop,width:size,height:size,border:'2px dashed #fff',pointerEvents:'none',transform:'translate(-100%,-100%)'}}></div>
           )}
           {showZoom && (
-            <div style={{position:'absolute',left:hover.x*baseScale,top:hover.y*baseScale,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${imgRef.current?.clientWidth||0}px ${imgRef.current?.clientHeight||0}px`,backgroundPosition:`-${hover.x*baseScale}px -${hover.y*baseScale}px`}}></div>
+            <div style={{position:'absolute',left:offset.x + hover.x*baseScale,top:offset.y + hover.y*baseScale,width:size,height:size,border:'2px solid #fff',pointerEvents:'none',background:`url(${treeImg}) no-repeat`,backgroundSize:`${imgRef.current?.clientWidth||0}px ${imgRef.current?.clientHeight||0}px`,backgroundPosition:`-${offset.x + hover.x*baseScale}px -${offset.y + hover.y*baseScale}px`}}></div>
           )}
           {isAdmin && (
             <div style={{marginTop:'10px',textAlign:'center'}}>
