@@ -2,6 +2,8 @@
 const defaultCharacters=['Gustave','Maelle','Lune','Sciel','Verso','Monoco'];
 let characters = defaultCharacters.slice();
 let characterIds = Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
+const defaultCharKeys=defaultCharacters.map(c=>c.toLowerCase());
+let charKeysById=Object.fromEntries(defaultCharKeys.map((k,i)=>[i+1,k]));
 const damageIcons={
   'Feu':'fire',
   'Glace':'ice',
@@ -57,7 +59,9 @@ function initCharacters(){
   div.innerHTML='';
   characters.forEach(c=>{
     const img=document.createElement('img');
-    img.src=`resources/images/characters/${c.toLowerCase()}_icon.png`;
+    const id=characterIds[c];
+    const key=charKeysById[id]||c.toLowerCase();
+    img.src=`resources/images/characters/${key}_icon.png`;
     img.alt=c;
     img.dataset.char=c;
     img.className='char-icon'+(c===currentCharacter?' active':'');
@@ -78,10 +82,11 @@ function mapWeapons(list){
       .filter(Boolean)
       .map(e=>tg(e,e));
     const buffs=[w.damageBuffType1,w.damageBuffType2].filter(Boolean);
-    const charKey=w.characterKey||w.character||'';
+    const cid = w.character || w.characterId || 0;
+    const charKey = charKeysById[cid] || w.characterKey || w.character || '';
     return {
       id:w.idWeapon,
-      charId:w.character||0,
+      charId:cid,
       charKey,
       character:tg(w.characterNameKey||w.characterName,w.characterName)||'',
       name:tg(w.nameKey||w.name,w.name)||'',
@@ -98,16 +103,22 @@ function loadData(){
   getSiteData().then(data=>{
     characters=[];
     characterIds={};
+    charKeysById={};
     (data.characters||[]).forEach(c=>{
       const name=tg(c.nameKey||c.name,c.name)||'';
       if(name){
         characters.push(name);
         characterIds[name]=c.idCharacter;
       }
+      if(c.idCharacter!==undefined){
+        const key=(c.value||c.key||c.name||'').toLowerCase();
+        if(key) charKeysById[c.idCharacter]=key;
+      }
     });
     if(characters.length===0){
       characters=defaultCharacters.slice();
       characterIds=Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
+      charKeysById=Object.fromEntries(defaultCharKeys.map((k,i)=>[i+1,k]));
     }
     damageBuffNames={};
     (data.damageBuffTypes||[]).forEach(b=>{
