@@ -300,6 +300,14 @@ function BuildPage(){
         const obj=JSON.parse(atob(d));
         if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
       }catch(e){/* ignore */}
+    }else{
+      const saved=localStorage.getItem('teamBuild');
+      if(saved){
+        try{
+          const obj=JSON.parse(saved);
+          if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
+        }catch(e){/* ignore */}
+      }
     }
     if(window.bindLangEvents) window.bindLangEvents();
     if(window.applyTranslations) window.applyTranslations();
@@ -310,6 +318,7 @@ function BuildPage(){
     return ()=>{ window.removeEventListener('langchange', handleLang); };
   },[]);
   useEffect(()=>{ document.title=t('build_title'); },[team,pictos,lang]);
+  useEffect(()=>{ localStorage.setItem('teamBuild', JSON.stringify(team)); },[team]);
 
   const usedMain=new Set();
   team.forEach(t=>t.mainPictos.forEach(p=>{if(p) usedMain.add(p);}));
