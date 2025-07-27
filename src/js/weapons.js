@@ -82,8 +82,8 @@ function mapWeapons(list){
       .filter(Boolean)
       .map(e=>tg(e,e));
     const buffs=[w.damageBuffType1,w.damageBuffType2].filter(Boolean);
-    const cid = w.character || w.characterId || 0;
-    const charKey = charKeysById[cid] || w.characterKey || w.character || '';
+    const cid = w.characterId ?? w.character ?? 0;
+    const charKey = (charKeysById[cid] || cid || '').toString().toLowerCase();
     return {
       id:w.idWeapon,
       charId:cid,
@@ -111,8 +111,8 @@ function loadData(){
         characterIds[name]=c.idCharacter;
       }
       if(c.idCharacter!==undefined){
-        const key=(c.value||c.key||c.name||'').toLowerCase();
-        if(key) charKeysById[c.idCharacter]=key;
+        const id=(c.idCharacter||'').toString().toLowerCase();
+        charKeysById[c.idCharacter]=id;
       }
     });
     if(characters.length===0){
