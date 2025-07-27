@@ -5,7 +5,7 @@ transformation a appliquer au locres d'origine apres export (certaine doivent et
 	\n
 "\n
 	";\n
-^[^\,]+\,
+^([^\,]+)\,
 	$1;
 ("[^"]*?)\;([^"]*?");
 	$1.$2;
