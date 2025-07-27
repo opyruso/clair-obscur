@@ -124,6 +124,18 @@
     .label-debug.game {
       border: 1px dashed blue;
     }
+    .game-span {
+      color: #fffff0;
+      display: inline-flex;
+      align-items: center;
+    }
+    .game-icon,
+    .game-img {
+      width: 1em;
+      height: 1em;
+      margin-right: 2px;
+      vertical-align: middle;
+    }
     .cards {
       display: grid;
       grid-template-columns: 1fr;
@@ -591,6 +603,13 @@ body[data-page="outfits"] .card-back {
 
   .navbar-brand {
     font-size: 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .site-logo {
+    height: 32px;
+    margin-right: 8px;
   }
 
 
@@ -644,6 +663,8 @@ body[data-page="outfits"] .card-back {
   }
   .navbar-brand {
     font-size: 1.6rem;
+    display: flex;
+    align-items: center;
   }
   .nav-collapse {
     position: absolute;
