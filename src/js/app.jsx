@@ -939,36 +939,41 @@ function AdminPage(){
   const [capacityTypes, setCapacityTypes] = React.useState([]);
   const [capacities, setCapacities] = React.useState([]);
   const [tab, setTab] = React.useState(0);
+  const [lang, setLang] = React.useState(currentLang);
 
   const langOptions = ['fr','en'];
   const charOptions = React.useMemo(() => {
     const map = new Map();
     characters.forEach(c => {
-      if(!map.has(c.idCharacter)) map.set(c.idCharacter, c.name || c.idCharacter);
+      const label = tg(c.name || '', c.name) || c.idCharacter;
+      if(!map.has(c.idCharacter)) map.set(c.idCharacter, label);
     });
     return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
-  }, [characters]);
+  }, [characters, lang]);
   const typeOptions = React.useMemo(() => {
     const map = new Map();
     damageTypes.forEach(t => {
-      if(!map.has(t.idDamageType)) map.set(t.idDamageType, t.name || t.idDamageType);
+      const label = tg(t.name || '', t.name) || t.idDamageType;
+      if(!map.has(t.idDamageType)) map.set(t.idDamageType, label);
     });
     return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
-  }, [damageTypes]);
+  }, [damageTypes, lang]);
   const buffOptions = React.useMemo(() => {
     const map = new Map();
     damageBuffTypes.forEach(b => {
-      if(!map.has(b.idDamageBuffType)) map.set(b.idDamageBuffType, b.name || b.idDamageBuffType);
+      const label = tg(b.name || '', b.name) || b.idDamageBuffType;
+      if(!map.has(b.idDamageBuffType)) map.set(b.idDamageBuffType, label);
     });
     return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
-  }, [damageBuffTypes]);
+  }, [damageBuffTypes, lang]);
   const capTypeOptions = React.useMemo(() => {
     const map = new Map();
     capacityTypes.forEach(ct => {
-      if(!map.has(ct.idCapacityType)) map.set(ct.idCapacityType, ct.name || ct.idCapacityType);
+      const label = tg(ct.name || '', ct.name) || ct.idCapacityType;
+      if(!map.has(ct.idCapacityType)) map.set(ct.idCapacityType, label);
     });
     return Array.from(map.entries()).map(([value, label]) => ({ value, label }));
-  }, [capacityTypes]);
+  }, [capacityTypes, lang]);
 
   const charCols = React.useMemo(()=>[
     {field:'idCharacter',header:'ID', width:80},
@@ -1159,10 +1164,13 @@ function AdminPage(){
     if(window.applyTranslations) window.applyTranslations();
     if(window.updateFlagState) window.updateFlagState();
 
+    const handleLang = () => { setLang(currentLang); loadData(); };
+    window.addEventListener('langchange', handleLang);
+
     window.adminPage = { loadData };
     if(window.siteData) initRows(window.siteData);
     loadData();
-    return ()=>{ delete window.adminPage; };
+    return ()=>{ delete window.adminPage; window.removeEventListener('langchange', handleLang); };
   },[]);
 
   return (
