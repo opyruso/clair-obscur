@@ -628,7 +628,9 @@ function BuildPage(){
                 style={{ left: leftPos, top: topPos }}
               >
                 <div className="cap-tooltip-title">{hover.cap.name}</div>
-                <div>{hover.cap.desc}</div>
+                <div
+                  dangerouslySetInnerHTML={{ __html: hover.cap.desc }}
+                />
               </div>
             );
           })()}
@@ -778,7 +780,12 @@ function BuildPage(){
                       ? (()=>{const desc=(w?.weapon_effect_lines||[]).join('\n');return (
                           <span className="weapon-name tip-hover" onClick={()=>openWeaponModal(cidx)}>
                             {col.weapon}
-                            {desc && <span className="tooltip-text">{desc}</span>}
+                            {desc && (
+                              <span
+                                className="tooltip-text"
+                                dangerouslySetInnerHTML={{__html: window.formatGameString(desc)}}
+                              />
+                            )}
                           </span>
                         );})()
                       : <div className="weapon-add" onClick={()=>openWeaponModal(cidx)}>Arme</div>}
@@ -820,7 +827,12 @@ function BuildPage(){
                           ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.bonus_lumina||'';return (
                               <span className="picto-name tip-hover" onClick={()=>openMainModal(cidx,pidx)}>
                                 {pic?.name}
-                                {desc && <span className="tooltip-text">{desc}</span>}
+                                {desc && (
+                                  <span
+                                    className="tooltip-text"
+                                    dangerouslySetInnerHTML={{__html: window.formatGameString(desc)}}
+                                  />
+                                )}
                               </span>
                             );})()
                           : <div className="picto-add" onClick={()=>openMainModal(cidx,pidx)}>Picto</div>}
@@ -859,7 +871,12 @@ function BuildPage(){
                       ? (()=>{const desc=(w?.weapon_effect_lines||[]).join('\n');return (
                           <span className="weapon-name tip-hover" onClick={()=>openWeaponModal(idx)}>
                             {col.weapon}
-                            {desc && <span className="tooltip-text">{desc}</span>}
+                            {desc && (
+                              <span
+                                className="tooltip-text"
+                                dangerouslySetInnerHTML={{__html: window.formatGameString(desc)}}
+                              />
+                            )}
                           </span>
                         );})()
                       : <div className="weapon-add" onClick={()=>openWeaponModal(idx)}>Arme</div>}
@@ -901,7 +918,12 @@ function BuildPage(){
                               ? (()=>{const pic=pictos.find(pc=>pc.id===pid);const desc=pic?.bonus_lumina||'';return (
                                   <span className="picto-name tip-hover" onClick={()=>openMainModal(idx,pidx)}>
                                     {pic?.name}
-                                    {desc && <span className="tooltip-text">{desc}</span>}
+                                    {desc && (
+                                      <span
+                                        className="tooltip-text"
+                                        dangerouslySetInnerHTML={{__html: window.formatGameString(desc)}}
+                                      />
+                                    )}
                                   </span>
                                 );})()
                               : <div className="picto-add" onClick={()=>openMainModal(idx,pidx)}>Picto</div>}

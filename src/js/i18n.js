@@ -30,7 +30,7 @@ function tg(key, label, vars){
       str = str.replace(`{${k}}`, vars[k]);
     }
   }
-  return showLabels ? key : str;
+  return showLabels ? key : formatGameString(str);
 }
 
 function formatGameString(str){
@@ -140,3 +140,4 @@ window.t = t;
 window.tg = tg;
 window.setShowLabels = setShowLabels;
 window.bindShowLabelsToggle = bindShowLabelsToggle;
+window.formatGameString = formatGameString;
