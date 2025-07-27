@@ -125,15 +125,15 @@
       border: 1px dashed blue;
     }
     .game-span {
-      color: #fffff0;
+      color: #87cefa;
       display: inline-flex;
-      align-items: center;
+      align-items: flex-end;
     }
     .game-icon,
     .game-img {
       width: 1em;
       height: 1em;
-      margin-right: 2px;
+      margin-left: 2px;
       vertical-align: middle;
     }
     .cards {

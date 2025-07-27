@@ -37,7 +37,7 @@ function formatGameString(str){
   return str
     .replace(/<br\s*\/?\s*>/gi, '<br/>')
     .replace(/<span class='([^']+)'>([^<]*)<\/span>/gi, (m, cls, txt) => {
-      return `<span class="game-span"><img src="resources/images/icons/game/${cls}.webp" class="game-icon" alt=""/>${txt}</span>`;
+      return `<span class="game-span">${txt}<img src="resources/images/icons/game/${cls}.webp" class="game-icon" alt=""/></span>`;
     })
     .replace(/<img id='([^']+)'\s*\/>/gi, (m, id) => {
       return `<img src="resources/images/icons/game/${id}.webp" class="game-img" alt=""/>`;
