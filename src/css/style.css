@@ -116,6 +116,14 @@
       background: #2c3142;
       color: #fff;
     }
+    .label-debug {
+      border: 1px dashed red;
+      padding: 2px 4px;
+      display: inline-block;
+    }
+    .label-debug.game {
+      border-color: blue;
+    }
     .cards {
       display: grid;
       grid-template-columns: 1fr;

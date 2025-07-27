@@ -86,5 +86,6 @@
   "admin_capacity_types": "Capacity Types",
   "admin_capacities": "Capacities",
   "config_capacities": "Configure capacities",
-  "edit": "Edit"
+  "edit": "Edit",
+  "show_labels": "Show labels"
 }

@@ -220,7 +220,7 @@ function BuildPage(){
   function mapPictos(list){
     return list.map(p=>({
       id:p.idPicto,
-      name:p.name||'',
+      name:tg(p.nameKey||p.name,p.name)||'',
       region:p.region||'',
       level:p.level,
       luminaCost:p.luminaCost,
@@ -230,7 +230,7 @@ function BuildPage(){
         'critical-luck':p.bonusCritChance,
         health:p.bonusHealth
       },
-      bonus_lumina:p.descrptionBonusLumina||'',
+      bonus_lumina:tg(p.descriptionBonusLuminaKey||p.descrptionBonusLumina,p.descrptionBonusLumina)||'',
       unlock_description:p.unlockDescription||''
     })).sort((a,b)=>a.name.localeCompare(b.name,currentLang,{sensitivity:'base'}));
   }
@@ -238,12 +238,13 @@ function BuildPage(){
   function mapWeapons(list){
     return list.map(w=>{
       const effects=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3]
-        .filter(Boolean);
+        .filter(Boolean)
+        .map(e=>tg(e,e));
       return {
         id:w.idWeapon,
         charId:w.character||0,
         character:charNamesMap[w.character]||'',
-        name:w.name||'',
+        name:tg(w.nameKey||w.name,w.name)||'',
         region:w.region||'',
         unlock_description:w.unlockDescription||null,
         damage_type:w.damageType||'',
@@ -258,8 +259,8 @@ function BuildPage(){
     return list.map(c=>({
       id:c.idCapacity,
       character:c.character||0,
-      name:c.name||'',
-      desc:c.effectPrimary || c.effectSecondary || c.bonusDescription || c.additionnalDescription || '',
+      name:tg(c.nameKey||c.name,c.name)||'',
+      desc:tg(c.effectPrimaryKey||c.effectPrimary,c.effectPrimary) || tg(c.effectSecondaryKey||c.effectSecondary,c.effectSecondary) || c.bonusDescription || c.additionnalDescription || '',
       posX:c.gridPositionX,
       posY:c.gridPositionY
     }));
@@ -274,7 +275,7 @@ function BuildPage(){
         setCapacities(mapCapacities(d.capacities||[]));
         let names=[]; let ids={};
         (d.characters||[]).forEach(c=>{
-          const nm=c.name||'';
+          const nm=tg(c.nameKey||c.name,c.name)||'';
           if(nm){ names.push(nm); ids[nm]=c.idCharacter; }
         });
         if(names.length===0){ names=defaultCharacters.slice(); ids=defaultCharIds; }

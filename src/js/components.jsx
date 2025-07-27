@@ -53,13 +53,17 @@ const Header = () => {
               <button className="icon-btn" id="uploadBtn" data-i18n-title="upload" title="Upload" onClick={handleUploadClick}><img src="resources/images/icons/buttons/upload.png" alt=""/></button>
               <input type="file" ref={fileRef} accept="application/json" style={{display:'none'}} onChange={handleFileChange}/>
             </div>
-            <div className="lang-flags">
-              <span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>
-              <span className="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span>
-            </div>
-            <div className="icon-sep"></div>
-            <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login"><i className="fa-solid fa-user"></i></button>
+          <div className="lang-flags">
+            <span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>
+            <span className="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span>
           </div>
+          <div className="icon-sep"></div>
+          <label className="toggle-btn" id="labelToggle" style={{display:'none'}}>
+            <input type="checkbox" id="labelToggleInput" />
+            <span data-i18n="show_labels">Show labels</span>
+          </label>
+          <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login"><i className="fa-solid fa-user"></i></button>
+        </div>
         </div>
       </div>
     </nav>
