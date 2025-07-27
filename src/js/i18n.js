@@ -1,8 +1,23 @@
 let currentLang = localStorage.getItem('lang') || 'en';
 let translations = {};
+let gameTranslations = {};
 
 function t(key, vars) {
-  let str = translations[key] || key;
+  let str = translations[key];
+  if(str === undefined) str = gameTranslations[key];
+  if(str === undefined) str = key;
+  if (vars) {
+    for (const k in vars) {
+      str = str.replace(`{${k}}`, vars[k]);
+    }
+  }
+  return str;
+}
+
+function tg(key, label, vars){
+  let str = gameTranslations[key];
+  if(str === undefined) str = translations[key];
+  if(str === undefined) str = label !== undefined ? label : key;
   if (vars) {
     for (const k in vars) {
       str = str.replace(`{${k}}`, vars[k]);
@@ -15,6 +30,11 @@ async function loadLang(lang) {
   currentLang = lang;
   localStorage.setItem('lang', lang);
   translations = await fetch(`lang/${lang}.json`).then(r => r.json());
+  try {
+    gameTranslations = await fetch(`lang/gamedata_${lang}.json`).then(r => r.json());
+  } catch (e) {
+    gameTranslations = {};
+  }
   document.documentElement.lang = lang;
   applyTranslations();
   updateFlagState();
@@ -69,3 +89,4 @@ window.bindLangEvents = bindLangEvents;
 
 window.setLanguage = loadLang;
 window.t = t;
+window.tg = tg;

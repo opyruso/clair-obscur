@@ -74,15 +74,17 @@ function initCharacters(){
 
 function mapWeapons(list){
   return list.map(w=>{
-    const effects=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3].filter(Boolean);
+    const effects=[w.weaponEffect1,w.weaponEffect2,w.weaponEffect3]
+      .filter(Boolean)
+      .map(e=>tg(e,e));
     const buffs=[w.damageBuffType1,w.damageBuffType2].filter(Boolean);
     const charKey=w.characterKey||w.character||'';
     return {
       id:w.idWeapon,
       charId:w.character||0,
       charKey,
-      character:w.characterName||'',
-      name:w.name||'',
+      character:tg(w.characterNameKey||w.characterName,w.characterName)||'',
+      name:tg(w.nameKey||w.name,w.name)||'',
       region:w.region||'',
       unlock_description:w.unlockDescription||null,
       damage_type:damageTypeNames[w.damageType]||w.damageType||'',
@@ -97,7 +99,7 @@ function loadData(){
     characters=[];
     characterIds={};
     (data.characters||[]).forEach(c=>{
-      const name=c.name||'';
+      const name=tg(c.nameKey||c.name,c.name)||'';
       if(name){
         characters.push(name);
         characterIds[name]=c.idCharacter;
@@ -109,11 +111,11 @@ function loadData(){
     }
     damageBuffNames={};
     (data.damageBuffTypes||[]).forEach(b=>{
-      if(b.name) damageBuffNames[b.idDamageBuffType]=b.name;
+      if(b.nameKey||b.name) damageBuffNames[b.idDamageBuffType]=tg(b.nameKey||b.name,b.name);
     });
     damageTypeNames={};
     (data.damageTypes||[]).forEach(t=>{
-      if(t.name) damageTypeNames[t.idDamageType]=t.name;
+      if(t.nameKey||t.name) damageTypeNames[t.idDamageType]=tg(t.nameKey||t.name,t.name);
     });
     currentCharacter=characters[0];
     currentCharId=characterIds[currentCharacter];

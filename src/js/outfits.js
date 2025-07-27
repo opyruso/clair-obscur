@@ -62,8 +62,8 @@ function mapOutfits(list){
       id:w.idOutfit,
       charId:w.character||0,
       charKey,
-      character:w.characterName||'',
-      name:w.name||'',
+      character:tg(w.characterNameKey||w.characterName,w.characterName)||'',
+      name:tg(w.nameKey||w.name,w.name)||'',
       region:w.region||'',
       unlock_description:w.unlockDescription||null
     };
@@ -75,7 +75,7 @@ function loadData(){
     characters=[];
     characterIds={};
     (data.characters||[]).forEach(c=>{
-      const name=c.name||'';
+      const name=tg(c.nameKey||c.name,c.name)||'';
       if(name){
         characters.push(name);
         characterIds[name]=c.idCharacter;

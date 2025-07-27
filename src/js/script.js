@@ -252,7 +252,7 @@ function handleCardPressLeave(e) {
     function mapPictos(list){
       return list.map(p=>({
         id:p.idPicto,
-        name:p.name||'',
+        name:tg(p.nameKey||p.name,p.name)||'',
         region:p.region||'',
         level:p.level,
         bonus_picto:{
@@ -261,7 +261,7 @@ function handleCardPressLeave(e) {
           'critical-luck':p.bonusCritChance,
           health:p.bonusHealth
         },
-        bonus_lumina:p.descrptionBonusLumina||'',
+        bonus_lumina:tg(p.descriptionBonusLuminaKey||p.descrptionBonusLumina,p.descrptionBonusLumina)||'',
         unlock_description:p.unlockDescription||''
       }));
     }
