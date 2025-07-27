@@ -152,16 +152,16 @@
       .cards { grid-template-columns: repeat(4, 1fr); }
     }
     body[data-page="outfits"] .cards {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
     }
     @media (min-width: 800px) {
-      body[data-page="outfits"] .cards { grid-template-columns: repeat(4, 1fr); }
+      body[data-page="outfits"] .cards { grid-template-columns: repeat(2, 1fr); }
     }
     @media (min-width: 1400px) {
-      body[data-page="outfits"] .cards { grid-template-columns: repeat(6, 1fr); }
+      body[data-page="outfits"] .cards { grid-template-columns: repeat(3, 1fr); }
     }
     @media (min-width: 2000px) {
-      body[data-page="outfits"] .cards { grid-template-columns: repeat(8, 1fr); }
+      body[data-page="outfits"] .cards { grid-template-columns: repeat(4, 1fr); }
     }
     .card {
       position: relative;
@@ -542,7 +542,7 @@ body[data-page="outfits"] .card-back {
   html { font-size: 13px; }
 }
 @media (max-width: 800px) {
-  body[data-page="outfits"] .cards { grid-template-columns: repeat(2, 1fr); }
+  body[data-page="outfits"] .cards { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
