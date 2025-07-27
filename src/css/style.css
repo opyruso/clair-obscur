@@ -177,6 +177,9 @@ body[data-page="weapons"] .card {
 body[data-page="outfits"] .card {
   aspect-ratio: 1088 / 681;
 }
+body[data-page="pictos"] .card {
+  aspect-ratio: 1088 / 681;
+}
     .card.fade {
       opacity: 0;
       transition: opacity 0.3s;
@@ -259,10 +262,17 @@ body[data-page="outfits"] .card.owned::after {
   pointer-events: none;
 }
 body[data-page="pictos"] .card-inner::before {
-  background: url('../resources/images/background_tile.png') center/cover no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.5;
 }
-body[data-page="pictos"] .card.owned .card-inner::before {
-  background-image: url('../resources/images/background_tile_selected.png');
+body[data-page="pictos"] .card.owned::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: rgba(26, 56, 32, 0.35);
+  box-shadow: 0 0 8px rgba(26, 56, 32, 0.8);
+  pointer-events: none;
 }
     .region {
       color: #7cc9ff;
