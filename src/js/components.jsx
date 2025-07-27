@@ -86,7 +86,7 @@ const Footer = () => (
 
 function UIGrid({columns, rows, setRows, endpoint, idField}){
   const {useCallback} = React;
-  const {DataGrid, GridFooterContainer, GridPagination} = MaterialUI;
+  const {DataGrid, GridFooterContainer, GridPagination, frFR} = MaterialUI;
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
 
   const processRowUpdate = useCallback(async (newRow) => {
@@ -207,6 +207,7 @@ function UIGrid({columns, rows, setRows, endpoint, idField}){
           pageSizeOptions={[10, 25, 50, 100]}
           initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
           slots={{ footer: AddRowFooter }}
+          localeText={currentLang==='fr' ? frFR.components.MuiDataGrid.defaultProps.localeText : undefined}
         />
       </div>
     </div>
