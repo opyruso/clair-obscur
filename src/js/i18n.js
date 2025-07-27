@@ -47,7 +47,11 @@ function formatGameString(str){
 async function loadLang(lang) {
   currentLang = lang;
   localStorage.setItem('lang', lang);
-  translations = await fetch(`lang/${lang}.json`).then(r => r.json());
+  try {
+    translations = await fetch(`lang/${lang}.json`).then(r => r.ok ? r.json() : {});
+  } catch (e) {
+    translations = {};
+  }
   try {
     gameTranslations = await fetch(`lang/gamedata_${lang}.json`).then(r => r.json());
   } catch (e) {
