@@ -1,0 +1,98 @@
+transformation a appliquer au locres d'origine apres export (certaine doivent etre repeter plusieurs fois en boucle jusqu'a ne plus appliquer de modification:
+\,$
+	
+\r\n
+	\n
+"\n
+	";\n
+^[^\,]+\,
+	$1;
+("[^"]*?)\;([^"]*?");
+	$1.$2;
+"([^"]*?)";
+	$1
+""
+	'
+<keyword id='([^']+)'>([^<]+?)</>
+	<span class='$1'>$2</span>
+<Emphasis\.Bold>([^<]+?)</>
+	<b>$1</b>
+
+
+LISTE DES CLASSES INCLUES DANS LES LIBELLES I18N:
+Consume_Generic
+Break
+Heal
+Consume_Fire
+Buff_Regen
+Consume_Earth
+APShard
+Gustave_Charges
+Perfection
+Element_Physical
+Element_Lightning
+Shield
+MonocoMask_Heavy_Left
+StatusEffect_Burn
+Buff_Defenseless
+Buff_Powerful
+MonocoMask_Caster_Left
+Buff_Rush
+Buff_Shell
+Foretell
+Consume_Ice
+MonocoMask_Balanced_Left
+Element_Dark
+Element_Fire
+MonocoMask_Almighty_Left
+Element_Light
+Element_Void
+Foretell_Twilight
+Stance_Offensive
+StatusEffect_Stunned
+CriticalHit
+Element_Earth
+Element_Ice
+Buff_Slow
+MonocoMask_Agile_Left
+StatusEffect_Mark
+Buff_Powerless
+BreakDamage
+Consume_Lightning
+Stance_Virtuose
+MonocoMask_Almighty
+Stance_Defensive
+Foretell_Moon
+Foretell_Sun
+Buff_Regen_Left
+Buff_Powerful_Left
+Buff_Rush_Left
+Buff_Shell_Left
+Buff_Powerless_Left
+Buff_Slow_Left
+Buff_Defenseless_Left
+StatusEffect_Burn_Left
+StatusEffect_Frozen_Left
+StatusEffect_Stunned_Left
+StatusEffect_Inverted_Left
+StatusEffect_Mark_Left
+StatusEffect_Charmed_Left
+StatusEffect_Blight_Left
+StatusEffect_Berserk_Left
+StatusEffect_Cursed_Left
+StatusEffect_Bound_Left
+StatusEffect_Exhausted_Left
+StatusEffect_Dizzied_Left
+StatusEffect_Silenced_Left
+StatusEffect_Enraged_Left
+JumpFlare
+Stain_Ice
+Stain_Light
+Stain_Ice_Left
+Stain_Fire_Left
+Stain_Lightning_Left
+Stain_Earth_Left
+Stain_Light_Left
+Stance_Stanceless
+MonocoMask_Caster
+MonocoMask_Heavy

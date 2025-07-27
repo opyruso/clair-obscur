@@ -1,0 +1,161 @@
+From Fire - Gustave;gustave;none;none;4;;;;;en;ST_MainCharacters_Skills/Verso_FromFire_Name;ST_MainCharacters_Skills/Verso_FromFire_Gustave_Description_Long;;;Marking Shot
+Lumiere Assault;gustave;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_Combo1_Gustave_Name;ST_MainCharacters_Skills/Verso_Combo1_Gustave_Description_Long;;;
+Marking Shot - Gustave;gustave;none;none;2;;;;;en;ST_MainCharacters_Skills/Verso_MarkingShot_Name;ST_MainCharacters_Skills/Verso_MarkingShot_Gustave_Description_Long;;;Overcharge
+Overcharge;gustave;none;none;4;;;;;en;ST_MainCharacters_Skills/Verso_UnleashCharge_Name;ST_MainCharacters_Skills/Verso_UnleashCharge_Description_Long;;;
+Powerful - Gustave;gustave;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_Powerful_Gustave_Name;ST_MainCharacters_Skills/Verso_Powerful_Gustave_Description_Long;;;Lumiere Assault
+Perfect Recovery gustave;gustave;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_PerfectRecovery_Name;ST_MainCharacters_Skills/Verso_PerfectRecovery_Gustave_Description_Long;;;Powerful
+Shatter;gustave;none;none;5;;;;;en;ST_MainCharacters_Skills/Verso_PerfectBreak_Gustave_Name;ST_MainCharacters_Skills/Verso_PerfectBreak_Gustave_Description_Long;;;Recovery
+Strike Storm - Gustave;gustave;none;none;7;;;;;en;ST_MainCharacters_Skills/Verso_StrikeStorm_Name;ST_MainCharacters_Skills/Verso_StrikeStorm_Gustave_Description_Long;;;From Fire
+Crippling Tsunami;lune;none;none;5;;;;;en;ST_MainCharacters_Skills/Lune_CripplingTsunami_Name;ST_MainCharacters_Skills/Lune_CripplingTsunami_Description_Long;;;Thermal Transfer
+Crustal Crush;lune;none;none;7;;;;;en;ST_MainCharacters_Skills/Lune_CrustalCrush_Name;ST_MainCharacters_Skills/Lune_CrustalCrush_Description_Long;;;Rockslide
+Earth Rising;lune;none;none;3;;;;;en;ST_MainCharacters_Skills/Lune_Earthquake_Name;ST_MainCharacters_Skills/Lune_Earthquake_Description_Long;;;Ice Lance
+Electrify;lune;none;none;1;;;;;en;ST_MainCharacters_Skills/Lune_Electrify_Name;ST_MainCharacters_Skills/Lune_Electrify_Description_Long;;;Thunderfall
+Elemental Genesis;lune;none;none;4;;;;;en;ST_MainCharacters_Skills/Lune_ElementalGenesis_Name;ST_MainCharacters_Skills/Lune_ElementalGenesis_Description_Long;;;Elemental Trick
+Elemental Trick;lune;none;none;3;;;;;en;ST_MainCharacters_Skills/Lune_ElementalTrick_Name;ST_MainCharacters_Skills/Lune_ElementalTrick_Description_Long;;;Mayhem
+Fire Rage;lune;none;none;5;;;;;en;ST_MainCharacters_Skills/Lune_FireRage_Name;ST_MainCharacters_Skills/Lune_FireRage_Description_Long;;;Wildfire
+Healing Light;lune;none;none;3;;;;;en;ST_MainCharacters_Skills/Lune_HealingLight_Name;ST_MainCharacters_Skills/Lune_HealingLight_Description_Long;;;Ice Lance, Immolation 
+Hell;lune;none;none;9;;;;;en;ST_MainCharacters_Skills/Lune_Hell_Name;ST_MainCharacters_Skills/Lune_Hell_Description_Long;;;Fire Rage
+Ice Lance;lune;none;none;4;;;;;en;ST_MainCharacters_Skills/Lune_IceGust_Name;ST_MainCharacters_Skills/Lune_IceGust_Description_Long;;;
+Immolation;lune;none;none;2;;;;;en;ST_MainCharacters_Skills/Lune_Immolation_Name;ST_MainCharacters_Skills/Lune_Immolation_Description_Long;;;
+Lightning Dance;lune;none;none;7;;;;;en;ST_MainCharacters_Skills/Lune_LightningDance_Name;ST_MainCharacters_Skills/Lune_LightningDance_Description_Long;;;Electrify
+Mayhem;lune;none;none;3;;;;;en;ST_MainCharacters_Skills/Lune_Mayhem_Name;ST_MainCharacters_Skills/Lune_Mayhem_Description_Long;;;Electrify or Thermal Transfer 
+Rebirth;lune;none;none;5;;;;;en;ST_MainCharacters_Skills/Lune_Rebirth_Name;ST_MainCharacters_Skills/Lune_Rebirth_Description_Long;;;Healing Light
+Revitalization;lune;none;none;5;;;;;en;ST_MainCharacters_Skills/Lune_Revitalization_Name;ST_MainCharacters_Skills/Lune_Revitalization_Description_Long;;;Rebirth
+Rockslide;lune;none;none;5;;;;;en;ST_MainCharacters_Skills/Lune_EarthSpike_Name;ST_MainCharacters_Skills/Lune_EarthSpike_Description_Long;;;Earth Rising
+Sky Break;lune;none;none;3;;;;;en;ST_MainCharacters_Skills/Lune_SkyBreak_Name;ST_MainCharacters_Skills/Lune_SkyBreak_Description_Long;;;Reach Relationship Level 7 with Lune. 
+Storm Caller;lune;none;none;6;;;;;en;ST_MainCharacters_Skills/Lune_StormCaller_Name;ST_MainCharacters_Skills/Lune_StormCaller_Description_Long;;;Lightning Dance
+Terraquake;lune;none;none;5;;;;;en;ST_MainCharacters_Skills/Lune_Terraquake_Name;ST_MainCharacters_Skills/Lune_Terraquake_Description_Long;;;Crustal Crush
+Thermal Transfer;lune;none;none;2;;;;;en;ST_MainCharacters_Skills/Lune_ThermalTransfer_Name;ST_MainCharacters_Skills/Lune_ThermalTransfer_Description_Long;;;Earth Rising
+Thunderfall;lune;none;none;5;;;;;en;ST_MainCharacters_Skills/Lune_Thunderfall_Name;ST_MainCharacters_Skills/Lune_Thunderfall_Description_Long;;;Immolation
+Tree of Life;lune;none;none;2;;;;;en;ST_MainCharacters_Skills/Lune_TreeOfLife_Name;ST_MainCharacters_Skills/Lune_TreeOfLife_Description_Long;;;Reach Relationship Level 4 with Lune. 
+Tremor;lune;none;none;1;;;;;en;ST_MainCharacters_Skills/Lune_Tremor_Name;ST_MainCharacters_Skills/Lune_Tremor_Description_Long;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Typhoon;lune;none;none;8;;;;;en;ST_MainCharacters_Skills/Lune_Typhoon_Name;ST_MainCharacters_Skills/Lune_Typhoon_Description_Long;;;Crippling Tsunami
+Breaking Rules;maelle;none;none;3;;;;;en;ST_MainCharacters_Skills/Maelle_BreakingRules_Name;ST_MainCharacters_Skills/Maelle_BreakingRules_Description_Long;;;Fleuret Fury
+Burning Canvas;maelle;none;none;5;;;;;en;ST_MainCharacters_Skills/Maelle_BurningCanvas_Name;ST_MainCharacters_Skills/Maelle_BurningCanvas_Description_Long;;;Phantom Strike or Stendhal 
+Combustion;maelle;none;none;4;;;;;en;ST_MainCharacters_Skills/Maelle_InvigoratingFire_Name;ST_MainCharacters_Skills/Maelle_InvigoratingFire_Description_Long;;;Rain of Fire
+Degagement;maelle;none;none;2;;;;;en;ST_MainCharacters_Skills/Maelle_Degagement_Name;ST_MainCharacters_Skills/Maelle_Degagement_Description_Long;;;Spark, Guard Down 
+Egide;maelle;none;none;3;;;;;en;ST_MainCharacters_Skills/Maelle_Egide_Name;ST_MainCharacters_Skills/Maelle_Egide_Description_Long;;;Guard Up
+Fencer's Flurry;maelle;none;none;4;;;;;en;ST_MainCharacters_Skills/Maelle_FencersFlurry_Name;ST_MainCharacters_Skills/Maelle_FencersFlurry_Description_Long;;;Breaking Rules
+Fleuret Fury;maelle;none;none;6;;;;;en;ST_MainCharacters_Skills/Maelle_FleuretFury_Name;ST_MainCharacters_Skills/Maelle_FleuretFury_Description_Long;;;Guard Up
+Gommage;maelle;none;none;3;;;;;en;ST_MainCharacters_Skills/Maelle_Gommage_Name;ST_MainCharacters_Skills/Maelle_Gommage_Description_Long;;;Reach Relationship Level 7 with Maelle. 
+Guard Down;maelle;none;none;3;;;;;en;ST_MainCharacters_Skills/Maelle_GuardDown_Name;ST_MainCharacters_Skills/Maelle_GuardDown_Description_Long;;;Guard Up or Degagement 
+Guard Up;maelle;none;none;3;;;;;en;ST_MainCharacters_Skills/Maelle_GuardUp_Name;ST_MainCharacters_Skills/Maelle_GuardUp_Description_Long;;;Swift Stride
+Gustave's Homage;maelle;none;none;8;;;;;en;ST_MainCharacters_Skills/Maelle_GustaveSMemoire_Name;ST_MainCharacters_Skills/Maelle_GustaveSMemoire_Description_Long;;;Automatically unlocked through story progression after completing the Forgotten Battlefield location. 
+Last Chance;maelle;none;none;1;;;;;en;ST_MainCharacters_Skills/Maelle_LastChance_Name;ST_MainCharacters_Skills/Maelle_LastChance_Description_Long;;;Mezzo Forte
+Mezzo Forte;maelle;none;none;1;;;;;en;ST_MainCharacters_Skills/Maelle_MezzoForte_Name;ST_MainCharacters_Skills/Maelle_MezzoForte_Description_Long;;;Degagement
+Momentum Strike;maelle;none;none;7;;;;;en;ST_MainCharacters_Skills/Maelle_MomentumStrike_Name;ST_MainCharacters_Skills/Maelle_MomentumStrike_Description_Long;;;Egide
+Offensive Switch;maelle;none;none;1;;;;;en;ST_MainCharacters_Skills/Maelle_OffensiveSwitch_Name;ST_MainCharacters_Skills/Maelle_OffensiveSwitch_Description_Long;;;
+Payback;maelle;none;none;9;;;;;en;ST_MainCharacters_Skills/Maelle_Payback_Name;ST_MainCharacters_Skills/Maelle_Payback_Description_Long;;;Last Chance or Momentum Strike 
+Percee;maelle;none;none;5;;;;;en;ST_MainCharacters_Skills/Maelle_Percee_Name;ST_MainCharacters_Skills/Maelle_Percee_Description_Long;;;
+Phantom Strike;maelle;none;none;7;;;;;en;ST_MainCharacters_Skills/Maelle_PhantomStrike_Name;ST_MainCharacters_Skills/Maelle_PhantomStrike_Description_Long;;;Offensive Switch or Burning Canvas 
+Phoenix Flame;maelle;none;none;2;;;;;en;ST_MainCharacters_Skills/Maelle_PhoenixFlame_Name;ST_MainCharacters_Skills/Maelle_PhoenixFlame_Description_Long;;;Reach Relationship Level 4 with Maelle. 
+Pyrolyse;maelle;none;none;9;;;;;en;ST_MainCharacters_Skills/Maelle_Pyrolyse_Name;ST_MainCharacters_Skills/Maelle_Pyrolyse_Description_Long;;;Revenge
+Rain of Fire;maelle;none;none;5;;;;;en;ST_MainCharacters_Skills/Maelle_RainOfFire_Name;ST_MainCharacters_Skills/Maelle_RainOfFire_Description_Long;;;Degagement
+Revenge;maelle;none;none;5;;;;;en;ST_MainCharacters_Skills/Maelle_Revenge_Name;ST_MainCharacters_Skills/Maelle_Revenge_Description_Long;;;Combustion
+Spark;maelle;none;none;3;;;;;en;ST_MainCharacters_Skills/Maelle_Spark_Name;ST_MainCharacters_Skills/Maelle_Spark_Description_Long;;;Offensive Switch
+Stendhal;maelle;none;none;8;;;;;en;ST_MainCharacters_Skills/Maelle_Stendhal_Name;ST_MainCharacters_Skills/Maelle_Stendhal_Description_Long;;;Percee or Burning Canvas 
+Swift Stride;maelle;none;none;3;;;;;en;ST_MainCharacters_Skills/Maelle_FireRise_Name;ST_MainCharacters_Skills/Maelle_FireRise_Description_Long;;;Percee
+Sword Ballet;maelle;none;none;9;;;;;en;ST_MainCharacters_Skills/Maelle_SwordBallet_Name;ST_MainCharacters_Skills/Maelle_SwordBallet_Description_Long;;;Fencer's Flurry
+Virtuose Strike;maelle;none;none;1;;;;;en;ST_MainCharacters_Skills/Maelle_VirtuoseStrike_Name;ST_MainCharacters_Skills/Maelle_VirtuoseStrike_Description_Long;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+All Set;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_AllSet_Name;ST_MainCharacters_Skills/Sciel_AllSet_Description_Long;;;Card Weaver
+Bad Omen;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_BadOmen_Name;ST_MainCharacters_Skills/Sciel_BadOmen_Description_Long;;;Marking Card
+Card Weaver;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_CardWeaver_Name;ST_MainCharacters_Skills/Sciel_CardWeaver_Description_Long;;;Dark Cleansing
+Dark Cleansing;sciel;none;none;0;;;;;en;ST_MainCharacters_Skills/Sciel_DarkCleansing_Name;ST_MainCharacters_Skills/Sciel_DarkCleansing_Description_Long;;;Spectral Sweep
+Dark Wave;sciel;none;none;6;;;;;en;ST_MainCharacters_Skills/Sciel_DarkWave_Name;ST_MainCharacters_Skills/Sciel_DarkWave_Description_Long;;;Grim Harvest or Delaying Slash 
+Delaying Slash;sciel;none;none;5;;;;;en;ST_MainCharacters_Skills/Sciel_Postponed_Name;ST_MainCharacters_Skills/Sciel_Postponed_Description_Long;;;Bad Omen
+Doom;sciel;none;none;2;;;;;en;ST_MainCharacters_Skills/Sciel_Doom_Name;ST_MainCharacters_Skills/Sciel_Doom_Description_Long;;;Reach Relationship Level 4 with Sciel. 
+End Slice;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_EndSlice_Name;ST_MainCharacters_Skills/Sciel_EndSlice_Description_Long;;;Reach Relationship Level 7 with Sciel. 
+Final Path;sciel;none;none;9;;;;;en;ST_MainCharacters_Skills/Sciel_FinalPath_Name;ST_MainCharacters_Skills/Sciel_FinalPath_Description_Long;;;Dark Wave
+Firing Shadow;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_FiringShadow_Name;ST_MainCharacters_Skills/Sciel_FiringShadow_Description_Long;;;Searing Bond
+Focused Foretell;sciel;none;none;2;;;;;en;ST_MainCharacters_Skills/Sciel_FocusedForetell_Name;ST_MainCharacters_Skills/Sciel_FocusedForetell_Description_Long;;;
+Fortune's Fury;sciel;none;none;5;;;;;en;ST_MainCharacters_Skills/Sciel_FortuneSFury_Name;ST_MainCharacters_Skills/Sciel_FortuneSFury_Description_Long;;;Firing Shadow
+Grim Harvest;sciel;none;none;5;;;;;en;ST_MainCharacters_Skills/Sciel_DarkAbsorption_Name;ST_MainCharacters_Skills/Sciel_DarkAbsorption_Description_Long;;;Sealed Fate
+Harvest;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_Harvest_Name;ST_MainCharacters_Skills/Sciel_Harvest_Description_Long;;;Twilight Slash
+Intervention;sciel;none;none;5;;;;;en;ST_MainCharacters_Skills/Sciel_Intervention_Name;ST_MainCharacters_Skills/Sciel_Intervention_Description_Long;;;Dark Cleansing
+Marking Card;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_ShadowTargeting_Name;ST_MainCharacters_Skills/Sciel_ShadowTargeting_Description_Long;;;Focused Foretell
+Our Sacrifice;sciel;none;none;4;;;;;en;ST_MainCharacters_Skills/Sciel_OurSacrifice_Name;ST_MainCharacters_Skills/Sciel_OurSacrifice_Description_Long;;;Fortune's Fury
+Phantom Blade;sciel;none;none;5;;;;;en;ST_MainCharacters_Skills/Sciel_ShadowDrop_Name;ST_MainCharacters_Skills/Sciel_ShadowDrop_Description_Long;;;Twilight Slash
+Plentiful Harvest;sciel;none;none;4;;;;;en;ST_MainCharacters_Skills/Sciel_PlentifulHarvest_Name;ST_MainCharacters_Skills/Sciel_PlentifulHarvest_Description_Long;;;Firing Shadow
+Rush;sciel;none;none;3;;;;;en;ST_MainCharacters_Skills/Sciel_SpeedUp_Name;ST_MainCharacters_Skills/Sciel_SpeedUp_Description_Long;;;Focused Foretell
+Sealed Fate;sciel;none;none;4;;;;;en;ST_MainCharacters_Skills/Sciel_SealedFate_Name;ST_MainCharacters_Skills/Sciel_SealedFate_Description_Long;;;Phantom Blade
+Searing Bond;sciel;none;none;4;;;;;en;ST_MainCharacters_Skills/Sciel_SearingBond_Name;ST_MainCharacters_Skills/Sciel_SearingBond_Description_Long;;;Harvest
+Shadow Bringer;sciel;none;none;1;;;;;en;ST_MainCharacters_Skills/Sciel_ShadowBringer_Name;ST_MainCharacters_Skills/Sciel_ShadowBringer_Description_Long;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Spectral Sweep;sciel;none;none;7;;;;;en;ST_MainCharacters_Skills/Sciel_SpectralSweep_Name;ST_MainCharacters_Skills/Sciel_SpectralSweep_Description_Long;;;Rush
+Twilight Dance;sciel;none;none;9;;;;;en;ST_MainCharacters_Skills/Sciel_TwilightDance_Name;ST_MainCharacters_Skills/Sciel_TwilightDance_Description_Long;;;Final Path or All Set or Our Sacrifice 
+Twilight Slash;sciel;none;none;2;;;;;en;ST_MainCharacters_Skills/Sciel_GrimPrediction_Name;ST_MainCharacters_Skills/Sciel_GrimPrediction_Description_Long;;;
+Angel's Eyes;verso;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_AngelsEyes_Name;ST_MainCharacters_Skills/Verso_AngelsEyes_Description_Long;;;Reach Relationship Level 7 with Esquie. 
+Ascending Assault;verso;none;none;5;;;;;en;ST_MainCharacters_Skills/Verso_AscendingAssault_Name;ST_MainCharacters_Skills/Verso_AscendingAssault_Description_Long;;;Blitz
+Assault Zero;verso;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_AssaultZero_Name;ST_MainCharacters_Skills/Verso_AngelsEyes_Description_Long;;;
+Berserk Slash;verso;none;none;4;;;;;en;ST_MainCharacters_Skills/Verso_BerserkSlash_Name;ST_MainCharacters_Skills/Verso_BerserkSlash_Description_Long;;;Quick Strike
+Blitz;verso;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_Blitz_Name;ST_MainCharacters_Skills/Verso_Blitz_Description_Long;;;Purification
+Burden;verso;none;none;1;;;;;en;ST_MainCharacters_Skills/Verso_Burden_Name;ST_MainCharacters_Skills/Verso_Burden_Description_Long;;;Berserk Slash
+Defiant Strike;verso;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_DefiantStrike_Name;ST_MainCharacters_Skills/Verso_DefiantStrike_Description_Long;;;Berserk Slash
+End Bringer;verso;none;none;9;;;;;en;ST_MainCharacters_Skills/Verso_EndBringer_Name;ST_MainCharacters_Skills/Verso_EndBringer_Description_Long;;;Light Holder or Steeled Strike 
+Follow Up;verso;none;none;5;;;;;en;ST_MainCharacters_Skills/Verso_Followup_Name;ST_MainCharacters_Skills/Verso_Followup_Description_Long;;;Purification
+From Fire;verso;none;none;4;;;;;en;ST_MainCharacters_Skills/Verso_FromFire_Name;ST_MainCharacters_Skills/Verso_FromFire_Description_Long;;;N/A 
+Leadership;verso;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_Leadership_Name;ST_MainCharacters_Skills/Verso_Leadership_Description_Long;;;Powerful
+Light Holder;verso;none;none;4;;;;;en;ST_MainCharacters_Skills/Verso_LightHolder_Name;ST_MainCharacters_Skills/Verso_LightHolder_Description_Long;;;Radiant Slash
+Marking Shot;verso;none;none;2;;;;;en;ST_MainCharacters_Skills/Verso_MarkingShot_Name;ST_MainCharacters_Skills/Verso_MarkingShot_Description_Long;;;Assault Zero
+Overload;verso;none;none;0;;;;;en;ST_MainCharacters_Skills/Verso_Overcharge_Name;ST_MainCharacters_Skills/Verso_Overcharge_Description_Long;;;Follow Up or Speed Burst 
+Paradigm Shift;verso;none;none;1;;;;;en;ST_MainCharacters_Skills/Verso_ParadigmShift_Name;ST_MainCharacters_Skills/Verso_ParadigmShift_Description_Long;;;Purification or Quick Strike 
+Perfect Break;verso;none;none;7;;;;;en;ST_MainCharacters_Skills/Verso_PerfectBreak_Name;ST_MainCharacters_Skills/Verso_PerfectBreak_Description_Long;;;Blitz or Berserk Slash 
+Perfect Recovery;verso;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_PerfectRecovery_Name;ST_MainCharacters_Skills/Verso_PerfectRecovery_Description_Long;;;From Fire (Verso)
+Phantom Stars;verso;none;none;9;;;;;en;ST_MainCharacters_Skills/Verso_PhantomStars_Name;ST_MainCharacters_Skills/Verso_PhantomStars_Description_Long;;;Burden
+Powerful;verso;none;none;3;;;;;en;ST_MainCharacters_Skills/Verso_Powerful_Name;ST_MainCharacters_Skills/Verso_Powerful_Description_Long;;;Quick Strike
+Purification;verso;none;none;5;;;;;en;ST_MainCharacters_Skills/Verso_Purification_Name;ST_MainCharacters_Skills/Verso_Purification_Description_Long;;;Perfect Recovery
+Quick Strike;verso;none;none;2;;;;;en;ST_MainCharacters_Skills/Verso_QuickStrike_Name;ST_MainCharacters_Skills/Verso_QuickStrike_Description_Long;;;Marking Shot
+Radiant Slash;verso;none;none;2;;;;;en;ST_MainCharacters_Skills/Verso_RadiantSlash_Name;ST_MainCharacters_Skills/Verso_RadiantSlash_Description_Long;;;Blitz
+Sabotage;verso;none;none;1;;;;;en;ST_MainCharacters_Skills/Verso_Sabotage_Name;ST_MainCharacters_Skills/Verso_Sabotage_Description_Long;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Speed Burst;verso;none;none;6;;;;;en;ST_MainCharacters_Skills/Verso_SpeedBurst_Name;ST_MainCharacters_Skills/Verso_SpeedBurst_Description_Long;;;Ascending Assault or Overload 
+Steeled Strike;verso;none;none;9;;;;;en;ST_MainCharacters_Skills/Verso_SteeledStrike_Name;ST_MainCharacters_Skills/Verso_SteeledStrike_Description_Long;;;Strike Storm or End Bringer 
+Striker;verso;none;none;2;;;;;en;ST_MainCharacters_Skills/Verso_Striker_Name;ST_MainCharacters_Skills/Verso_Striker_Description_Long;;;Reach Relationship Level 4 with Esquie. 
+Strike Storm;verso;none;none;7;;;;;en;ST_MainCharacters_Skills/Verso_StrikeStorm_Name;ST_MainCharacters_Skills/Verso_StrikeStorm_Description_Long;;;Defiant Strike
+Abbest Wind;monoco;none;none;2;;;;;en;ST_MainCharacters_Skills/Monoco_AbbestMelee_Name;ST_MainCharacters_Skills/Monoco_AbbestMelee_Description_Long;;;Defeat and acquire the foot of an Abbest enemy while Monoco is in the active party. 
+Aberration Light;monoco;none;none;7;;;;;en;ST_MainCharacters_Skills/Monoco_AberrationBurningLight_Name;ST_MainCharacters_Skills/Monoco_AberrationBurningLight_Description_Long;;;Defeat and acquire the foot of an Aberration enemy while Monoco is in the active party. 
+Ballet Charm;monoco;none;none;2;;;;;en;ST_MainCharacters_Skills/Monoco_BalletCharm_Name;ST_MainCharacters_Skills/Monoco_BalletCharm_Description_Long;;;Defeat and acquire the foot of a Ballet enemy while Monoco is in the active party. 
+Benisseur Mortar;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_BenisseurMortar_Name;ST_MainCharacters_Skills/Monoco_BenisseurMortar_Description_Long;;;Defeat and acquire the foot of a Benisseur enemy while Monoco is in the active party. 
+Braseleur Smash;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_BraseleurHammerSmash_Name;ST_MainCharacters_Skills/Monoco_BraseleurHammerSmash_Description_Long;;;Defeat and acquire the foot of a Braseleur enemy while Monoco is in the active party. 
+Break Point;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_BreakPoint_Name;ST_MainCharacters_Skills/Monoco_BreakPoint_Description_Long;;;Reach Relationship Level 7 with Monoco. 
+Boucheclier Fortify;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_BoucheclierShield_Name;ST_MainCharacters_Skills/Monoco_BoucheclierShield_Description_Long;;;Defeat and acquire the foot of a Bouchelier enemy while Monoco is in the active party. 
+Bruler Bash;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_BrulerAnchorSmash_Name;ST_MainCharacters_Skills/Monoco_BrulerAnchorSmash_Description_Long;;;Defeat and acquire the foot of a Bruler enemy while Monoco is in the active party. 
+Chalier Combo;monoco;none;none;7;;;;;en;ST_MainCharacters_Skills/Monoco_ChalierRelentlessSword_Name;ST_MainCharacters_Skills/Monoco_ChalierRelentlessSword_Description_Long;;;Starting skill of Monoco upon joining the party.
+Chapelier Slash;monoco;none;none;7;;;;;en;ST_MainCharacters_Skills/Monoco_ChapelierAxeSlash_Name;ST_MainCharacters_Skills/Monoco_ChapelierAxeSlash_Description_Long;;;Defeat and acquire the foot of a Chapelier enemy while Monoco is in the active party. 
+Chevaliere Ice;monoco;none;none;6;;;;;en;ST_MainCharacters_Skills/Monoco_ChevaliereFrozenCombo_Name;ST_MainCharacters_Skills/Monoco_ChevaliereFrozenCombo_Description_Long;;;Defeat and acquire the foot of a Gold Chevaliere enemy while Monoco is in the active party. 
+Chevaliere Piercing;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_ChevaliereCaC_Name;ST_MainCharacters_Skills/Monoco_ChevaliereCaC_Description_Long;;;Defeat and acquire the foot of a Ceramic Chevaliere enemy while Monoco is in the active party. 
+Chevaliere Thrusts;monoco;none;none;7;;;;;en;ST_MainCharacters_Skills/Monoco_ChevaliereBAoECombo_Name;ST_MainCharacters_Skills/Monoco_ChevaliereBAoECombo_Description_Long;;;Defeat and acquire the foot of a Steel Chevaliere enemy while Monoco is in the active party. 
+Clair Enfeeble;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_ClairEnfeeble_Name;ST_MainCharacters_Skills/Monoco_ClairEnfeeble_Description_Long;;;Defeat and acquire the foot of a Clair enemy while Monoco is in the active party.
+Contorsionniste Blast;monoco;none;none;6;;;;;en;ST_MainCharacters_Skills/Monoco_ContorsionnisteAngryBlast_Name;ST_MainCharacters_Skills/Monoco_ContorsionnisteAngryBlast_Description_Long;;;Defeat and acquire the foot of a Contorsionniste enemy while Monoco is in the active party. 
+Creation Void;monoco;none;none;9;;;;;en;ST_MainCharacters_Skills/Monoco_CreationFromTheVoid_Name;ST_MainCharacters_Skills/Monoco_CreationFromTheVoid_Description_Long;;;Defeat and acquire the foot of a Creation enemy while Monoco is in the active party.
+Cruler Barrier;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_CrulerShield_Name;ST_MainCharacters_Skills/Monoco_CrulerShield_Description_Long;;;Defeat and acquire the foot of a Cruler enemy while Monoco is in the active party. 
+Cultist Blood;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_CultistBloodSword_Name;ST_MainCharacters_Skills/Monoco_CultistBloodSword_Description_Long;;;Defeat and acquire the foot of a Greatsword Cultist enemy while Monoco is in the active party. 
+Cultist Slashes;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_CultistFlyingSlashes_Name;ST_MainCharacters_Skills/Monoco_CultistFlyingSlashes_Description_Long;;;Defeat and acquire the foot of a Reaper Cultist enemy while Monoco is in the active party.
+Danseuse Waltz;monoco;none;none;8;;;;;en;ST_MainCharacters_Skills/Monoco_DanseuseWingDance_Name;ST_MainCharacters_Skills/Monoco_DanseuseWingDance_Description_Long;;;Defeat and acquire the foot of a Danseuses enemy while Monoco is in the active party. 
+Demineur Thunder;monoco;none;none;2;;;;;en;ST_MainCharacters_Skills/Monoco_DemineurThunderStrike_Name;ST_MainCharacters_Skills/Monoco_DemineurThunderStrike_Description_Long;;;Defeat and acquire the foot of a Demineur enemy while Monoco is in the active party. 
+Duallist Storm;monoco;none;none;8;;;;;en;ST_MainCharacters_Skills/Monoco_DuallistStormBlood_Name;ST_MainCharacters_Skills/Monoco_DuallistStormBlood_Description_Long;;;Defeat and acquire the foot of a Dualliste enemy while Monoco is in the active party. 
+Echassier Stabs;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_EchassierCombo_Name;ST_MainCharacters_Skills/Monoco_EchassierCombo_Description_Long;;;Defeat and acquire the foot of an Echassier enemy while Monoco is in the active party. 
+Eveque Spear;monoco;none;none;6;;;;;en;ST_MainCharacters_Skills/Monoco_EvequeSpear_Name;ST_MainCharacters_Skills/Monoco_EvequeSpear_Description_Long;;;Defeat and acquire the foot of an Eveque enemy while Monoco is in the active party. 
+Gault Fury;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_GaultCombo_Name;ST_MainCharacters_Skills/Monoco_GaultCombo_Description_Long;;;Defeat and acquire the foot of a Gault enemy while Monoco is in the active party. 
+Glaise Earthquakes;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_GlaiseEarthquake_Name;ST_MainCharacters_Skills/Monoco_GlaiseEarthquake_Description_Long;;;Defeat and acquire the foot of a Glaise enemy while Monoco is in the active party. 
+Grosse Tete Whack;monoco;none;none;6;;;;;en;ST_MainCharacters_Skills/Monoco_GrosseTeteWrecking_Name;ST_MainCharacters_Skills/Monoco_GrosseTeteWrecking_Description_Long;;;Defeat and acquire the foot of a Grosse Tete enemy while Monoco is in the active party. 
+Hexga Crush;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_HexgaCombo_Name;ST_MainCharacters_Skills/Monoco_HexgaCombo_Description_Long;;;Defeat and acquire the foot of a Hexga enemy while Monoco is in the active party. 
+Jar Lampstorm;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_JarCombo_Name;ST_MainCharacters_Skills/Monoco_JarCombo_Description_Long;;;Defeat and acquire the foot of a Jar enemy while Monoco is in the active party. 
+Lampmaster Light;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_LampmasterSwordOfLight_Name;ST_MainCharacters_Skills/Monoco_LampmasterSwordOfLight_Description_Long;;;Defeat and acquire the foot of a Lampmaster enemy while Monoco is in the active party. 
+Lancelier Impale;monoco;none;none;2;;;;;en;ST_MainCharacters_Skills/Monoco_LancelierEstoc_Name;ST_MainCharacters_Skills/Monoco_LancelierEstoc_Description_Long;;;Defeat and acquire the foot of a Lancelier enemy while Monoco is in the active party. 
+Luster Slices;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_LusterCombo_Name;ST_MainCharacters_Skills/Monoco_LusterCombo_Description_Long;;;Defeat and acquire the foot of a Luster enemy while Monoco is in the active party. 
+Mighty Strike;monoco;none;none;1;;;;;en;ST_MainCharacters_Skills/Monoco_MightyStrike_Name;ST_MainCharacters_Skills/Monoco_MightyStrike_Description_Long;;;Automatically unlocked upon learning the Gradient Attacks/Skills feature, which becomes available upon progressing the story.
+Moissonneuse Vendange;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_MoissonneuseVendange_Name;ST_MainCharacters_Skills/Monoco_MoissonneuseVendange_Description_Long;;;Defeat and acquire the foot of a Moissoneusse enemy while Monoco is in the active party. 
+Obscur Sword;monoco;none;none;6;;;;;en;ST_MainCharacters_Skills/Monoco_ObscurCombo_Name;ST_MainCharacters_Skills/Monoco_ObscurCombo_Description_Long;;;Defeat and acquire the foot of an Obscur enemy while Monoco is in the active party.
+Orphelin Cheers;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_OrphelinPowerful_Name;ST_MainCharacters_Skills/Monoco_OrphelinPowerful_Description_Long;;;Defeat and acquire the foot of an Orphelin enemy while Monoco is in the active party. 
+Pelerin Heal;monoco;none;none;5;;;;;en;ST_MainCharacters_Skills/Monoco_PelerinFreshAir_Name;ST_MainCharacters_Skills/Monoco_PelerinFreshAir_Description_Long;;;Defeat and acquire the foot of a Pelerin enemy while Monoco is in the active party. 
+Portier Crash;monoco;none;none;8;;;;;en;ST_MainCharacters_Skills/Monoco_PortierSmash_Name;ST_MainCharacters_Skills/Monoco_PortierSmash_Description_Long;;;Defeat and acquire the foot of a Portier enemy while Monoco is in the active party. 
+Potier Energy;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_PotierBuff_Name;ST_MainCharacters_Skills/Monoco_PotierBuff_Description_Long;;;Defeat and acquire the foot of a Potier enemy while Monoco is in the active party. 
+Ramasseur Bonk;monoco;none;none;2;;;;;en;ST_MainCharacters_Skills/Monoco_RamasseurBonk_Name;ST_MainCharacters_Skills/Monoco_RamasseurBonk_Description_Long;;;Defeat and acquire the foot of a Ramasseur enemy while Monoco is in the active party. 
+Rocher Hammering;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_RocherHammering_Name;ST_MainCharacters_Skills/Monoco_RocherHammering_Description_Long;;;Defeat and acquire the foot of a Rocher enemy while Monoco is in the active party. 
+Sakapatate Estoc;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_PotatobagRangerThunderEstoc_Name;ST_MainCharacters_Skills/Monoco_PotatobagRangerThunderEstoc_Description_Long;;;Defeat and acquire the foot of a Ranger Sakapatate enemy while Monoco is in the active party. 
+Sakapatate Explosion;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_PotatobagMageThunderThrows_Name;ST_MainCharacters_Skills/Monoco_PotatobagMageThunderThrows_Description_Long;;;Defeat and acquire the foot of a Catapult Sakapatate enemy while Monoco is in the active party. 
+Sakapatate Fire;monoco;none;none;9;;;;;en;ST_MainCharacters_Skills/Monoco_PotatobagBossFireShots_Name;ST_MainCharacters_Skills/Monoco_PotatobagBossFireShots_Description_Long;;;Defeat and acquire the foot of the Ultimate Sakapatate enemy while Monoco is in the active party.
+Sakapatate Slam;monoco;none;none;7;;;;;en;ST_MainCharacters_Skills/Monoco_PotatobagTankSlam_Name;ST_MainCharacters_Skills/Monoco_PotatobagTankSlam_Description_Long;;;Defeat and acquire the foot of a Robust Sakapatate enemy while Monoco is in the active party. 
+Sanctuary;monoco;none;none;2;;;;;en;ST_MainCharacters_Skills/Monoco_Sanctuary_Name;ST_MainCharacters_Skills/Monoco_Sanctuary_Description_Long;;;Reach Relationship Level 4 with Monoco. 
+Sapling Absorption;monoco;none;none;6;;;;;en;ST_MainCharacters_Skills/Monoco_SaplingAbsorption_Name;ST_MainCharacters_Skills/Monoco_SaplingAbsorption_Description_Long;;;Defeat and acquire the foot of a Sapling enemy while Monoco is in the active party. 
+Stalact Punches;monoco;none;none;4;;;;;en;ST_MainCharacters_Skills/Monoco_StalactCombo_Name;ST_MainCharacters_Skills/Monoco_StalactCombo_Description_Long;;;
+Troubadour Trumpet;monoco;none;none;3;;;;;en;ST_MainCharacters_Skills/Monoco_TroubadourBuff_Name;ST_MainCharacters_Skills/Monoco_TroubadourBuff_Description_Long;;;Defeat and acquire the foot of a Troubadour enemy while Monoco is in the active party. 

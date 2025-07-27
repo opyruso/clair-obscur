@@ -1,0 +1,9 @@
+earth;en;ST_BattleTooltips/BATTLETOOLTIP_Earth_DamageType
+fire;en;ST_BattleTooltips/BATTLETOOLTIP_Fire_DamageType
+ice;en;ST_BattleTooltips/BATTLETOOLTIP_Ice_DamageType
+light;en;ST_BattleTooltips/BATTLETOOLTIP_Light_DamageType
+lightening;en;ST_BattleTooltips/BATTLETOOLTIP_Lightning_DamageType
+none;en;-
+physical;en;ST_BattleTooltips/BATTLETOOLTIP_Physical_DamageType
+shadow;en;ST_BattleTooltips/BATTLETOOLTIP_Dark_DamageType
+void;en;ST_BattleTooltips/BATTLETOOLTIP_Void_DamageType
