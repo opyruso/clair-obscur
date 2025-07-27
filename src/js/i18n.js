@@ -11,6 +11,7 @@ function t(key, vars) {
   if(str === undefined) str = enTranslations[key];
   if(str === undefined) str = enGameTranslations[key];
   if(str === undefined) str = key;
+  if(typeof str !== 'string') str = str == null ? '' : String(str);
   if (vars) {
     for (const k in vars) {
       str = str.replace(`{${k}}`, vars[k]);
@@ -25,6 +26,7 @@ function tg(key, label, vars){
   if(str === undefined) str = enGameTranslations[key];
   if(str === undefined) str = enTranslations[key];
   if(str === undefined) str = label !== undefined ? label : key;
+  if(typeof str !== 'string') str = str == null ? '' : String(str);
   if (vars) {
     for (const k in vars) {
       str = str.replace(`{${k}}`, vars[k]);
@@ -34,6 +36,7 @@ function tg(key, label, vars){
 }
 
 function formatGameString(str){
+  if(typeof str !== 'string') str = str == null ? '' : String(str);
   return str
     .replace(/<br\s*\/?\s*>/gi, '<br/>')
     .replace(/<span class='([^']+)'>([^<]*)<\/span>/gi, (m, cls, txt) => {
@@ -47,7 +50,11 @@ function formatGameString(str){
 async function loadLang(lang) {
   currentLang = lang;
   localStorage.setItem('lang', lang);
-  translations = await fetch(`lang/${lang}.json`).then(r => r.json());
+  try {
+    translations = await fetch(`lang/${lang}.json`).then(r => r.ok ? r.json() : {});
+  } catch (e) {
+    translations = {};
+  }
   try {
     gameTranslations = await fetch(`lang/gamedata_${lang}.json`).then(r => r.json());
   } catch (e) {

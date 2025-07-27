@@ -12,8 +12,12 @@ async function fetchSiteData(lang = currentLang) {
   }
   dataLang = lang;
   const api = window.CONFIG?.["clairobscur-api-url"] || '';
-  dataPromise = apiFetch(`${api}/public/data/${lang}`)
-    .then(r => r.json())
+  const fetchJson = l => apiFetch(`${api}/public/data/${l}`).then(r => {
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  });
+  dataPromise = fetchJson(lang)
+    .catch(() => lang !== 'en' ? fetchJson('en') : Promise.reject())
     .then(data => {
       dataCache = data;
       window.siteData = data;
