@@ -628,7 +628,9 @@ function BuildPage(){
                 style={{ left: leftPos, top: topPos }}
               >
                 <div className="cap-tooltip-title">{hover.cap.name}</div>
-                <div>{hover.cap.desc}</div>
+                <div
+                  dangerouslySetInnerHTML={{ __html: hover.cap.desc }}
+                />
               </div>
             );
           })()}
