@@ -59,6 +59,7 @@ const Header = () => {
             <span className="lang-flag fi fi-de" data-lang="de" id="deFlag"></span>
             <span className="lang-flag fi fi-es" data-lang="es" id="esFlag"></span>
             <span className="lang-flag fi fi-it" data-lang="it" id="itFlag"></span>
+            <span className="lang-flag fi fi-pl" data-lang="pl" id="plFlag"></span>
           </div>
           <div className="icon-sep"></div>
           <label className="toggle-btn" id="labelToggle" style={{display:'none'}}>
