@@ -122,7 +122,7 @@
       display: inline-block;
     }
     .label-debug.game {
-      border-color: blue;
+      border: 1px dashed blue;
     }
     .cards {
       display: grid;

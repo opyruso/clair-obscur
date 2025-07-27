@@ -61,8 +61,8 @@ function initCharacters(){
 
 function mapOutfits(list){
   return list.map(w=>{
-    const cid=w.character||w.characterId||0;
-    const charKey=charKeysById[cid]||w.character||'';
+    const cid=w.characterId ?? w.character ?? 0;
+    const charKey=(charKeysById[cid]||cid||'').toString().toLowerCase();
     return {
       id:w.idOutfit,
       charId:cid,
@@ -87,8 +87,8 @@ function loadData(){
         characterIds[name]=c.idCharacter;
       }
       if(c.idCharacter!==undefined){
-        const key=(c.value||c.key||c.name||'').toLowerCase();
-        if(key) charKeysById[c.idCharacter]=key;
+        const id=(c.idCharacter||'').toString().toLowerCase();
+        charKeysById[c.idCharacter]=id;
       }
     });
     if(characters.length===0){

@@ -496,7 +496,8 @@ function BuildPage(){
     const [scale,setScale]=React.useState(1);
     const [offset,setOffset]=React.useState({x:0,y:0});
     const tooltipRef=React.useRef(null);
-    const treeImg=`resources/images/capacity_tree/${character.toLowerCase()}_tree.png`;
+    const treeKey=(charId||character).toString().toLowerCase();
+    const treeImg=`resources/images/capacity_tree/${treeKey}_tree.png`;
     const FRAME=119;
 
     function close(){ setCapModal(null); setZone(null); setHover(null); }
@@ -649,7 +650,10 @@ function BuildPage(){
     const hasVerso=team.some((t,i)=>t.character==='Verso' && i!==idx);
     if(hasGustave) opts=opts.filter(ch=>ch!=='Verso');
     if(hasVerso) opts=opts.filter(ch=>ch!=='Gustave');
-    opts=opts.map(ch=>({value:ch,label:ch,icon:`resources/images/characters/${ch.toLowerCase()}_icon.png`}));
+    opts=opts.map(ch=>{
+      const key=(charIds[ch]||ch).toString().toLowerCase();
+      return {value:ch,label:ch,icon:`resources/images/characters/${key}_icon.png`};
+    });
     setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[],capacities:[]}),grid:true});
   }
   function openWeaponModal(idx){
@@ -767,7 +771,7 @@ function BuildPage(){
               <div className="build-col" key={cidx}>
                 <div className="char-head">
                   {col.character
-                    ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(cidx)}/>
+                    ? (()=>{const key=(charIds[col.character]||col.character).toString().toLowerCase();return <img className="char-img" src={`resources/images/characters/${key}.avif`} alt="" onClick={()=>openCharModal(cidx)}/>;})()
                     : <div className="char-add" onClick={()=>openCharModal(cidx)}>+</div>}
                   <div className="weapon-box">
                     {col.weapon
@@ -848,7 +852,7 @@ function BuildPage(){
                 <div className="build-col" key={idx}>
                   <div className="char-head">
                   {col.character
-                      ? <img className="char-img" src={`resources/images/characters/${col.character.toLowerCase()}.avif`} alt="" onClick={()=>openCharModal(idx)}/>
+                      ? (()=>{const key=(charIds[col.character]||col.character).toString().toLowerCase();return <img className="char-img" src={`resources/images/characters/${key}.avif`} alt="" onClick={()=>openCharModal(idx)}/>;})()
                       : <div className="char-add" onClick={()=>openCharModal(idx)}>+</div>}
                     <div className="weapon-box">
                     {col.weapon
