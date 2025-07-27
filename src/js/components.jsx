@@ -37,7 +37,10 @@ const Header = () => {
   return (
     <nav className="navbar navbar-dark">
       <div className="container-fluid header-inner">
-        <NavLink className="navbar-brand" to="/index" data-i18n="nav_brand">Clair Obscur Helper</NavLink>
+        <NavLink className="navbar-brand" to="/index" data-i18n="nav_brand">
+          <img src="resources/images/icons/icon_base_maxsize.png" alt="" className="site-logo"/>
+          Clair Obscur Helper
+        </NavLink>
         <button className="burger-btn" onClick={() => setMenuOpen(o => !o)}><i className="fa-solid fa-bars"></i></button>
         <div className={`nav-collapse${menuOpen ? ' show' : ''}`}>
           <ul className="navbar-nav flex-row">

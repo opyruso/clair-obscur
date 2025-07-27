@@ -1,11 +1,15 @@
 let currentLang = localStorage.getItem('lang') || 'en';
 let translations = {};
 let gameTranslations = {};
+let enTranslations = {};
+let enGameTranslations = {};
 let showLabels = localStorage.getItem('showLabels') === '1';
 
 function t(key, vars) {
   let str = translations[key];
   if(str === undefined) str = gameTranslations[key];
+  if(str === undefined) str = enTranslations[key];
+  if(str === undefined) str = enGameTranslations[key];
   if(str === undefined) str = key;
   if (vars) {
     for (const k in vars) {
@@ -18,6 +22,8 @@ function t(key, vars) {
 function tg(key, label, vars){
   let str = gameTranslations[key];
   if(str === undefined) str = translations[key];
+  if(str === undefined) str = enGameTranslations[key];
+  if(str === undefined) str = enTranslations[key];
   if(str === undefined) str = label !== undefined ? label : key;
   if (vars) {
     for (const k in vars) {
@@ -25,6 +31,17 @@ function tg(key, label, vars){
     }
   }
   return showLabels ? key : str;
+}
+
+function formatGameString(str){
+  return str
+    .replace(/<br\s*\/?\s*>/gi, '<br/>')
+    .replace(/<span class='([^']+)'>([^<]*)<\/span>/gi, (m, cls, txt) => {
+      return `<span class="game-span"><img src="resources/images/icons/game/${cls}.webp" class="game-icon" alt=""/>${txt}</span>`;
+    })
+    .replace(/<img id='([^']+)'\s*\/>/gi, (m, id) => {
+      return `<img src="resources/images/icons/game/${id}.webp" class="game-img" alt=""/>`;
+    });
 }
 
 async function loadLang(lang) {
@@ -35,6 +52,10 @@ async function loadLang(lang) {
     gameTranslations = await fetch(`lang/gamedata_${lang}.json`).then(r => r.json());
   } catch (e) {
     gameTranslations = {};
+  }
+  if(!Object.keys(enTranslations).length){
+    try { enTranslations = await fetch('lang/en.json').then(r => r.json()); } catch(e){ enTranslations = {}; }
+    try { enGameTranslations = await fetch('lang/gamedata_en.json').then(r => r.json()); } catch(e){ enGameTranslations = {}; }
   }
   document.documentElement.lang = lang;
   applyTranslations();
@@ -56,7 +77,8 @@ function applyTranslations() {
     if(showLabels){
       el.innerHTML = `<span class="label-debug ${src}">${key}</span>`;
     }else if (translations[key] || gameTranslations[key]){
-      el.textContent = t(key);
+      const str = t(key);
+      el.innerHTML = src === 'game' ? formatGameString(str) : str;
     }
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
