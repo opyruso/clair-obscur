@@ -1,3 +1,6 @@
+    html {
+      font-size: 18px;
+    }
     body {
       position: relative;
       background-color: #191c23;
@@ -37,7 +40,7 @@
     .icon-bar {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 .icon-btn {
@@ -755,7 +758,7 @@ body {
 .char-select img:hover{opacity:0.6;}
 .char-select img.active{opacity:1;}
 
-.damage-icon{width:24px;height:24px;vertical-align:middle;}
+.damage-icon{width:36px;height:36px;vertical-align:middle;}
 
 a, button, .icon-btn, .toggle-btn, .nav-link, .pin-btn, .lang-flag,
 th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
