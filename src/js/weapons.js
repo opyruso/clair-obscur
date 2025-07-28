@@ -5,16 +5,32 @@ let characterIds = Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
 const defaultCharKeys=defaultCharacters.map(c=>c.toLowerCase());
 let charKeysById=Object.fromEntries(defaultCharKeys.map((k,i)=>[i+1,k]));
 const damageIcons={
+  // french names
   'Feu':'fire',
   'Glace':'ice',
   'Lumière':'light',
+  'Clair':'light',
   'Léger':'light',
   'Éclair':'lightning',
   'Foudre':'lightning',
   'Physique':'physical',
   'Sombre':'dark',
+  'Obscur':'dark',
   'Terre':'nature',
-  'Vide':'void'
+  'Vide':'void',
+  'Néant':'void',
+  // english keys
+  'fire':'fire',
+  'ice':'ice',
+  'light':'light',
+  'lightning':'lightning',
+  'lightening':'lightning',
+  'physical':'physical',
+  'dark':'dark',
+  'shadow':'dark',
+  'earth':'nature',
+  'void':'void',
+  'none':'physical'
 };
 let allWeapons = [];
 let weapons = [];
@@ -93,6 +109,7 @@ function mapWeapons(list){
       region:w.region||'',
       unlock_description:w.unlockDescription||null,
       damage_type:damageTypeNames[w.damageType]||w.damageType||'',
+      damage_type_key:w.damageType,
       effects,
       damage_buff:buffs.map(b=>damageBuffNames[b]||b)
     };
@@ -208,11 +225,16 @@ function renderCards(){
     const card=document.createElement('div');
     card.className='card'+(owned?' owned':'');
     card.dataset.id=w.id;
-    const icon=damageIcons[w.damage_type]||'physical';
-    const effects=w.effects.map(e=>`<div class="effect">${e}</div>`).join('');
-    card.innerHTML=`<div class="card-inner"><img class="weapon-img" src="resources/images/weapons/${w.charKey}/${w.id}.png" alt=""><div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><img class="damage-icon" src="resources/images/icons/damage/${icon}.png" alt="${w.damage_type||''}"><span class="name">${w.name}</span></div><div class="badges">${(w.damage_buff||[]).map(b=>`<span class="badge">${t(b)||b}</span>`).join('')}</div>${effects}<div class="region">${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</div></div></div>`;
-    card.querySelector('.pin-btn').addEventListener('click',e=>{e.stopPropagation();toggleWeapon(w.id);});
-    container.appendChild(card);
+    const icon=damageIcons[w.damage_type_key]||damageIcons[w.damage_type]||'physical';
+    const levels=[4,10,20];
+    const effects=w.effects.map((e,i)=>`<p class="section-title">${t('level')} ${levels[i]}</p><div class="effect">${e}</div>`).join('');
+    const front=`<div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><img class="damage-icon" src="resources/images/icons/damage/${icon}.png" alt="${w.damage_type||''}"><span class="name">${w.name}</span></div><div class="badges">${(w.damage_buff||[]).map(b=>`<span class="badge">${t(b)||b}</span>`).join('')}</div>${effects}</div>`;
+    const back=`<div class="card-face card-back"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region-block">${w.region?`<div class="region-title">${w.region}</div>`:''}${w.unlock_description?`<div class="description">${w.unlock_description}</div>`:''}</div></div>`;
+    card.innerHTML=`<div class="card-inner"><img class="weapon-img" src="resources/images/weapons/${w.charKey}/${w.id}.png" alt="">${front}${back}</div>`;
+    card.addEventListener('mousemove',handleCardPressMove);
+    card.addEventListener('mouseleave',handleCardPressLeave);
+    card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');if(pin){e.stopPropagation();toggleWeapon(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
+  container.appendChild(card);
   });
 }
 
@@ -226,7 +248,7 @@ function renderTable(){
     html+=`<td class="checkbox-cell"><input type="checkbox" ${myWeapons.has(w.id)?'checked':''} data-id="${w.id}" class="picto-checkbox"></td>`;
     html+=`<td class="name-cell">${w.name}</td>`;
     html+=`<td>${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</td>`;
-    const icon=damageIcons[w.damage_type]||'physical';
+    const icon=damageIcons[w.damage_type_key]||damageIcons[w.damage_type]||'physical';
     html+=`<td><img class="damage-icon" src="resources/images/icons/damage/${icon}.png" alt="${w.damage_type||''}"></td>`;
     html+=`<td>${(w.damage_buff||[]).join(', ')}</td>`;
     html+='</tr>';

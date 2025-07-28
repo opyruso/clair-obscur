@@ -184,8 +184,12 @@ function renderCards(){
       const card=document.createElement('div');
       card.className='card'+(owned?' owned':'');
       card.dataset.id=w.id;
-      card.innerHTML=`<div class="card-inner"><img class="outfit-img" src="resources/images/outfits/${w.charKey}/${w.id}.webp" alt=""><div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region">${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</div></div></div>`;
-      card.querySelector('.pin-btn').addEventListener('click',e=>{e.stopPropagation();toggleOutfit(w.id);});
+      const front=`<div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div></div>`;
+      const back=`<div class="card-face card-back"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region-block">${w.region?`<div class="region-title">${w.region}</div>`:''}${w.unlock_description?`<div class="description">${w.unlock_description}</div>`:''}</div></div>`;
+      card.innerHTML=`<div class="card-inner"><img class="outfit-img" src="resources/images/outfits/${w.charKey}/${w.id}.webp" alt="">${front}${back}</div>`;
+      card.addEventListener('mousemove',handleCardPressMove);
+      card.addEventListener('mouseleave',handleCardPressLeave);
+      card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');if(pin){e.stopPropagation();toggleOutfit(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
       container.appendChild(card);
     });
   };

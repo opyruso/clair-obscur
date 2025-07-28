@@ -122,6 +122,9 @@ function handleCardPressLeave(e) {
   e.currentTarget.style.transform = '';
 }
 
+window.handleCardPressMove = handleCardPressMove;
+window.handleCardPressLeave = handleCardPressLeave;
+
     document.addEventListener('click', () => {
       const modal = document.getElementById('modal');
       if(modal && modal.style.display !== 'none') modal.style.display = 'none';
