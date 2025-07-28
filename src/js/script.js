@@ -107,7 +107,7 @@ function isContributor(){
   return window.keycloak?.hasResourceRole?.('contributor','coh-app');
 }
 
-function openEditModal(type,id){
+function openEditModal(type,id,character){
   if(!isContributor()) return;
   const langs=['en','fr','de','es','it','pl','pt'];
   const api=window.CONFIG?.["clairobscur-api-url"]||'';
@@ -165,7 +165,7 @@ function openEditModal(type,id){
       const d=form.querySelector(`textarea[data-field="desc"][data-lang="${l}"]`).value.trim()||descEn;
       const body={lang:l,region:r,unlockDescription:d};
       if(type==='picto') body.idPicto=id;
-      else if(type==='weapon') body.idWeapon=id;
+      else if(type==='weapon'){ body.idWeapon=id; if(character) body.character=character; }
       else body.idOutfit=id;
       const endpoint=type==='picto'?'/contrib/pictos/':type==='weapon'?'/contrib/weapons/':'/contrib/outfits/';
       try{await apiFetch(`${api}${endpoint}${encodeURIComponent(id)}`,{method:'PUT',headers:{'Accept':'application/json'},body});}

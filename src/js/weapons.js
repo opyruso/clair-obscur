@@ -234,7 +234,7 @@ function renderCards(){
     card.innerHTML=`<div class="card-inner"><img class="weapon-img" src="resources/images/weapons/${w.charKey}/${w.id}.png" alt="">${front}${back}</div>`;
     card.addEventListener('mousemove',handleCardPressMove);
     card.addEventListener('mouseleave',handleCardPressLeave);
-    card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');const edit=e.target.closest('.edit-btn');if(edit){e.stopPropagation();openEditModal('weapon',w.id);}else if(pin){e.stopPropagation();toggleWeapon(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
+    card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');const edit=e.target.closest('.edit-btn');if(edit){e.stopPropagation();openEditModal('weapon',w.id,w.charKey);}else if(pin){e.stopPropagation();toggleWeapon(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
   container.appendChild(card);
   });
 }
