@@ -295,6 +295,10 @@ body[data-page="pictos"] .card.owned::after {
     .card.owned .pin-btn {
       transform: rotate(-35deg);
     }
+    .edit-btn {
+      cursor: pointer;
+      display: inline-block;
+    }
     .name {
       font-size: 1.4em;
       font-weight: 700;
@@ -573,6 +577,12 @@ body[data-page="outfits"] .card-back {
 #capModal { z-index: 1050; }
 #capModal .modal-content { width: 75%; max-width:none; }
 @media (max-width:800px) { #capModal .modal-content { width: 95%; } }
+#editModal { z-index: 1200; }
+#editModal .modal-content { max-width: 600px; }
+#editModal label { display:block; margin-top:6px; }
+#editModal input, #editModal textarea { width:100%; margin-bottom:6px; }
+#editModal textarea{ resize:vertical; }
+#editModal .modal-actions{ margin-top:10px; text-align:right; }
 .notification {
   background: #323846;
   color: #fff;

@@ -228,12 +228,13 @@ function renderCards(){
     const icon=damageIcons[w.damage_type_key]||damageIcons[w.damage_type]||'physical';
     const levels=[4,10,20];
     const effects=w.effects.map((e,i)=>`<p class="section-title">${t('level')} ${levels[i]}</p><div class="effect">${e}</div>`).join('');
-    const front=`<div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><img class="damage-icon" src="resources/images/icons/damage/${icon}.png" alt="${w.damage_type||''}"><span class="name">${w.name}</span></div><div class="badges">${(w.damage_buff||[]).map(b=>`<span class="badge">${t(b)||b}</span>`).join('')}</div>${effects}</div>`;
-    const back=`<div class="card-face card-back"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region-block">${w.region?`<div class="region-title">${w.region}</div>`:''}${w.unlock_description?`<div class="description">${w.unlock_description}</div>`:''}</div></div>`;
+    const editIcon=isContributor()?`<span class="edit-btn" data-id="${w.id}"><i class="fa-solid fa-pen"></i></span>`:'';
+    const front=`<div class="card-face card-front"><div class="card-header">${editIcon}<span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><img class="damage-icon" src="resources/images/icons/damage/${icon}.png" alt="${w.damage_type||''}"><span class="name">${w.name}</span></div><div class="badges">${(w.damage_buff||[]).map(b=>`<span class="badge">${t(b)||b}</span>`).join('')}</div>${effects}</div>`;
+    const back=`<div class="card-face card-back"><div class="card-header">${editIcon}<span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region-block">${w.region?`<div class="region-title">${w.region}</div>`:''}${w.unlock_description?`<div class="description">${w.unlock_description}</div>`:''}</div></div>`;
     card.innerHTML=`<div class="card-inner"><img class="weapon-img" src="resources/images/weapons/${w.charKey}/${w.id}.png" alt="">${front}${back}</div>`;
     card.addEventListener('mousemove',handleCardPressMove);
     card.addEventListener('mouseleave',handleCardPressLeave);
-    card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');if(pin){e.stopPropagation();toggleWeapon(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
+    card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');const edit=e.target.closest('.edit-btn');if(edit){e.stopPropagation();openEditModal('weapon',w.id);}else if(pin){e.stopPropagation();toggleWeapon(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
   container.appendChild(card);
   });
 }

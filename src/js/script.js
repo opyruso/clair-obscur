@@ -103,12 +103,88 @@ function notify(msg, delay = 3000) {
   }, delay);
 }
 
+function isContributor(){
+  return window.keycloak?.hasResourceRole?.('contributor','coh-app');
+}
+
+function openEditModal(type,id){
+  if(!isContributor()) return;
+  const langs=['en','fr','de','es','it','pl','pt'];
+  const api=window.CONFIG?.["clairobscur-api-url"]||'';
+  const modal=document.createElement('div');
+  modal.className='modal';
+  modal.id='editModal';
+  modal.addEventListener('click',()=>modal.remove());
+  const content=document.createElement('div');
+  content.className='modal-content';
+  content.addEventListener('click',e=>e.stopPropagation());
+  modal.appendChild(content);
+  const form=document.createElement('div');
+  langs.forEach(l=>{
+    const lab=document.createElement('label');
+    lab.textContent=`[${l.toUpperCase()}] Region${l==='en'?'*':''}`;
+    const inp=document.createElement('input');
+    inp.dataset.lang=l; inp.dataset.field='region';
+    form.appendChild(lab); form.appendChild(inp);
+  });
+  langs.forEach(l=>{
+    const lab=document.createElement('label');
+    lab.textContent=`[${l.toUpperCase()}] Description${l==='en'?'*':''}`;
+    const ta=document.createElement('textarea');
+    ta.rows=3; ta.dataset.lang=l; ta.dataset.field='desc';
+    form.appendChild(lab); form.appendChild(ta);
+  });
+  const actions=document.createElement('div');
+  actions.className='modal-actions';
+  const cancel=document.createElement('button');
+  cancel.className='modal-save-btn';
+  cancel.textContent='Cancel';
+  cancel.onclick=()=>modal.remove();
+  const save=document.createElement('button');
+  save.className='modal-save-btn';
+  save.textContent='Save';
+  save.disabled=true;
+  const check=()=>{
+    const re=form.querySelector('input[data-field="region"][data-lang="en"]').value.trim();
+    const de=form.querySelector('textarea[data-field="desc"][data-lang="en"]').value.trim();
+    save.disabled=!re||!de;
+  };
+  form.addEventListener('input',check);
+  actions.appendChild(cancel); actions.appendChild(save);
+  content.appendChild(form); content.appendChild(actions);
+  document.body.appendChild(modal);
+  check();
+
+  save.onclick=async()=>{
+    check();
+    if(save.disabled) return;
+    const regionEn=form.querySelector('input[data-field="region"][data-lang="en"]').value.trim();
+    const descEn=form.querySelector('textarea[data-field="desc"][data-lang="en"]').value.trim();
+    for(const l of langs){
+      const r=form.querySelector(`input[data-field="region"][data-lang="${l}"]`).value.trim()||regionEn;
+      const d=form.querySelector(`textarea[data-field="desc"][data-lang="${l}"]`).value.trim()||descEn;
+      const body={lang:l,region:r,unlockDescription:d};
+      if(type==='picto') body.idPicto=id;
+      else if(type==='weapon') body.idWeapon=id;
+      else body.idOutfit=id;
+      const endpoint=type==='picto'?'/contrib/pictos/':type==='weapon'?'/contrib/weapons/':'/contrib/outfits/';
+      try{await apiFetch(`${api}${endpoint}${encodeURIComponent(id)}`,{method:'PUT',headers:{'Accept':'application/json'},body});}
+      catch(e){console.error('Save failed',e);}
+    }
+    modal.remove();
+    notify('Saved');
+  };
+}
+
+window.openEditModal=openEditModal;
+window.isContributor=isContributor;
+
 function handleCardPressMove(e) {
   const card = e.currentTarget;
   const rect = card.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  if(x < rect.width*0.25 && y < rect.height*0.25 || e.target.closest('.pin-btn')) {
+  if(x < rect.width*0.25 && y < rect.height*0.25 || e.target.closest('.pin-btn') || e.target.closest('.edit-btn')) {
     card.style.transform = '';
     return;
   }
@@ -342,7 +418,8 @@ window.handleCardPressLeave = handleCardPressLeave;
         }
 
         let front = `<div class="card-face card-front">`;
-        front += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
+        const editIcon=isContributor()?`<span class="edit-btn" data-id="${p.id}"><i class="fa-solid fa-pen"></i></span>`:'';
+        front += `<div class="card-header">${editIcon}<span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
         if (p.bonus_picto && Object.keys(p.bonus_picto).length > 0) {
           front += `<div class="bonus-list">`;
           for (const k in p.bonus_picto) {
@@ -356,7 +433,7 @@ window.handleCardPressLeave = handleCardPressLeave;
         front += `</div>`;
 
         let back = `<div class="card-face card-back">`;
-        back += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
+        back += `<div class="card-header">${editIcon}<span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
         back += `<div class="level">Lv. ${p.level || ''}</div>`;
         back += `<div class="region-block">`;
         if (p.region)
@@ -371,7 +448,11 @@ window.handleCardPressLeave = handleCardPressLeave;
         card.addEventListener('mouseleave', handleCardPressLeave);
         card.addEventListener('click', e => {
           const pin = e.target.closest('.pin-btn');
-          if(pin) {
+          const edit = e.target.closest('.edit-btn');
+          if(edit){
+            e.stopPropagation();
+            openEditModal('picto', p.id);
+          } else if(pin) {
             e.stopPropagation();
             togglePicto(pin.dataset.id);
           } else {
