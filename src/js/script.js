@@ -107,10 +107,14 @@ function isContributor(){
   return window.keycloak?.hasResourceRole?.('contributor','coh-app');
 }
 
-function openEditModal(type,id,character){
+async function openEditModal(type,id,character){
   if(!isContributor()) return;
   const langs=['en','fr','de','es','it','pl','pt'];
   const api=window.CONFIG?.["clairobscur-api-url"]||'';
+  if(!window.enGameTranslations||!Object.keys(window.enGameTranslations).length){
+    try{window.enGameTranslations=await fetch('lang/gamedata_en.json').then(r=>r.json());}
+    catch(e){window.enGameTranslations={};}
+  }
   const regionKeys=Object.keys(window.enGameTranslations||{})
     .filter(k=>k.startsWith('ST_LevelData/LEVEL_'))
     .sort();
@@ -139,11 +143,19 @@ function openEditModal(type,id,character){
   regSel.appendChild(emptyOpt);
   regionKeys.forEach(k=>{const op=document.createElement('option');op.value=k;op.textContent=tg(k,k);regSel.appendChild(op);});
   form.appendChild(regLab); form.appendChild(regSel);
+  const currentObj=type==='picto'?pictos.find(p=>p.id===id)
+    :type==='weapon'?allWeapons.find(w=>w.id===id)
+    :allOutfits.find(o=>o.id===id);
+  if(currentObj){
+    const regKey=regionKeys.find(k=>tg(k,k)===currentObj.region);
+    if(regKey) regSel.value=regKey;
+  }
   langs.forEach(l=>{
     const lab=document.createElement('label');
     lab.textContent=`[${l.toUpperCase()}] Description${l==='en'?'*':''}`;
     const ta=document.createElement('textarea');
     ta.rows=3; ta.dataset.lang=l; ta.dataset.field='desc';
+    if(currentObj) ta.value=currentObj.unlock_description||'';
     form.appendChild(lab); form.appendChild(ta);
   });
   const actions=document.createElement('div');
