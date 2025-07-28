@@ -33,6 +33,7 @@ const damageIcons={
   'none':'physical'
 };
 let allWeapons = [];
+window.allWeapons = allWeapons;
 let weapons = [];
 let filteredWeapons = [];
 let damageBuffNames = {};
@@ -150,6 +151,7 @@ function loadData(){
     initCharacters();
     const list = mapWeapons(data.weapons || []);
     allWeapons=list.map(w=>({id:w.id,...w}));
+    window.allWeapons = allWeapons;
     myWeapons = new Set(getSavedItems(storageKey, currentCharId));
     applyFilters();
   });
@@ -285,4 +287,5 @@ function onSiteDataUpdated(){
 }
 
 window.weaponsPage = { initPage, updateTranslations, loadData, render, onSiteDataUpdated, sortTableCol };
+window.allWeapons = allWeapons;
 })();
