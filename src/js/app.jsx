@@ -807,18 +807,25 @@ function BuildPage(){
   }
 
   async function saveMeta(){
-    if(!apiUrl || !buildMeta.id) { setEditMeta(false); return; }
+    if(!apiUrl){ setEditMeta(false); return; }
     try{
-      const userId=window.keycloak?.tokenParsed?.sub;
-      const payload={
-        title:buildMeta.title,
-        description:buildMeta.description,
-        recommendedLevel:Number(buildMeta.level)||0,
-        content:JSON.stringify(team),
-        author:userId
+      const userId = window.keycloak?.tokenParsed?.sub;
+      const payload = {
+        title: buildMeta.title,
+        description: buildMeta.description,
+        recommendedLevel: Number(buildMeta.level) || 0,
+        content: JSON.stringify(team),
+        author: userId,
       };
-      const r=await apiFetch(`${apiUrl}/builds/${encodeURIComponent(buildMeta.id)}`,{method:'PUT',body:payload});
-      if(r.ok) setEditMeta(false);
+      const id = buildMeta.id;
+      const url = id ? `${apiUrl}/builds/${encodeURIComponent(id)}` : `${apiUrl}/builds`;
+      const method = id ? 'PUT' : 'POST';
+      const r = await apiFetch(url, { method, body: payload });
+      if(r.ok){
+        const data = await r.json().catch(()=>null);
+        if(!id && data?.id) setBuildMeta(m=>({...m,id:data.id}));
+        setEditMeta(false);
+      }
     }catch(e){ console.error('save build failed',e); }
   }
 
