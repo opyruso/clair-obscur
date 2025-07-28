@@ -5,6 +5,7 @@ let characterIds = Object.fromEntries(defaultCharacters.map((c,i)=>[c,i+1]));
 const defaultCharKeys=defaultCharacters.map(c=>c.toLowerCase());
 let charKeysById=Object.fromEntries(defaultCharKeys.map((k,i)=>[i+1,k]));
 let allOutfits = [];
+window.allOutfits = allOutfits;
 let outfits = [];
 let filteredOutfits = [];
 let myOutfits = new Set();
@@ -101,6 +102,7 @@ function loadData(){
     initCharacters();
     const list = mapOutfits(data.outfits || []);
     allOutfits=list.map(w=>({id:w.id,...w}));
+    window.allOutfits = allOutfits;
     getSavedItems(storageKey).forEach(id=>myOutfits.add(id));
     applyFilters();
   });
@@ -241,4 +243,5 @@ function onSiteDataUpdated(){
 }
 
 window.outfitsPage = { initPage, updateTranslations, loadData, render, onSiteDataUpdated, sortTableCol };
+window.allOutfits = allOutfits;
 })();
