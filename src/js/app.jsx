@@ -746,10 +746,11 @@ function BuildPage(){
       .then(()=>alert(t('link_copied')))
       .catch(()=>{});
 
+    const userId=window.keycloak?.tokenParsed?.sub;
     if(apiUrl){
       apiFetch(`${apiUrl}/public/builds`,{
         method:'POST',
-        body:team
+        body:{content:JSON.stringify(team),author:userId}
       })
         .then(r=>r.ok?r.json():Promise.reject())
         .then(({id})=>{
@@ -808,11 +809,13 @@ function BuildPage(){
   async function saveMeta(){
     if(!apiUrl || !buildMeta.id) { setEditMeta(false); return; }
     try{
+      const userId=window.keycloak?.tokenParsed?.sub;
       const payload={
         title:buildMeta.title,
         description:buildMeta.description,
         recommendedLevel:Number(buildMeta.level)||0,
-        content:JSON.stringify(team)
+        content:JSON.stringify(team),
+        author:userId
       };
       const r=await apiFetch(`${apiUrl}/builds/${encodeURIComponent(buildMeta.id)}`,{method:'PUT',body:payload});
       if(r.ok) setEditMeta(false);
