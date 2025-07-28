@@ -215,6 +215,9 @@ function BuildPage(){
   const [modal,setModal]=useState(null);
   const [capModal,setCapModal]=useState(null);
   const [capEdit,setCapEdit]=useState(false);
+  const [buildMeta,setBuildMeta]=useState({id:null,title:'',description:'',level:''});
+  const [editMeta,setEditMeta]=useState(false);
+  const origMeta = React.useRef(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
   function mapPictos(list){
@@ -743,10 +746,11 @@ function BuildPage(){
       .then(()=>alert(t('link_copied')))
       .catch(()=>{});
 
+    const userId=window.keycloak?.tokenParsed?.sub;
     if(apiUrl){
       apiFetch(`${apiUrl}/public/builds`,{
         method:'POST',
-        body:team
+        body:{content:JSON.stringify(team),author:userId}
       })
         .then(r=>r.ok?r.json():Promise.reject())
         .then(({id})=>{
@@ -764,13 +768,124 @@ function BuildPage(){
     }
   }
 
+  async function openBuildList(){
+    if(!apiUrl || !window.keycloak?.authenticated) return;
+    try{
+      const r = await apiFetch(`${apiUrl}/builds`);
+      if(!r.ok) return;
+      const list = await r.json();
+      if(!Array.isArray(list)) return;
+      setModal({
+        options:list.map(b=>({value:b.id,label:b.title||b.id})),
+        onSelect:id=>{ loadBuild(id); },
+        hideCheck:true
+      });
+    }catch(e){ console.error('load builds failed',e); }
+  }
+
+  async function loadBuild(id){
+    if(!apiUrl) return;
+    try{
+      const r = await apiFetch(`${apiUrl}/public/builds/${encodeURIComponent(id)}`);
+      if(!r.ok) return;
+      const data = await r.json();
+      if(data){
+        setBuildMeta({
+          id:id,
+          title:data.title||'',
+          description:data.description||'',
+          level:data.recommendedLevel||''
+        });
+        let content = data.content;
+        try{ if(typeof content === 'string') content = JSON.parse(content); }
+        catch(e){}
+        if(Array.isArray(content) && content.length===5) {
+          setTeam(content.map(o=>({character:'',weapon:'',buffStats:[0,0,0,0,0],mainPictos:[null,null,null],subPictos:[],capacities:[],...o,capacities:o.capacities||[]})));
+        }
+      }
+    }catch(e){ console.error('load build failed',e); }
+  }
+
+  async function saveMeta(){
+    if(!apiUrl){ setEditMeta(false); return; }
+    try{
+      const userId = window.keycloak?.tokenParsed?.sub;
+      const payload = {
+        title: buildMeta.title,
+        description: buildMeta.description,
+        recommendedLevel: Number(buildMeta.level) || 0,
+        content: JSON.stringify(team),
+        author: userId,
+      };
+      const id = buildMeta.id;
+      const url = id ? `${apiUrl}/builds/${encodeURIComponent(id)}` : `${apiUrl}/builds`;
+      const method = id ? 'PUT' : 'POST';
+      const r = await apiFetch(url, { method, body: payload });
+      if(r.ok){
+        const data = await r.json().catch(()=>null);
+        if(!id && data?.id) setBuildMeta(m=>({...m,id:data.id}));
+        setEditMeta(false);
+      }
+    }catch(e){ console.error('save build failed',e); }
+  }
+
+  function cancelEdit(){
+    if(origMeta.current) setBuildMeta(origMeta.current);
+    setEditMeta(false);
+  }
+
+  function toggleEdit(){
+    if(!editMeta){ origMeta.current = {...buildMeta}; }
+    setEditMeta(e=>!e);
+  }
+
   return (
     <>
       <main className="content-wrapper mt-4 flex-grow-1">
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <h1 data-i18n="heading_build">Team builder</h1>
-          <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
+          <div>
+            <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
+            {window.keycloak?.authenticated && (
+              <>
+                <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
+                <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
+              </>
+            )}
+          </div>
         </div>
+        {buildMeta.id && !editMeta && (
+          <div className="build-info">
+            <h2>{buildMeta.title}</h2>
+            <div>{buildMeta.description}</div>
+            <div>Recommended level: {buildMeta.level}</div>
+          </div>
+        )}
+        {editMeta && (
+          <div className="build-info-edit">
+            <input
+              type="text"
+              value={buildMeta.title}
+              onChange={e=>setBuildMeta(m=>({...m,title:e.target.value}))}
+              placeholder="Title"
+            />
+            <textarea
+              value={buildMeta.description}
+              onChange={e=>setBuildMeta(m=>({...m,description:e.target.value}))}
+              placeholder="Description"
+            />
+            <input
+              type="number"
+              value={buildMeta.level}
+              onChange={e=>setBuildMeta(m=>({...m,level:e.target.value}))}
+              placeholder="Recommended level"
+            />
+            <div>
+              <button className="modal-save-btn" onClick={saveMeta}>{t('save')}</button>
+              <button className="modal-save-btn" onClick={cancelEdit}>Cancel</button>
+            </div>
+          </div>
+        )}
         <div className="team-builder">
           <div className="main-team">
             <h2 className="team-title" data-i18n="main_team">{t('main_team')}</h2>
