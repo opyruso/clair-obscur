@@ -107,6 +107,20 @@ function isContributor(){
   return window.keycloak?.hasResourceRole?.('contributor','coh-app');
 }
 
+function regionKeyFromLabel(label){
+  if(!label) return '';
+  if(!window.regionLabelMap){
+    window.regionLabelMap={};
+    const enMap=window.enGameTranslations||{};
+    for(const k in enMap){
+      if(k.startsWith('ST_LevelData/LEVEL_')){
+        window.regionLabelMap[enMap[k]]=k;
+      }
+    }
+  }
+  return window.regionLabelMap[label]||label;
+}
+
 async function openEditModal(type,id,character){
   if(!isContributor()) return;
   const langs=['en','fr','de','es','it','pl','pt'];
@@ -147,7 +161,10 @@ async function openEditModal(type,id,character){
     :type==='weapon'?allWeapons.find(w=>w.id===id)
     :allOutfits.find(o=>o.id===id);
   if(currentObj){
-    const regKey=regionKeys.find(k=>tg(k,k)===currentObj.region);
+    let regKey=currentObj.region;
+    if(!regionKeys.includes(regKey)){
+      regKey=regionKeys.find(k=>tg(k,k)===currentObj.region);
+    }
     if(regKey) regSel.value=regKey;
   }
   langs.forEach(l=>{
@@ -197,16 +214,15 @@ async function openEditModal(type,id,character){
       try{await apiFetch(`${api}${endpoint}${encodeURIComponent(id)}`,{method:'PUT',headers:{'Accept':'application/json'},body});}
       catch(e){console.error('Save failed',e);}
     }
-    const regionText=tg(regionKey,regionKey);
     const descCur=descMap[currentLang]||descEn;
     if(type==='picto'){
-      const obj=pictos.find(p=>p.id===id); if(obj){obj.region=regionText; obj.unlock_description=descCur;}
+      const obj=pictos.find(p=>p.id===id); if(obj){obj.region=regionKey; obj.unlock_description=descCur;}
       if(window.pictosPage) window.pictosPage.render();
     }else if(type==='weapon'){
-      const obj=allWeapons.find(w=>w.id===id); if(obj){obj.region=regionText; obj.unlock_description=descCur;}
+      const obj=allWeapons.find(w=>w.id===id); if(obj){obj.region=regionKey; obj.unlock_description=descCur;}
       if(window.weaponsPage) window.weaponsPage.render();
     }else{
-      const obj=allOutfits.find(o=>o.id===id); if(obj){obj.region=regionText; obj.unlock_description=descCur;}
+      const obj=allOutfits.find(o=>o.id===id); if(obj){obj.region=regionKey; obj.unlock_description=descCur;}
       if(window.outfitsPage) window.outfitsPage.render();
     }
     removeModal();
@@ -216,6 +232,7 @@ async function openEditModal(type,id,character){
 
 window.openEditModal=openEditModal;
 window.isContributor=isContributor;
+window.regionKeyFromLabel=regionKeyFromLabel;
 
 function handleCardPressMove(e) {
   const card = e.currentTarget;
@@ -370,7 +387,7 @@ window.handleCardPressLeave = handleCardPressLeave;
       return list.map(p=>({
         id:p.idPicto,
         name:tg(p.nameKey||p.name,p.name)||'',
-        region:p.region||'',
+        region:regionKeyFromLabel(p.region||''),
         level:p.level,
         bonus_picto:{
           defense:p.bonusDefense,
@@ -475,7 +492,7 @@ window.handleCardPressLeave = handleCardPressLeave;
         back += `<div class="level">Lv. ${p.level || ''}</div>`;
         back += `<div class="region-block">`;
         if (p.region)
-          back += `<div class="region-title">${p.region}</div>`;
+          back += `<div class="region-title">${tg(p.region,p.region)}</div>`;
         if (p.unlock_description)
           back += `<div class="description">${p.unlock_description}</div>`;
         back += `</div></div>`;
@@ -532,7 +549,7 @@ window.handleCardPressLeave = handleCardPressLeave;
         tableCols.slice(1).forEach(col => {
           if(col.key === "unlock_description") {
             if(showInfoCol) {
-              const region = hideInfo ? (p.region || '') : '';
+              const region = hideInfo ? (tg(p.region,p.region) || '') : '';
               const level = hideInfo ? (p.level || '') : '';
               const desc = hideUnlock ? (p.unlock_description || '') : '';
               const r = region.replace(/"/g,'&quot;');
@@ -551,10 +568,12 @@ window.handleCardPressLeave = handleCardPressLeave;
           if (["defense","speed","critical-luck","health"].includes(col.key)) {
             val = (p.bonus_picto && typeof p.bonus_picto[col.key] !== "undefined") ? p.bonus_picto[col.key] : "";
             if(col.key==="critical-luck" && val!=="") val = val+"%";
-          } else if (col.key === "level") {
-            val = p.level || "";
-          } else {
-            val = p[col.key] || "";
+            } else if (col.key === "level") {
+              val = p.level || "";
+            } else if(col.key === "region") {
+              val = tg(p.region,p.region) || '';
+            } else {
+              val = p[col.key] || "";
           }
           let cls = ["defense","speed","critical-luck","health"].includes(col.key) ? 'nowrap' : '';
           if(col.key==='name') cls += ' name-cell';
