@@ -111,22 +111,34 @@ function openEditModal(type,id,character){
   if(!isContributor()) return;
   const langs=['en','fr','de','es','it','pl','pt'];
   const api=window.CONFIG?.["clairobscur-api-url"]||'';
+  const regionKeys=Object.keys(window.enGameTranslations||{})
+    .filter(k=>k.startsWith('ST_LevelData/LEVEL_'))
+    .sort();
   const modal=document.createElement('div');
   modal.className='modal';
   modal.id='editModal';
-  modal.addEventListener('click',()=>modal.remove());
+  const removeModal=()=>{ modal.remove();
+    window.removeEventListener('popstate', removeModal);
+    history.pushState=origPush; history.replaceState=origReplace; };
+  const origPush=history.pushState.bind(history);
+  const origReplace=history.replaceState.bind(history);
+  history.pushState=(...a)=>{removeModal(); origPush(...a);};
+  history.replaceState=(...a)=>{removeModal(); origReplace(...a);};
+  modal.addEventListener('click',removeModal);
   const content=document.createElement('div');
   content.className='modal-content';
   content.addEventListener('click',e=>e.stopPropagation());
   modal.appendChild(content);
   const form=document.createElement('div');
-  langs.forEach(l=>{
-    const lab=document.createElement('label');
-    lab.textContent=`[${l.toUpperCase()}] Region${l==='en'?'*':''}`;
-    const inp=document.createElement('input');
-    inp.dataset.lang=l; inp.dataset.field='region';
-    form.appendChild(lab); form.appendChild(inp);
-  });
+  const regLab=document.createElement('label');
+  regLab.textContent='Region*';
+  const regSel=document.createElement('select');
+  regSel.dataset.field='region';
+  const emptyOpt=document.createElement('option');
+  emptyOpt.value=''; emptyOpt.textContent='';
+  regSel.appendChild(emptyOpt);
+  regionKeys.forEach(k=>{const op=document.createElement('option');op.value=k;op.textContent=tg(k,k);regSel.appendChild(op);});
+  form.appendChild(regLab); form.appendChild(regSel);
   langs.forEach(l=>{
     const lab=document.createElement('label');
     lab.textContent=`[${l.toUpperCase()}] Description${l==='en'?'*':''}`;
@@ -139,17 +151,18 @@ function openEditModal(type,id,character){
   const cancel=document.createElement('button');
   cancel.className='modal-save-btn';
   cancel.textContent='Cancel';
-  cancel.onclick=()=>modal.remove();
+  cancel.onclick=removeModal;
   const save=document.createElement('button');
   save.className='modal-save-btn';
   save.textContent='Save';
   save.disabled=true;
   const check=()=>{
-    const re=form.querySelector('input[data-field="region"][data-lang="en"]').value.trim();
+    const re=regSel.value.trim();
     const de=form.querySelector('textarea[data-field="desc"][data-lang="en"]').value.trim();
     save.disabled=!re||!de;
   };
   form.addEventListener('input',check);
+  regSel.addEventListener('change',check);
   actions.appendChild(cancel); actions.appendChild(save);
   content.appendChild(form); content.appendChild(actions);
   document.body.appendChild(modal);
@@ -158,12 +171,13 @@ function openEditModal(type,id,character){
   save.onclick=async()=>{
     check();
     if(save.disabled) return;
-    const regionEn=form.querySelector('input[data-field="region"][data-lang="en"]').value.trim();
+    const regionKey=regSel.value.trim();
     const descEn=form.querySelector('textarea[data-field="desc"][data-lang="en"]').value.trim();
+    const descMap={};
     for(const l of langs){
-      const r=form.querySelector(`input[data-field="region"][data-lang="${l}"]`).value.trim()||regionEn;
       const d=form.querySelector(`textarea[data-field="desc"][data-lang="${l}"]`).value.trim()||descEn;
-      const body={lang:l,region:r,unlockDescription:d};
+      descMap[l]=d;
+      const body={lang:l,region:regionKey,unlockDescription:d};
       if(type==='picto') body.idPicto=id;
       else if(type==='weapon'){ body.idWeapon=id; if(character) body.character=character; }
       else body.idOutfit=id;
@@ -171,7 +185,19 @@ function openEditModal(type,id,character){
       try{await apiFetch(`${api}${endpoint}${encodeURIComponent(id)}`,{method:'PUT',headers:{'Accept':'application/json'},body});}
       catch(e){console.error('Save failed',e);}
     }
-    modal.remove();
+    const regionText=tg(regionKey,regionKey);
+    const descCur=descMap[currentLang]||descEn;
+    if(type==='picto'){
+      const obj=pictos.find(p=>p.id===id); if(obj){obj.region=regionText; obj.unlock_description=descCur;}
+      if(window.pictosPage) window.pictosPage.render();
+    }else if(type==='weapon'){
+      const obj=allWeapons.find(w=>w.id===id); if(obj){obj.region=regionText; obj.unlock_description=descCur;}
+      if(window.weaponsPage) window.weaponsPage.render();
+    }else{
+      const obj=allOutfits.find(o=>o.id===id); if(obj){obj.region=regionText; obj.unlock_description=descCur;}
+      if(window.outfitsPage) window.outfitsPage.render();
+    }
+    removeModal();
     notify('Saved');
   };
 }
