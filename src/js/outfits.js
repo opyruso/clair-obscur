@@ -69,7 +69,7 @@ function mapOutfits(list){
       charKey,
       character:tg(w.characterNameKey||w.characterName,w.characterName)||'',
       name:tg(w.nameKey||w.name,w.name)||'',
-      region:w.region||'',
+      region:regionKeyFromLabel(w.region||''),
       unlock_description:w.unlockDescription||null
     };
   });
@@ -184,12 +184,13 @@ function renderCards(){
       const card=document.createElement('div');
       card.className='card'+(owned?' owned':'');
       card.dataset.id=w.id;
-      const front=`<div class="card-face card-front"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div></div>`;
-      const back=`<div class="card-face card-back"><div class="card-header"><span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region-block">${w.region?`<div class="region-title">${w.region}</div>`:''}${w.unlock_description?`<div class="description">${w.unlock_description}</div>`:''}</div></div>`;
+      const editIcon=isContributor()?`<span class="edit-btn" data-id="${w.id}"><i class="fa-solid fa-pen"></i></span>`:'';
+      const front=`<div class="card-face card-front"><div class="card-header">${editIcon}<span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div></div>`;
+      const back=`<div class="card-face card-back"><div class="card-header">${editIcon}<span class="pin-btn" data-id="${w.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${w.name}</span></div><div class="region-block">${w.region?`<div class="region-title">${tg(w.region,w.region)}</div>`:''}${w.unlock_description?`<div class="description">${w.unlock_description}</div>`:''}</div></div>`;
       card.innerHTML=`<div class="card-inner"><img class="outfit-img" src="resources/images/outfits/${w.charKey}/${w.id}.webp" alt="">${front}${back}</div>`;
       card.addEventListener('mousemove',handleCardPressMove);
       card.addEventListener('mouseleave',handleCardPressLeave);
-      card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');if(pin){e.stopPropagation();toggleOutfit(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
+      card.addEventListener('click',e=>{const pin=e.target.closest('.pin-btn');const edit=e.target.closest('.edit-btn');if(edit){e.stopPropagation();openEditModal('outfit',w.id);}else if(pin){e.stopPropagation();toggleOutfit(w.id);}else{card.classList.toggle('pinned');card.classList.toggle('flipped',card.classList.contains('pinned'));handleCardPressLeave({currentTarget:card});}});
       container.appendChild(card);
     });
   };
@@ -206,7 +207,7 @@ function renderTable(){
     html+=`<tr data-id="${w.id}"${myOutfits.has(w.id)?' class="owned"':''}>`;
     html+=`<td class="checkbox-cell"><input type="checkbox" ${myOutfits.has(w.id)?'checked':''} data-id="${w.id}" class="picto-checkbox"></td>`;
     html+=`<td class="name-cell">${w.name}</td>`;
-    html+=`<td>${w.region}${w.unlock_description?` (${w.unlock_description})`:''}</td>`;
+    html+=`<td>${tg(w.region,w.region)}${w.unlock_description?` (${w.unlock_description})`:''}</td>`;
     html+='</tr>';
   });
   html+='</tbody></table>';

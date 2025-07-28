@@ -54,8 +54,10 @@ function updateLoginState(authenticated){
     btn.innerHTML='<i class="fa-solid fa-user"></i>';
     btn.dataset.i18nTitle='login';
     btn.title=t('login');
-    btn.onclick=()=>keycloak.login();
+  btn.onclick=()=>keycloak.login();
   }
+  const pageObj=window[document.body.dataset.page+'Page'];
+  if(pageObj && typeof pageObj.render==='function') pageObj.render();
 }
 
 function initAuth(){

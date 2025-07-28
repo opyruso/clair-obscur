@@ -103,12 +103,143 @@ function notify(msg, delay = 3000) {
   }, delay);
 }
 
+function isContributor(){
+  return window.keycloak?.hasResourceRole?.('contributor','coh-app');
+}
+
+function regionKeyFromLabel(label){
+  if(!label) return '';
+  if(!window.regionLabelMap){
+    window.regionLabelMap={};
+    const enMap=window.enGameTranslations||{};
+    for(const k in enMap){
+      if(k.startsWith('ST_LevelData/LEVEL_')){
+        window.regionLabelMap[enMap[k]]=k;
+      }
+    }
+  }
+  return window.regionLabelMap[label]||label;
+}
+
+async function openEditModal(type,id,character){
+  if(!isContributor()) return;
+  const langs=['en','fr','de','es','it','pl','pt'];
+  const api=window.CONFIG?.["clairobscur-api-url"]||'';
+  if(!window.enGameTranslations||!Object.keys(window.enGameTranslations).length){
+    try{window.enGameTranslations=await fetch('lang/gamedata_en.json').then(r=>r.json());}
+    catch(e){window.enGameTranslations={};}
+  }
+  const regionKeys=Object.keys(window.enGameTranslations||{})
+    .filter(k=>k.startsWith('ST_LevelData/LEVEL_'))
+    .sort();
+  const modal=document.createElement('div');
+  modal.className='modal';
+  modal.id='editModal';
+  const removeModal=()=>{ modal.remove();
+    window.removeEventListener('popstate', removeModal);
+    history.pushState=origPush; history.replaceState=origReplace; };
+  const origPush=history.pushState.bind(history);
+  const origReplace=history.replaceState.bind(history);
+  history.pushState=(...a)=>{removeModal(); origPush(...a);};
+  history.replaceState=(...a)=>{removeModal(); origReplace(...a);};
+  modal.addEventListener('click',removeModal);
+  const content=document.createElement('div');
+  content.className='modal-content';
+  content.addEventListener('click',e=>e.stopPropagation());
+  modal.appendChild(content);
+  const form=document.createElement('div');
+  const regLab=document.createElement('label');
+  regLab.textContent='Region*';
+  const regSel=document.createElement('select');
+  regSel.dataset.field='region';
+  const emptyOpt=document.createElement('option');
+  emptyOpt.value=''; emptyOpt.textContent='';
+  regSel.appendChild(emptyOpt);
+  regionKeys.forEach(k=>{const op=document.createElement('option');op.value=k;op.textContent=tg(k,k);regSel.appendChild(op);});
+  form.appendChild(regLab); form.appendChild(regSel);
+  const currentObj=type==='picto'?pictos.find(p=>p.id===id)
+    :type==='weapon'?allWeapons.find(w=>w.id===id)
+    :allOutfits.find(o=>o.id===id);
+  if(currentObj){
+    let regKey=currentObj.region;
+    if(!regionKeys.includes(regKey)){
+      regKey=regionKeys.find(k=>tg(k,k)===currentObj.region);
+    }
+    if(regKey) regSel.value=regKey;
+  }
+  langs.forEach(l=>{
+    const lab=document.createElement('label');
+    lab.textContent=`[${l.toUpperCase()}] Description${l==='en'?'*':''}`;
+    const ta=document.createElement('textarea');
+    ta.rows=3; ta.dataset.lang=l; ta.dataset.field='desc';
+    if(currentObj) ta.value=currentObj.unlock_description||'';
+    form.appendChild(lab); form.appendChild(ta);
+  });
+  const actions=document.createElement('div');
+  actions.className='modal-actions';
+  const cancel=document.createElement('button');
+  cancel.className='modal-save-btn';
+  cancel.textContent='Cancel';
+  cancel.onclick=removeModal;
+  const save=document.createElement('button');
+  save.className='modal-save-btn';
+  save.textContent='Save';
+  save.disabled=true;
+  const check=()=>{
+    const re=regSel.value.trim();
+    const de=form.querySelector('textarea[data-field="desc"][data-lang="en"]').value.trim();
+    save.disabled=!re||!de;
+  };
+  form.addEventListener('input',check);
+  regSel.addEventListener('change',check);
+  actions.appendChild(cancel); actions.appendChild(save);
+  content.appendChild(form); content.appendChild(actions);
+  document.body.appendChild(modal);
+  check();
+
+  save.onclick=async()=>{
+    check();
+    if(save.disabled) return;
+    const regionKey=regSel.value.trim();
+    const descEn=form.querySelector('textarea[data-field="desc"][data-lang="en"]').value.trim();
+    const descMap={};
+    for(const l of langs){
+      const d=form.querySelector(`textarea[data-field="desc"][data-lang="${l}"]`).value.trim()||descEn;
+      descMap[l]=d;
+      const body={lang:l,region:regionKey,unlockDescription:d};
+      if(type==='picto') body.idPicto=id;
+      else if(type==='weapon'){ body.idWeapon=id; if(character) body.character=character; }
+      else body.idOutfit=id;
+      const endpoint=type==='picto'?'/contrib/pictos/':type==='weapon'?'/contrib/weapons/':'/contrib/outfits/';
+      try{await apiFetch(`${api}${endpoint}${encodeURIComponent(id)}`,{method:'PUT',headers:{'Accept':'application/json'},body});}
+      catch(e){console.error('Save failed',e);}
+    }
+    const descCur=descMap[currentLang]||descEn;
+    if(type==='picto'){
+      const obj=pictos.find(p=>p.id===id); if(obj){obj.region=regionKey; obj.unlock_description=descCur;}
+      if(window.pictosPage) window.pictosPage.render();
+    }else if(type==='weapon'){
+      const obj=allWeapons.find(w=>w.id===id); if(obj){obj.region=regionKey; obj.unlock_description=descCur;}
+      if(window.weaponsPage) window.weaponsPage.render();
+    }else{
+      const obj=allOutfits.find(o=>o.id===id); if(obj){obj.region=regionKey; obj.unlock_description=descCur;}
+      if(window.outfitsPage) window.outfitsPage.render();
+    }
+    removeModal();
+    notify('Saved');
+  };
+}
+
+window.openEditModal=openEditModal;
+window.isContributor=isContributor;
+window.regionKeyFromLabel=regionKeyFromLabel;
+
 function handleCardPressMove(e) {
   const card = e.currentTarget;
   const rect = card.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  if(x < rect.width*0.25 && y < rect.height*0.25 || e.target.closest('.pin-btn')) {
+  if(x < rect.width*0.25 && y < rect.height*0.25 || e.target.closest('.pin-btn') || e.target.closest('.edit-btn')) {
     card.style.transform = '';
     return;
   }
@@ -256,7 +387,7 @@ window.handleCardPressLeave = handleCardPressLeave;
       return list.map(p=>({
         id:p.idPicto,
         name:tg(p.nameKey||p.name,p.name)||'',
-        region:p.region||'',
+        region:regionKeyFromLabel(p.region||''),
         level:p.level,
         bonus_picto:{
           defense:p.bonusDefense,
@@ -342,7 +473,8 @@ window.handleCardPressLeave = handleCardPressLeave;
         }
 
         let front = `<div class="card-face card-front">`;
-        front += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
+        const editIcon=isContributor()?`<span class="edit-btn" data-id="${p.id}"><i class="fa-solid fa-pen"></i></span>`:'';
+        front += `<div class="card-header">${editIcon}<span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
         if (p.bonus_picto && Object.keys(p.bonus_picto).length > 0) {
           front += `<div class="bonus-list">`;
           for (const k in p.bonus_picto) {
@@ -356,11 +488,11 @@ window.handleCardPressLeave = handleCardPressLeave;
         front += `</div>`;
 
         let back = `<div class="card-face card-back">`;
-        back += `<div class="card-header"><span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
+        back += `<div class="card-header">${editIcon}<span class="pin-btn" data-id="${p.id}"><i class="fa-solid fa-thumbtack"></i></span><span class="name">${p.name}</span></div>`;
         back += `<div class="level">Lv. ${p.level || ''}</div>`;
         back += `<div class="region-block">`;
         if (p.region)
-          back += `<div class="region-title">${p.region}</div>`;
+          back += `<div class="region-title">${tg(p.region,p.region)}</div>`;
         if (p.unlock_description)
           back += `<div class="description">${p.unlock_description}</div>`;
         back += `</div></div>`;
@@ -371,7 +503,11 @@ window.handleCardPressLeave = handleCardPressLeave;
         card.addEventListener('mouseleave', handleCardPressLeave);
         card.addEventListener('click', e => {
           const pin = e.target.closest('.pin-btn');
-          if(pin) {
+          const edit = e.target.closest('.edit-btn');
+          if(edit){
+            e.stopPropagation();
+            openEditModal('picto', p.id);
+          } else if(pin) {
             e.stopPropagation();
             togglePicto(pin.dataset.id);
           } else {
@@ -413,7 +549,7 @@ window.handleCardPressLeave = handleCardPressLeave;
         tableCols.slice(1).forEach(col => {
           if(col.key === "unlock_description") {
             if(showInfoCol) {
-              const region = hideInfo ? (p.region || '') : '';
+              const region = hideInfo ? (tg(p.region,p.region) || '') : '';
               const level = hideInfo ? (p.level || '') : '';
               const desc = hideUnlock ? (p.unlock_description || '') : '';
               const r = region.replace(/"/g,'&quot;');
@@ -432,10 +568,12 @@ window.handleCardPressLeave = handleCardPressLeave;
           if (["defense","speed","critical-luck","health"].includes(col.key)) {
             val = (p.bonus_picto && typeof p.bonus_picto[col.key] !== "undefined") ? p.bonus_picto[col.key] : "";
             if(col.key==="critical-luck" && val!=="") val = val+"%";
-          } else if (col.key === "level") {
-            val = p.level || "";
-          } else {
-            val = p[col.key] || "";
+            } else if (col.key === "level") {
+              val = p.level || "";
+            } else if(col.key === "region") {
+              val = tg(p.region,p.region) || '';
+            } else {
+              val = p[col.key] || "";
           }
           let cls = ["defense","speed","critical-luck","health"].includes(col.key) ? 'nowrap' : '';
           if(col.key==='name') cls += ' name-cell';
