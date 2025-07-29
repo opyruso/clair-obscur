@@ -578,6 +578,7 @@ body[data-page="outfits"] .card-back {
 
 #modalSelect { z-index: 1100; }
 #capModal { z-index: 1050; }
+#buildSearchModal { z-index: 1090; }
 #capModal .modal-content { width: 75%; max-width:none; }
 @media (max-width:800px) { #capModal .modal-content { width: 95%; } }
 #editModal { z-index: 1200; }
