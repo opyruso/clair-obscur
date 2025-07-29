@@ -217,6 +217,7 @@ function BuildPage(){
   const [capEdit,setCapEdit]=useState(false);
   const [buildMeta,setBuildMeta]=useState({id:null,title:'',description:'',level:''});
   const [editMeta,setEditMeta]=useState(false);
+  const [showBuildSearch,setShowBuildSearch]=useState(false);
   const origMeta = React.useRef(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
 
@@ -494,6 +495,57 @@ function BuildPage(){
               ))}
             </div>
           )}
+        </div>
+      </div>
+    );
+  }
+
+  function BuildSearchModal(){
+    if(!showBuildSearch) return null;
+    const [term,setTerm]=React.useState('');
+    const [results,setResults]=React.useState([]);
+    const latest=React.useRef([]);
+
+    const load=React.useCallback(async (q)=>{
+      if(!apiUrl) return;
+      try{
+        const url=`${apiUrl}/public/builds/latest${q?`?q=${encodeURIComponent(q)}`:''}`;
+        const r=await apiFetch(url);
+        if(r.ok){
+          const data=await r.json();
+          if(Array.isArray(data)){
+            setResults(data);
+            if(!q) latest.current=data;
+          }
+        }
+      }catch(e){ console.error('search build failed',e); }
+    },[apiUrl]);
+
+    React.useEffect(()=>{ load(''); },[load]);
+
+    React.useEffect(()=>{
+      if(term===''){ setResults(latest.current); return; }
+      const h=setTimeout(()=>{ load(term); },2000);
+      return()=>clearTimeout(h);
+    },[term,load]);
+
+    return (
+      <div className="modal" onClick={()=>setShowBuildSearch(false)} id="buildSearchModal">
+        <div className="modal-content" onClick={e=>e.stopPropagation()}>
+          <input
+            className="searchbar modal-filter"
+            style={{width:'100%'}}
+            placeholder={t('filter_placeholder')}
+            value={term}
+            onChange={e=>setTerm(e.target.value)}
+          />
+          <div className="modal-options">
+            {results.map(b=>(
+              <div key={b.id} className="modal-option hide-check" onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
+                <span>{b.title || b.id}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -846,6 +898,7 @@ function BuildPage(){
           <h1 data-i18n="heading_build">Team builder</h1>
           <div>
             <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
+            <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
             {window.keycloak?.authenticated && (
               <>
                 <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
@@ -1072,6 +1125,7 @@ function BuildPage(){
       </main>
       <SelectionModal />
       <CapacityModal edit={capEdit} setEdit={setCapEdit} />
+      <BuildSearchModal />
     </>
   );
 }
