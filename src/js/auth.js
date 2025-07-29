@@ -56,6 +56,9 @@ function updateLoginState(authenticated){
     btn.title=t('login');
   btn.onclick=()=>keycloak.login();
   }
+  if(window.loadSiteData){
+    loadSiteData();
+  }
   const pageObj=window[document.body.dataset.page+'Page'];
   if(pageObj && typeof pageObj.render==='function') pageObj.render();
 }

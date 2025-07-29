@@ -55,3 +55,9 @@ Example for a production build:
 ```bash
 APP_ENV=pro npm run build
 ```
+
+## User data
+
+Saved pictos, weapons and outfits are stored locally in your browser when you are
+not logged in. When authenticated, data is synchronized with the API through the
+`/user/saved-data` endpoint.
