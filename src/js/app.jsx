@@ -430,7 +430,7 @@ function BuildPage(){
   }
 
   function SelectionModal(){
-    if(!modal) return null;
+    if(!modal || !modal.options) return null;
     const {options,onSelect,multi,values,search,grid,hideCheck}=modal;
     const [local,setLocal]=React.useState(multi?values.slice():values||'');
     const [term,setTerm]=React.useState('');
