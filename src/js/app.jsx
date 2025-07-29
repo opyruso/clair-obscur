@@ -509,7 +509,7 @@ function BuildPage(){
     const load=React.useCallback(async (q)=>{
       if(!apiUrl) return;
       try{
-        const url=`${apiUrl}/builds/latest${q?`?q=${encodeURIComponent(q)}`:''}`;
+        const url=`${apiUrl}/public/builds/latest${q?`?q=${encodeURIComponent(q)}`:''}`;
         const r=await apiFetch(url);
         if(r.ok){
           const data=await r.json();
