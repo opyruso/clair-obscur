@@ -340,25 +340,9 @@ body[data-page="pictos"] .card.owned::after {
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      padding: 22px 24px 18px 40px;
+      padding: 34px 60px 20px 60px;
     }
-body[data-page="weapons"] .card-face {
-  padding: 34px 60px 20px 60px;
-}
-body[data-page="outfits"] .card-face {
-  padding: 34px 60px 20px 60px;
-}
-body[data-page="pictos"] .card-face {
-  padding: 34px 60px 20px 60px;
-}
-body[data-page="weapons"] .card-back {
-  padding-left: 100px;
-  padding-right: 50px;
-}
-body[data-page="outfits"] .card-back {
-  padding-left: 100px;
-  padding-right: 50px;
-}
+
 .card-front {
   transform: rotateY(0deg);
 }
@@ -754,7 +738,7 @@ body {
   opacity: 0.8;
 }
 
-.char-select{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;}
+.char-select{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;}
 .char-select img{width:128px;height:128px;opacity:0.4;cursor:pointer;transition:opacity .2s;}
 .char-select img:hover{opacity:0.6;}
 .char-select img.active{opacity:1;}
@@ -1215,4 +1199,13 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   display:block;
   width:100%;
   margin-bottom:6px;
+}
+.build-table tbody tr{
+  cursor:pointer;
+}
+.build-table td.desc-cell{
+  max-width:300px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }

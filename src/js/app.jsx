@@ -109,7 +109,7 @@ function WeaponsPage(){
             <button className="icon-btn" id="tableViewBtn" data-i18n-title="table_view" title="Table view"><img src="resources/images/icons/buttons/tab_view.png" alt=""/></button>
             <div className="icon-sep"></div>
           </div>
-          <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder"/>
+          <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_weapons_placeholder"/>
         </div>
         <div id="cards" className="cards"></div>
         <div id="table" className="table-view" style={{display:'none'}}></div>
@@ -144,7 +144,7 @@ function OutfitsPage(){
             <button className="icon-btn" id="tableViewBtn" data-i18n-title="table_view" title="Table view"><img src="resources/images/icons/buttons/tab_view.png" alt=""/></button>
             <div className="icon-sep"></div>
           </div>
-          <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder"/>
+          <input className="searchbar" id="search" placeholder="Search..." data-i18n-placeholder="search_outfits_placeholder"/>
         </div>
         <div id="cards" className="cards"></div>
         <div id="table" className="table-view" style={{display:'none'}}></div>
@@ -532,6 +532,7 @@ function BuildPage(){
     return (
       <div className="modal" onClick={()=>setShowBuildSearch(false)} id="buildSearchModal">
         <div className="modal-content" onClick={e=>e.stopPropagation()}>
+          <h2>{t('search_builds')}</h2>
           <input
             className="searchbar modal-filter"
             style={{width:'100%'}}
@@ -539,13 +540,58 @@ function BuildPage(){
             value={term}
             onChange={e=>setTerm(e.target.value)}
           />
-          <div className="modal-options">
-            {results.map(b=>(
-              <div key={b.id} className="modal-option hide-check" onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
-                <span>{b.title || b.id}</span>
-              </div>
-            ))}
-          </div>
+          <table className="build-table">
+            <thead>
+              <tr>
+                <th>{t('build_title_col')}</th>
+                <th>{t('build_desc_col')}</th>
+                <th>{t('build_author_col')}</th>
+                <th>{t('build_updated_col')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {results.map(b=>(
+                <tr key={b.id} onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
+                  <td>{b.title || b.id}</td>
+                  <td className="desc-cell">{b.description}</td>
+                  <td>{b.author}</td>
+                  <td>{b.updated}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  function BuildListModal(){
+    if(!modal || !modal.buildList) return null;
+    const {builds,onSelect}=modal;
+    return (
+      <div className="modal" onClick={()=>setModal(null)} id="buildListModal">
+        <div className="modal-content" onClick={e=>e.stopPropagation()}>
+          <h2>{t('my_builds')}</h2>
+          <table className="build-table">
+            <thead>
+              <tr>
+                <th>{t('build_title_col')}</th>
+                <th>{t('build_desc_col')}</th>
+                <th>{t('build_author_col')}</th>
+                <th>{t('build_updated_col')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {builds.map(b=>(
+                <tr key={b.id} onClick={()=>{onSelect(b.id); setModal(null);}}>
+                  <td>{b.title || b.id}</td>
+                  <td className="desc-cell">{b.description}</td>
+                  <td>{b.author}</td>
+                  <td>{b.updated}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     );
@@ -828,9 +874,9 @@ function BuildPage(){
       const list = await r.json();
       if(!Array.isArray(list)) return;
       setModal({
-        options:list.map(b=>({value:b.id,label:b.title||b.id})),
-        onSelect:id=>{ loadBuild(id); },
-        hideCheck:true
+        buildList:true,
+        builds:list,
+        onSelect:id=>{ loadBuild(id); }
       });
     }catch(e){ console.error('load builds failed',e); }
   }
@@ -896,7 +942,7 @@ function BuildPage(){
       <main className="content-wrapper mt-4 flex-grow-1">
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <h1 data-i18n="heading_build">Team builder</h1>
-          <div>
+          <div className="icon-bar">
             <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
             <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
             {window.keycloak?.authenticated && (
@@ -1124,6 +1170,7 @@ function BuildPage(){
         </div>
       </main>
       <SelectionModal />
+      <BuildListModal />
       <CapacityModal edit={capEdit} setEdit={setCapEdit} />
       <BuildSearchModal />
     </>
