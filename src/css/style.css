@@ -348,8 +348,7 @@ body[data-page="pictos"] .card.owned::after {
 }
 .card-back {
   transform: rotateY(180deg) scale(-1, 1);
-  padding-left: 50px;
-  padding-right: 30px;
+  padding: 34px 60px 20px 60px;
   text-align: left;
   align-items: flex-start;
 }
