@@ -95,5 +95,7 @@
   "build_title_col": "Titre",
   "build_desc_col": "Description",
   "build_author_col": "Auteur",
-  "build_updated_col": "Mise à jour"
+  "build_updated_col": "Mise à jour",
+  "nav_inventories": "Inventaires",
+  "my_account": "Mon compte"
 }

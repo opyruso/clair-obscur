@@ -21,8 +21,17 @@ function sanitizeRow(row){
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [invOpen, setInvOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
+  const [lang, setLang] = useState(window.currentLang || 'en');
   const fileRef = useRef();
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => { setMenuOpen(false); setInvOpen(false); };
+  React.useEffect(() => {
+    const h = e => setLang(e.detail);
+    window.addEventListener('langchange', h);
+    return () => window.removeEventListener('langchange', h);
+  }, []);
   const handleDownload = () => {
     if(window.downloadSiteData) window.downloadSiteData();
   };
@@ -44,9 +53,15 @@ const Header = () => {
         <button className="burger-btn" onClick={() => setMenuOpen(o => !o)}><i className="fa-solid fa-bars"></i></button>
         <div className={`nav-collapse${menuOpen ? ' show' : ''}`}>
           <ul className="navbar-nav flex-row">
-            <li className="nav-item"><NavLink className="nav-link" to="/pictos" onClick={closeMenu} data-i18n="nav_pictos">Pictos inventory</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/weapons" onClick={closeMenu} data-i18n="nav_weapons">Weapons inventory</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/outfits" onClick={closeMenu} data-i18n="nav_outfits">Outfits inventory</NavLink></li>
+            <li className="nav-item dropdown">
+              <button className="nav-link dropdown-toggle" onClick={() => setInvOpen(o=>!o)} data-i18n="nav_inventories">Inventories</button>
+              <ul className={`dropdown-menu${invOpen ? ' show' : ''}`}
+                onClick={() => setInvOpen(false)}>
+                <li><NavLink className="nav-link" to="/pictos" onClick={closeMenu} data-i18n="nav_pictos">Pictos inventory</NavLink></li>
+                <li><NavLink className="nav-link" to="/weapons" onClick={closeMenu} data-i18n="nav_weapons">Weapons inventory</NavLink></li>
+                <li><NavLink className="nav-link" to="/outfits" onClick={closeMenu} data-i18n="nav_outfits">Outfits inventory</NavLink></li>
+              </ul>
+            </li>
             <li className="nav-item"><NavLink className="nav-link" to="/build" onClick={closeMenu} data-i18n="nav_build">Team builder</NavLink></li>
             <li className="nav-item" id="adminNav" style={{display:'none'}}><NavLink className="nav-link" to="/admin" onClick={closeMenu} data-i18n="nav_admin">Admin</NavLink></li>
           </ul>
@@ -56,21 +71,34 @@ const Header = () => {
               <button className="icon-btn" id="uploadBtn" data-i18n-title="upload" title="Upload" onClick={handleUploadClick}><img src="resources/images/icons/buttons/upload.png" alt=""/></button>
               <input type="file" ref={fileRef} accept="application/json" style={{display:'none'}} onChange={handleFileChange}/>
             </div>
-          <div className="lang-flags">
-            <span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>
-            <span className="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span>
-            <span className="lang-flag fi fi-de" data-lang="de" id="deFlag"></span>
-            <span className="lang-flag fi fi-es" data-lang="es" id="esFlag"></span>
-            <span className="lang-flag fi fi-it" data-lang="it" id="itFlag"></span>
-            <span className="lang-flag fi fi-pl" data-lang="pl" id="plFlag"></span>
-            <span className="lang-flag fi fi-pt" data-lang="pt" id="ptFlag"></span>
+          <div className={`dropdown right${langOpen ? ' show' : ''}`}>
+            <button className="icon-btn" onClick={() => setLangOpen(o=>!o)}>
+              <span className={`lang-flag fi fi-${lang==='en'?'gb':lang}`}></span>
+            </button>
+            <div className={`dropdown-menu right${langOpen ? ' show' : ''}`} onClick={()=>setLangOpen(false)}>
+              <span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>
+              <span className="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span>
+              <span className="lang-flag fi fi-de" data-lang="de" id="deFlag"></span>
+              <span className="lang-flag fi fi-es" data-lang="es" id="esFlag"></span>
+              <span className="lang-flag fi fi-it" data-lang="it" id="itFlag"></span>
+              <span className="lang-flag fi fi-pt" data-lang="pt" id="ptFlag"></span>
+              <span className="lang-flag fi fi-pl" data-lang="pl" id="plFlag"></span>
+            </div>
           </div>
-          <div className="icon-sep"></div>
-          <label className="toggle-btn" id="labelToggle" style={{display:'none'}}>
-            <input type="checkbox" id="labelToggleInput" />
-            <span data-i18n="show_labels">Show labels</span>
-          </label>
-          <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login"><i className="fa-solid fa-user"></i></button>
+          <div className={`dropdown right${userOpen ? ' show' : ''}`}>
+            <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login" onClick={() => { if(window.keycloak?.authenticated){ setUserOpen(o=>!o); }else{ window.keycloak?.login(); } }}><i className="fa-solid fa-user"></i></button>
+            <div className="dropdown-menu right" id="loginMenu" style={{display:userOpen?'block':'none'}}>
+              <button className="dropdown-item" id="saveDataBtn" data-i18n="save">Save</button>
+              <a className="dropdown-item" id="accountLink" target="_blank" rel="noopener noreferrer" data-i18n="my_account">Account</a>
+              <div className="dropdown-divider"></div>
+              <label className="toggle-btn" id="labelToggle" style={{display:'none'}}>
+                <input type="checkbox" id="labelToggleInput" />
+                <span data-i18n="show_labels">i18n</span>
+              </label>
+              <div className="dropdown-divider"></div>
+              <button className="dropdown-item" id="logoutItem" data-i18n="logout">Logout</button>
+            </div>
+          </div>
         </div>
         </div>
       </div>
