@@ -13,6 +13,8 @@
   "grid_view": "Vista de cuadrícula",
   "table_view": "Vista de tabla",
   "search_placeholder": "Buscar pictos...",
+  "search_weapons_placeholder": "Buscar armas...",
+  "search_outfits_placeholder": "Buscar trajes...",
   "defense": "Defensa",
   "speed": "Velocidad",
   "vitality": "Vitalidad",
@@ -87,5 +89,11 @@
   "admin_capacities": "Capacidades",
   "config_capacities": "Configurar capacidades",
   "edit": "Editar",
-  "show_labels": "i18n"
+  "show_labels": "i18n",
+  "my_builds": "My builds",
+  "search_builds": "Search builds",
+  "build_title_col": "Title",
+  "build_desc_col": "Description",
+  "build_author_col": "Author",
+  "build_updated_col": "Updated"
 }
