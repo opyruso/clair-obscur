@@ -298,7 +298,7 @@ function BuildPage(){
       apiFetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
         .then(r=>r.ok?r.json():Promise.reject())
         .then(obj=>{
-          let content=obj;
+          let content = obj;
           if(obj && !Array.isArray(obj)){
             setBuildMeta({
               id:obj.id || ref,
@@ -307,9 +307,18 @@ function BuildPage(){
               level:obj.recommendedLevel || ''
             });
             content = obj.content;
-            try{ if(typeof content === 'string') content = JSON.parse(content); }
-            catch(e){}
           }
+          const parseContent = data => {
+            let result = data;
+            try {
+              while(typeof result === 'string') result = JSON.parse(result);
+            } catch(e) { return null; }
+            if(result && !Array.isArray(result) && result.content !== undefined){
+              return parseContent(result.content);
+            }
+            return result;
+          };
+          content = parseContent(content);
           if(Array.isArray(content) && content.length===5){
             setTeam(content.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
           }
