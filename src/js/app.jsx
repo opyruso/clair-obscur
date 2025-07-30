@@ -18,7 +18,7 @@ function Home(){
           <p data-i18n="index_desc1">Manage your Clair Obscur picto collection. Mark the pictos you own, search through the list and save your progress.</p>
         </div>
         <div className="index-img">
-          <img src="resources/images/index/index_cadre_pictos.png" alt=""/>
+          <img src="resources/images/index/index_cadre_pictos.png" alt="Pictos overview"/>
         </div>
       </div>
       <div className="index-row reverse">
@@ -26,7 +26,7 @@ function Home(){
           <p data-i18n="index_desc2">Track your entire arsenal. Each weapon sheet shows who can wield it and the effects it grants so you never miss a piece of equipment.</p>
         </div>
         <div className="index-img">
-          <img src="resources/images/index/index_cadre_weapons.png" alt=""/>
+          <img src="resources/images/index/index_cadre_weapons.png" alt="Weapons overview"/>
         </div>
       </div>
       <div className="index-row">
@@ -34,7 +34,7 @@ function Home(){
           <p data-i18n="index_desc3">Customize your look by keeping track of all unlocked outfits.</p>
         </div>
         <div className="index-img">
-          <img src="resources/images/index/index_cadre_weapons.png" alt=""/>
+          <img src="resources/images/index/index_cadre_weapons.png" alt="Outfits overview"/>
         </div>
       </div>
       <div className="index-row">
@@ -42,7 +42,7 @@ function Home(){
           <p data-i18n="index_desc4">Build your team composition and share it with a link.</p>
         </div>
         <div className="index-img">
-          <img src="resources/images/index/index_cadre_teambuilder.png" alt=""/>
+          <img src="resources/images/index/index_cadre_teambuilder.png" alt="Team builder screenshot"/>
         </div>
       </div>
     </main>

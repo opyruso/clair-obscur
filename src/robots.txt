@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://clair-obscur.example.com/sitemap.xml
