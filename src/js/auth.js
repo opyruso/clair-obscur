@@ -43,7 +43,15 @@ function updateLoginState(authenticated){
     }
     btn.dataset.i18nTitle='logout';
     btn.title=t('logout');
-    btn.onclick=()=>keycloak.logout();
+    btn.onclick=null;
+    const saveBtn=document.getElementById('saveDataBtn');
+    if(saveBtn) saveBtn.onclick=()=>window.saveSiteData && window.saveSiteData();
+    const acc=document.getElementById('accountLink');
+    if(acc) acc.href = keycloak.createAccountUrl();
+    const logoutItem=document.getElementById('logoutItem');
+    if(logoutItem) logoutItem.onclick=()=>keycloak.logout();
+    const menu=document.getElementById('loginMenu');
+    if(menu) menu.style.display='none';
   }else{
     stopTokenRefresh();
     const adminLink=document.getElementById('adminNav');
@@ -54,7 +62,15 @@ function updateLoginState(authenticated){
     btn.innerHTML='<i class="fa-solid fa-user"></i>';
     btn.dataset.i18nTitle='login';
     btn.title=t('login');
-  btn.onclick=()=>keycloak.login();
+  btn.onclick=null;
+  const saveBtn=document.getElementById('saveDataBtn');
+  if(saveBtn) saveBtn.onclick=null;
+  const acc=document.getElementById('accountLink');
+  if(acc) acc.removeAttribute('href');
+  const logoutItem=document.getElementById('logoutItem');
+  if(logoutItem) logoutItem.onclick=null;
+  const menu=document.getElementById('loginMenu');
+  if(menu) menu.style.display='none';
   }
   if(window.loadSiteData){
     loadSiteData();

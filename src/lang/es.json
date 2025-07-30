@@ -95,5 +95,7 @@
   "build_title_col": "Title",
   "build_desc_col": "Description",
   "build_author_col": "Author",
-  "build_updated_col": "Updated"
+  "build_updated_col": "Updated",
+  "nav_inventories": "Inventarios",
+  "my_account": "Mi cuenta"
 }
