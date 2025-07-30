@@ -340,7 +340,7 @@ body[data-page="pictos"] .card.owned::after {
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      padding: 34px 60px 20px 60px;
+      padding: 34px 80px 20px 60px;
     }
 
 .card-front {
@@ -348,7 +348,7 @@ body[data-page="pictos"] .card.owned::after {
 }
 .card-back {
   transform: rotateY(180deg) scale(-1, 1);
-  padding: 34px 60px 20px 60px;
+  padding: 34px 60px 20px 80px;
   text-align: left;
   align-items: flex-start;
 }
