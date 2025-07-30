@@ -500,6 +500,10 @@ function BuildPage(){
     );
   }
 
+  function getAuthorName(b){
+    return [b.firstName, b.firstname, b.author].find(v => v && v.trim()) || 'Anonyme';
+  }
+
   function BuildSearchModal(){
     if(!showBuildSearch) return null;
     const [term,setTerm]=React.useState('');
@@ -550,14 +554,20 @@ function BuildPage(){
               </tr>
             </thead>
             <tbody>
-              {results.map(b=>(
-                <tr key={b.id} onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
-                  <td>{b.title || b.id}</td>
-                  <td className="desc-cell">{b.description}</td>
-                  <td>{b.author}</td>
-                  <td>{b.updated}</td>
-                </tr>
-              ))}
+              {results.map(b=>{
+                const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
+                const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
+                const author = getAuthorName(b);
+                const updated = b.updated && b.updated.trim() ? b.updated : '-';
+                return (
+                  <tr key={b.id} onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
+                    <td className="title-cell">{title}</td>
+                    <td className="desc-cell">{desc}</td>
+                    <td>{author}</td>
+                    <td>{updated}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -582,14 +592,20 @@ function BuildPage(){
               </tr>
             </thead>
             <tbody>
-              {builds.map(b=>(
-                <tr key={b.id} onClick={()=>{onSelect(b.id); setModal(null);}}>
-                  <td>{b.title || b.id}</td>
-                  <td className="desc-cell">{b.description}</td>
-                  <td>{b.author}</td>
-                  <td>{b.updated}</td>
-                </tr>
-              ))}
+              {builds.map(b=>{
+                const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
+                const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
+                const author = getAuthorName(b);
+                const updated = b.updated && b.updated.trim() ? b.updated : '-';
+                return (
+                  <tr key={b.id} onClick={()=>{onSelect(b.id); setModal(null);}}>
+                    <td className="title-cell">{title}</td>
+                    <td className="desc-cell">{desc}</td>
+                    <td>{author}</td>
+                    <td>{updated}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
