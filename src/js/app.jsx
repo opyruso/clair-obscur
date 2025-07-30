@@ -297,7 +297,23 @@ function BuildPage(){
     if(ref && apiUrl){
       apiFetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
         .then(r=>r.ok?r.json():Promise.reject())
-        .then(obj=>{ if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]}))); })
+        .then(obj=>{
+          let content=obj;
+          if(obj && !Array.isArray(obj)){
+            setBuildMeta({
+              id:obj.id || ref,
+              title:obj.title || '',
+              description:obj.description || '',
+              level:obj.recommendedLevel || ''
+            });
+            content = obj.content;
+            try{ if(typeof content === 'string') content = JSON.parse(content); }
+            catch(e){}
+          }
+          if(Array.isArray(content) && content.length===5){
+            setTeam(content.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
+          }
+        })
         .catch(()=>{});
     }else if(d){
       try{
@@ -854,7 +870,8 @@ function BuildPage(){
   }
 
   function copyShare(){
-    const shareBase=`${window.location.origin}/build`;
+    const buildBase=`${window.location.origin}/build`;
+    const shareBase=`${window.location.origin}/public/builds`;
     const copyUrl=url=>navigator.clipboard
       .writeText(url)
       .then(()=>alert(t('link_copied')))
@@ -873,11 +890,11 @@ function BuildPage(){
           copyUrl(url);
         })
         .catch(()=>{
-          const data=`${shareBase}?data=${btoa(JSON.stringify(team))}`;
+          const data=`${buildBase}?data=${btoa(JSON.stringify(team))}`;
           copyUrl(data);
         });
     }else{
-      const data=`${shareBase}?data=${btoa(JSON.stringify(team))}`;
+      const data=`${buildBase}?data=${btoa(JSON.stringify(team))}`;
       copyUrl(data);
     }
   }
@@ -1567,6 +1584,7 @@ function App(){
         <Route path="/outfits" element={<OutfitsPage />} />
         <Route path="/build" element={<BuildPage />} />
         <Route path="/build/:refId" element={<BuildPage />} />
+        <Route path="/public/builds/:refId" element={<BuildPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
