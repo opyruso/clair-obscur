@@ -854,7 +854,8 @@ function BuildPage(){
   }
 
   function copyShare(){
-    const shareBase=`${window.location.origin}/build`;
+    const buildBase=`${window.location.origin}/build`;
+    const shareBase=`${window.location.origin}/public/builds`;
     const copyUrl=url=>navigator.clipboard
       .writeText(url)
       .then(()=>alert(t('link_copied')))
@@ -873,11 +874,11 @@ function BuildPage(){
           copyUrl(url);
         })
         .catch(()=>{
-          const data=`${shareBase}?data=${btoa(JSON.stringify(team))}`;
+          const data=`${buildBase}?data=${btoa(JSON.stringify(team))}`;
           copyUrl(data);
         });
     }else{
-      const data=`${shareBase}?data=${btoa(JSON.stringify(team))}`;
+      const data=`${buildBase}?data=${btoa(JSON.stringify(team))}`;
       copyUrl(data);
     }
   }
