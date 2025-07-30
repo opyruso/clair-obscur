@@ -553,11 +553,12 @@ function BuildPage(){
               {results.map(b=>{
                 const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
                 const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
-                const author = b.author && b.author.trim() ? b.author : 'Anonyme';
+                const authorName = (b.firstName || b.firstname || b.author || '').trim();
+                const author = authorName ? authorName : 'Anonyme';
                 const updated = b.updated && b.updated.trim() ? b.updated : '-';
                 return (
                   <tr key={b.id} onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
-                    <td>{title}</td>
+                    <td className="title-cell">{title}</td>
                     <td className="desc-cell">{desc}</td>
                     <td>{author}</td>
                     <td>{updated}</td>
@@ -591,11 +592,12 @@ function BuildPage(){
               {builds.map(b=>{
                 const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
                 const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
-                const author = b.author && b.author.trim() ? b.author : 'Anonyme';
+                const authorName = (b.firstName || b.firstname || b.author || '').trim();
+                const author = authorName ? authorName : 'Anonyme';
                 const updated = b.updated && b.updated.trim() ? b.updated : '-';
                 return (
                   <tr key={b.id} onClick={()=>{onSelect(b.id); setModal(null);}}>
-                    <td>{title}</td>
+                    <td className="title-cell">{title}</td>
                     <td className="desc-cell">{desc}</td>
                     <td>{author}</td>
                     <td>{updated}</td>

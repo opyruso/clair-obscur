@@ -562,8 +562,20 @@ body[data-page="pictos"] .card.owned::after {
 #modalSelect { z-index: 1100; }
 #capModal { z-index: 1050; }
 #buildSearchModal { z-index: 1090; }
+#buildListModal { z-index: 1090; }
 #capModal .modal-content { width: 75%; max-width:none; }
 @media (max-width:800px) { #capModal .modal-content { width: 95%; } }
+#buildSearchModal .modal-content,
+#buildListModal .modal-content {
+  width: 75%;
+  max-width: none;
+}
+@media (max-width:800px) {
+  #buildSearchModal .modal-content,
+  #buildListModal .modal-content {
+    width: 90%;
+  }
+}
 #editModal { z-index: 1200; }
 #editModal .modal-content { max-width: 600px; }
 #editModal label { display:block; margin-top:6px; }
@@ -1289,6 +1301,12 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .build-table td.desc-cell{
   max-width:300px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.build-table td.title-cell{
+  max-width:200px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
