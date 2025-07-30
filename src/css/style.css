@@ -788,13 +788,14 @@ body {
   text-decoration: none;
   white-space: nowrap;
   text-align: center;
+  cursor: pointer;
 }
 .dropdown-menu li:hover,
 .dropdown-menu button:hover,
 .dropdown-menu a:hover,
 .dropdown-menu label:hover,
 .dropdown-menu .lang-flag:hover {
-  background: #2c3142;
+  background-color: #2c3142;
   color: #fff;
 }
 .dropdown-divider {

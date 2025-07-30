@@ -66,6 +66,14 @@ const Header = () => {
     window.addEventListener('langchange', h);
     return () => window.removeEventListener('langchange', h);
   }, []);
+  React.useEffect(() => {
+    const handleClick = e => {
+      const nav = document.querySelector('.navbar');
+      if(nav && !nav.contains(e.target)) closeMenu();
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [menuOpen, invOpen, langOpen, userOpen]);
   const handleDownload = () => {
     if(window.downloadSiteData) window.downloadSiteData();
   };
