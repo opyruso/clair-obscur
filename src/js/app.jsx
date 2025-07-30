@@ -297,7 +297,32 @@ function BuildPage(){
     if(ref && apiUrl){
       apiFetch(`${apiUrl}/public/builds/${encodeURIComponent(ref)}`)
         .then(r=>r.ok?r.json():Promise.reject())
-        .then(obj=>{ if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]}))); })
+        .then(obj=>{
+          let content = obj;
+          if(obj && !Array.isArray(obj)){
+            setBuildMeta({
+              id:obj.id || ref,
+              title:obj.title || '',
+              description:obj.description || '',
+              level:obj.recommendedLevel || ''
+            });
+            content = obj.content;
+          }
+          const parseContent = data => {
+            let result = data;
+            try {
+              while(typeof result === 'string') result = JSON.parse(result);
+            } catch(e) { return null; }
+            if(result && !Array.isArray(result) && result.content !== undefined){
+              return parseContent(result.content);
+            }
+            return result;
+          };
+          content = parseContent(content);
+          if(Array.isArray(content) && content.length===5){
+            setTeam(content.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
+          }
+        })
         .catch(()=>{});
     }else if(d){
       try{
@@ -865,7 +890,7 @@ function BuildPage(){
     if(apiUrl){
       apiFetch(`${apiUrl}/public/builds`,{
         method:'POST',
-        body:{content:JSON.stringify(team),author:userId}
+        body:{content:team,author:userId}
       })
         .then(r=>r.ok?r.json():Promise.reject())
         .then(({id})=>{
@@ -929,7 +954,7 @@ function BuildPage(){
         title: buildMeta.title,
         description: buildMeta.description,
         recommendedLevel: Number(buildMeta.level) || 0,
-        content: JSON.stringify(team),
+        content: team,
         author: userId,
       };
       const id = buildMeta.id;
@@ -1568,6 +1593,7 @@ function App(){
         <Route path="/outfits" element={<OutfitsPage />} />
         <Route path="/build" element={<BuildPage />} />
         <Route path="/build/:refId" element={<BuildPage />} />
+        <Route path="/public/builds/:refId" element={<BuildPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
