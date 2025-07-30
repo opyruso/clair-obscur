@@ -711,6 +711,10 @@ body[data-page="pictos"] .card.owned::after {
   .navbar-nav .nav-item {
     margin: 10px 0;
   }
+  .nav-collapse .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
   .header-right {
     margin-left: 0;
     justify-content: flex-end;
