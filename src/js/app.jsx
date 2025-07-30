@@ -890,7 +890,7 @@ function BuildPage(){
     if(apiUrl){
       apiFetch(`${apiUrl}/public/builds`,{
         method:'POST',
-        body:{content:JSON.stringify(team),author:userId}
+        body:{content:team,author:userId}
       })
         .then(r=>r.ok?r.json():Promise.reject())
         .then(({id})=>{
@@ -954,7 +954,7 @@ function BuildPage(){
         title: buildMeta.title,
         description: buildMeta.description,
         recommendedLevel: Number(buildMeta.level) || 0,
-        content: JSON.stringify(team),
+        content: team,
         author: userId,
       };
       const id = buildMeta.id;
