@@ -500,6 +500,10 @@ function BuildPage(){
     );
   }
 
+  function getAuthorName(b){
+    return [b.firstName, b.firstname, b.author].find(v => v && v.trim()) || 'Anonyme';
+  }
+
   function BuildSearchModal(){
     if(!showBuildSearch) return null;
     const [term,setTerm]=React.useState('');
@@ -553,7 +557,7 @@ function BuildPage(){
               {results.map(b=>{
                 const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
                 const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
-                const author = [b.firstName, b.firstname, b.author].find(v => v && v.trim()) || 'Anonyme';
+                const author = getAuthorName(b);
                 const updated = b.updated && b.updated.trim() ? b.updated : '-';
                 return (
                   <tr key={b.id} onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
@@ -591,7 +595,7 @@ function BuildPage(){
               {builds.map(b=>{
                 const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
                 const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
-                const author = [b.firstName, b.firstname, b.author].find(v => v && v.trim()) || 'Anonyme';
+                const author = getAuthorName(b);
                 const updated = b.updated && b.updated.trim() ? b.updated : '-';
                 return (
                   <tr key={b.id} onClick={()=>{onSelect(b.id); setModal(null);}}>
