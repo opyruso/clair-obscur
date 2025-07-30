@@ -711,6 +711,20 @@ body[data-page="pictos"] .card.owned::after {
   .navbar-nav .nav-item {
     margin: 10px 0;
   }
+  .nav-collapse .nav-link {
+    display: block;
+    padding: 6px 12px;
+    color: #b6e4ff;
+    text-decoration: none;
+    white-space: nowrap;
+    background: none;
+    border: none;
+  }
+  .nav-collapse .nav-link:hover,
+  .nav-collapse .nav-link:focus {
+    background-color: #2c3142;
+    color: #fff;
+  }
   .nav-collapse .dropdown-menu {
     right: 0;
     left: auto;
