@@ -26,7 +26,41 @@ const Header = () => {
   const [userOpen, setUserOpen] = useState(false);
   const [lang, setLang] = useState(window.currentLang || 'en');
   const fileRef = useRef();
-  const closeMenu = () => { setMenuOpen(false); setInvOpen(false); };
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setInvOpen(false);
+    setLangOpen(false);
+    setUserOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(o => !o);
+    setInvOpen(false);
+    setLangOpen(false);
+    setUserOpen(false);
+  };
+
+  const toggleInv = () => {
+    setInvOpen(o => !o);
+    setLangOpen(false);
+    setUserOpen(false);
+  };
+
+  const toggleLang = () => {
+    setLangOpen(o => !o);
+    setInvOpen(false);
+    setUserOpen(false);
+  };
+
+  const toggleUser = () => {
+    if(window.keycloak?.authenticated){
+      setUserOpen(o => !o);
+      setInvOpen(false);
+      setLangOpen(false);
+    }else{
+      window.keycloak?.login();
+    }
+  };
   React.useEffect(() => {
     const h = e => setLang(e.detail);
     window.addEventListener('langchange', h);
@@ -50,11 +84,11 @@ const Header = () => {
           <img src="resources/images/icons/icon_base_maxsize.png" alt="Clair Obscur logo" className="site-logo"/>
           Clair Obscur Helper
         </NavLink>
-        <button className="burger-btn" onClick={() => setMenuOpen(o => !o)}><i className="fa-solid fa-bars"></i></button>
+        <button className="burger-btn" onClick={toggleMenu}><i className="fa-solid fa-bars"></i></button>
         <div className={`nav-collapse${menuOpen ? ' show' : ''}`}>
           <ul className="navbar-nav flex-row">
             <li className="nav-item dropdown">
-              <button className="nav-link dropdown-toggle" onClick={() => setInvOpen(o=>!o)} data-i18n="nav_inventories">Inventories</button>
+              <button className="nav-link dropdown-toggle" onClick={toggleInv} data-i18n="nav_inventories">Inventories</button>
               <ul className={`dropdown-menu${invOpen ? ' show' : ''}`}
                 onClick={() => setInvOpen(false)}>
                 <li><NavLink className="nav-link" to="/pictos" onClick={closeMenu} data-i18n="nav_pictos">Pictos inventory</NavLink></li>
@@ -72,7 +106,7 @@ const Header = () => {
               <input type="file" ref={fileRef} accept="application/json" style={{display:'none'}} onChange={handleFileChange}/>
             </div>
           <div className={`dropdown right${langOpen ? ' show' : ''}`}>
-            <button className="icon-btn" onClick={() => setLangOpen(o=>!o)}>
+            <button className="icon-btn" onClick={toggleLang}>
               <span
                 className={`lang-flag fi fi-${lang==='en'?'gb':lang}`}
                 data-lang={lang}
@@ -89,7 +123,7 @@ const Header = () => {
             </ul>
           </div>
           <div className={`dropdown right${userOpen ? ' show' : ''}`}>
-            <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login" onClick={() => { if(window.keycloak?.authenticated){ setUserOpen(o=>!o); }else{ window.keycloak?.login(); } }}><i className="fa-solid fa-user"></i></button>
+            <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login" onClick={toggleUser}><i className="fa-solid fa-user"></i></button>
             <div className="dropdown-menu right" id="loginMenu" style={{display:userOpen?'block':'none'}}>
               <button className="dropdown-item" id="saveDataBtn" data-i18n="save">Save</button>
               <a className="dropdown-item" id="accountLink" target="_blank" rel="noopener noreferrer" data-i18n="my_account">Account</a>
