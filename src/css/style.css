@@ -779,6 +779,12 @@ body {
   background: none;
   border: none;
 }
+.dropdown-menu button {
+  font: inherit;
+}
+.dropdown-menu .lang-flag {
+  text-align: center;
+}
 .dropdown-menu li:hover,
 .dropdown-menu button:hover,
 .dropdown-menu a:hover,

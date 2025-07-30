@@ -73,7 +73,10 @@ const Header = () => {
             </div>
           <div className={`dropdown right${langOpen ? ' show' : ''}`}>
             <button className="icon-btn" onClick={() => setLangOpen(o=>!o)}>
-              <span className={`lang-flag fi fi-${lang==='en'?'gb':lang}`}></span>
+              <span
+                className={`lang-flag fi fi-${lang==='en'?'gb':lang}`}
+                data-lang={lang}
+              ></span>
             </button>
             <ul className={`dropdown-menu right${langOpen ? ' show' : ''}`} onClick={()=>setLangOpen(false)}>
               <li><span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span></li>
