@@ -75,15 +75,15 @@ const Header = () => {
             <button className="icon-btn" onClick={() => setLangOpen(o=>!o)}>
               <span className={`lang-flag fi fi-${lang==='en'?'gb':lang}`}></span>
             </button>
-            <div className={`dropdown-menu right${langOpen ? ' show' : ''}`} onClick={()=>setLangOpen(false)}>
-              <span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span>
-              <span className="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span>
-              <span className="lang-flag fi fi-de" data-lang="de" id="deFlag"></span>
-              <span className="lang-flag fi fi-es" data-lang="es" id="esFlag"></span>
-              <span className="lang-flag fi fi-it" data-lang="it" id="itFlag"></span>
-              <span className="lang-flag fi fi-pt" data-lang="pt" id="ptFlag"></span>
-              <span className="lang-flag fi fi-pl" data-lang="pl" id="plFlag"></span>
-            </div>
+            <ul className={`dropdown-menu right${langOpen ? ' show' : ''}`} onClick={()=>setLangOpen(false)}>
+              <li><span className="lang-flag fi fi-fr" data-lang="fr" id="frFlag"></span></li>
+              <li><span className="lang-flag fi fi-gb" data-lang="en" id="enFlag"></span></li>
+              <li><span className="lang-flag fi fi-de" data-lang="de" id="deFlag"></span></li>
+              <li><span className="lang-flag fi fi-es" data-lang="es" id="esFlag"></span></li>
+              <li><span className="lang-flag fi fi-it" data-lang="it" id="itFlag"></span></li>
+              <li><span className="lang-flag fi fi-pt" data-lang="pt" id="ptFlag"></span></li>
+              <li><span className="lang-flag fi fi-pl" data-lang="pl" id="plFlag"></span></li>
+            </ul>
           </div>
           <div className={`dropdown right${userOpen ? ' show' : ''}`}>
             <button className="icon-btn" id="loginBtn" data-i18n-title="login" title="Login" onClick={() => { if(window.keycloak?.authenticated){ setUserOpen(o=>!o); }else{ window.keycloak?.login(); } }}><i className="fa-solid fa-user"></i></button>
