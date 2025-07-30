@@ -85,7 +85,8 @@ function initAuth(){
   if(!url||!realm||!clientId) return;
   keycloak = new window.Keycloak({url,realm,clientId});
   window.keycloak = keycloak;
-  const base = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+  const baseTag = document.querySelector('base');
+  const base = (baseTag ? baseTag.href.replace(/\/$/, '') : window.location.origin);
   const silentUri = `${base}/silent-check-sso.html`;
   keycloak.onAuthSuccess=()=>updateLoginState(true);
   keycloak.onAuthLogout=()=>updateLoginState(false);
