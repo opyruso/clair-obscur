@@ -553,8 +553,7 @@ function BuildPage(){
               {results.map(b=>{
                 const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
                 const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
-                const authorName = (b.firstName || b.firstname || b.author || '').trim();
-                const author = authorName ? authorName : 'Anonyme';
+                const author = [b.firstName, b.firstname, b.author].find(v => v && v.trim()) || 'Anonyme';
                 const updated = b.updated && b.updated.trim() ? b.updated : '-';
                 return (
                   <tr key={b.id} onClick={()=>{loadBuild(b.id); setShowBuildSearch(false);}}>
@@ -592,8 +591,7 @@ function BuildPage(){
               {builds.map(b=>{
                 const title = b.title && b.title.trim() ? b.title : 'Pas de titre';
                 const desc = b.description && b.description.trim() ? b.description : 'Pas de description';
-                const authorName = (b.firstName || b.firstname || b.author || '').trim();
-                const author = authorName ? authorName : 'Anonyme';
+                const author = [b.firstName, b.firstname, b.author].find(v => v && v.trim()) || 'Anonyme';
                 const updated = b.updated && b.updated.trim() ? b.updated : '-';
                 return (
                   <tr key={b.id} onClick={()=>{onSelect(b.id); setModal(null);}}>
