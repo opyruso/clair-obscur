@@ -156,6 +156,10 @@ async function main(){
   indexHtml = indexHtml.replace(/<script type="text\/babel" src="js\/app.jsx"><\/script>/, '<script src="js/app.js"></script>');
   fs.writeFileSync(indexPath, indexHtml);
 
+  // provide a fallback page for static hosting so deep links work
+  const notFoundPath = path.join(distDir, '404.html');
+  fs.writeFileSync(notFoundPath, indexHtml);
+
   console.log(`Built dist to ${distDir}`);
 }
 

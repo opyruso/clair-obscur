@@ -32,6 +32,10 @@ so everything works from the `dist` folder alone:
 ```bash
 npm run build
 ```
+The build script also creates a `404.html` copy of `index.html` so that static
+hosts can serve it for unknown routes. This allows deep links such as
+`/build/<id>` to load the application correctly without extra server
+configuration.
 
 ## Configuration
 
