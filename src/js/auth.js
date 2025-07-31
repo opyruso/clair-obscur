@@ -60,6 +60,11 @@ function updateLoginState(authenticated){
     if(logoutItem) logoutItem.onclick=()=>keycloak.logout();
     const menu=document.getElementById('loginMenu');
     if(menu) menu.style.display='none';
+    const footer=document.getElementById('footerSuggest');
+    if(footer){
+      footer.href='/suggest';
+      footer.classList.remove('disabled');
+    }
   }else{
     stopTokenRefresh();
     const adminLink=document.getElementById('adminNav');
@@ -86,6 +91,11 @@ function updateLoginState(authenticated){
   if(logoutItem) logoutItem.onclick=null;
   const menu=document.getElementById('loginMenu');
   if(menu) menu.style.display='none';
+  const footer=document.getElementById('footerSuggest');
+  if(footer){
+    footer.removeAttribute('href');
+    footer.classList.add('disabled');
+  }
   }
   if(window.loadSiteData){
     loadSiteData();
