@@ -947,25 +947,28 @@ function BuildPage(){
     });
   }
   function openSubsModal(idx){
-    const locked = team[idx].mainPictos.filter(Boolean);
-    const selected = new Set();
+    const locked = team[idx].mainPictos.filter(Boolean); // main pictos for this character
+    // pictos used anywhere for highlighting
+    const usedSet = new Set();
     team.forEach(c => {
-      c.mainPictos.forEach(p => p && selected.add(p));
-      c.subPictos.forEach(p => p && selected.add(p));
+      c.mainPictos.forEach(p => p && usedSet.add(p));
+      c.subPictos.forEach(p => p && usedSet.add(p));
     });
     const opts = pictos
       .map(p => {
-        const used = selected.has(p.id);
+        const used = usedSet.has(p.id);
         return {
           value: p.id,
           label: p.name,
           desc: p.bonus_lumina,
           used,
-          disabled: used && !locked.includes(p.id) && !team[idx].subPictos.includes(p.id)
+          // only main pictos of this character are locked
+          disabled: locked.includes(p.id)
         };
       })
       .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
-    const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
+    // pre-select only the current sub pictos
+    const baseValues = [...team[idx].subPictos];
     if(editMode){
       setModal({
         options: opts,
