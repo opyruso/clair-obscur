@@ -1055,7 +1055,7 @@ function BuildPage(){
           <div className="build-info">
             <h2>{buildMeta.title && buildMeta.title.trim() ? buildMeta.title : 'No Title'}</h2>
             <div>Recommended level: {buildMeta.level || 0}</div>
-            <div>{buildMeta.description}</div>
+            <div className="build-desc" dangerouslySetInnerHTML={{__html:(buildMeta.description||'').replace(/\n/g,'<br />')}} />
           </div>
         )}
         {editMeta && (
