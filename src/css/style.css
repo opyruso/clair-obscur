@@ -1193,7 +1193,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .modal-option.disabled {
   opacity: 0.5;
-  pointer-events: none;
+  /* keep hover events so tooltips remain visible */
+  pointer-events: auto;
+  cursor: default;
 }
 .modal-options {
   display: flex;
