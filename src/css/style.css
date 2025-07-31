@@ -578,6 +578,21 @@ body[data-page="pictos"] .card.owned::after {
 }
 #editModal { z-index: 1200; }
 #editModal .modal-content { max-width: 600px; }
+#modalSelect.lumina-modal .modal-content {
+  width: 70%;
+  max-width: none;
+}
+@media (max-width:800px) {
+  #modalSelect.lumina-modal .modal-content { width: 95%; }
+}
+#modalSelect.lumina-modal .modal-options.grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+#modalSelect.lumina-modal .modal-option.grid span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #editModal label { display:block; margin-top:6px; }
 #editModal input, #editModal textarea, #editModal select { width:100%; margin-bottom:6px; }
 #editModal textarea{ resize:vertical; }
