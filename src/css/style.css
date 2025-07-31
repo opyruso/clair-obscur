@@ -560,6 +560,8 @@ body[data-page="pictos"] .card.owned::after {
 }
 
 #modalSelect { z-index: 1100; }
+#modalSelect.subs .modal-content { width: 80%; max-width:none; }
+@media (max-width:800px) { #modalSelect.subs .modal-content { width: 95%; } }
 #capModal { z-index: 1050; }
 #buildSearchModal { z-index: 1090; }
 #buildListModal { z-index: 1090; }
@@ -1180,6 +1182,18 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 10px;
   justify-items: center;
+}
+#modalSelect.subs .modal-options.grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+.modal-option.grid span {
+  display: block;
+  word-break: break-word;
+}
+#modalSelect.subs .modal-option.grid span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .modal-actions {

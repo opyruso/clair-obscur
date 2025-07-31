@@ -47,7 +47,7 @@ function setSavedItems(key, arr, charId) {
   } else {
     siteData[key] = Array.from(new Set(arr));
   }
-  saveSiteData();
+  if(!window.keycloak?.authenticated) saveSiteData();
 }
 
 async function saveSiteData() {
@@ -90,7 +90,7 @@ function handleSiteUpload(file) {
         if(Array.isArray(obj.weapons) || typeof obj.weapons === 'object') siteData.weapons = obj.weapons;
         if(Array.isArray(obj.outfits)) siteData.outfits = obj.outfits;
       }
-      saveSiteData();
+      if(!window.keycloak?.authenticated) saveSiteData();
       notifyPages();
     } catch(err) {
       /* ignore */
@@ -113,7 +113,9 @@ function notifyPages(){
 }
 
 document.addEventListener('DOMContentLoaded', loadSiteData);
-window.addEventListener('beforeunload', saveSiteData);
+window.addEventListener('beforeunload', () => {
+  if(!window.keycloak?.authenticated) saveSiteData();
+});
 
 window.getSavedItems = getSavedItems;
 window.setSavedItems = setSavedItems;

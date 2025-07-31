@@ -46,6 +46,11 @@ function updateLoginState(authenticated){
     btn.onclick=null;
     const saveBtn=document.getElementById('saveDataBtn');
     if(saveBtn) saveBtn.onclick=()=>window.saveSiteData && window.saveSiteData();
+    const manualBtn=document.getElementById('manualSaveBtn');
+    if(manualBtn){
+      manualBtn.style.display='inline-block';
+      manualBtn.onclick=()=>window.saveSiteData && window.saveSiteData();
+    }
     const acc=document.getElementById('accountLink');
     if(acc) acc.href = keycloak.createAccountUrl();
     const logoutItem=document.getElementById('logoutItem');
@@ -65,6 +70,11 @@ function updateLoginState(authenticated){
   btn.onclick=null;
   const saveBtn=document.getElementById('saveDataBtn');
   if(saveBtn) saveBtn.onclick=null;
+  const manualBtn=document.getElementById('manualSaveBtn');
+  if(manualBtn){
+    manualBtn.style.display='none';
+    manualBtn.onclick=null;
+  }
   const acc=document.getElementById('accountLink');
   if(acc) acc.removeAttribute('href');
   const logoutItem=document.getElementById('logoutItem');
