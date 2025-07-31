@@ -855,7 +855,6 @@ function BuildPage(){
     });
   }
   function openSubsModal(idx){
-    if(!requireEdit()) return;
     const locked = team[idx].mainPictos.filter(Boolean);
     const opts = [
       ...locked.map(id => {
@@ -872,19 +871,30 @@ function BuildPage(){
         .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
     ].sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
     const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
-    setModal({
-      options: opts,
-      onSelect: vals => changeSubs(idx, vals),
-      multi: true,
-      values: baseValues,
-      search: true,
-      grid: true,
-      hideCheck: true
-    });
+    if(editMode){
+      setModal({
+        options: opts,
+        onSelect: vals => changeSubs(idx, vals),
+        multi: true,
+        values: baseValues,
+        search: true,
+        grid: true,
+        hideCheck: true
+      });
+    }else{
+      setModal({
+        options: opts.map(o => ({...o, disabled:true})),
+        onSelect: () => {},
+        multi: true,
+        values: baseValues,
+        search: true,
+        grid: true,
+        hideCheck: true
+      });
+    }
   }
 
   function openCapacityModal(idx){
-    if(!requireEdit()) return;
     const char=team[idx].character;
     if(!char){ ReactToastify.toast(t('select_character_first')); return; }
     const cid=charIds[char];
