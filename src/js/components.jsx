@@ -158,7 +158,7 @@ const Header = () => {
 
 const Footer = () => (
   <footer className="text-center text-white py-3">
-    <NavLink className="footer-link" to="/suggest">
+    <NavLink id="footerSuggest" className="footer-link" to="/suggest">
       Copyright oPyRuSo 2025-{new Date().getFullYear()}
     </NavLink>
   </footer>
