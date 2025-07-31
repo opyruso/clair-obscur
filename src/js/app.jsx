@@ -461,7 +461,7 @@ function BuildPage(){
 
   function SelectionModal(){
     if(!modal || !modal.options) return null;
-    const {options,onSelect,multi,values,search,grid,hideCheck}=modal;
+    const {options,onSelect,multi,values,search,grid,hideCheck,type}=modal;
     const [local,setLocal]=React.useState(multi?values.slice():values||'');
     const [term,setTerm]=React.useState('');
     const list=search?options.filter(o=>{
@@ -469,8 +469,9 @@ function BuildPage(){
       return txt.includes(term.toLowerCase());
     }):options;
     function apply(){ onSelect(local); setModal(null); }
+    const extraClass = type === 'luminaSubs' ? ' lumina-modal' : '';
     return (
-      <div className="modal" onClick={()=>setModal(null)} id="modalSelect">
+      <div className={`modal${extraClass}`} onClick={()=>setModal(null)} id="modalSelect">
         <div className="modal-content" onClick={e=>e.stopPropagation()}>
           {search && (
             <input
@@ -485,7 +486,7 @@ function BuildPage(){
             <>
               <div className={`modal-options${grid?' grid':''}`}>
                 {list.map(o => (
-                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}`}>
+                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}`}>
                     {o.icon && <img src={o.icon} alt="" />}
                     <input
                       type="checkbox"
@@ -499,6 +500,9 @@ function BuildPage(){
                       }}
                     />
                     <span>{o.label}</span>
+                    {type==='luminaSubs' && o.desc && (
+                      <span className="tooltip-text" dangerouslySetInnerHTML={{__html: window.formatGameString(o.desc)}} />
+                    )}
                   </label>
                 ))}
               </div>
@@ -513,7 +517,7 @@ function BuildPage(){
               {list.map(o => (
                 <div
                   key={o.value}
-                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}`}
+                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}`}
                   onClick={() => {
                     onSelect(o.value);
                     setModal(null);
@@ -521,6 +525,9 @@ function BuildPage(){
                 >
                   {o.icon && <img src={o.icon} alt="" />}
                   <span>{o.label}</span>
+                  {type==='luminaSubs' && o.desc && (
+                    <span className="tooltip-text" dangerouslySetInnerHTML={{__html: window.formatGameString(o.desc)}} />
+                  )}
                 </div>
               ))}
             </div>
@@ -879,7 +886,8 @@ function BuildPage(){
         values: baseValues,
         search: true,
         grid: true,
-        hideCheck: true
+        hideCheck: true,
+        type: 'luminaSubs'
       });
     }else{
       setModal({
@@ -889,7 +897,8 @@ function BuildPage(){
         values: baseValues,
         search: true,
         grid: true,
-        hideCheck: true
+        hideCheck: true,
+        type: 'luminaSubs'
       });
     }
   }
@@ -1026,25 +1035,27 @@ function BuildPage(){
     <>
       <main className="content-wrapper mt-4 flex-grow-1">
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-          <h1 data-i18n="heading_build">Team builder</h1>
+          <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+            <h1 data-i18n="heading_build">Team builder</h1>
+            {editMode && (
+              <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
+            )}
+          </div>
           <div className="icon-bar">
             <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
             <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
             <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
             <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
             {window.keycloak?.authenticated && (
-              <>
-                <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
-                <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
-              </>
+              <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
             )}
           </div>
         </div>
-        {buildMeta.id && !editMeta && (
+        {!editMeta && (
           <div className="build-info">
-            <h2>{buildMeta.title}</h2>
-            <div>{buildMeta.description}</div>
-            <div>Recommended level: {buildMeta.level}</div>
+            <h2>{buildMeta.title && buildMeta.title.trim() ? buildMeta.title : 'No Title'}</h2>
+            <div>Recommended level: {buildMeta.level || 0}</div>
+            <div className="build-desc" dangerouslySetInnerHTML={{__html:(buildMeta.description||'').replace(/\n/g,'<br />')}} />
           </div>
         )}
         {editMeta && (
