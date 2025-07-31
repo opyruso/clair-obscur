@@ -78,6 +78,9 @@ const Header = () => {
     if(window.downloadSiteData) window.downloadSiteData();
   };
   const handleUploadClick = () => fileRef.current?.click();
+  const handleSave = () => {
+    if(window.saveSiteData) window.saveSiteData();
+  };
   const handleFileChange = e => {
     const file = e.target.files?.[0];
     if(file && window.handleSiteUpload) {
@@ -111,6 +114,7 @@ const Header = () => {
             <div className="icon-bar header-actions">
               <button className="icon-btn" id="downloadBtn" data-i18n-title="download" title="Download" onClick={handleDownload}><img src="resources/images/icons/buttons/download.png" alt=""/></button>
               <button className="icon-btn" id="uploadBtn" data-i18n-title="upload" title="Upload" onClick={handleUploadClick}><img src="resources/images/icons/buttons/upload.png" alt=""/></button>
+              <button className="icon-btn" id="manualSaveBtn" data-i18n-title="save" title="Save" style={{display:'none'}} onClick={handleSave}><img src="resources/images/icons/buttons/save.png" alt=""/></button>
               <input type="file" ref={fileRef} accept="application/json" style={{display:'none'}} onChange={handleFileChange}/>
             </div>
           <div className={`dropdown right${langOpen ? ' show' : ''}`}>
