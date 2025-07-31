@@ -1389,7 +1389,12 @@ function SuggestionPage(){
     <main className="content-wrapper mt-4 flex-grow-1">
       <h1 data-i18n="heading_suggest">Submit a suggestion</h1>
       <div className="suggest-form">
-        <input type="text" placeholder={t('suggestion_type')} value={type} onChange={e=>setType(e.target.value)} />
+        <select value={type} onChange={e=>setType(e.target.value)}>
+          <option value="" disabled>{t('suggestion_type')}</option>
+          <option value="Bug">{t('suggestion_type_bug')}</option>
+          <option value="Amélioration">{t('suggestion_type_improvement')}</option>
+          <option value="Autres">{t('suggestion_type_other')}</option>
+        </select>
         <input type="text" placeholder={t('suggestion_title')} value={title} onChange={e=>setTitle(e.target.value)} />
         <textarea placeholder={t('suggestion_description')} value={description} onChange={e=>setDescription(e.target.value)} />
         <button className="modal-save-btn" onClick={submit} data-i18n="suggestion_send">Send</button>
