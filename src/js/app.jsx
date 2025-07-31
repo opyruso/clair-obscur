@@ -49,6 +49,43 @@ function Home(){
   );
 }
 
+function AdminSuggestionsPage(){
+  const api = window.CONFIG?.["clairobscur-api-url"] || '';
+  const [items,setItems]=React.useState([]);
+  const load=React.useCallback(async()=>{
+    try{ const r=await apiFetch(`${api}/admin/suggestions`); if(r.ok){ const arr=await r.json(); setItems(Array.isArray(arr)?arr:[]); } }
+    catch(e){ console.error(e); }
+  },[api]);
+  React.useEffect(()=>{
+    document.body.dataset.page='adminSuggestions';
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+    load();
+  },[load]);
+  const del=async(id)=>{
+    if(!window.confirm(t('delete_confirm'))) return;
+    try{ const r=await apiFetch(`${api}/admin/suggestions/${id}`,{method:'DELETE'}); if(r.ok) setItems(it=>it.filter(s=>s.id!==id)); }
+    catch(e){ console.error(e); }
+  };
+  return (
+    <main className="content-wrapper mt-4 flex-grow-1">
+      <h1 data-i18n="heading_suggestions_admin">Suggestions</h1>
+      <div className="admin-suggestions">
+        {items.map(it=>(
+          <div key={it.id} className="suggest-item">
+            <div className="d-flex justify-content-between">
+              <div><strong>{it.title}</strong> <em>{it.type}</em></div>
+              <button className="btn btn-sm btn-danger" onClick={()=>del(it.id)}>x</button>
+            </div>
+            <div>{it.description}</div>
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+}
+
 function PictosPage(){
   useEffect(() => {
     document.body.dataset.page="pictos";
@@ -1328,8 +1365,40 @@ function BuildPage(){
       <SelectionModal />
       <BuildListModal />
       <CapacityModal edit={capEdit} setEdit={setCapEdit} />
-      <BuildSearchModal />
-    </>
+  <BuildSearchModal />
+  </>
+  );
+}
+
+function SuggestionPage(){
+  const api = window.CONFIG?.["clairobscur-api-url"] || '';
+  const [type,setType] = React.useState('');
+  const [title,setTitle] = React.useState('');
+  const [description,setDescription] = React.useState('');
+  React.useEffect(()=>{
+    document.body.dataset.page='suggest';
+    if(window.bindLangEvents) window.bindLangEvents();
+    if(window.applyTranslations) window.applyTranslations();
+    if(window.updateFlagState) window.updateFlagState();
+  },[]);
+  const submit = async () => {
+    if(!title && !description) return;
+    try{
+      const r = await apiFetch(`${api}/suggestions`,{method:'POST',body:{type,title,description}});
+      if(r.ok){ toast.success(t('suggestion_sent')); setTitle(''); setDescription(''); }
+      else toast.error(t('suggestion_failed'));
+    }catch(e){ toast.error(t('suggestion_failed')); }
+  };
+  return (
+    <main className="content-wrapper mt-4 flex-grow-1">
+      <h1 data-i18n="heading_suggest">Submit a suggestion</h1>
+      <div className="suggest-form">
+        <input type="text" placeholder={t('suggestion_type')} value={type} onChange={e=>setType(e.target.value)} />
+        <input type="text" placeholder={t('suggestion_title')} value={title} onChange={e=>setTitle(e.target.value)} />
+        <textarea placeholder={t('suggestion_description')} value={description} onChange={e=>setDescription(e.target.value)} />
+        <button className="modal-save-btn" onClick={submit} data-i18n="suggestion_send">Send</button>
+      </div>
+    </main>
   );
 }
 
@@ -1709,6 +1778,8 @@ function App(){
         <Route path="/build/:refId" element={<BuildPage />} />
         <Route path="/public/builds/:refId" element={<BuildPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/suggestions" element={<AdminSuggestionsPage />} />
+        <Route path="/suggest" element={<SuggestionPage />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>

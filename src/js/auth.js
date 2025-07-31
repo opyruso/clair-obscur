@@ -28,6 +28,7 @@ function updateLoginState(authenticated){
     btn.classList.add('user-name');
     btn.textContent=username;
     const adminLink=document.getElementById('adminNav');
+    const adminSug=document.getElementById('adminSuggestionsNav');
     const labelToggle=document.getElementById('labelToggle');
     const existing=btn.querySelector('.admin-crown');
     if(existing) existing.remove();
@@ -36,9 +37,11 @@ function updateLoginState(authenticated){
       icon.className='fa-solid fa-crown admin-crown';
       btn.appendChild(icon);
       if(adminLink) adminLink.style.display='block';
+      if(adminSug) adminSug.style.display='block';
       if(labelToggle){ labelToggle.style.display='inline-block'; if(window.bindShowLabelsToggle) window.bindShowLabelsToggle(); }
     }else{
       if(adminLink) adminLink.style.display='none';
+      if(adminSug) adminSug.style.display='none';
       if(labelToggle) labelToggle.style.display='none';
     }
     btn.dataset.i18nTitle='logout';
@@ -60,8 +63,10 @@ function updateLoginState(authenticated){
   }else{
     stopTokenRefresh();
     const adminLink=document.getElementById('adminNav');
+    const adminSug=document.getElementById('adminSuggestionsNav');
     const labelToggle=document.getElementById('labelToggle');
     if(adminLink) adminLink.style.display='none';
+    if(adminSug) adminSug.style.display='none';
     if(labelToggle) labelToggle.style.display='none';
     btn.classList.remove('user-name');
     btn.innerHTML='<i class="fa-solid fa-user"></i>';

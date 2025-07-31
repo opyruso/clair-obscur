@@ -100,5 +100,16 @@
   "build_author_col": "Author",
   "build_updated_col": "Updated",
   "nav_inventories": "Inventories",
-  "my_account": "My Account"
+  "my_account": "My Account",
+  "footer_suggest": "Suggestion box",
+  "nav_admin_suggestions": "Suggestions",
+  "heading_suggestions_admin": "Suggestions",
+  "heading_suggest": "Submit a suggestion",
+  "suggestion_title": "Title",
+  "suggestion_description": "Description",
+  "suggestion_type": "Type",
+  "suggestion_send": "Send",
+  "suggestion_sent": "Suggestion sent",
+  "suggestion_failed": "Failed to send suggestion",
+  "delete_confirm": "Delete?"
 }

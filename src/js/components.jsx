@@ -109,6 +109,7 @@ const Header = () => {
             </li>
             <li className="nav-item"><NavLink className="nav-link" to="/build" onClick={closeMenu} data-i18n="nav_build">Team builder</NavLink></li>
             <li className="nav-item" id="adminNav" style={{display:'none'}}><NavLink className="nav-link" to="/admin" onClick={closeMenu} data-i18n="nav_admin">Admin</NavLink></li>
+            <li className="nav-item" id="adminSuggestionsNav" style={{display:'none'}}><NavLink className="nav-link" to="/admin/suggestions" onClick={closeMenu} data-i18n="nav_admin_suggestions">Suggestions</NavLink></li>
           </ul>
           <div className="header-right">
             <div className="icon-bar header-actions">
@@ -157,7 +158,9 @@ const Header = () => {
 
 const Footer = () => (
   <footer className="text-center text-white py-3">
-    Copyright oPyRuSo 2025-{new Date().getFullYear()}
+    <NavLink className="footer-link" to="/suggest">
+      Copyright oPyRuSo 2025-{new Date().getFullYear()}
+    </NavLink>
   </footer>
 );
 
