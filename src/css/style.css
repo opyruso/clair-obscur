@@ -1376,7 +1376,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   box-shadow:0 0 6px rgba(0,0,0,0.5);
 }
 .suggest-form input,
-.suggest-form textarea{
+.suggest-form textarea,
+.suggest-form select{
   display:block;
   width:100%;
   margin-bottom:10px;
