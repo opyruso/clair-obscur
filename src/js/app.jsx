@@ -1142,6 +1142,9 @@ function BuildPage(){
             )}
           </div>
         </div>
+        {buildMeta.id && (
+          <div className="build-id">ID: {buildMeta.id}</div>
+        )}
         {!editMeta && (
           <div className="build-info">
             <h2>{buildMeta.title && buildMeta.title.trim() ? buildMeta.title : 'No Title'}</h2>
