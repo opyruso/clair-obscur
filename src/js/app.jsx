@@ -911,20 +911,23 @@ function BuildPage(){
   }
   function openSubsModal(idx){
     const locked = team[idx].mainPictos.filter(Boolean);
-    const selected = new Set();
+    // pictos used anywhere for highlighting
+    const usedSet = new Set();
     team.forEach(c => {
-      c.mainPictos.forEach(p => p && selected.add(p));
-      c.subPictos.forEach(p => p && selected.add(p));
+      c.mainPictos.forEach(p => p && usedSet.add(p));
+      c.subPictos.forEach(p => p && usedSet.add(p));
     });
+    // pictos currently selected for this character
+    const currentSet = new Set([...locked, ...team[idx].subPictos]);
     const opts = pictos
       .map(p => {
-        const used = selected.has(p.id);
+        const used = usedSet.has(p.id);
         return {
           value: p.id,
           label: p.name,
           desc: p.bonus_lumina,
           used,
-          disabled: used && !locked.includes(p.id) && !team[idx].subPictos.includes(p.id)
+          disabled: currentSet.has(p.id)
         };
       })
       .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
