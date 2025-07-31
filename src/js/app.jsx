@@ -217,6 +217,7 @@ function BuildPage(){
   const [capEdit,setCapEdit]=useState(false);
   const [buildMeta,setBuildMeta]=useState({id:null,title:'',description:'',level:''});
   const [editMeta,setEditMeta]=useState(false);
+  const [editMode,setEditMode]=useState(false);
   const [showBuildSearch,setShowBuildSearch]=useState(false);
   const origMeta = React.useRef(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
@@ -357,6 +358,7 @@ function BuildPage(){
   }
 
   function changeMain(idx,pidx,val){
+    if(!editMode) return;
     setTeam(t=>{
       const nt=t.map((c,i)=>({...c,mainPictos:[...c.mainPictos],subPictos:[...c.subPictos]}));
       const oldLocked=t[idx].mainPictos.filter(Boolean);
@@ -381,6 +383,7 @@ function BuildPage(){
   }
 
   function changeSubs(idx, vals){
+    if(!editMode) return;
     setTeam(t =>
       t.map((c, i) => {
         if (i !== idx) return c;
@@ -395,6 +398,7 @@ function BuildPage(){
   }
 
   function toggleCapacity(idx, capId){
+    if(!editMode) return;
     setTeam(t =>
       t.map((c,i)=>{
         if(i!==idx) return c;
@@ -411,6 +415,7 @@ function BuildPage(){
   }
 
   function changeBuffStat(idx, bidx, val){
+    if(!editMode) return;
     val = parseInt(val) || 0;
     if(val < 0) val = 0;
     if(val > 99) val = 99;
@@ -456,7 +461,7 @@ function BuildPage(){
 
   function SelectionModal(){
     if(!modal || !modal.options) return null;
-    const {options,onSelect,multi,values,search,grid,hideCheck}=modal;
+    const {options,onSelect,multi,values,search,grid,hideCheck,className}=modal;
     const [local,setLocal]=React.useState(multi?values.slice():values||'');
     const [term,setTerm]=React.useState('');
     const list=search?options.filter(o=>{
@@ -465,7 +470,7 @@ function BuildPage(){
     }):options;
     function apply(){ onSelect(local); setModal(null); }
     return (
-      <div className="modal" onClick={()=>setModal(null)} id="modalSelect">
+      <div className={`modal${className?` ${className}`:''}`} onClick={()=>setModal(null)} id="modalSelect">
         <div className="modal-content" onClick={e=>e.stopPropagation()}>
           {search && (
             <input
@@ -493,7 +498,12 @@ function BuildPage(){
                         );
                       }}
                     />
-                    <span>{o.label}</span>
+                    <span className={o.desc?'tip-hover':''}>
+                      {o.label}
+                      {o.desc && (
+                        <span className="tooltip-text" dangerouslySetInnerHTML={{__html: window.formatGameString(o.desc)}} />
+                      )}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -515,7 +525,12 @@ function BuildPage(){
                   }}
                 >
                   {o.icon && <img src={o.icon} alt="" />}
-                  <span>{o.label}</span>
+                  <span className={o.desc?'tip-hover':''}>
+                    {o.label}
+                    {o.desc && (
+                      <span className="tooltip-text" dangerouslySetInnerHTML={{__html: window.formatGameString(o.desc)}} />
+                    )}
+                  </span>
                 </div>
               ))}
             </div>
@@ -799,7 +814,16 @@ function BuildPage(){
 
   const usedChars=new Set(team.map(t=>t.character).filter(Boolean));
 
+  function requireEdit(){
+    if(!editMode){
+      ReactToastify.toast(t('enable_edit_mode'));
+      return false;
+    }
+    return true;
+  }
+
   function openCharModal(idx){
+    if(!requireEdit()) return;
     let opts=charNames.filter(ch=>!usedChars.has(ch)||ch===team[idx].character);
     const hasGustave=team.some((t,i)=>t.character==='Gustave' && i!==idx);
     const hasVerso=team.some((t,i)=>t.character==='Verso' && i!==idx);
@@ -812,6 +836,7 @@ function BuildPage(){
     setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[],capacities:[]}),grid:true});
   }
   function openWeaponModal(idx){
+    if(!requireEdit()) return;
     const char=team[idx].character;
     if(!char){
       ReactToastify.toast(t('select_character_first'));
@@ -822,6 +847,7 @@ function BuildPage(){
     setModal({options:opts,onSelect:val=>updateTeam(idx,{weapon:val}),grid:true});
   }
   function openMainModal(idx,pidx){
+    if(!requireEdit()) return;
     const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
     const available = pictos
       .filter(
@@ -855,15 +881,29 @@ function BuildPage(){
         .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
     ].sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
     const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
-    setModal({
-      options: opts,
-      onSelect: vals => changeSubs(idx, vals),
-      multi: true,
-      values: baseValues,
-      search: true,
-      grid: true,
-      hideCheck: true
-    });
+    if(editMode){
+      setModal({
+        options: opts,
+        onSelect: vals => changeSubs(idx, vals),
+        multi: true,
+        values: baseValues,
+        search: true,
+        grid: true,
+        hideCheck: true,
+        className:'subs'
+      });
+    }else{
+      setModal({
+        options: opts.map(o => ({...o, disabled:true})),
+        onSelect: () => {},
+        multi: true,
+        values: baseValues,
+        search: true,
+        grid: true,
+        hideCheck: true,
+        className:'subs'
+      });
+    }
   }
 
   function openCapacityModal(idx){
@@ -975,31 +1015,50 @@ function BuildPage(){
   }
 
   function toggleEdit(){
+    if(!editMode) return;
     if(!editMeta){ origMeta.current = {...buildMeta}; }
     setEditMeta(e=>!e);
+  }
+
+  function clearBuild(){
+    if(!editMode) return;
+    setTeam(Array.from({length:5},()=>({
+      character:'',
+      weapon:'',
+      buffStats:[0,0,0,0,0],
+      mainPictos:[null,null,null],
+      subPictos:[],
+      capacities:[]
+    })));
+    setBuildMeta({id:null,title:'',description:'',level:''});
+    localStorage.removeItem('teamBuild');
   }
 
   return (
     <>
       <main className="content-wrapper mt-4 flex-grow-1">
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-          <h1 data-i18n="heading_build">Team builder</h1>
+          <div style={{display:'flex',alignItems:'center',gap:'6px'}}>
+            <h1 data-i18n="heading_build">Team builder</h1>
+            {window.keycloak?.authenticated && editMode && (
+              <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
+            )}
+          </div>
           <div className="icon-bar">
             <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
             <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
+            <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
+            <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
             {window.keycloak?.authenticated && (
-              <>
-                <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
-                <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
-              </>
+              <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
             )}
           </div>
         </div>
-        {buildMeta.id && !editMeta && (
+        {!editMeta && (
           <div className="build-info">
-            <h2>{buildMeta.title}</h2>
+            <h2>{buildMeta.title && buildMeta.title.trim() ? buildMeta.title : 'No Title'}</h2>
             <div>{buildMeta.description}</div>
-            <div>Recommended level: {buildMeta.level}</div>
+            <div>Recommended level: {buildMeta.level || 0}</div>
           </div>
         )}
         {editMeta && (
