@@ -1334,6 +1334,12 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 
 .build-info{margin:10px 0;text-align:center;}
+.build-id{
+  text-align:center;
+  color:#aaa;
+  font-size:0.9em;
+  margin-bottom:10px;
+}
 .build-info-edit{
   margin:10px 0;
   padding:10px;
