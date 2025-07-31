@@ -220,7 +220,19 @@ function BuildPage(){
   const [editMode,setEditMode]=useState(false);
   const [showBuildSearch,setShowBuildSearch]=useState(false);
   const origMeta = React.useRef(null);
+  const origBuild = React.useRef(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
+
+  function setOriginalBuild(teamData, metaData){
+    origBuild.current = {
+      team: JSON.stringify(teamData),
+      meta: {
+        title: metaData.title || '',
+        description: metaData.description || '',
+        level: String(metaData.level || '')
+      }
+    };
+  }
 
   function mapPictos(list){
     return list.map(p=>({
@@ -300,13 +312,15 @@ function BuildPage(){
         .then(r=>r.ok?r.json():Promise.reject())
         .then(obj=>{
           let content = obj;
+          let meta = { id: null, title:'', description:'', level:'' };
           if(obj && !Array.isArray(obj)){
-            setBuildMeta({
-              id:obj.id || ref,
-              title:obj.title || '',
-              description:obj.description || '',
-              level:obj.recommendedLevel || ''
-            });
+            meta = {
+              id: obj.id || ref,
+              title: obj.title || '',
+              description: obj.description || '',
+              level: obj.recommendedLevel || ''
+            };
+            setBuildMeta(meta);
             content = obj.content;
           }
           const parseContent = data => {
@@ -321,7 +335,9 @@ function BuildPage(){
           };
           content = parseContent(content);
           if(Array.isArray(content) && content.length===5){
-            setTeam(content.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
+            const mapped = content.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]}));
+            setTeam(mapped);
+            if(meta.id) setOriginalBuild(mapped, meta);
           }
         })
         .catch(()=>{});
@@ -349,6 +365,27 @@ function BuildPage(){
   },[]);
   useEffect(()=>{ document.title=t('build_title'); },[team,pictos,lang]);
   useEffect(()=>{ localStorage.setItem('teamBuild', JSON.stringify(team)); },[team]);
+
+  useEffect(()=>{
+    if(buildMeta.id && origBuild.current){
+      const teamStr = JSON.stringify(team);
+      if(teamStr !== origBuild.current.team){
+        setBuildMeta(m => ({...m, id:null}));
+        origBuild.current = null;
+      }
+    }
+  },[team]);
+
+  useEffect(()=>{
+    if(buildMeta.id && origBuild.current){
+      const meta = {title: buildMeta.title||'', description: buildMeta.description||'', level: String(buildMeta.level||'')};
+      const o = origBuild.current.meta;
+      if(o && (o.title!==meta.title || o.description!==meta.description || o.level!==meta.level)){
+        setBuildMeta(m => ({...m, id:null}));
+        origBuild.current = null;
+      }
+    }
+  },[buildMeta.title, buildMeta.description, buildMeta.level]);
 
   const usedMain=new Set();
   team.forEach(t=>t.mainPictos.forEach(p=>{if(p) usedMain.add(p);}));
@@ -967,17 +1004,20 @@ function BuildPage(){
       if(!r.ok) return;
       const data = await r.json();
       if(data){
-        setBuildMeta({
-          id:id,
-          title:data.title||'',
-          description:data.description||'',
-          level:data.recommendedLevel||''
-        });
+        const meta = {
+          id: id,
+          title: data.title || '',
+          description: data.description || '',
+          level: data.recommendedLevel || ''
+        };
+        setBuildMeta(meta);
         let content = data.content;
         try{ if(typeof content === 'string') content = JSON.parse(content); }
         catch(e){}
         if(Array.isArray(content) && content.length===5) {
-          setTeam(content.map(o=>({character:'',weapon:'',buffStats:[0,0,0,0,0],mainPictos:[null,null,null],subPictos:[],capacities:[],...o,capacities:o.capacities||[]})));
+          const mapped = content.map(o=>({character:'',weapon:'',buffStats:[0,0,0,0,0],mainPictos:[null,null,null],subPictos:[],capacities:[],...o,capacities:o.capacities||[]}));
+          setTeam(mapped);
+          setOriginalBuild(mapped, meta);
         }
       }
     }catch(e){ console.error('load build failed',e); }
@@ -1037,15 +1077,15 @@ function BuildPage(){
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
             <h1 data-i18n="heading_build">Team builder</h1>
+            <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
             {editMode && (
               <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
             )}
+            <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
           </div>
           <div className="icon-bar">
-            <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
+            <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className={`fa-solid ${window.keycloak?.authenticated ? 'fa-floppy-disk' : 'fa-share-nodes'}`}></i></button>
             <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
-            <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
-            <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
             {window.keycloak?.authenticated && (
               <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
             )}
