@@ -526,7 +526,7 @@ function BuildPage(){
             <>
               <div className={`modal-options${grid?' grid':''}`}>
                 {list.map(o => (
-                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}`}>
+                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}${o.used?' used':''}${o.disabled?' disabled':''}`}>
                     {o.icon && <img src={o.icon} alt="" />}
                     <input
                       type="checkbox"
@@ -557,8 +557,9 @@ function BuildPage(){
               {list.map(o => (
                 <div
                   key={o.value}
-                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}`}
+                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}${o.used?' used':''}${o.disabled?' disabled':''}`}
                   onClick={() => {
+                    if(o.disabled) return;
                     onSelect(o.value);
                     setModal(null);
                   }}
@@ -885,18 +886,24 @@ function BuildPage(){
   }
   function openMainModal(idx,pidx){
     if(!requireEdit()) return;
-    const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
-    const available = pictos
-      .filter(
-        p =>
-          (!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) &&
-          !existing.includes(p.id)
-      )
-      .map(p => ({ value: p.id, label: p.name }))
-      .sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
+    const selected = new Set();
+    team.forEach(c => c.mainPictos.forEach(p => p && selected.add(p)));
+    const current = team[idx].mainPictos[pidx];
+    const opts = pictos
+      .map(p => {
+        const used = selected.has(p.id);
+        return {
+          value: p.id,
+          label: p.name,
+          desc: p.bonus_lumina,
+          used,
+          disabled: used && p.id !== current
+        };
+      })
+      .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
     setModal({
-      options: available,
-      onSelect: val => changeMain(idx, pidx, val),
+      options: opts,
+      onSelect: val => changeMain(idx,pidx,val),
       search: true,
       grid: true,
       type: 'luminaSubs'
@@ -904,20 +911,23 @@ function BuildPage(){
   }
   function openSubsModal(idx){
     const locked = team[idx].mainPictos.filter(Boolean);
-    const opts = [
-      ...locked.map(id => {
-        const p = pictos.find(p => p.id === id);
+    const selected = new Set();
+    team.forEach(c => {
+      c.mainPictos.forEach(p => p && selected.add(p));
+      c.subPictos.forEach(p => p && selected.add(p));
+    });
+    const opts = pictos
+      .map(p => {
+        const used = selected.has(p.id);
         return {
-          value: id,
-          label: p?.name || id,
-          desc: p?.bonus_lumina || '',
-          disabled: true
+          value: p.id,
+          label: p.name,
+          desc: p.bonus_lumina,
+          used,
+          disabled: used && !locked.includes(p.id) && !team[idx].subPictos.includes(p.id)
         };
-      }),
-      ...pictos
-        .filter(p => !locked.includes(p.id))
-        .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
-    ].sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
+      })
+      .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
     const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
     if(editMode){
       setModal({

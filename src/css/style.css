@@ -1185,6 +1185,16 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .modal-option input:checked + span {
   color: #fffff0;
 }
+.modal-option.used,
+.modal-option.used span {
+  background: #3d4769;
+  border-color: #b6e4ff;
+  color: #fff;
+}
+.modal-option.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .modal-options {
   display: flex;
   flex-wrap: wrap;
