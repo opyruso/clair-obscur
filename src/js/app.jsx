@@ -951,12 +951,10 @@ function BuildPage(){
     const subs = team[idx].subPictos.filter(Boolean);
     const opts = pictos
       .map(p => {
-        const used = subs.includes(p.id); // highlight only currently selected subs
         return {
           value: p.id,
           label: p.name,
           desc: p.bonus_lumina,
-          used,
           // only main pictos of this character are locked
           disabled: locked.includes(p.id)
         };
