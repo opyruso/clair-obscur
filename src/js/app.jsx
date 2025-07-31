@@ -340,6 +340,9 @@ function BuildPage(){
             if(meta.id) setOriginalBuild(mapped, meta);
           }
         })
+        .then(() => {
+          if(refPath || refQuery) window.history.replaceState({}, '', '/build');
+        })
         .catch(()=>{});
     }else if(d){
       try{
