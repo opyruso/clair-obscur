@@ -918,7 +918,10 @@ function BuildPage(){
       c.subPictos.forEach(p => p && usedSet.add(p));
     });
     // pictos currently selected for this character
-    const currentSet = new Set([...locked, ...team[idx].subPictos]);
+    const currentSet = new Set([
+      ...locked,
+      ...team[idx].subPictos.filter(Boolean)
+    ]);
     const opts = pictos
       .map(p => {
         const used = usedSet.has(p.id);
