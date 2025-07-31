@@ -588,10 +588,10 @@ body[data-page="pictos"] .card.owned::after {
 #modalSelect.lumina-modal .modal-options.grid {
   grid-template-columns: repeat(3, 1fr);
 }
-#modalSelect.lumina-modal .modal-option.grid span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+@media (max-width:600px){
+  #modalSelect.lumina-modal .modal-options.grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 #editModal label { display:block; margin-top:6px; }
 #editModal input, #editModal textarea, #editModal select { width:100%; margin-bottom:6px; }
@@ -1149,11 +1149,9 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   display: none;
 }
 .modal-option.hide-check span {
-  display: block;
   width: 100%;
   box-sizing: border-box;
   padding: 4px 6px;
-  border: 1px solid #444;
   border-radius: 4px;
 }
 .modal-option.hide-check input:checked + span {
@@ -1174,11 +1172,20 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   margin-bottom: 4px;
 }
 .modal-option.grid span {
-  display: block;
   word-break: break-word;
 }
 .modal-option input:checked + span {
   color: #fffff0;
+}
+.modal-option.used,
+.modal-option.used span {
+  background: #3d4769;
+  border-color: #b6e4ff;
+  color: #fff;
+}
+.modal-option.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 .modal-options {
   display: flex;
@@ -1186,7 +1193,8 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
   gap: 4px 12px;
   padding: 0 10px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
+  position: relative;
   box-sizing: border-box;
   flex: 1 1 auto;
 }
@@ -1295,8 +1303,25 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 }
 .cap-tooltip-title{color:#b6e4ff;font-weight:bold;margin-bottom:4px;}
 .tip-hover{position:relative;cursor:pointer;}
-.tip-hover .tooltip-text{display:none;position:absolute;background:rgba(0,0,0,0.8);color:#fff;padding:4px 8px;border-radius:4px;top:-6px;left:50%;transform:translate(-50%,-100%);white-space:pre-line;z-index:1000;max-width:240px;min-width:160px;}
-.tip-hover:hover .tooltip-text{display:block;}
+.tip-hover .tooltip-text{
+  display:none;
+  position:absolute;
+  background:rgba(0,0,0,0.8);
+  color:#fff;
+  padding:4px 8px;
+  border-radius:4px;
+  top:-6px;
+  left:50%;
+  transform:translate(-50%,-100%);
+  white-space:pre-wrap;
+  word-break:break-word;
+  z-index:1000;
+  max-width:240px;
+  min-width:160px;
+}
+@media (hover:hover){
+  .tip-hover:hover .tooltip-text{display:block;}
+}
 
 .build-info{margin:10px 0;text-align:center;}
 .build-info-edit{

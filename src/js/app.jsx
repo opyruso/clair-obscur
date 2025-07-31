@@ -220,7 +220,19 @@ function BuildPage(){
   const [editMode,setEditMode]=useState(false);
   const [showBuildSearch,setShowBuildSearch]=useState(false);
   const origMeta = React.useRef(null);
+  const origBuild = React.useRef(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
+
+  function setOriginalBuild(teamData, metaData){
+    origBuild.current = {
+      team: JSON.stringify(teamData),
+      meta: {
+        title: metaData.title || '',
+        description: metaData.description || '',
+        level: String(metaData.level || '')
+      }
+    };
+  }
 
   function mapPictos(list){
     return list.map(p=>({
@@ -300,13 +312,15 @@ function BuildPage(){
         .then(r=>r.ok?r.json():Promise.reject())
         .then(obj=>{
           let content = obj;
+          let meta = { id: null, title:'', description:'', level:'' };
           if(obj && !Array.isArray(obj)){
-            setBuildMeta({
-              id:obj.id || ref,
-              title:obj.title || '',
-              description:obj.description || '',
-              level:obj.recommendedLevel || ''
-            });
+            meta = {
+              id: obj.id || ref,
+              title: obj.title || '',
+              description: obj.description || '',
+              level: obj.recommendedLevel || ''
+            };
+            setBuildMeta(meta);
             content = obj.content;
           }
           const parseContent = data => {
@@ -321,8 +335,13 @@ function BuildPage(){
           };
           content = parseContent(content);
           if(Array.isArray(content) && content.length===5){
-            setTeam(content.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
+            const mapped = content.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]}));
+            setTeam(mapped);
+            if(meta.id) setOriginalBuild(mapped, meta);
           }
+        })
+        .then(() => {
+          if(refPath || refQuery) window.history.replaceState({}, '', '/build');
         })
         .catch(()=>{});
     }else if(d){
@@ -349,6 +368,27 @@ function BuildPage(){
   },[]);
   useEffect(()=>{ document.title=t('build_title'); },[team,pictos,lang]);
   useEffect(()=>{ localStorage.setItem('teamBuild', JSON.stringify(team)); },[team]);
+
+  useEffect(()=>{
+    if(buildMeta.id && origBuild.current){
+      const teamStr = JSON.stringify(team);
+      if(teamStr !== origBuild.current.team){
+        setBuildMeta(m => ({...m, id:null}));
+        origBuild.current = null;
+      }
+    }
+  },[team]);
+
+  useEffect(()=>{
+    if(buildMeta.id && origBuild.current){
+      const meta = {title: buildMeta.title||'', description: buildMeta.description||'', level: String(buildMeta.level||'')};
+      const o = origBuild.current.meta;
+      if(o && (o.title!==meta.title || o.description!==meta.description || o.level!==meta.level)){
+        setBuildMeta(m => ({...m, id:null}));
+        origBuild.current = null;
+      }
+    }
+  },[buildMeta.title, buildMeta.description, buildMeta.level]);
 
   const usedMain=new Set();
   team.forEach(t=>t.mainPictos.forEach(p=>{if(p) usedMain.add(p);}));
@@ -486,7 +526,7 @@ function BuildPage(){
             <>
               <div className={`modal-options${grid?' grid':''}`}>
                 {list.map(o => (
-                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}`}>
+                  <label key={o.value} className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}${o.used?' used':''}${o.disabled?' disabled':''}`}>
                     {o.icon && <img src={o.icon} alt="" />}
                     <input
                       type="checkbox"
@@ -517,8 +557,9 @@ function BuildPage(){
               {list.map(o => (
                 <div
                   key={o.value}
-                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}`}
+                  className={`modal-option${grid?' grid':''}${hideCheck?' hide-check':''}${type==='luminaSubs'?' tip-hover':''}${o.used?' used':''}${o.disabled?' disabled':''}`}
                   onClick={() => {
+                    if(o.disabled) return;
                     onSelect(o.value);
                     setModal(null);
                   }}
@@ -845,38 +886,48 @@ function BuildPage(){
   }
   function openMainModal(idx,pidx){
     if(!requireEdit()) return;
-    const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
-    const available = pictos
-      .filter(
-        p =>
-          (!usedMain.has(p.id) || team[idx].mainPictos.includes(p.id)) &&
-          !existing.includes(p.id)
-      )
-      .map(p => ({ value: p.id, label: p.name }))
-      .sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
+    const selected = new Set();
+    team.forEach(c => c.mainPictos.forEach(p => p && selected.add(p)));
+    const current = team[idx].mainPictos[pidx];
+    const opts = pictos
+      .map(p => {
+        const used = selected.has(p.id);
+        return {
+          value: p.id,
+          label: p.name,
+          desc: p.bonus_lumina,
+          used,
+          disabled: used && p.id !== current
+        };
+      })
+      .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
     setModal({
-      options: available,
-      onSelect: val => changeMain(idx, pidx, val),
+      options: opts,
+      onSelect: val => changeMain(idx,pidx,val),
       search: true,
-      grid: true
+      grid: true,
+      type: 'luminaSubs'
     });
   }
   function openSubsModal(idx){
     const locked = team[idx].mainPictos.filter(Boolean);
-    const opts = [
-      ...locked.map(id => {
-        const p = pictos.find(p => p.id === id);
+    const selected = new Set();
+    team.forEach(c => {
+      c.mainPictos.forEach(p => p && selected.add(p));
+      c.subPictos.forEach(p => p && selected.add(p));
+    });
+    const opts = pictos
+      .map(p => {
+        const used = selected.has(p.id);
         return {
-          value: id,
-          label: p?.name || id,
-          desc: p?.bonus_lumina || '',
-          disabled: true
+          value: p.id,
+          label: p.name,
+          desc: p.bonus_lumina,
+          used,
+          disabled: used && !locked.includes(p.id) && !team[idx].subPictos.includes(p.id)
         };
-      }),
-      ...pictos
-        .filter(p => !locked.includes(p.id))
-        .map(p => ({ value: p.id, label: p.name, desc: p.bonus_lumina }))
-    ].sort((a, b) => a.label.localeCompare(b.label, currentLang, {sensitivity: 'base'}));
+      })
+      .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
     const baseValues = [...new Set([...team[idx].subPictos, ...locked])];
     if(editMode){
       setModal({
@@ -967,17 +1018,20 @@ function BuildPage(){
       if(!r.ok) return;
       const data = await r.json();
       if(data){
-        setBuildMeta({
-          id:id,
-          title:data.title||'',
-          description:data.description||'',
-          level:data.recommendedLevel||''
-        });
+        const meta = {
+          id: id,
+          title: data.title || '',
+          description: data.description || '',
+          level: data.recommendedLevel || ''
+        };
+        setBuildMeta(meta);
         let content = data.content;
         try{ if(typeof content === 'string') content = JSON.parse(content); }
         catch(e){}
         if(Array.isArray(content) && content.length===5) {
-          setTeam(content.map(o=>({character:'',weapon:'',buffStats:[0,0,0,0,0],mainPictos:[null,null,null],subPictos:[],capacities:[],...o,capacities:o.capacities||[]})));
+          const mapped = content.map(o=>({character:'',weapon:'',buffStats:[0,0,0,0,0],mainPictos:[null,null,null],subPictos:[],capacities:[],...o,capacities:o.capacities||[]}));
+          setTeam(mapped);
+          setOriginalBuild(mapped, meta);
         }
       }
     }catch(e){ console.error('load build failed',e); }
@@ -1000,10 +1054,12 @@ function BuildPage(){
       const r = await apiFetch(url, { method, body: payload });
       if(r.ok){
         const data = await r.json().catch(()=>null);
+        const newId = id || data?.id;
         if(!id && data?.id) setBuildMeta(m=>({...m,id:data.id}));
-        setEditMeta(false);
+        if(newId) setOriginalBuild(team, {...buildMeta, id:newId});
       }
     }catch(e){ console.error('save build failed',e); }
+    setEditMeta(false);
   }
 
   function cancelEdit(){
@@ -1036,16 +1092,18 @@ function BuildPage(){
       <main className="content-wrapper mt-4 flex-grow-1">
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
-            <h1 data-i18n="heading_build">Team builder</h1>
+            <h1 data-i18n="heading_build" style={{marginBottom:0}}>Team builder</h1>
+            <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
             {editMode && (
               <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
             )}
+            {editMode && (
+              <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
+            )}
           </div>
           <div className="icon-bar">
-            <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
+            <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className={`fa-solid ${window.keycloak?.authenticated ? 'fa-floppy-disk' : 'fa-share-nodes'}`}></i></button>
             <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
-            <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
-            <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
             {window.keycloak?.authenticated && (
               <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
             )}
