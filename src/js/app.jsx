@@ -948,15 +948,10 @@ function BuildPage(){
   }
   function openSubsModal(idx){
     const locked = team[idx].mainPictos.filter(Boolean); // main pictos for this character
-    // pictos used anywhere for highlighting
-    const usedSet = new Set();
-    team.forEach(c => {
-      c.mainPictos.forEach(p => p && usedSet.add(p));
-      c.subPictos.forEach(p => p && usedSet.add(p));
-    });
+    const subs = team[idx].subPictos.filter(Boolean);
     const opts = pictos
       .map(p => {
-        const used = usedSet.has(p.id);
+        const used = subs.includes(p.id); // highlight only currently selected subs
         return {
           value: p.id,
           label: p.name,
@@ -967,8 +962,8 @@ function BuildPage(){
         };
       })
       .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
-    // pre-select only the current sub pictos
-    const baseValues = [...team[idx].subPictos];
+    // pre-select current sub pictos and locked main pictos
+    const baseValues = [...locked, ...subs];
     if(editMode){
       setModal({
         options: opts,
