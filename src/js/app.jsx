@@ -979,6 +979,19 @@ function BuildPage(){
     setEditMeta(e=>!e);
   }
 
+  function clearBuild(){
+    setTeam(Array.from({length:5},()=>({
+      character:'',
+      weapon:'',
+      buffStats:[0,0,0,0,0],
+      mainPictos:[null,null,null],
+      subPictos:[],
+      capacities:[]
+    })));
+    setBuildMeta({id:null,title:'',description:'',level:''});
+    localStorage.removeItem('teamBuild');
+  }
+
   return (
     <>
       <main className="content-wrapper mt-4 flex-grow-1">
@@ -987,6 +1000,7 @@ function BuildPage(){
           <div className="icon-bar">
             <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
             <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
+            <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
             {window.keycloak?.authenticated && (
               <>
                 <button className="icon-btn" onClick={openBuildList} title="Builds"><i className="fa-solid fa-list"></i></button>
