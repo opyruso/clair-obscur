@@ -898,7 +898,8 @@ function BuildPage(){
       options: available,
       onSelect: val => changeMain(idx, pidx, val),
       search: true,
-      grid: true
+      grid: true,
+      type: 'luminaSubs'
     });
   }
   function openSubsModal(idx){
@@ -1043,10 +1044,12 @@ function BuildPage(){
       const r = await apiFetch(url, { method, body: payload });
       if(r.ok){
         const data = await r.json().catch(()=>null);
+        const newId = id || data?.id;
         if(!id && data?.id) setBuildMeta(m=>({...m,id:data.id}));
-        setEditMeta(false);
+        if(newId) setOriginalBuild(team, {...buildMeta, id:newId});
       }
     }catch(e){ console.error('save build failed',e); }
+    setEditMeta(false);
   }
 
   function cancelEdit(){
@@ -1079,12 +1082,14 @@ function BuildPage(){
       <main className="content-wrapper mt-4 flex-grow-1">
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
-            <h1 data-i18n="heading_build">Team builder</h1>
+            <h1 data-i18n="heading_build" style={{marginBottom:0}}>Team builder</h1>
             <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
             {editMode && (
               <button className="icon-btn" onClick={toggleEdit} title="Edit"><i className="fa-solid fa-pen"></i></button>
             )}
-            <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
+            {editMode && (
+              <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
+            )}
           </div>
           <div className="icon-bar">
             <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className={`fa-solid ${window.keycloak?.authenticated ? 'fa-floppy-disk' : 'fa-share-nodes'}`}></i></button>

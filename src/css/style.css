@@ -588,6 +588,11 @@ body[data-page="pictos"] .card.owned::after {
 #modalSelect.lumina-modal .modal-options.grid {
   grid-template-columns: repeat(3, 1fr);
 }
+@media (max-width:600px){
+  #modalSelect.lumina-modal .modal-options.grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 #modalSelect.lumina-modal .modal-option.grid span {
   white-space: nowrap;
   overflow: hidden;
@@ -1296,7 +1301,10 @@ th, .info-icon, .char-select img, .picto-checkbox, input[type="checkbox"] {
 .cap-tooltip-title{color:#b6e4ff;font-weight:bold;margin-bottom:4px;}
 .tip-hover{position:relative;cursor:pointer;}
 .tip-hover .tooltip-text{display:none;position:absolute;background:rgba(0,0,0,0.8);color:#fff;padding:4px 8px;border-radius:4px;top:-6px;left:50%;transform:translate(-50%,-100%);white-space:pre-line;z-index:1000;max-width:240px;min-width:160px;}
-.tip-hover:hover .tooltip-text{display:block;}
+.tip-hover:hover .tooltip-text{display:none;}
+@media (hover:hover){
+  .tip-hover:hover .tooltip-text{display:block;}
+}
 
 .build-info{margin:10px 0;text-align:center;}
 .build-info-edit{
