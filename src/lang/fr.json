@@ -100,5 +100,16 @@
   "build_author_col": "Auteur",
   "build_updated_col": "Mise à jour",
   "nav_inventories": "Inventaires",
-  "my_account": "Mon compte"
+  "my_account": "Mon compte",
+  "footer_suggest": "Boite a idees",
+  "nav_admin_suggestions": "Suggestions",
+  "heading_suggestions_admin": "Suggestions",
+  "heading_suggest": "Envoyer une suggestion",
+  "suggestion_title": "Titre",
+  "suggestion_description": "Description",
+  "suggestion_type": "Type",
+  "suggestion_send": "Envoyer",
+  "suggestion_sent": "Suggestion envoyee",
+  "suggestion_failed": "Erreur lors de l'envoi",
+  "delete_confirm": "Supprimer?"
 }
