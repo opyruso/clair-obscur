@@ -917,11 +917,8 @@ function BuildPage(){
       c.mainPictos.forEach(p => p && usedSet.add(p));
       c.subPictos.forEach(p => p && usedSet.add(p));
     });
-    // pictos currently selected for this character
-    const currentSet = new Set([
-      ...locked,
-      ...team[idx].subPictos.filter(Boolean)
-    ]);
+    // only subs of this character should be disabled
+    const disabledSubs = new Set(team[idx].subPictos.filter(Boolean));
     const opts = pictos
       .map(p => {
         const used = usedSet.has(p.id);
@@ -930,7 +927,7 @@ function BuildPage(){
           label: p.name,
           desc: p.bonus_lumina,
           used,
-          disabled: currentSet.has(p.id)
+          disabled: disabledSubs.has(p.id)
         };
       })
       .sort((a,b)=>a.label.localeCompare(b.label,currentLang,{sensitivity:'base'}));
