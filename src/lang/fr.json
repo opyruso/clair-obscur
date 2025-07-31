@@ -54,6 +54,8 @@
   "share": "Partager",
   "link_copied": "Lien copié !",
   "clear_build": "Effacer le build",
+  "edit_mode": "Mode édition",
+  "enable_edit_mode": "Activez le mode édition",
   "filter_placeholder": "Filtrer...",
   "main_team": "Équipe principale",
   "secondary_team": "Équipe secondaire",

@@ -217,6 +217,7 @@ function BuildPage(){
   const [capEdit,setCapEdit]=useState(false);
   const [buildMeta,setBuildMeta]=useState({id:null,title:'',description:'',level:''});
   const [editMeta,setEditMeta]=useState(false);
+  const [editMode,setEditMode]=useState(false);
   const [showBuildSearch,setShowBuildSearch]=useState(false);
   const origMeta = React.useRef(null);
   const apiUrl = window.CONFIG?.["clairobscur-api-url"] || '';
@@ -357,6 +358,7 @@ function BuildPage(){
   }
 
   function changeMain(idx,pidx,val){
+    if(!editMode) return;
     setTeam(t=>{
       const nt=t.map((c,i)=>({...c,mainPictos:[...c.mainPictos],subPictos:[...c.subPictos]}));
       const oldLocked=t[idx].mainPictos.filter(Boolean);
@@ -381,6 +383,7 @@ function BuildPage(){
   }
 
   function changeSubs(idx, vals){
+    if(!editMode) return;
     setTeam(t =>
       t.map((c, i) => {
         if (i !== idx) return c;
@@ -395,6 +398,7 @@ function BuildPage(){
   }
 
   function toggleCapacity(idx, capId){
+    if(!editMode) return;
     setTeam(t =>
       t.map((c,i)=>{
         if(i!==idx) return c;
@@ -411,6 +415,7 @@ function BuildPage(){
   }
 
   function changeBuffStat(idx, bidx, val){
+    if(!editMode) return;
     val = parseInt(val) || 0;
     if(val < 0) val = 0;
     if(val > 99) val = 99;
@@ -799,7 +804,16 @@ function BuildPage(){
 
   const usedChars=new Set(team.map(t=>t.character).filter(Boolean));
 
+  function requireEdit(){
+    if(!editMode){
+      ReactToastify.toast(t('enable_edit_mode'));
+      return false;
+    }
+    return true;
+  }
+
   function openCharModal(idx){
+    if(!requireEdit()) return;
     let opts=charNames.filter(ch=>!usedChars.has(ch)||ch===team[idx].character);
     const hasGustave=team.some((t,i)=>t.character==='Gustave' && i!==idx);
     const hasVerso=team.some((t,i)=>t.character==='Verso' && i!==idx);
@@ -812,6 +826,7 @@ function BuildPage(){
     setModal({options:opts,onSelect:val=>updateTeam(idx,{character:val,weapon:'',mainPictos:[null,null,null],subPictos:[],capacities:[]}),grid:true});
   }
   function openWeaponModal(idx){
+    if(!requireEdit()) return;
     const char=team[idx].character;
     if(!char){
       ReactToastify.toast(t('select_character_first'));
@@ -822,6 +837,7 @@ function BuildPage(){
     setModal({options:opts,onSelect:val=>updateTeam(idx,{weapon:val}),grid:true});
   }
   function openMainModal(idx,pidx){
+    if(!requireEdit()) return;
     const existing=team[idx].mainPictos.filter((_,i)=>i!==pidx);
     const available = pictos
       .filter(
@@ -839,6 +855,7 @@ function BuildPage(){
     });
   }
   function openSubsModal(idx){
+    if(!requireEdit()) return;
     const locked = team[idx].mainPictos.filter(Boolean);
     const opts = [
       ...locked.map(id => {
@@ -867,6 +884,7 @@ function BuildPage(){
   }
 
   function openCapacityModal(idx){
+    if(!requireEdit()) return;
     const char=team[idx].character;
     if(!char){ ReactToastify.toast(t('select_character_first')); return; }
     const cid=charIds[char];
@@ -975,11 +993,13 @@ function BuildPage(){
   }
 
   function toggleEdit(){
+    if(!editMode) return;
     if(!editMeta){ origMeta.current = {...buildMeta}; }
     setEditMeta(e=>!e);
   }
 
   function clearBuild(){
+    if(!editMode) return;
     setTeam(Array.from({length:5},()=>({
       character:'',
       weapon:'',
@@ -1000,6 +1020,7 @@ function BuildPage(){
           <div className="icon-bar">
             <button className="icon-btn" onClick={copyShare} data-i18n-title="share" title="Share"><i className="fa-solid fa-share-nodes"></i></button>
             <button className="icon-btn" onClick={() => setShowBuildSearch(true)} title="Search"><i className="fa-solid fa-magnifying-glass"></i></button>
+            <button className="icon-btn" onClick={() => setEditMode(e=>!e)} data-i18n-title="edit_mode" title="Edit mode"><i className={`fa-solid ${editMode?'fa-lock-open':'fa-lock'}`}></i></button>
             <button className="icon-btn" onClick={clearBuild} data-i18n-title="clear_build" title="Clear build"><i className="fa-solid fa-broom"></i></button>
             {window.keycloak?.authenticated && (
               <>

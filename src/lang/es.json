@@ -67,6 +67,8 @@
   "share": "Compartir",
   "link_copied": "¡Enlace copiado!",
   "clear_build": "Limpiar build",
+  "edit_mode": "Modo edición",
+  "enable_edit_mode": "Active el modo edición",
   "filter_placeholder": "Filtrar...",
   "main_team": "Equipo principal",
   "secondary_team": "Equipo secundario",
