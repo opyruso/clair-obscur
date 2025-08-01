@@ -252,7 +252,7 @@ function BuildPage(){
   const [modal,setModal]=useState(null);
   const [capModal,setCapModal]=useState(null);
   const [capEdit,setCapEdit]=useState(false);
-  const [buildMeta,setBuildMeta]=useState({id:null,title:'',description:'',level:''});
+  const [buildMeta,setBuildMeta]=useState({id:null,title:'',description:'',level:'',author:null});
   const [editMeta,setEditMeta]=useState(false);
   const [editMode,setEditMode]=useState(false);
   const [showBuildSearch,setShowBuildSearch]=useState(false);
@@ -349,13 +349,14 @@ function BuildPage(){
         .then(r=>r.ok?r.json():Promise.reject())
         .then(obj=>{
           let content = obj;
-          let meta = { id: null, title:'', description:'', level:'' };
+          let meta = { id: null, title:'', description:'', level:'', author:null };
           if(obj && !Array.isArray(obj)){
             meta = {
               id: obj.id || ref,
               title: obj.title || '',
               description: obj.description || '',
-              level: obj.recommendedLevel || ''
+              level: obj.recommendedLevel || '',
+              author: obj.author || null
             };
             setBuildMeta(meta);
             content = obj.content;
@@ -410,7 +411,7 @@ function BuildPage(){
     if(buildMeta.id && origBuild.current){
       const teamStr = JSON.stringify(team);
       if(teamStr !== origBuild.current.team){
-        setBuildMeta(m => ({...m, id:null}));
+        setBuildMeta(m => ({...m, id:null, author:null}));
         origBuild.current = null;
       }
     }
@@ -421,7 +422,7 @@ function BuildPage(){
       const meta = {title: buildMeta.title||'', description: buildMeta.description||'', level: String(buildMeta.level||'')};
       const o = origBuild.current.meta;
       if(o && (o.title!==meta.title || o.description!==meta.description || o.level!==meta.level)){
-        setBuildMeta(m => ({...m, id:null}));
+        setBuildMeta(m => ({...m, id:null, author:null}));
         origBuild.current = null;
       }
     }
@@ -1008,7 +1009,8 @@ function BuildPage(){
       .catch(()=>{});
 
     const userId=window.keycloak?.tokenParsed?.sub;
-    if(buildMeta.id){
+    const isAuthor = userId && buildMeta.author && userId === buildMeta.author;
+    if(buildMeta.id && (!isAuthor || !apiUrl)){
       const url=`${shareBase}/${encodeURIComponent(buildMeta.id)}`;
       copyUrl(url);
       return;
@@ -1067,7 +1069,8 @@ function BuildPage(){
           id: id,
           title: data.title || '',
           description: data.description || '',
-          level: data.recommendedLevel || ''
+          level: data.recommendedLevel || '',
+          author: data.author || null
         };
         setBuildMeta(meta);
         let content = data.content;
@@ -1100,7 +1103,7 @@ function BuildPage(){
       if(r.ok){
         const data = await r.json().catch(()=>null);
         const newId = id || data?.id;
-        if(!id && data?.id) setBuildMeta(m=>({...m,id:data.id}));
+        setBuildMeta(m=>({...m, id:newId || m.id, author:userId}));
         if(newId) setOriginalBuild(team, {...buildMeta, id:newId});
       }
     }catch(e){ console.error('save build failed',e); }
@@ -1128,7 +1131,7 @@ function BuildPage(){
       subPictos:[],
       capacities:[]
     })));
-    setBuildMeta({id:null,title:'',description:'',level:''});
+    setBuildMeta({id:null,title:'',description:'',level:'',author:null});
     localStorage.removeItem('teamBuild');
   }
 
