@@ -405,24 +405,28 @@ function BuildPage(){
 
   useEffect(()=>{
     if(buildMeta.id && origBuild.current){
+      const userId = window.keycloak?.tokenParsed?.sub;
+      const isOwner = window.keycloak?.authenticated && userId && buildMeta.author && userId === buildMeta.author;
       const teamStr = JSON.stringify(team);
-      if(teamStr !== origBuild.current.team){
+      if(teamStr !== origBuild.current.team && !isOwner){
         setBuildMeta(m => ({...m, id:null, author:null}));
         origBuild.current = null;
       }
     }
-  },[team]);
+  },[team, buildMeta.author]);
 
   useEffect(()=>{
     if(buildMeta.id && origBuild.current){
+      const userId = window.keycloak?.tokenParsed?.sub;
+      const isOwner = window.keycloak?.authenticated && userId && buildMeta.author && userId === buildMeta.author;
       const meta = {title: buildMeta.title||'', description: buildMeta.description||'', level: String(buildMeta.level||'')};
       const o = origBuild.current.meta;
-      if(o && (o.title!==meta.title || o.description!==meta.description || o.level!==meta.level)){
+      if(o && (o.title!==meta.title || o.description!==meta.description || o.level!==meta.level) && !isOwner){
         setBuildMeta(m => ({...m, id:null, author:null}));
         origBuild.current = null;
       }
     }
-  },[buildMeta.title, buildMeta.description, buildMeta.level]);
+  },[buildMeta.title, buildMeta.description, buildMeta.level, buildMeta.author]);
 
   useEffect(()=>{
     if(buildMeta.id) localStorage.setItem('lastBuildId', buildMeta.id);
