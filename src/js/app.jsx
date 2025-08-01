@@ -388,12 +388,9 @@ function BuildPage(){
         if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
       }catch(e){/* ignore */}
     }else{
-      const saved=localStorage.getItem('teamBuild');
-      if(saved){
-        try{
-          const obj=JSON.parse(saved);
-          if(Array.isArray(obj)&&obj.length===5) setTeam(obj.map(o=>({...defaultSlot,...o,capacities:o.capacities||[]})));
-        }catch(e){/* ignore */}
+      const lastId = localStorage.getItem('lastBuildId');
+      if(lastId && apiUrl){
+        loadBuild(lastId);
       }
     }
     if(window.bindLangEvents) window.bindLangEvents();
@@ -405,7 +402,6 @@ function BuildPage(){
     return ()=>{ window.removeEventListener('langchange', handleLang); };
   },[]);
   useEffect(()=>{ document.title=t('build_title'); },[team,pictos,lang]);
-  useEffect(()=>{ localStorage.setItem('teamBuild', JSON.stringify(team)); },[team]);
 
   useEffect(()=>{
     if(buildMeta.id && origBuild.current){
@@ -427,6 +423,10 @@ function BuildPage(){
       }
     }
   },[buildMeta.title, buildMeta.description, buildMeta.level]);
+
+  useEffect(()=>{
+    if(buildMeta.id) localStorage.setItem('lastBuildId', buildMeta.id);
+  },[buildMeta.id]);
 
   const usedMain=new Set();
   team.forEach(t=>t.mainPictos.forEach(p=>{if(p) usedMain.add(p);}));
@@ -1130,9 +1130,9 @@ function BuildPage(){
       mainPictos:[null,null,null],
       subPictos:[],
       capacities:[]
-    })));
+    }))); 
     setBuildMeta({id:null,title:'',description:'',level:'',author:null});
-    localStorage.removeItem('teamBuild');
+    localStorage.removeItem('lastBuildId');
   }
 
   return (
