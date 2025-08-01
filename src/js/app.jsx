@@ -267,7 +267,8 @@ function BuildPage(){
         title: metaData.title || '',
         description: metaData.description || '',
         level: String(metaData.level || '')
-      }
+      },
+      author: metaData.author || null
     };
   }
 
@@ -351,12 +352,13 @@ function BuildPage(){
           let content = obj;
           let meta = { id: null, title:'', description:'', level:'', author:null };
           if(obj && !Array.isArray(obj)){
+            const authorId = obj.authorId || (typeof obj.author === 'object' ? obj.author.id : obj.author) || null;
             meta = {
               id: obj.id || ref,
               title: obj.title || '',
               description: obj.description || '',
               level: obj.recommendedLevel || '',
-              author: obj.author || null
+              author: authorId ? String(authorId) : null
             };
             setBuildMeta(meta);
             content = obj.content;
@@ -405,24 +407,30 @@ function BuildPage(){
 
   useEffect(()=>{
     if(buildMeta.id && origBuild.current){
+      const userId = window.keycloak?.tokenParsed?.sub;
+      const ownerId = origBuild.current.author || buildMeta.author;
+      const isOwner = window.keycloak?.authenticated && userId && ownerId && String(userId) === String(ownerId);
       const teamStr = JSON.stringify(team);
-      if(teamStr !== origBuild.current.team){
+      if(teamStr !== origBuild.current.team && !isOwner){
         setBuildMeta(m => ({...m, id:null, author:null}));
         origBuild.current = null;
       }
     }
-  },[team]);
+  },[team, buildMeta.author]);
 
   useEffect(()=>{
     if(buildMeta.id && origBuild.current){
+      const userId = window.keycloak?.tokenParsed?.sub;
+      const ownerId = origBuild.current.author || buildMeta.author;
+      const isOwner = window.keycloak?.authenticated && userId && ownerId && String(userId) === String(ownerId);
       const meta = {title: buildMeta.title||'', description: buildMeta.description||'', level: String(buildMeta.level||'')};
       const o = origBuild.current.meta;
-      if(o && (o.title!==meta.title || o.description!==meta.description || o.level!==meta.level)){
+      if(o && (o.title!==meta.title || o.description!==meta.description || o.level!==meta.level) && !isOwner){
         setBuildMeta(m => ({...m, id:null, author:null}));
         origBuild.current = null;
       }
     }
-  },[buildMeta.title, buildMeta.description, buildMeta.level]);
+  },[buildMeta.title, buildMeta.description, buildMeta.level, buildMeta.author]);
 
   useEffect(()=>{
     if(buildMeta.id) localStorage.setItem('lastBuildId', buildMeta.id);
@@ -1009,7 +1017,8 @@ function BuildPage(){
       .catch(()=>{});
 
     const userId=window.keycloak?.tokenParsed?.sub;
-    const isAuthor = userId && buildMeta.author && userId === buildMeta.author;
+    const ownerId = origBuild.current?.author || buildMeta.author;
+    const isAuthor = userId && ownerId && String(userId) === String(ownerId);
     if(buildMeta.id && (!isAuthor || !apiUrl)){
       const url=`${shareBase}/${encodeURIComponent(buildMeta.id)}`;
       copyUrl(url);
@@ -1065,12 +1074,13 @@ function BuildPage(){
       if(!r.ok) return;
       const data = await r.json();
       if(data){
+        const authorId = data.authorId || (typeof data.author === 'object' ? data.author.id : data.author) || null;
         const meta = {
           id: id,
           title: data.title || '',
           description: data.description || '',
           level: data.recommendedLevel || '',
-          author: data.author || null
+          author: authorId ? String(authorId) : null
         };
         setBuildMeta(meta);
         let content = data.content;
