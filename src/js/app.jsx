@@ -1008,6 +1008,11 @@ function BuildPage(){
       .catch(()=>{});
 
     const userId=window.keycloak?.tokenParsed?.sub;
+    if(buildMeta.id){
+      const url=`${shareBase}/${encodeURIComponent(buildMeta.id)}`;
+      copyUrl(url);
+      return;
+    }
     if(apiUrl){
       apiFetch(`${apiUrl}/public/builds`,{
         method:'POST',
