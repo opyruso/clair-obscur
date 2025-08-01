@@ -1011,7 +1011,14 @@ function BuildPage(){
     if(apiUrl){
       apiFetch(`${apiUrl}/public/builds`,{
         method:'POST',
-        body:{content:team,author:userId}
+        body:{
+          content:team,
+          author:userId,
+          id: buildMeta.id,
+          title: buildMeta.title,
+          description: buildMeta.description,
+          recommendedLevel: Number(buildMeta.level) || 0,
+        }
       })
         .then(r=>r.ok?r.json():Promise.reject())
         .then(({id})=>{
